@@ -1,6 +1,7 @@
 {
   "name": "homechef",
   "homepage": "https://mihail-19.github.io/HomeChefFront/",
+
   "version": "0.0.0",
   "private": true,
   "type": "module",
