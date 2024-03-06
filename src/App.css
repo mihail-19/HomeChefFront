@@ -1,5 +1,6 @@
 #root{
   width: 100%;
+  margin: 0 auto;
 }
 ul{
   list-style: none;
@@ -7,52 +8,57 @@ ul{
   gap: 20px;
 }
 .header{
-  padding: 10px 68px 35px 68px;
-}
-.header__container{
+  padding: 10px 48px 25px 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   justify-items: center;
 }
+.header__container{
+  
+}
 .header__logo{
-  width: 184px;
-  height: 84px;
+  width: 164px;
+  height: 74px;
   font-family: Poiret One, sans-serif;
   font-weight: 400;
-  font-size: 36px;
+  font-size: 32px;
   line-height: 42px;
 }
 .header__search{
   display: flex;
   align-items: center;
-  width: 797 px;
-  height: 78px;
-  border-radius: 30px;
+  height: 50px;
+  border-radius: 25px;
   border: 1px solid #0000004D;
-  padding-left: 22px;
-  padding-right: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .header__search input{
   border: none;
   font-family: Roboto Light;
   font-weight: 300;
-  font-size: 24px;
+  font-size: 18px;
   color: #00000080;
   display: block;
-  height: 50px;
+  height: 40px;
+  max-width: 200px;
+  margin-right: 10px;
+}
+.header__auth{
+  padding-left: 20px;
 }
 .header__search-button{
   display: flex;
-  width: 214px;
-  height: 59px;
-  border-radius: 30px;
+  width: 120px;
+  height: 40px;
+  border-radius: 25px;
   background-color: #88A69D;
   align-items: center;
   justify-content: center;
   font-family: Roboto Light;
   font-weight: 300;
-  font-size: 24px;
+  font-size: 18px;
   color: #FFFFFF;
   text-decoration: none;
   border: none;
@@ -64,13 +70,13 @@ ul{
 }
 .header__menu-link{
   display: flex;
-  width: 170px;
+  width: 150px;
   height: 59px;
   align-items: center;
   justify-content: center;
   font-family: Roboto;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 22px;
   color: #536962;
   text-decoration: none;
 
@@ -82,7 +88,7 @@ ul{
 }
 .header__auth{
   display: flex;
-  gap: 20px;
+  gap: 18px;
 }
 
 .header__signin-button{
@@ -93,21 +99,21 @@ ul{
   color: #2b3633;
   font-family: Roboto Light;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 18px;
 }
 .header__register-button{
   display: flex;
-  height: 61px;
+  height: 50px;
   border-radius: 25px;
   background-color: #627a73;
   align-items: center;
   justify-content: center;
   font-family: Roboto Light;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 18px;
   color: #FFFFFF;
   text-decoration: none;
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
 
@@ -136,7 +142,7 @@ ul{
 
 
 .home__main-screen-content{
-  width: 1137px;
+  width: 59%;
   display: flex;
   flex-direction: column;
   z-index: 10;
@@ -144,7 +150,8 @@ ul{
 .home__main-screen-text{
   font-family: Poiret One;
   font-size: 400;
-  font-size: 96px;
+  font-size: 4.7vw;
+  text-align: center;
   color: white;
 }
 .home__search{
@@ -220,14 +227,14 @@ ul{
 }
 
 .home__content-screen{
-  width: 1780px;
-  border-top: 1px solid black;
+  
   margin: 0 auto;
+  padding: 0 70px;
 }
 .home__second-screen-content{
- 
-  margin-top: 142px;
-  margin-bottom: 205px;
+  border-top: 1px solid black;
+  padding-top: 142px;
+  padding-bottom: 205px;
 }
 .home__second-screen-content-info{
   display: flex;
@@ -239,12 +246,12 @@ ul{
   width: 748px;
   flex-direction: column;
   justify-content: space-between;
+  padding-right: 30px;
 }
 .home__second-screen-title{
   font-family: Montserrat;
   font-weight: 700;
-  font-size: 64px;
-  line-height: 78px;
+  font-size: 3vw;
 }
 .home__second-screen-img{
   width: 100%;
@@ -259,7 +266,7 @@ ul{
 .home__second-screen-content-right{
   font-family: Montserrat;
   font-weight: 400;
-  font-size: 36px;
+  font-size: 1.8vw;
   line-height: 43.88px;
   width: 941px;
 }
