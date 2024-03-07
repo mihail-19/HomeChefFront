@@ -5,7 +5,7 @@ const Header = ()=>{
         <div className='header'>
                 <div className='header__logo'>Hoome Chef</div>
                 <div className='header__search'>
-                    <input type="text" value='Назва страви'></input>
+                    <input type="text" ></input>
                     <button className='header__search-button'>Знайти</button>
                 </div>
                 <nav className='header__nav'>

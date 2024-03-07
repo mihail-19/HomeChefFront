@@ -10,6 +10,8 @@ import secondScreenImg from './assets/secondScreenImg.jpg'
 import thirdScreenList1Img from './assets/thirdScreenList1Img.png'
 import thirdScreenList2Img from './assets/thirdScreenList2Img.png'
 import thirdScreenList3Img from './assets/thirdScreenList3Img.png'
+import ChefStories from './elements/ChefStories'
+
 function App() {
   
   return (
@@ -146,7 +148,9 @@ function App() {
         </div>
        </div>
       </div>
-      
+      <div className='home__content-screen'>
+        <ChefStories/>
+      </div>
     </>
   )
 }
