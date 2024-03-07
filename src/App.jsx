@@ -7,6 +7,9 @@ import sloganEatImg from './assets/sloganEatImg.png'
 import sloganPayImg from './assets/sloganPayImg.png'
 import sloganGetImg from './assets/sloganGetImg.png'
 import secondScreenImg from './assets/secondScreenImg.jpg'
+import thirdScreenList1Img from './assets/thirdScreenList1Img.png'
+import thirdScreenList2Img from './assets/thirdScreenList2Img.png'
+import thirdScreenList3Img from './assets/thirdScreenList3Img.png'
 function App() {
   
   return (
@@ -18,7 +21,7 @@ function App() {
             Те, що зроблено з любовʼю
           </div>
           <div className='home__search'>
-            <input type="text" value='Ваш індекс або адреса'></input>
+            <input type="text" ></input>
             <button className='home__search-button'>Знайти</button>
           </div>
         </div>
@@ -88,10 +91,60 @@ function App() {
               </div>
             
           </div>
-          <Link to="/become-chef" className='become-chef-button'>
+          <Link to="/become-chef" className='home__button'>
             Стати Home Chef
           </Link>
           </div>
+      </div>
+
+      <div className='home__content-screen'>
+        <div className='home__third-screen'>
+          <div className='home__third-screen-content'>
+            <div className='home__third-screen-upper'>
+              <h2>Домашні страви, приготовлені талановитими місцевими кухарями</h2>
+              <div className='home__third-screen-text-wrapper'>
+                <div className='home__third-screen-text'>
+                  Відкрийте для себе якісні автентичні страви – від місцевих 
+                  перевірених шеф-кухарів прямо до вас.
+                </div>
+              </div>
+              <div className='home__third-screen-button-wrapper'>
+                <Link to="/dishes" className='home__button'>Замовити</Link>
+              </div>
+            </div>
+          </div>
+
+        <div className='home__third-screen-list'>
+            <div className='home__third-screen-list-item'>
+              <div className='home__thrd-screen-list-image'>
+                <img src={thirdScreenList1Img}></img>
+              </div>
+              <div className='home__third-screen-list-text'>
+                Домашнє виробництво зі свіжих якісних інгредієнтів, 
+                страви не виробляються масово та не заморожуються.
+              </div>
+            </div>
+            <div className='home__third-screen-list-item'>
+              <div className='home__thrd-screen-list-image'>
+                <img src={thirdScreenList2Img}></img>
+              </div>
+              <div className='home__third-screen-list-text'>
+                Відкрийте для себе 1000 поживних домашніх страв, страв, 
+                які відрізняють домашню кухню від усього іншого.
+              </div>
+            </div>
+            <div className='home__third-screen-list-item'>
+              <div className='home__thrd-screen-list-image'>
+                <img src={thirdScreenList3Img}></img>
+              </div>
+              <div className='home__third-screen-list-text'>
+                Відкрийте для себе 1000 поживних домашніх страв, страв, 
+                які відрізняють домашню кухню від усього іншого.
+              </div>
+            </div>
+
+        </div>
+       </div>
       </div>
       
     </>

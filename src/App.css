@@ -28,8 +28,8 @@ ul{
 .header__search{
   display: flex;
   align-items: center;
-  height: 50px;
-  border-radius: 25px;
+  height: 65px;
+  border-radius: 30px;
   border: 1px solid #0000004D;
   padding-left: 10px;
   padding-right: 10px;
@@ -41,8 +41,8 @@ ul{
   font-size: 18px;
   color: #00000080;
   display: block;
-  height: 40px;
-  max-width: 200px;
+  height: 45px;
+  width: 21vw;
   margin-right: 10px;
 }
 .header__auth{
@@ -51,7 +51,7 @@ ul{
 .header__search-button{
   display: flex;
   width: 120px;
-  height: 40px;
+  height: 50px;
   border-radius: 25px;
   background-color: #88A69D;
   align-items: center;
@@ -70,13 +70,13 @@ ul{
 }
 .header__menu-link{
   display: flex;
-  width: 150px;
+  width: 170px;
   height: 59px;
   align-items: center;
   justify-content: center;
   font-family: Roboto;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 24px;
   color: #536962;
   text-decoration: none;
 
@@ -239,7 +239,6 @@ ul{
 .home__second-screen-content-info{
   display: flex;
   justify-content: space-between;
-  height: 713px;
 }
 .home__second-screen-content-left{
   display: flex;
@@ -254,8 +253,8 @@ ul{
   font-size: 3vw;
 }
 .home__second-screen-img{
-  width: 100%;
-  height: 523px;
+  width: 38.9vw;
+  height: 27.2vw;
   border-radius: 20px;
 }
 .home__second-screen-img img{
@@ -267,14 +266,14 @@ ul{
   font-family: Montserrat;
   font-weight: 400;
   font-size: 1.8vw;
-  line-height: 43.88px;
+  line-height: 1.3em;
   width: 941px;
 }
 .home__second-screen-content-right p{
   margin: 0;
   padding:0;
 }
-.become-chef-button{
+.home__button{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -289,4 +288,83 @@ ul{
   font-size: 24px;
   color: #FFFFFF;
   margin-top: 34px;
+}
+
+
+.home__third-screen{
+  padding-top: 81px;
+  border-top: 1px solid black;
+  position: relative;
+}
+.home__third-screen-content{
+  height: 55.5729vw;
+  background-image: url('./assets/BackgroundScreen3.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+  position: relative;
+ 
+}
+.home__third-screen-upper{
+  width: 45.5vw;
+  position: absolute;
+  top: 7.59%;
+  left: 29%;
+  background-color: white;
+  padding: 7.8% 12px 11.5% 1px;
+}
+.home__third-screen-upper h2{
+  padding: 0 0 7.88% 12px;
+  font-family: Roboto Black;
+  font-weight: 900;
+  font-size: 3.3vw;
+  text-align: center;
+  line-height: 3.5vw;
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.home__third-screen-text{
+  width: 90%;
+  margin: 0 auto;
+}
+.home__third-screen-text{
+
+  font-family: Roboto Light;
+  font-size: 1.7vw;
+  text-align: center;
+ 
+}
+
+.home__third-screen-button-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__third-screen-list{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 95px 91px 134px;
+  border-bottom: 1px solid black;
+  margin-top: 173px;
+}
+.home__third-screen-list-item{
+  width: 24vw;
+}
+.home__thrd-screen-list-image{
+  padding: 0 38.9% 53px 21.7%;
+}
+.home__thrd-screen-list-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home__third-screen-list-text{
+  font-family: Roboto Medium;
+  font-size: 1.6vw;
+  font-weight: 500;
 }
