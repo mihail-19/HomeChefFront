@@ -8,30 +8,30 @@ import chefStabImg3 from '../assets/stabs/chefStabImg3.png'
 const ChefStories = () =>{
     const defaultStories = [
         {
-            chefId: 1,
+            id: 1,
             chefImgUrl: chefStabImg1,
-            chefName: "Наталія",
-            chefCity: "м. Харків",
-            chefKitchens: ["українська", "європейська"],
+            name: "Наталія",
+            city: "м. Харків",
+            kitchenTypes: ["українська", "європейська"],
             storyName: "Моя історія",
             storyText: "Lorem ipsum dolor sit amet consectetur. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
         },
         {
-            chefId: 2,
+            id: 2,
             chefImgUrl: chefStabImg2,
-            chefName: "Світлана",
-            chefCity: "м. Київ",
-            chefKitchens: ["українська", "азіатська"],
+            name: "Світлана",
+            city: "м. Київ",
+            kitchenTypes: ["українська", "азіатська"],
             storyName: "Моя історія",
             storyText: "Vestibulum nulla purus est orci ut purus scelerisque.  Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
             
         },
         {
-            chefId: 3,
+            id: 3,
             chefImgUrl: chefStabImg3,
-            chefName: "Антон",
-            chefCity: "м. Ужгород",
-            chefKitchens: ["українська", "мексиканська"],
+            name: "Антон",
+            city: "м. Ужгород",
+            kitchenTypes: ["українська", "мексиканська"],
             storyName: "Моя історія",
             storyText: "Lorem ipsum dolor sit amet consectetur. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
             
@@ -76,10 +76,10 @@ const ChefStories = () =>{
                         </div>
                         <div className="chef-story-item__header-info">
                             <div className="chef-story-item__chef-info">
-                                <b>{story.chefName}</b>, {story.chefCity}
+                                <b>{story.name}</b>, {story.city}
                             </div>
                             <div className="chef-story-item__kitchen">
-                                <b>Кухня</b>: {story.chefKitchens[0]}, {story.chefKitchens[1]}
+                                <b>Кухня</b>: {story.kitchenTypes[0]}, {story.kitchenTypes[1]}
                             </div>
                         </div>
                     </div>

@@ -11,6 +11,7 @@ import thirdScreenList1Img from './assets/thirdScreenList1Img.png'
 import thirdScreenList2Img from './assets/thirdScreenList2Img.png'
 import thirdScreenList3Img from './assets/thirdScreenList3Img.png'
 import ChefStories from './elements/ChefStories'
+import PopularChefs from './elements/PopularChefs'
 
 function App() {
   
@@ -151,6 +152,10 @@ function App() {
       <div className='home__content-screen'>
         <ChefStories/>
       </div>
+
+
+
+      <PopularChefs/>
     </>
   )
 }
