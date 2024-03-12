@@ -9,6 +9,7 @@ import dish2 from '../assets/stabs/dish2.png'
 import dish3 from '../assets/stabs/dish3.png'
 import dish4 from '../assets/stabs/dish4.png'
 const PopularChefs = () => {
+"https://data.homechefs/chefs/{id}"
     const defaultPopularChefs = [
         {
             id: 1,

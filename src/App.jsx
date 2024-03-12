@@ -10,6 +10,13 @@ import secondScreenImg from './assets/secondScreenImg.jpg'
 import thirdScreenList1Img from './assets/thirdScreenList1Img.png'
 import thirdScreenList2Img from './assets/thirdScreenList2Img.png'
 import thirdScreenList3Img from './assets/thirdScreenList3Img.png'
+import securityLogo from './assets/securityLogo.png'
+import securityImg from './assets/securityImg.png'
+import facebookIcon from './assets/facebookIcon.png'
+import instagramIcon from './assets/instagramIcon.png'
+import telegramIcon from './assets/telegramIcon.png'
+import mailIcon from './assets/mailIcon.png'
+
 import ChefStories from './elements/ChefStories'
 import PopularChefs from './elements/PopularChefs'
 
@@ -152,10 +159,70 @@ function App() {
       <div className='home__content-screen'>
         <ChefStories/>
       </div>
-
-
-
+      
+      
       <PopularChefs/>
+      
+      
+      <div className='home__content-screen'>
+        <div className='home__client-security'>
+          <h2>Ми дбаємо про безпеку клієнтів</h2>
+          <div className='home__client-security-logo'>
+            <img src={securityLogo}></img>
+          </div>
+          <div className='home__client-sevurity-content'>
+            <div className='home__client-security-image'>
+              <img src={securityImg}></img>
+            </div>
+            <div className='home__clients-security-right'>
+              <div className='home__client-security-list'>
+                <div className='home__client-securiy-list-item'>
+                  <div className='home__client-security-list-icon'></div>
+                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                </div>
+                <div className='home__client-securiy-list-item'>
+                  <div className='home__client-security-list-icon'></div>
+                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                </div>
+                <div className='home__client-securiy-list-item'>
+                  <div className='home__client-security-list-icon'></div>
+                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                </div>
+                <div className='home__client-securiy-list-item'>
+                  <div className='home__client-security-list-icon'></div>
+                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                </div>
+                <div className='home__client-securiy-list-item'>
+                  <div className='home__client-security-list-icon'></div>
+                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                </div>
+              </div>
+              <div className='home__client-security-info'>
+                Ми зацікавлені у тому, щоб ви отримували якісну послугу 
+                із якісних продуктів харчування 
+                від людини, яка усвідомлює, що та як вона робить.
+              </div>
+              <div className='home__client-security-connect'>
+                Ви завжди можете із нами звʼязатися
+              </div>
+            </div>
+          </div>
+          <div className='home__client-security-links'>
+              <a href="https://facebook.com">
+                <img src={facebookIcon}></img>
+              </a>
+              <a href="https://instagram.com">
+                <img src={instagramIcon}></img>
+              </a>
+              <a href="https://telegram.org">
+                <img src={telegramIcon}></img>
+              </a>
+              <a href="mailto:homechef@gmail.com">
+                <img src={mailIcon}></img>
+              </a>
+            </div>
+        </div>
+      </div>
     </>
   )
 }
