@@ -1,0 +1,101 @@
+import { useState } from "react"
+import faqArrow from '../assets/faqArrow.png'
+const AnswersFAQ = () => {
+    const [showFlags, setShowFlags] = useState([true,false,false,false,false,false,false])
+    function showOrHide(index){
+         console.log(showFlags[0])
+         const tempFlags = [...showFlags]
+         tempFlags[index] = !tempFlags[index]
+         console.log(tempFlags)
+        setShowFlags(tempFlags)
+
+    }
+    
+    return (
+        <div className="answers-faq">
+            <h2>Відповіді на часті запитання</h2>
+            <div className="answers-faq__items">
+                <div className="answers-faq__item">
+                    <div className="answers-faq__itme-top" onClick={() => showOrHide(0)}>
+                        <div className="answers-faq__question-text">
+                            Який термін придатності страв?
+                        </div>
+                        <div className="answers-faq__arrow">
+                            <img src={faqArrow} className={showFlags[0] && "answers-faq__rotated"}></img>
+                        </div>
+                    </div>
+                    {showFlags[0] && <div className="answers-faq__answer">Поки не скисне</div>}
+                </div>
+                <div className="answers-faq__item">
+                    <div className="answers-faq__itme-top" onClick={() => showOrHide(1)}>
+                        <div className="answers-faq__question-text">
+                            Чи готові до вживання страви?
+                        </div>
+                        <div className="answers-faq__arrow">
+                            <img src={faqArrow} className={showFlags[1] && "answers-faq__rotated"}></img>
+                        </div>
+                    </div>
+                    {showFlags[1] && <div className="answers-faq__answer">Зробіть пробіжку або жим лежачи - зайві калорії Вам не потрібні!</div>}
+                </div>
+                <div className="answers-faq__item">
+                    <div className="answers-faq__itme-top" onClick={() => showOrHide(2)}>
+                        <div className="answers-faq__question-text">
+                            Які території ви обслуговуєте?
+                        </div>
+                        <div className="answers-faq__arrow">
+                            <img src={faqArrow} className={showFlags[2] && "answers-faq__rotated"}></img>
+                        </div>
+                    </div>
+                    {showFlags[2] && <div className="answers-faq__answer">Всі</div>}
+                </div>
+                <div className="answers-faq__item">
+                    <div className="answers-faq__itme-top" onClick={() => showOrHide(3)}>
+                        <div className="answers-faq__question-text">
+                            Чи є плата за доставку?
+                        </div>
+                        <div className="answers-faq__arrow">
+                            <img src={faqArrow} className={showFlags[3] && "answers-faq__rotated"}></img>
+                        </div>
+                    </div>
+                    {showFlags[3] && <div className="answers-faq__answer">За розцінками служби доставки.</div>}
+                </div>
+                <div className="answers-faq__item">
+                    <div className="answers-faq__itme-top" onClick={() => showOrHide(4)}>
+                        <div className="answers-faq__question-text">
+                            Що станеться, якщо мене не буде вдома під час доставки?
+                        </div>
+                        <div className="answers-faq__arrow">
+                            <img src={faqArrow} className={showFlags[4] && "answers-faq__rotated"}></img>
+                        </div>
+                    </div>
+                    {showFlags[4] && <div className="answers-faq__answer">Ми будемо дуже засмучені.</div>}
+                </div>
+                <div className="answers-faq__item">
+                    <div className="answers-faq__itme-top" onClick={() => showOrHide(5)}>
+                        <div className="answers-faq__question-text">
+                            Як я можу відстежити свою доставку?
+                        </div>
+                        <div className="answers-faq__arrow">
+                            <img src={faqArrow} className={showFlags[5] && "answers-faq__rotated"}></img>
+                        </div>
+                    </div>
+                    {showFlags[5] && <div className="answers-faq__answer">У вікно</div>}
+                </div>
+                <div className="answers-faq__item">
+                    <div className="answers-faq__itme-top" onClick={() => showOrHide(6)}>
+                        <div className="answers-faq__question-text">                            
+                            Чи можу я скасувати замовлення?
+                        </div>
+                        <div className="answers-faq__arrow">
+                            <img src={faqArrow} className={showFlags[60] && "answers-faq__rotated"}></img>
+                        </div>
+                    </div>
+                    {showFlags[6] && <div className="answers-faq__answer">Так.</div>}
+                </div>
+            </div>
+            
+        </div>
+    )
+}
+
+export default AnswersFAQ

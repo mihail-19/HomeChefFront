@@ -173,7 +173,6 @@ const PopularChefs = () => {
             indexes.push({start: i, end: i+1})
         }
     }
-    console.log(indexes)
     const [index, setIndex] = useState(0)
     function switchPage(ind){
         setIndex(ind)

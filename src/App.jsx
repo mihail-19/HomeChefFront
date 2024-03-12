@@ -19,6 +19,7 @@ import mailIcon from './assets/mailIcon.png'
 
 import ChefStories from './elements/ChefStories'
 import PopularChefs from './elements/PopularChefs'
+import AnswersFAQ from './elements/AnswersFAQ'
 
 function App() {
   
@@ -222,6 +223,12 @@ function App() {
               </a>
             </div>
         </div>
+      </div>
+
+
+
+      <div className='home__content-screen'>
+        <AnswersFAQ/>
       </div>
     </>
   )

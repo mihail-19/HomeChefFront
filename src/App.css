@@ -743,3 +743,64 @@ ul{
   height: 60px;
   border-radius: 50%;
 }
+
+
+
+
+
+
+
+.answers-faq{
+  margin-top: 7.2vw;
+}
+.answers-faq h2{
+  font-family: Montserrat;
+  font-weight: 700;
+  font-size: 4.2vw;
+  width: 58.7vw;
+  margin: 0 auto;
+  text-align: center;
+}
+.answers-faq__items{
+  margin-top: 8.5vw;
+}
+.answers-faq__item{
+  width: 96%;
+  margin-bottom: 75px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid gray;
+}
+.answers-faq__itme-top{
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+  
+}
+.answers-faq__question-text{
+  font-family: Montserrat;
+  font-weight: 400;
+  font-size: 2.5vw;
+}
+.answers-faq__arrow{
+  width: 25px;
+  height: 25px;
+}
+
+
+.answers-faq__arrow img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+ 
+}
+.answers-faq__rotated{
+  transform: rotate(90deg)
+}
+.answers-faq__answer{
+  padding: 20px;
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.5vw;
+}
