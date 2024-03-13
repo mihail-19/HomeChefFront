@@ -20,6 +20,7 @@ import mailIcon from './assets/mailIcon.png'
 import ChefStories from './elements/ChefStories'
 import PopularChefs from './elements/PopularChefs'
 import AnswersFAQ from './elements/AnswersFAQ'
+import Footer from './elements/Footer'
 
 function App() {
   
@@ -206,23 +207,24 @@ function App() {
               <div className='home__client-security-connect'>
                 Ви завжди можете із нами звʼязатися
               </div>
-            </div>
-          </div>
-          <div className='home__client-security-links'>
-              <a href="https://facebook.com">
-                <img src={facebookIcon}></img>
-              </a>
-              <a href="https://instagram.com">
-                <img src={instagramIcon}></img>
-              </a>
-              <a href="https://telegram.org">
-                <img src={telegramIcon}></img>
-              </a>
-              <a href="mailto:homechef@gmail.com">
-                <img src={mailIcon}></img>
-              </a>
+              <div className='home__client-security-links'>
+                <a href="https://facebook.com">
+                  <img src={facebookIcon}></img>
+                </a>
+                <a href="https://instagram.com">
+                  <img src={instagramIcon}></img>
+                </a>
+                <a href="https://telegram.org">
+                  <img src={telegramIcon}></img>
+                </a>
+                <a href="mailto:homechef@gmail.com">
+                  <img src={mailIcon}></img>
+                </a>
             </div>
         </div>
+            </div>
+          </div>
+          
       </div>
 
 
@@ -230,7 +232,12 @@ function App() {
       <div className='home__content-screen'>
         <AnswersFAQ/>
       </div>
+    
+    
+      <Footer/>
+
     </>
+    
   )
 }
 
