@@ -15,7 +15,7 @@ const Header = ()=>{
     }
     return (
         <div className='header'>
-                <div className='header__logo'>Hoome Chef</div>
+                <div className='header__logo'>Home<br/> Chef</div>
                 <div className='header__search'>
                     <input type="text" placeholder='Знайти за назвою страви'></input>
                     <button className='header__search-button'>Знайти</button>
@@ -28,9 +28,7 @@ const Header = ()=>{
                         <li className='header__menu-item'>
                             <Link to='/about-us' className='header__menu-link'>Про нас</Link>
                         </li>
-                        <li className='header__menu-item'>
-                            <Link to='/map' className='header__menu-link'>Шефи на мапі</Link>
-                        </li>
+                        
                         <li>
                             <div className='header__menu-link header__city-button' onClick={switchShowCities}>
                                 <div className='header__city'>{city}</div>
