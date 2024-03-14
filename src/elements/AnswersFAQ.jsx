@@ -1,7 +1,7 @@
 import { useState } from "react"
 import faqArrow from '../assets/faqArrow.png'
 const AnswersFAQ = () => {
-    const [showFlags, setShowFlags] = useState([true,false,false,false,false,false,false])
+    const [showFlags, setShowFlags] = useState([false,false,false,false,false,false,false])
     function showOrHide(index){
          console.log(showFlags[0])
          const tempFlags = [...showFlags]

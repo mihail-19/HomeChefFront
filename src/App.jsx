@@ -33,7 +33,7 @@ function App() {
             Те, що зроблено з любовʼю
           </div>
           <div className='home__search'>
-            <input type="text" ></input>
+            <input type="text" placeholder='Ваш індекс або адреса' ></input>
             <button className='home__search-button'>Знайти</button>
           </div>
         </div>
