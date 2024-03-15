@@ -163,9 +163,52 @@ ul{
   padding: 0 10px;
   user-select: none;
 }
+.header__burger-menu{
+  display: none;
+}
 
 
-
+@media(max-width: 1000px){
+  .header__auth, .header__menu-item{
+    display: none;
+  }
+  .header__nav{
+    width: auto;
+  }
+  .header__nav ul{
+    padding-inline-start: 0;
+  }
+  .header__cart{
+    display: block;
+  }
+  .header__logo{
+    font-size: 28px;
+    line-height: 32px;
+    width: auto;
+  }
+  .header__search{
+    width: 50%;
+   border-radius: 25px;
+  }
+  .header__search input{
+   font-size: 2.3vw; 
+   height: 35px;
+  }
+  .header__search-button{
+    font-size: 2.4vw;
+    height: 40px;
+  }
+  .header__burger-menu{
+    display: block;
+    width: 40px;
+    height: 40px;
+  }
+  .header__burger-menu img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 
 
 
@@ -285,6 +328,41 @@ ul{
   text-align: center;
 }
 
+@media(max-width: 1000px){
+  .home__main-screen{
+    height: 40vh;
+    padding-top: 30%;
+  }
+  .home__main-screen-content{
+    width: 80%;
+  }
+  .home__search{
+    height: 70px;
+  }
+  .home__search-button{
+    width: 30%;
+    height: 75%;
+  }
+  .home__search input{
+    font-size: 22px;
+  }
+
+  .product-slogan{
+    padding: 5.98vw 0 6.14vw 0;
+  }
+  .product-slogan__item{
+    width: 14vw;
+    height: 20vw;
+  }
+  .product-slogan__image{
+    height: 14vw;
+  }
+  .product-slogan__text{
+    font-size: 20px;
+  }
+}
+
+
 
 
 
@@ -352,6 +430,49 @@ ul{
   color: #FFFFFF;
   margin-top: 2.5vw;
 }
+
+.home__second-screen_mobile{
+  display: none;
+  border-top: 1px solid black;
+  padding-top: 2vw;
+  padding-bottom: 4vw;
+}
+.home__second-screen_mobile p{
+  font-size: 20px;
+  margin-block-start: 2vw;
+  margin-block-end: 2vw;
+}
+.home__second-screen-image-and-header{
+
+}
+.home__second-screen-img_mobile{
+
+}
+.home__second-screen-img_mobile img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media(max-width: 1000px){
+  .home__second-screen-content{
+    display: none;
+  }
+  .home__second-screen_mobile{
+    display: block;
+  }
+  .home__button{
+    width: 30vw;
+    height: 7vw;
+    font-size: 2.8vw;
+    margin-top: 3vw;
+  }
+}
+
+
+
+
+
 
 
 .home__third-screen{
@@ -433,6 +554,61 @@ ul{
 }
 
 
+
+@media(max-width: 1000px){
+  .home__third-screen{
+    
+    padding-top: 60px;
+  }
+  .home__third-screen-content{
+    height: 75vw;
+    background-size: 150%;
+  }
+  .home__third-screen-upper{
+    width: 59vw;
+    top: 15%;
+    left: 15%;
+    padding: 5% 4% 6% 4%;
+  }
+  .home__third-screen-upper h2{
+    padding: 0 0 7% 12px;
+    font-size: 4.2vw;
+    line-height: 4.8vw;
+  }
+  .home__third-screen-text{
+    width: 95%;
+    font-size: 2.8vw;
+    line-height: 3.2vw;
+  }
+
+  .home__third-screen-list{
+    margin-top: 30px;
+    padding: 0 10px 60px 10px;
+  }
+  .home__third-screen-list-item{
+    width: 30%;
+  }
+  .home__thrd-screen-list-image{
+    padding: 0 36.9% 15px 19.7%;
+  }
+  .home__third-screen-list-text{
+    font-size: 14px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .home__chef-stories{
   padding: 91px 0 134px 0;
 
@@ -442,7 +618,7 @@ ul{
   justify-content: flex-end;
   padding-bottom: 112px;
 }
-.home__chef-stories h1{
+.home__chef-stories h2{
   font-family: Montserrat;
   font-size: 64px;
   font-weight: 700;
@@ -474,14 +650,18 @@ ul{
 }
 .chef-story-item{
   width: 45%;
+  height: 50vw;
   border-radius: 30px;
   border: 1px solid gray;
   padding: 2.45vw 0 0 2.35vw;
   font-family: Montserrat;
+  
+
 }
 .chef-story-item h3{
   font-weight: 800;
   font-size: 2.08vw;
+  margin: 10px 0;
 }
 .chef-story-item__header{
   display: flex;
@@ -505,16 +685,71 @@ ul{
 }
 .chef-story-item__chef-info{
   font-size: 2.08vw;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
 }
 .chef-story-item__kitchen{
   font-size: 1.56vw;
 }
 .chef-story-item__story{
-  padding: 1.7vw 2px 1vw;
   font-weight: 400;
   font-size: 1.875vw;
+  overflow-y: hidden;
+  height: 65%;
 }
+
+
+@media(max-width: 1000px){
+  .home__chef-stories{
+    padding: 40px 0 60px 0;
+  }
+  .home__chef-stories-header{
+    padding-bottom: 20px;
+  }
+  .home__chef-stories h2{
+    font-size: 32px;
+    padding: 0;
+    margin: 0;
+  }
+  .home__chef-stories-list{
+    display: flex;
+    justify-content: center;
+    width: 90%;
+  }
+  .chef-story-item{
+    width: 90%;
+    height: 600px;
+  }
+  .chef-story-item__header-img{
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50px;
+  }
+  .chef-story-item__header, .chef-story-item__chef-info, .chef-story-item h3{
+    font-size: 4vw;
+  }
+  
+  .chef-story-item__kitchen{
+    font-size: 3vw;
+  }
+  .chef-story-item__story{
+    padding: 1.2vw 2px 3vw 1vw;
+    font-weight: 400;
+    font-size: 22px;
+  }
+  .home__chef-stories-button{
+    width: 50px;
+    height: 48px;
+  }
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -529,6 +764,7 @@ ul{
   padding-bottom: 23px;
   font-weight: 700;
   font-size: 64px;
+
 }
 .popular-chefs__slider{
   padding-left: 9.79%;
@@ -710,7 +946,17 @@ ul{
 }
 
 
-
+@media(max-width: 1000px){
+  .popular-chefs{
+    padding: 20px 0 40px 10px;
+  }
+  .popular-chefs h2{
+    padding-left: 9.79%;
+    font-size: 36px;
+    margin: 10px;
+  
+  }
+}
 
 
 

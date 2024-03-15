@@ -38,8 +38,23 @@ const ChefStories = () =>{
         }
     ]
     const [stories, setStories] = useState(defaultStories); 
-    const [storyIndexes, setStoryIndexes] = useState({start:0, end:2})
-
+    let initElems = 1
+    if (window.matchMedia("(min-width: 1000px)").matches){
+        initElems = 2
+    }
+    const [elementsNumber, setElementsNumber] = useState(initElems)
+    const [storyIndexes, setStoryIndexes] = useState({start:0, end:elementsNumber})
+    function resizeHandler(){
+        if(window.matchMedia("(min-width: 1000px)").matches){
+            setStoryIndexes(2)
+            setStoryIndexes({start: storyIndexes.start, end: storyIndexes.start+2})
+        } else {
+            setStoryIndexes(1)
+            setStoryIndexes({start: storyIndexes.start, end: storyIndexes.start+1})
+        }
+        
+    }
+    window.matchMedia("(min-width: 1000px)").addEventListener('change', resizeHandler);
     function scrollRight(){
         if(storyIndexes.end<stories.length){
             setStoryIndexes({
@@ -60,7 +75,7 @@ const ChefStories = () =>{
     return (
         <div className='home__chef-stories'>
             <div className="home__chef-stories-header">
-                <h1>Історії наших Шефів</h1>
+                <h2>Історії наших Шефів</h2>
           </div>
           <div className='home__chef-stories-slider'>
             <button className='home__chef-stories-button' onClick={() => scrollLeft()}>

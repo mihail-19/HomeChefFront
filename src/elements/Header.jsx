@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import citiesOfBuisiness from '../services/citiesOfBuisiness'
 import cityArrow from '../assets/headerCityArrow.png'
 import cart from '../assets/cart.png'
+import burgerMenuIcon from '../assets/burgerMenuIcon.png'
 const Header = ()=>{
     const [city, setCity] = useState("Місто")
     const [showCities, setShowCities] = useState(false)
@@ -29,7 +30,7 @@ const Header = ()=>{
                             <Link to='/about-us' className='header__menu-link'>Про нас</Link>
                         </li>
                         
-                        <li>
+                        <li className='header__menu-item'>
                             <div className='header__menu-link header__city-button' onClick={switchShowCities}>
                                 <div className='header__city'>{city}</div>
                                 {showCities &&
@@ -46,12 +47,15 @@ const Header = ()=>{
                             </div>
                         </li>
                         <li>
-                            <Link to="/cart">
+                            <Link to="/cart" className='header__cart'>
                                 <img src={cart}></img>
                             </Link>
                         </li>
                     </ul>
                 </nav>
+                <div className='header__burger-menu'>
+                    <img src={burgerMenuIcon}></img>
+                </div>
                 <div className='header__auth'>
                     <Link to='/login' className='header__signin-button'>Увійти</Link>
                     <Link to='/register' className='header__register-button'>Реєстрація</Link>
