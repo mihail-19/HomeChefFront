@@ -191,12 +191,12 @@ ul{
   }
   .header__search{
     width: 45%;
-    border-radius: 25px;
-    padding: 4px 1%;
+    border-radius: 20px;
+    padding: 4px 2%;
   }
   .header__search input{
-   font-size: 2.4vw; 
-   height: 30px;
+   font-size: 2.3vw; 
+   height: 15px;
   }
   .header__search-button{
     font-size: 2.4vw;
@@ -361,15 +361,18 @@ ul{
   .product-slogan{
     padding: 5.98vw 0 6.14vw 0;
   }
+  .product-slogan__inner{
+    width: 85%;
+  }
   .product-slogan__item{
-    width: 17vw;
+    width: 12vw;
     height: 20vw;
   }
   .product-slogan__image{
-    height: 17vw;
+    height: 12vw;
   }
   .product-slogan__text{
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
@@ -572,8 +575,8 @@ ul{
     padding-top: 60px;
   }
   .home__third-screen-content{
-    height: 75vw;
-    background-size: 150%;
+    height: 95vw;
+    background-size: 180%;
   }
   .home__third-screen-upper{
     width: 75vw;
@@ -856,6 +859,9 @@ ul{
   font-weight: 20px;
   width: 44.2%;
 }
+.popular-chef__chef-description_mobile{
+  display: none;
+}
 .popular-chef__ranking{
   width: 130px;
   height: 43px;
@@ -974,13 +980,115 @@ ul{
 
 @media(max-width: 1000px){
   .popular-chefs{
-    padding: 20px 0 40px 10px;
+    padding: 20px 0 38px 0;
   }
   .popular-chefs h2{
     padding-left: 9.79%;
     font-size: 36px;
     margin: 10px;
   
+  }
+  .popular-chefs__slider{
+    padding: 0 1%;
+  }
+  .popular-chefs__items{
+    display: block;
+    margin: 0 auto;
+    padding: 0 2px;
+  }
+  .popular-chefs__item{
+    flex: 0 0 100%;
+    border: 1px solid gray;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .popular-chefs__header{
+    padding: 10px 10px ;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .popular-chefs__chef-photo{
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+   
+  }
+  .popular-chefs__chef-photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .popular-chef__chef-info{
+    border-right: none;
+    flex-shrink: 2;
+    width: 65%;
+    padding: 0 2%;
+    
+  }
+  .popular-chef__chef-info h4{
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+  .popular-chef__chef-info p{
+    font-size: 16px;
+  }
+  .popular-chef__chef-description{
+    display: none;
+  }
+  .popular-chef__chef-description_mobile{
+    display: block;
+    font-size: 14px;
+    padding: 0 2px 0 10px;
+  }
+
+  .popular-chef__ranking{
+    width: 120px;
+    height: 30px;
+    border-radius: 20px;
+    margin: 5px 0 0 10px;
+  }
+  .popular-chef__ranking-icon{
+    width: 15px;
+    height: 15px;
+    padding-bottom: 4px;
+  }
+  .popular-chef__ranking-value{
+    font-weight: 600;
+    font-size: 12px;
+    padding: 2px 1px 0 2px;
+  }
+  .popular-chef__dishes{
+    width: 99%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    padding: 0 1% 20px 1%;
+  }
+  .popular-chef__dish{
+    flex: 0 0 100%;
+    justify-content: space-around;
+    padding-top: 25px;
+  }
+  .popular-chef__dish-img-container{
+    width: 22%;
+    display: flex;
+    align-items: center;
+  }
+  .popular-chef__dish-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 70%;
+  }
+  .popular-chef__dish-info h5{
+    margin: 0 0 8px 0;
+  }
+  
+  .popular-chef__dish-description{
+    font-weight: 400;
+    font-size: 17px;
+    overflow: hidden;
   }
 }
 
@@ -1084,6 +1192,56 @@ ul{
 }
 
 
+@media(max-width: 1000px){
+  .home__client-security-logo{
+    margin: 0 auto;
+    width: 70px;
+    height: 70px;
+  }
+  .home__client-security-image{
+    display: none;
+  }
+  .home__clients-security-right{
+    width: 99%;
+  }
+  .home__client-securiy-list-item{
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+  .home__client-security-list-icon{
+    width: 12vw;
+    height: 12vw;
+  }
+  .home__client-security-list-text{
+    font-size: 18px;
+    width: 80%;
+  }
+  .home__client-security-info{
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 4vw;
+    margin-top: 4.2vw;
+  }
+  .home__client-security-connect{
+    font-size: 16px;
+    margin-bottom: 4.7vw;
+  }
+  .home__client-security-links{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  .home__client-security-links a{
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+}
+
+
 
 
 
@@ -1143,6 +1301,38 @@ ul{
   font-style: italic;
   font-size: 1.5vw;
 }
+
+@media(max-width: 1000px){
+  .answers-faq{
+    margin-top: 60px;
+  }
+  .answers-faq h2{
+    font-size: 24px;
+    line-height: 28px;
+    width: 58.7vw;
+  }
+  .answers-faq__item{
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+  }
+  
+  .answers-faq__question-text{
+    font-size: 18px;
+    padding-right: 5px;;
+  }
+  .answers-faq__arrow{
+    flex-shrink: 0;
+    width: 15px;
+    height: 15px;
+  }
+  
+  .answers-faq__answer{
+    padding: 5px 5px 2px 10px;
+    font-size: 14px;
+  }
+}
+
+
 
 
 
@@ -1231,4 +1421,62 @@ ul{
 }
 .footer__bottom-copyright{
   font-size:  0.83vw;
+}
+
+@media(max-width: 1000px){
+  .footer{
+    padding: 0 10px 20px 15px;
+  }
+  
+  
+  .footer__top{
+    padding-bottom: 20px;
+  }
+  
+  .footer__logo{
+    margin: 15px 0 5.2vw 0;
+    font-size: 28px;
+    line-height: 32px;
+    width: 9.58vw;
+  }
+  .footer__social-links{
+    display: flex;
+    gap: 10 px;
+  }
+  .footer__social-links a{
+    display: block;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+  }
+  
+  .footer__nav{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  .footer__nav h3{
+    font-size: 16px;
+  }
+  .footer__nav a{
+    font-size: 14px;
+  }
+  .footer__nav-column{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .footer__bottom-links{
+    display: flex;
+    gap: 2.7vw;
+  }
+  .footer__bottom-links a{
+    font-size:  10px;
+  }
+  
+  .footer__bottom-copyright{
+    font-size:  8px;
+  }
 }

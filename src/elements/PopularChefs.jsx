@@ -165,18 +165,50 @@ const PopularChefs = () => {
         }
     ]
     const [popularChefs, setPopularChefs] = useState(defaultPopularChefs)
-    const indexes = []
-    for(let i = 0; i<=popularChefs.length-1;i++){
-        if(i<popularChefs.length-1){
-            indexes.push({start: i, end: i+2})
-        } else {
-            indexes.push({start: i, end: i+1})
+
+    //Calculate cards on page depending on page width
+    let onPage = 1
+    if (window.matchMedia("(min-width: 1000px)").matches){
+        onPage = 2
+    }
+
+    //Init indexes for pagination
+    const initIndexes = []
+    calculateIndexes(onPage, initIndexes)
+    function calculateIndexes(onPage, ind){
+        for(let i = 0; i<=popularChefs.length-1;i++){
+            if(i<popularChefs.length-1){
+                ind.push({start: i, end: i+onPage})
+            } else {
+                ind.push({start: i, end: i+onPage})
+            }
         }
     }
+    const [indexes, setIndexes] = useState(initIndexes)
+
+    //handling window resize - calcalte indexes, with 1 card for <1000px with, 2 - for more
+    function resizeHandler(){
+        if(window.matchMedia("(min-width: 1000px)").matches){
+           const tempIndexes = [];
+           calculateIndexes(2, tempIndexes)
+           setIndexes(tempIndexes)
+        } else {
+            const tempIndexes = [];
+           calculateIndexes(1, tempIndexes)
+           setIndexes(tempIndexes)
+        }
+        
+    }
+    //window resize listener
+    window.matchMedia("(min-width: 1000px)").addEventListener('change', resizeHandler);
+
+    //pagination
     const [index, setIndex] = useState(0)
     function switchPage(ind){
         setIndex(ind)
     }
+
+    //add pointer if there are more than 1000 voters
     function calcRankVoters(voters){
         if(voters > 999){
             return "(" + (voters/1000).toFixed(1) + "k)"
@@ -184,6 +216,7 @@ const PopularChefs = () => {
             return "(" + voters + ")"
         }
     }
+    
     return (
         <div className="popular-chefs">
             <h2>Популярні Шефи</h2>
@@ -204,6 +237,9 @@ const PopularChefs = () => {
                                 <div className="popular-chef__chef-description">
                                     {popularChef.description}
                                 </div>
+                            </div>
+                            <div className="popular-chef__chef-description_mobile">
+                                    {popularChef.description}
                             </div>
                             
                             <div className="popular-chef__ranking">
