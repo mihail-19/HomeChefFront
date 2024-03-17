@@ -1,4 +1,5 @@
 import { useState } from "react"
+import './AnswersFAQ.css'
 import faqArrow from '../assets/faqArrow.png'
 const AnswersFAQ = () => {
     const [showFlags, setShowFlags] = useState([false,false,false,false,false,false,false])
@@ -87,7 +88,7 @@ const AnswersFAQ = () => {
                             Чи можу я скасувати замовлення?
                         </div>
                         <div className="answers-faq__arrow">
-                            <img src={faqArrow} className={showFlags[60] && "answers-faq__rotated"}></img>
+                            <img src={faqArrow} className={showFlags[6] && "answers-faq__rotated"}></img>
                         </div>
                     </div>
                     {showFlags[6] && <div className="answers-faq__answer">Так.</div>}

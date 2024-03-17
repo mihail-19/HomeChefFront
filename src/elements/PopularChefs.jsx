@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import './PopularChefs.css'
 import rankingIcon from '../assets/rankingIcon.png'
 import chefMary from '../assets/stabs/chefMary.png'
 import chefEvgen from '../assets/stabs/chefStabImg3.png'

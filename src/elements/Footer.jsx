@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import './Footer.css'
 import facebookFooterIcon from '../assets/facebookFooterIcon.png'
 import instagramFooterIcon from '../assets/instagramFooterIcon.png'
 import telegramFooterIcon from '../assets/telegramFooterIcon.png'

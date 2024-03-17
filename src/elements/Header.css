@@ -1,0 +1,338 @@
+.header{
+    padding: 10px 2.5vw 25px 2.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    justify-items: center;
+    height: 115px;
+  }
+  .header__container{
+    
+  }
+  .header__logo{
+    width: 164px;
+    font-family: Poiret One, sans-serif;
+    font-weight: 400;
+    font-size: 1.67vw;
+    line-height: 2.19vw;
+  }
+  .header__search{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 30px;
+    border: 1px solid #0000004D;
+    padding: 8px 1%;
+    width: 30%;
+  }
+  .header__search input{
+    border: none;
+    font-family: Roboto Light;
+    font-weight: 300;
+    font-size: 1.5vw;
+    color: #00000080;
+    display: block;
+    height: 45px;
+    width: 64%;
+    margin-right: 10px;
+  }
+  .header__search input:focus{
+    outline: none;
+  }
+  .header__auth{
+    padding-left: 20px;
+  }
+  .header__search-button{
+    display: flex;
+    width: 30%;
+    height: 50px;
+    border-radius: 20px;
+    background-color: #88A69D;
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto Light;
+    font-weight: 300;
+    font-size: 1.2vw;
+    color: #FFFFFF;
+    text-decoration: none;
+    border: none;
+  }
+  .header__nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 38%;
+  }
+  .header__menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+  }
+  .header__menu-link{
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 1.3vw;
+    color: black;
+    text-decoration: none;
+    user-select: none;
+  
+  }
+  .header__menu-link_catalog{
+    color: black;
+    border-bottom: 1px solid gray;
+  }
+  
+  
+  .header__city-button{
+    position: relative;
+    cursor: pointer;
+  }
+  .header__city{
+  }
+  .header__city-list{
+    position: absolute;
+    left: 0;
+    top: 2vw;
+    z-index: 50;
+    width: 7vw;
+    background-color: white;
+    border: 1px solid #c4c0c0;
+    border-radius: 10px;
+    padding: 15px 5px 10px 5px;
+    user-select: none;
+  }
+  .header__city-list-item{
+   
+    color: black;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 1.1vw;
+    user-select: none;
+  }
+  .header__city-list-item:hover{
+    text-decoration: underline;
+  }
+  .header__city-arrow{
+    margin-left: 10px;
+    user-select: none;
+  }
+  
+  .header__auth{
+    display: flex;
+    gap: 18px;
+  }
+  
+  .header__signin-button{
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    color: #2b3633;
+    font-family: Roboto Light;
+    font-weight: 300;
+    font-size: 1vw;
+    user-select: none;
+  }
+  .header__register-button{
+    display: flex;
+    height: 50px;
+    border-radius: 20px;
+    background-color: #627a73;
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto Light;
+    font-weight: 300;
+    font-size: 1vw;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0 10px;
+    user-select: none;
+  }
+  .header__burger-menu-icon{
+    display: none;
+  }
+  .burger__shadow-in-burger-menu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 70;
+    background-color: #1c2220;
+    opacity: 0.4;
+  }
+  
+
+
+  .header__burger-menu{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 90%;
+    background-color: rgb(255, 255, 255);
+    z-index: 100;
+    max-height: 100%;
+    overflow-y: scroll;
+  }
+  .header__burger-menu, .header__burger-menu a{
+    font-family: Roboto;
+    font-weight: 300;
+    color: black;
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+  }
+  .header__burger-menu-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 10px 0 10px;
+    background-color: #a0beb5;
+  }
+  .header__burger-menu-logo{
+    font-family: Poiret One, sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 28px;
+  }
+  .header__burger-menu-close-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+  }
+  .header__burger-menu-close-button img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .header__burger-menu-auth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    height: 60px;
+    width: 90%;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+  }
+  .header__burger-menu-signin{
+
+  }
+  .header__burger-menu-register{
+
+  }
+
+  .header__burger-menu-nav{
+   padding: 10px;
+  }
+  .header__burger-menu-nav ul{
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-top: 20px;
+    padding: 0px;
+    
+  }
+  .header__burger-menu-nav-item{
+    display: flex;
+    
+  }
+  .header__burger-menu-cities{
+    gap: 10px;
+  }
+  .header__burger-menu-link{
+
+  }
+  .header__burger-menu-city-list{
+    margin-left: 10px;
+    flex: 1 0 0;
+    max-width: 250px;
+    border: 1px solid gray;
+    padding: 1px 2px 5px 5px;
+    border-radius: 10px;
+  }
+  .header__burger-menu-link_catalog{
+    text-decoration:  underline!important;
+    font-weight: 400!important;
+  }
+  .header__burger-menu-socila-media-links{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+  .header__burger-menu-socila-media-links a{
+    width: 40px;
+    height: 40px;
+    display: block;
+  }
+  .header__burger-menu-socila-media-links img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+  .header__rotated{
+    transform: rotate(-90deg)
+  }
+  .header__arrow{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media(max-width: 1000px){
+    .header{
+      height: 85px;
+    }
+    .header__auth, .header__menu-item{
+      display: none;
+    }
+    .header__nav{
+      width: auto;
+    }
+    .header__nav ul{
+      padding-inline-start: 0;
+    }
+    .header__cart{
+      display: block;
+    }
+    .header__logo{
+      font-size: 24px;
+      line-height: 32px;
+      width: auto;
+    }
+    .header__search{
+      width: 45%;
+      border-radius: 20px;
+      padding: 4px 2%;
+    }
+    .header__search input{
+     font-size: 2.3vw; 
+     height: 15px;
+    }
+    .header__search-button{
+      font-size: 2.4vw;
+      height: 35px;
+      border-radius: 18px;
+    }
+    .header__burger-menu-icon{
+      display: block;
+      width: 35px;
+      height: 35px;
+    }
+    .header__burger-menu-icon img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import './ChefStories.css'
 import SearchButtonLeft from '../assets/SearchButtonLeft.png'
 import SearchButtonRight from '../assets/SearchButtonRight.png'
 import chefStabImg1 from '../assets/stabs/chefStabImg1.png'
