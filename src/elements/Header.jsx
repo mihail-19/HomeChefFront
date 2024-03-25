@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
+import Register from './Register.jsx'
 import './Header.css'
 import citiesOfBuisiness from '../services/citiesOfBuisiness'
 import cityArrow from '../assets/headerCityArrow.png'
@@ -14,6 +15,7 @@ const Header = ()=>{
     const [city, setCity] = useState("Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
+    const [showRegisterWindow, setShowRegisterWindow] = useState(false)
     function switchShowBurger(){
         //disable scroll whie burger menu flag changes. Value is opposite to current
         if(!showBurger){
@@ -29,6 +31,9 @@ const Header = ()=>{
     function chooseCity(c){
         setCity(c)
         setShowCities(false)
+    }
+    function switchShowRegisterWindow(){
+        setShowRegisterWindow(!showRegisterWindow)
     }
     return (
         <div className='header'>
@@ -76,7 +81,7 @@ const Header = ()=>{
                 
                 <div className='header__auth'>
                     <Link to='/login' className='header__signin-button'>Увійти</Link>
-                    <Link to='/register' className='header__register-button'>Реєстрація</Link>
+                    <button to='/register' className='header__register-button' onClick={switchShowRegisterWindow}>Реєстрація</button>
                 </div>
                 {showBurger && <div className='burger__shadow-in-burger-menu' onClick={switchShowBurger}></div>}
                 {showBurger &&
@@ -151,7 +156,9 @@ const Header = ()=>{
                         </nav>
                     </div>
                 }
+                {showRegisterWindow && <Register setShowRegisterWindow={setShowRegisterWindow}/>}
         </div>
+        
     )
 }
 export default Header

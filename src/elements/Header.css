@@ -153,6 +153,8 @@
     text-decoration: none;
     padding: 0 10px;
     user-select: none;
+    border: none;
+    cursor: pointer;
   }
   .header__burger-menu-icon{
     display: none;

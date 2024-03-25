@@ -11,8 +11,7 @@ const router = createBrowserRouter([
   {
     path: "/HomeChefFront",
     element: <App/>
-  },
-  
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
