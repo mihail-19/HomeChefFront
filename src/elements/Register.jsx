@@ -5,7 +5,7 @@ import registerCloseIcon from '../assets/burgerCloseButton.png'
 import {register} from '../services/AuthService.js'
 import { useState } from 'react'
 const Register = ({setShowRegisterWindow}) =>{
-    const [firstName, setFirstname] = useState('')
+    const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -13,7 +13,10 @@ const Register = ({setShowRegisterWindow}) =>{
     function sendRegister(){
         if(password === confirmPassword)
             register(firstName, lastName, email, password)
-                .then(res => console.log(res))
+                .then(res => {
+                    console.log(res)
+                    setShowRegisterWindow(false)
+                })
     }
     return (
         <div className='register'>
@@ -30,35 +33,35 @@ const Register = ({setShowRegisterWindow}) =>{
                     <div className='register__form-element'>
                         <label>Ім'я*</label>
                         <div className='register__form-input'>
-                            <input name='firstName' type='text' placeholder='Людмила' ></input>
+                            <input name='firstName' type='text' placeholder='Людмила' onChange={e => setFirstName(e.target.value)}></input>
                             <div className='register__form-prompt'>Ім'я повинно бути справжнім</div>
                         </div>
                     </div>
                     <div className='register__form-element'>
                         <label>Прізвище*</label>
                         <div className='register__form-input'>
-                            <input name='lastName' type='text' placeholder='Волошина'></input>
+                            <input name='lastName' type='text' placeholder='Волошина'onChange={e => setLastName(e.target.value)}></input>
                             <div className='register__form-prompt'>Прізвище повинно бути справжнім</div>
                         </div>
                     </div>
                     <div className='register__form-element'>
                         <label>Email*</label>
                         <div className='register__form-input'>
-                            <input name='email' type='text' placeholder='voloshyna@gmail.com'></input>
+                            <input name='email' type='text' placeholder='voloshyna@gmail.com' onChange={e => setEmail(e.target.value)}></input>
                             <div className='register__form-prompt'>Email повинен бути справжнім</div>
                         </div>
                     </div>
                     <div className='register__form-element'>
                         <label>Створити пароль*</label>
                         <div className='register__form-input'>
-                            <input name='password' type='password' placeholder='**********'></input>
+                            <input name='password' type='password' placeholder='**********' onChange={e => setPassword(e.target.value)}></input>
                             <div className='register__form-prompt'>Пароль повинен бути надійним</div>
                         </div>
                     </div>
                     <div className='register__form-element'>
                         <label>Підтвердити пароль</label>
                         <div className='register__form-input'>
-                            <input type='password' placeholder='**********'></input>
+                            <input type='password' placeholder='**********' onChange={e => setConfirmPassword(e.target.value)}></input>
                         </div>
                     </div>
                     <button className='register__submit-button' onClick={sendRegister}>Стати HomeChef</button>

@@ -138,12 +138,38 @@
     font-weight: 300;
     font-size: 1vw;
     user-select: none;
+    border: none;
+    cursor: pointer;
+    background-color: white;
   }
   .header__register-button{
     display: flex;
     height: 50px;
     border-radius: 20px;
     background-color: #627a73;
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto Light;
+    font-weight: 300;
+    font-size: 1vw;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0 10px;
+    user-select: none;
+    border: none;
+    cursor: pointer;
+  }
+  .header__username{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+  }
+  .header__logout-button{
+    display: flex;
+    height: 50px;
+    border-radius: 20px;
+    background-color: #be671f;
     align-items: center;
     justify-content: center;
     font-family: Roboto Light;

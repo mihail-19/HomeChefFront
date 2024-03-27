@@ -91,3 +91,7 @@
     margin-top: 100px;
     cursor: pointer;
 }
+
+.register__error{
+    color: red;
+}

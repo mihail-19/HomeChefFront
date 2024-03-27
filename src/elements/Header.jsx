@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 import Register from './Register.jsx'
+import Auth from './Auth.jsx'
 import './Header.css'
 import citiesOfBuisiness from '../services/citiesOfBuisiness'
 import cityArrow from '../assets/headerCityArrow.png'
@@ -11,11 +12,14 @@ import facebookIcon from '../assets/facebookIcon.png'
 import instagramIcon from '../assets/instagramIcon.png'
 import telegramIcon from '../assets/telegramIcon.png'
 import mailIcon from '../assets/mailIcon.png'
+import {logout} from '../services/AuthService.js'
 const Header = ()=>{
     const [city, setCity] = useState("Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
     const [showRegisterWindow, setShowRegisterWindow] = useState(false)
+    const [showAuthWindow, setShowAuthWindow] = useState(false)
+    const [isAuth, setIsAuth] = useState(localStorage.getItem('isLogged') == 'true')
     function switchShowBurger(){
         //disable scroll whie burger menu flag changes. Value is opposite to current
         if(!showBurger){
@@ -34,6 +38,16 @@ const Header = ()=>{
     }
     function switchShowRegisterWindow(){
         setShowRegisterWindow(!showRegisterWindow)
+    }
+    function switchShowAuthWindow(){
+        setShowAuthWindow(!showAuthWindow)
+    }
+    function sendLogout(){
+        logout().then(res => {
+            console.log('logout')
+            localStorage.setItem('isLogged', 'false')
+            setIsAuth(false)
+        })
     }
     return (
         <div className='header'>
@@ -78,11 +92,19 @@ const Header = ()=>{
                 <div className='header__burger-menu-icon' onClick={switchShowBurger}>
                     <img src={burgerMenuIcon}></img>
                 </div>
-                
-                <div className='header__auth'>
-                    <Link to='/login' className='header__signin-button'>Увійти</Link>
-                    <button to='/register' className='header__register-button' onClick={switchShowRegisterWindow}>Реєстрація</button>
-                </div>
+                {!isAuth &&
+                    <div className='header__auth'>
+                        
+                            <button to='/login' className='header__signin-button' onClick={switchShowAuthWindow}>Увійти</button>
+                            <button to='/register' className='header__register-button' onClick={switchShowRegisterWindow}>Реєстрація</button>
+                    </div>
+                }
+                {isAuth &&
+                    <div className='header__auth'>
+                        <div className='header__username'>{localStorage.getItem('firstname')}</div>
+                        <button to='/register' className='header__logout-button' onClick={sendLogout}>Вийти</button>
+                    </div>
+                }
                 {showBurger && <div className='burger__shadow-in-burger-menu' onClick={switchShowBurger}></div>}
                 {showBurger &&
                 
@@ -156,7 +178,8 @@ const Header = ()=>{
                         </nav>
                     </div>
                 }
-                {showRegisterWindow && <Register setShowRegisterWindow={setShowRegisterWindow}/>}
+                {showRegisterWindow && <Register setShowRegisterWindow={setShowRegisterWindow} />}
+                {showAuthWindow && <Auth setShowAuthWindow={setShowAuthWindow} setIsAuth={setIsAuth}/>}
         </div>
         
     )
