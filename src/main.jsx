@@ -6,11 +6,16 @@ import{
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
+import Cabinet from './pages/Cabinet.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/HomeChefFront",
     element: <App/>
+  },
+  {
+    path: "/HomeChefFront/cabinet",
+    element: <Cabinet/>
   }
 ])
 
