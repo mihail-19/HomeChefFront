@@ -13,13 +13,12 @@ import instagramIcon from '../assets/instagramIcon.png'
 import telegramIcon from '../assets/telegramIcon.png'
 import mailIcon from '../assets/mailIcon.png'
 import {logout} from '../services/AuthService.js'
-const Header = ()=>{
+const Header = ({isAuth, setIsAuth, person, setPerson})=>{
     const [city, setCity] = useState("Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
     const [showRegisterWindow, setShowRegisterWindow] = useState(false)
     const [showAuthWindow, setShowAuthWindow] = useState(false)
-    const [isAuth, setIsAuth] = useState(localStorage.getItem('isLogged') == 'true')
     function switchShowBurger(){
         //disable scroll whie burger menu flag changes. Value is opposite to current
         if(!showBurger){
@@ -43,10 +42,12 @@ const Header = ()=>{
         setShowAuthWindow(!showAuthWindow)
     }
     function sendLogout(){
+        
         logout().then(res => {
             console.log('logout')
-            localStorage.setItem('isLogged', 'false')
+            localStorage.setItem('isAuth', 'false')
             setIsAuth(false)
+            setPerson(null)
         })
     }
     return (
@@ -71,7 +72,7 @@ const Header = ()=>{
                                 {(showCities && !showBurger) &&
                                     <div className='header__city-list'>
                                     {citiesOfBuisiness().map(c => 
-                                        <div className='header__city-list-item' onClick={() => chooseCity(c)}>{c}</div>                                        
+                                        <div className='header__city-list-item' onClick={() => chooseCity(c)}>{c.name}</div>                                        
                                     )}
                                     </div>    
                                 }
@@ -101,7 +102,7 @@ const Header = ()=>{
                 }
                 {isAuth &&
                     <div className='header__auth'>
-                        <div className='header__username'>{localStorage.getItem('firstname')}</div>
+                        <div className='header__username'>{person && person.username}</div>
                         <button to='/register' className='header__logout-button' onClick={sendLogout}>Вийти</button>
                     </div>
                 }
@@ -179,7 +180,7 @@ const Header = ()=>{
                     </div>
                 }
                 {showRegisterWindow && <Register setShowRegisterWindow={setShowRegisterWindow} />}
-                {showAuthWindow && <Auth setShowAuthWindow={setShowAuthWindow} setIsAuth={setIsAuth}/>}
+                {showAuthWindow && <Auth setShowAuthWindow={setShowAuthWindow} setIsAuth={setIsAuth} setPerson={setPerson}/>}
         </div>
         
     )

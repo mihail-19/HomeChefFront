@@ -1,6 +1,6 @@
 const citiesOfBuisiness = () =>{
     //todo
-    const defaultCities = ["Харків", "Київ"]
+    const defaultCities = [{id:1, name:"Харsків"},{id:2, name: "Київ"}]
     return defaultCities
 }
 

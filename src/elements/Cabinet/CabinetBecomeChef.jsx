@@ -1,20 +1,8 @@
 import { useState } from 'react'
-import defaultChefImage from '../../assets/registerLogo.png'
-const CabinetMyProfile = () => {
-    let profileData = 
-        {
-            id: 1,
-            firstName: "Інна",
-            email: "inna@gmail.com",
-            phone: "0111111111",
-            city: {id:1, name:"Київ"},
-            index: "1114",
-            description: "Lorem ipsum dolor sit amet consectetur. Ullamcorper congue nunc in ut turpis sed auctor nulla tempus. Sit malesuada morbi libero praesent. Ullamcorper congue nunc in ut turpis sed auctor nulla tempus. Sit malesuada morbi libero praesent.Ullamcorper congue nunc in ut turpis sed auctor nulla tempus. Sit malesuada morbi libero praesent.",
-            address: "просп. Незалежності, 12",
-            isActive: true,
-            legalStatus: {id:2, value:"фізична особа-підприємець"},
-            imageUrl: null
-        }
+import { getChef, registerChef } from '../../services/ChefService'
+import { getPerson } from '../../services/PersonService'
+
+const CabinetMyProfile = ({person, setPerson, setChef}) => {
     let cityList = 
         [
             {id:1, name:"Київ"},
@@ -26,27 +14,33 @@ const CabinetMyProfile = () => {
             {id:2, value:"фізачни особа-підприємець"},
             {id:3, value:"самозайнята особа"}
         ]
-    const [firstName, setFirstName] = useState(profileData.firstName)
-    const [email, setEmail] = useState(profileData.email)
-    const [phone, setPhone] = useState(profileData.phone)
-    const [cityId, setCityId] = useState(profileData.city.id)
-    const [index, setIndex] = useState(profileData.index)
-    const [description, setDecription] = useState(profileData.description)
-    const [address, setAddress] = useState(profileData.address)
-    const [legalStatusId, setLegalStatusId] = useState(profileData.legalStatus.id)
-    const [isActive, setIsActive] = useState(profileData.isActive)
+    const [firstName, setFirstName] = useState(person.firstName)
+    const [email, setEmail] = useState(person.email)
+    const [phone, setPhone] = useState('')
+    const [cityId, setCityId] = useState(person.city ? profileData.city.id : null)
+    const [description, setDecription] = useState('')
+    const [address, setAddress] = useState('')
+    const [legalStatusId, setLegalStatusId] = useState(1)
+    const [isActive, setIsActive] = useState(true)
+    async function sendRegisterChef(){
+        const chef = {
+            phone: phone,
+            description: description,
+            address: address,
+            isActive: isActive,
+        }
+        const {data} = await registerChef(chef)
+        const res = await getPerson()
+        setPerson(res.data)
+        const resChef = await getChef()
+        setChef(resChef.data)
+    }
     return (
         <div className="profile">
             <div className="profile__top">
-                <div className="profile__user-image">
-                    {profileData.imageUrl && <img src={profileData.imageUrl}></img>}
-                    {!profileData.imageUrl && <img src={defaultChefImage}></img>}
-                </div>
-                <div className='profile__id'>#{profileData.id}</div>
+                <h2>Стати шефом</h2>
             </div>
-            <div className='profile__top-button-container'>
-                <button className='profile__update-photo-button'>Редагувати</button>
-            </div>
+            
             <div className='profile__info'>
                 <div className='profile__info-row'>
                     <div className='profile__info-column'>
@@ -91,13 +85,7 @@ const CabinetMyProfile = () => {
                                 })}
                             </select> 
                         </div>
-                        <div className='profile__info-element'>
-                            <label className='profile__info-tag'>
-                                Індекс
-                            </label>
-                            <input type="text" className='profile__info-input' value={phone} onChange={e => setPhone(e.target.value)}></input>
-                        </div>
-                        
+                                           
                     </div>
                     <div className='profile__info-column'>
                         <div className='profile__info-element'>
@@ -132,7 +120,7 @@ const CabinetMyProfile = () => {
                         
                     </div>
                 </div>
-                <button className='profile__submit-button'>Зберегти зміни</button>
+                <button className='profile__submit-button' onClick={sendRegisterChef}>Зберегти зміни</button>
             </div>
         </div>
     )

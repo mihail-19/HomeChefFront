@@ -5,29 +5,40 @@ import registerCloseIcon from '../assets/burgerCloseButton.png'
 import {register, login} from '../services/AuthService.js'
 import {getPerson} from '../services/PersonService.js'
 import { useState } from 'react'
-const Register = ({setShowAuthWindow, setIsAuth}) =>{
+const Register = ({setShowAuthWindow, setIsAuth, setPerson}) =>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isFailed, setIsFailed] = useState(false)
-    function sendLogin(){
-        login(email, password)
-            .then(res =>{
-                console.log(res.status)
-                if(res.status == 200){
-                    setIsFailed(false)
-                    console.log('auth sucess')
-                    getPerson().then(resPerson =>{
-
-                     console.log(resPerson.data)
-                     localStorage.setItem('firstname', resPerson.data.firstName)
-                     localStorage.setItem('isLogged', true)
-                     setIsAuth(true)
-                    })
-                } else {
-                    setIsFailed(true)
-                }
-            })
-            .catch(d => setIsFailed(true))
+    async function sendLogin(){
+        try{
+            const {data} = await login(email, password)
+            setIsFailed(false)
+            console.log('auth sucess')
+            await sendGetPerson()
+        }
+        catch(error) {
+            setIsFailed(true)
+            setIsAuth(false)
+            localStorage.setItem('isAuth', 'false')
+            console.log('login error')
+        }
+        
+    }
+    async function sendGetPerson(){
+        try{
+            const {data} = await getPerson()
+            console.log(data)
+            setIsAuth(true)
+            setPerson(data)
+            localStorage.setItem('isAuth', 'true')
+            setShowAuthWindow(false)
+               
+        } catch (error){
+            setIsFailed(true)
+            setIsAuth(false)
+            localStorage.setItem('isAuth', 'false')
+            console.log('error while getting person')
+        }
     }
     return (
         <div className='register'>

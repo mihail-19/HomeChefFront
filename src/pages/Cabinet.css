@@ -29,6 +29,23 @@
     height: 60px;
     width: 230px;
     text-align: left;
+    text-decoration: none;
+}
+.cabinet__menu a{
+    cursor: pointer;
+    border: none;
+    background-color: #88A69D;
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 24px;
+    color: #FFFFFF;
+    height: 60px;
+    width: 230px;
+    text-align: left;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+
 }
 
 .cabinet__menu-active-button{
@@ -106,7 +123,7 @@
     font-family: Poppins;
     padding-left: 6px;
 }
-.profile__info-element input, select{
+.profile__info-element input[type="text"], select{
     display: block;
     font-family: Poppins;
     border: 1px solid rgb(175, 167, 167);
@@ -142,7 +159,7 @@
     border-radius: 20px;
     font-family: Poppins;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 20px;
     color: #FFFFFF;
     margin-top: 35px;
     cursor: pointer;
