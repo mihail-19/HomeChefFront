@@ -1,26 +1,51 @@
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import './Cabinet.css'
 import { getChef } from "../services/ChefService"
-const CabinetChefLayout = ({person, setPerson, chef, setChef}) => {
+const CabinetChefLayout = ({person, setPerson, isAuth}) => {
     
+    useEffect(() => {
+        console.log('cabinet chef layout')
+        if(isAuth && hasAuthority('chef')){
+            console.log('try load chef')
+            loadChef()
+        } else {
+            setChef({})
+        }
+    }, [person])
+    async function loadChef(){
+            console.log('load chef')
+            try{
+                const {data} = await getChef()
+                setChef(data)
+            } catch (error){
+                console.error('error loading chef')
+            }
+    }
+    function hasAuthority(authority){
+        if(!person || !person.authorities){
+            return false
+        }
+        const hasAuth = person.authorities.find(a => a.authority === authority) !== undefined
+        console.log('has auth {' + authority + '} ? ' + hasAuth)
+        return hasAuth
+    }
     const [showFlags, setShowFlags] = useState([false, true, false, false, false, false])
+    const [chef, setChef] = useState({})
+    const navigate = useNavigate();
     function links(){
+
+
+
+
         if(!person || !person.authorities){
             return <></>
         }
+
         let authorities = person.authorities
 
-        let isUser = false
-        let isChef = false
-        for(let i = 0; i<authorities.length; i++){
-            if(authorities[i].authority === 'user'){
-                isUser = true
-            }
-            if(authorities[i].authority === 'chef'){
-                isChef = true
-            }
-        }
+        let isUser = hasAuthority('user')
+        let isChef = hasAuthority('chef')
         
         function switchShowWindow(index){
             const newArr = []
@@ -58,6 +83,11 @@ const CabinetChefLayout = ({person, setPerson, chef, setChef}) => {
         }
     }
 
+    if(!isAuth){
+        
+        navigate("/HomeChefFront")
+    }
+
     return <>
             <div className='cabinet__container'>
                 <div className='cabinet__menu-container'>
@@ -66,7 +96,7 @@ const CabinetChefLayout = ({person, setPerson, chef, setChef}) => {
                     </nav>
                 </div>
                 <div className='cabinet__content'>
-                    <Outlet/>
+                    <Outlet context={{chef, loadChef}}/>
                 </div>
             </div>
     </>

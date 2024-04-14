@@ -26,7 +26,7 @@ import Footer from '../elements/Footer'
 
 import { useEffect, useState } from 'react'
 import { getPerson } from '../services/PersonService'
-function Homepage({isAuth, setIsAuth, person, setPerson}) {
+function Homepage() {
 
   
   

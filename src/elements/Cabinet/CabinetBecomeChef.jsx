@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { getChef, registerChef } from '../../services/ChefService'
 import { getPerson } from '../../services/PersonService'
 
-const CabinetMyProfile = ({person, setPerson, setChef}) => {
+const CabinetMyProfile = ({person, setPerson}) => {
     let cityList = 
         [
             {id:1, name:"Київ"},
@@ -23,7 +23,10 @@ const CabinetMyProfile = ({person, setPerson, setChef}) => {
     const [legalStatusId, setLegalStatusId] = useState(1)
     const [isActive, setIsActive] = useState(true)
     async function sendRegisterChef(){
+        const tempPerson = {firstName: firstName, email: email}
+       
         const chef = {
+            person: tempPerson,
             phone: phone,
             description: description,
             address: address,
@@ -32,8 +35,6 @@ const CabinetMyProfile = ({person, setPerson, setChef}) => {
         const {data} = await registerChef(chef)
         const res = await getPerson()
         setPerson(res.data)
-        const resChef = await getChef()
-        setChef(resChef.data)
     }
     return (
         <div className="profile">

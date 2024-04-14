@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import defaultChefImage from '../../assets/registerLogo.png'
-import { getChef } from '../../services/ChefService'
+import { getChef, updateChef } from '../../services/ChefService'
+import { useOutletContext } from 'react-router-dom'
+import { updateImage } from '../../services/PersonService'
+import serverUrl from '../../serverUrl'
 const CabinetMyProfile = () => {
     console.log('cabinet chef profile')
     const [firstName, setFirstName] = useState('')
@@ -11,23 +14,24 @@ const CabinetMyProfile = () => {
     const [address, setAddress] = useState('')
     const [legalStatusId, setLegalStatusId] = useState(null)
     const [isActive, setIsActive] = useState(false)
-    const [chef, setChef] = useState({})
-    useEffect(() => {
-        loadChef()
-    }, [])
-    async function loadChef(){
-        const {data} = await getChef()
-        console.log(data)
-        setFirstName(data?.person?.firstName)
-        setEmail(data?.person?.email)
-        setPhone(data?.phone)
-        setCityId(data?.person?.city ? chef.person.city.id : 0)
-        setDescription(data?.description)
-        setAddress(data?.address)
-        setLegalStatusId(data?.legalStatus ? chef?.legalStatus.id : null)
-        setIsActive(data?.isActive)
-        setChef(data)
-    }
+    const [image, setImage] = useState(undefined)
+    const [imageUrl, setImageUrl] = useState(defaultChefImage)
+    const context = useOutletContext()
+    useEffect(() =>{
+        console.log('use effect')
+        if(context && context.chef && context.chef.person){
+            setFirstName(context.chef.person.firstName)
+            setEmail(context.chef.person.email)
+            setPhone(context.chef.phone)
+            setCityId(0)
+            setDescription(context.chef.description)
+            setAddress(context.chef.address)
+            setLegalStatusId(0)
+            setIsActive(context.chef.isActive)
+            setImageUrl(serverUrl + context.chef.person.imageURL)
+            console.log(context.chef.person.imageURL)
+        }
+    }, [context])
     let profileData = 
         {
             id: 1,
@@ -54,18 +58,41 @@ const CabinetMyProfile = () => {
             {id:2, value:"фізачни особа-підприємець"},
             {id:3, value:"самозайнята особа"}
         ]
-    if(chef && chef.person){
+     if(!context.chef || !context.chef.person){
+         return <div>loading...</div>
+     }
+   
+     async function saveChef(){
+        const chef = {
+            firstName: firstName,
+            phone: phone,
+            description: description,
+            address: address,
+            isActive: isActive,
+            person: {
+                firstName: firstName,
+                email: email
+            }            
+        }
+        await updateChef(chef)
+        if(image){
+            await updateImage(image)
+        }
+        setImageUrl(defaultChefImage)
+        context.loadChef()
+     }
+       
     return (
         <div className="profile">
             <div className="profile__top">
                 <div className="profile__user-image">
-                    {chef.person.imageUrl && <img src={chef.person.imageUrl}></img>}
-                    {!chef.person.imageUrl && <img src={defaultChefImage}></img>}
+                   <img src={imageUrl}></img>
                 </div>
-                <div className='profile__id'>{chef.person.username} #{chef.id}</div>
+                <div className='profile__id'>{context.chef.person.username} #{context.chef.id}</div>
             </div>
             <div className='profile__top-button-container'>
-                <button className='profile__update-photo-button'>Редагувати</button>
+                <button className='profile__update-photo-button' onClick={() => document.getElementById('imageInput').click()} >Редагувати</button>
+                <input id="imageInput" type="file"  onChange={e => setImage(e.target.files[0])} ></input>
             </div>
             <div className='profile__info'>
                 <div className='profile__info-row'>
@@ -147,14 +174,12 @@ const CabinetMyProfile = () => {
                         
                     </div>
                 </div>
-                <button className='profile__submit-button'>Зберегти зміни</button>
+                <button className='profile__submit-button' onClick={saveChef}>Зберегти зміни</button>
             </div>
         </div>
     
     )
-    } else {
-        return <div>loading...</div>
-    }
+   
 }
 
 export default CabinetMyProfile

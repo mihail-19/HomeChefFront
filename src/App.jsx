@@ -12,8 +12,8 @@ import CabinetChefProfile from './elements/Cabinet/CabinetChefProfile.jsx'
 import CabinetBecomeChef from './elements/Cabinet/CabinetBecomeChef.jsx'
 
 function App() {
+  console.log('app')
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
-  const [chef, setChef] = useState({})
   const [person, setPerson] = useState({})
   useEffect(() => {
     if(isAuth){
@@ -37,12 +37,12 @@ function App() {
   <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson}/>
   
   <Routes>
-    <Route path="/HomeChefFront" element={<Homepage isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson}/>}/>
+    <Route path="/HomeChefFront" element={<Homepage />}/>
     
 
-    <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} chef={chef} setChef={setChef}/>}>
+    <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
       <Route path="chef-profile" element={<CabinetChefProfile/>}/>
-      <Route path="become-chef" element={<CabinetBecomeChef person={person} setPerson={setPerson} setChef={setChef}/>}/>
+      <Route path="become-chef" element={<CabinetBecomeChef person={person} setPerson={setPerson}/>}/>
     </Route>
     
   </Routes>

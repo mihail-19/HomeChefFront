@@ -8,5 +8,17 @@ const  getPerson = async () =>{
     })
     return res
 }
+const updateImage = async (image) => {
+    const url = serverUrl + '/person/add-image'
+    const formData = new FormData()
+    formData.append("file", image)
+    const res = axios.post(url, formData, {
+        withCredentials: true,
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })
+    return res
+}
 
-export {getPerson}
+export {getPerson, updateImage}

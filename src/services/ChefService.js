@@ -13,5 +13,11 @@ const registerChef = async (chef) =>{
     })
     return res
 }
+const updateChef = async(chef) => {
+    const url = serverUrl + '/chefs/my-data'
+    return axios.post(url, chef, {
+        withCredentials: true
+    })
+}
 
-export {getChef, registerChef}
+export {getChef, registerChef, updateChef}
