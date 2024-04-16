@@ -10,6 +10,7 @@ import Header from './elements/Header'
 import CabinetChefLayout from './pages/CabinetChefLayout'
 import CabinetChefProfile from './elements/Cabinet/CabinetChefProfile.jsx'
 import CabinetBecomeChef from './elements/Cabinet/CabinetBecomeChef.jsx'
+import CabinetChefMenu from './elements/Cabinet/CabinetChefMenu.jsx'
 
 function App() {
   console.log('app')
@@ -43,6 +44,7 @@ function App() {
     <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
       <Route path="chef-profile" element={<CabinetChefProfile/>}/>
       <Route path="become-chef" element={<CabinetBecomeChef person={person} setPerson={setPerson}/>}/>
+      <Route path="chef-menu" element={<CabinetChefMenu/>}/>
     </Route>
     
   </Routes>
