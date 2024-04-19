@@ -3,16 +3,37 @@ import '../../pages/Cabinet.css'
 import dishImg from '../../assets/dishImg.png'
 import questionImg from '../../assets/questionImg.png'
 import closeImg from '../../assets/burgerCloseButton.png'
+import {addDish} from '../../services/DishService'
+import { useOutletContext } from "react-router-dom"
 const AddDish = ({showAddDish, setShowAddDish}) => {
    console.log(showAddDish)
     const [name, setName] = useState('')
-    const [desription, setDescription] = useState('Lorem ipsum dolor sit amet consectetur. Integer dolor faucibus pellentesque dictum turpis scelerisque.')
-    const [ingredient, setIngredient] = useState('Томатна паста, картопля, свинина, сіль, перець, кріп, капуста, буряк')
-    const [isActive, setIsActive] = useState('')
-    const [time, setTime] = useState(30)
+    const [description, setDescription] = useState('Lorem ipsum dolor sit amet consectetur. Integer dolor faucibus pellentesque dictum turpis scelerisque.')
+    const [ingredients, setIngredients] = useState('Томатна паста, картопля, свинина, сіль, перець, кріп, капуста, буряк')
+    const [isActive, setIsActive] = useState(true)
+    const [cookingTime, setCookingTime] = useState(30)
     const [price, setPrice] = useState(1)
     const [categoryId, setCatehoryId] = useState(1)
     const [tags, setTags] = useState([])
+    const [weight, setWeight] = useState(1)
+    const [image, setImage] = useState(undefined)
+    const context = useOutletContext()
+    async function sendAddDish(){
+        const dish = {
+            name: name,
+            description: description,
+            ingredients: ingredients,
+            isActive: isActive,
+            cookingTime: cookingTime,
+            price: price,
+            weight: weight
+        }
+        await addDish(dish, image)
+        context.loadChef()
+        setShowAddDish(false)
+        
+    }
+
     function addTag(tagId){
         const tag = tagList.find(t => t.id === tagId)
         if(tags.find(t => t.id === tagId)){
@@ -54,13 +75,19 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
         <div className={showAddDish ? "add-dish modal-active" : "add-dish"} onClick={() => setShowAddDish(false)}>
             <div className="add-dish__content" onClick={e => e.stopPropagation()}>
                 <div className="add-dish__inner">
+                    <div className="add-dish__top">
+                        <div className="add-dish__close-button" onClick={() => setShowAddDish(false)}>
+                            <img src={closeImg}></img>
+                        </div>
+                    </div>
                     <div className="add-dish__row">
 
                         <div className="add-dish__photo">
                             <div className="add-dish__image">
                                 <img src={dishImg}></img>
                             </div>
-                            <button className="add-dish__add-photo-button">Додати фото</button>
+                            <button className="add-dish__add-photo-button" onClick={() => document.getElementById('imageInput').click()}>Додати фото</button>
+                            <input id="imageInput" type="file"  onChange={e => setImage(e.target.files[0])} ></input>
                         </div>
 
                         <div className="add-dish__top-column">
@@ -77,14 +104,14 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
                                 </div>
                                 Опис страви 
                             </label>
-                            <textarea value={desription} onChange={e => setDescription(e.target.value)}></textarea>
+                            <textarea value={description} onChange={e => setDescription(e.target.value)}></textarea>
                             <label>
                                 <div className="add-dish__question-img">
                                     <img src={questionImg}></img>    
                                 </div>
                                 З чого складається страва 
                             </label>
-                            <textarea className="add-dish__textarea-ingredient" value={ingredient} onChange={e => setIngredient(e.target.value)}></textarea>
+                            <textarea className="add-dish__textarea-ingredient" value={ingredients} onChange={e => setIngredients(e.target.value)}></textarea>
                         </div>
 
                         <div className="add-dish__top-column">
@@ -104,7 +131,16 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
                                     </div>
                                     Час приготування, хв.    
                                 </label>
-                                <input className="add-dish__time" type="text" value={time} onChange={e => setTime(e.target.value)}></input>
+                                <input className="add-dish__time" type="text" value={cookingTime} onChange={e => setCookingTime(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <label>
+                                    <div className="add-dish__question-img">
+                                        <img src={questionImg}></img>    
+                                    </div>
+                                    Вага, грам    
+                                </label>
+                                <input className="add-dish__time" type="text" value={weight} onChange={e => setWeight(e.target.value)}></input>
                             </div>
                             <div>
                                 <label>
@@ -128,7 +164,7 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
                                 <div className="add-dish__question-img">
                                     <img src={questionImg}></img>    
                                 </div>
-                                Активність    
+                                Категорія    
                             </label>
                             <select className="add-dish__is-active" value={categoryId} onChange={e => setCatehoryId(e.target.value)}>
                                 {categoryList.map(c => {
@@ -162,7 +198,7 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
                     </div>
 
                     <div className="add-dish__bottom">
-                        <button className="add-dish__save-button">Зберегти</button>
+                        <button className="add-dish__save-button" onClick={sendAddDish}>Зберегти</button>
                     </div>
 
                 </div>

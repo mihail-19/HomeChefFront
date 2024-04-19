@@ -198,6 +198,22 @@
     padding: 11px;
     border-radius: 15px;
 }
+.add-dish__top{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 25px;
+}
+.add-dish__close-button{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.add-dish__close-button img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .add-dish__row{
     display: flex;
 }
@@ -214,6 +230,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+.add-dish__photo input[type="file"]{
+    display: none;
 }
 .add-dish__image{
     width: 100%;
@@ -370,4 +389,83 @@
     padding: 10px 35px;
     border-radius: 20px;
     display: block;
+}
+
+
+
+
+.chef-menu{
+    width: 100%;
+    padding: 0 20px;
+}
+.chef-menu__dishes{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 0 20px 0;
+    gap: 20px;
+}
+.chef-menu__dish{
+    width: 350px;
+    font-family: Montserrat;
+    border: 1px solid rgb(170, 167, 167);
+    border-radius: 15px;
+    padding-bottom: 10px;
+}
+.chef-menu__dish-img{
+    width: 100%;
+    height: 170px;
+    border-radius: 15px;
+}
+.chef-menu__dish-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+.chef-menu__dish-info{
+    border-radius: 15px;
+    padding: 5px;
+}
+.chef-menu__dish-name{
+    font-weight: 400;
+    font-size: 14px;
+    margin: 10px 0 10px 0;
+    height: 30px;
+}
+.chef-menu__dish-description{
+    font-weight: 300;
+    font-size: 12px;
+    margin: 10px 0 10px 0;
+    height: 70px;
+}
+.chef-menu__dish-row{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    height: 35px;
+    align-items: center;
+}
+.chef-menu__dish-param{
+    font-weight: 400;
+    font-size: 14px;
+}
+.chef-menu__edit-dish-button{
+    background-color: #000000;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+     height: 100%;
+}
+.chef-menu__delete-dish-button{
+    background-color: rgb(136, 5, 5);
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    height: 100%;
 }

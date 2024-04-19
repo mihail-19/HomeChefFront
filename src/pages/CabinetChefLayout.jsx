@@ -17,6 +17,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
             console.log('load chef')
             try{
                 const {data} = await getChef()
+                console.log(data)
                 setChef(data)
             } catch (error){
                 console.error('error loading chef')
@@ -62,7 +63,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
             return <ul>
                 <li><Link to="/cabinet/chef-orders" className={showFlags[0] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(0)}>Мої замовлення</Link></li>
                 <li><Link to="chef-profile" className={showFlags[1] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(1)}>Мій профіль</Link></li>
-                <li><Link to="cabinet/chef-menu" className={showFlags[2] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(2)}>Моє меню</Link></li>
+                <li><Link to="chef-menu" className={showFlags[2] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(2)}>Моє меню</Link></li>
                 <li><Link to="/cabinet/reviews" className={showFlags[3] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(3)}>Мої відгуки</Link></li>
                 <li><Link to="/cabinet/usefull" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Корисне</Link></li>
                 <li><Link to="/cabinet/tarif-policy" className={showFlags[5] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(5)}>Тарифний план</Link></li>
