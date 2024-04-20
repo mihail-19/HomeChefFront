@@ -3,6 +3,8 @@ import AddDish from "./AddDish"
 import '../../pages/Cabinet.css'
 import { useOutletContext } from "react-router-dom"
 import serverUrl from "../../serverUrl"
+import imagesUrl from "../../imagesUrl"
+import { removeDish} from "../../services/DishService"
 const CabinetChefMenu = () =>{
     const [showAddDish, setShowAddDish] = useState(false)
     const context = useOutletContext()
@@ -17,7 +19,12 @@ const CabinetChefMenu = () =>{
             setDishes(context.chef.dishes)
         }
     }, [context])
-   
+
+    async function sendRemoveDish(id){
+        console.log('remove dish')
+        await removeDish(id)
+        context.loadChef()
+    }
     return(
         <div className="chef-menu">
             <div className="chef-menu__top">
@@ -32,7 +39,7 @@ const CabinetChefMenu = () =>{
                     {dishes.map(dish => {
                         return <div className="chef-menu__dish">
                             <div className="chef-menu__dish-img">
-                                <img src={serverUrl + dish.imageURL}></img>
+                                <img src={imagesUrl + dish.imageURL}></img>
                                 
                             </div>
                             <div className="chef-menu__dish-info">
@@ -49,7 +56,7 @@ const CabinetChefMenu = () =>{
                                 </div>
                                 <div className="chef-menu__dish-row">
                                     <button className="chef-menu__edit-dish-button">Редагувати</button>
-                                    <button className="chef-menu__delete-dish-button">Видалити</button>
+                                    <button className="chef-menu__delete-dish-button" onClick={() => sendRemoveDish(dish.id)}>Видалити</button>
                                 </div>
                             </div>
                         </div>

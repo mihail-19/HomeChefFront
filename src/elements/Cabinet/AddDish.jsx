@@ -31,8 +31,8 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
         await addDish(dish, image)
         context.loadChef()
         setShowAddDish(false)
-        
     }
+    
 
     function addTag(tagId){
         const tag = tagList.find(t => t.id === tagId)

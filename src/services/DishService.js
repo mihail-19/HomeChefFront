@@ -15,4 +15,12 @@ const addDish = async (dish, imageFile) => {
     return res
 }
 
-export {addDish}
+const removeDish = async (dishId) => {
+    const url = serverUrl + "/dishes/" + dishId
+    const res = axios.delete(url, {
+        withCredentials: true
+    })
+    return res
+}
+
+export {addDish, removeDish}

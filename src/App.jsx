@@ -11,6 +11,7 @@ import CabinetChefLayout from './pages/CabinetChefLayout'
 import CabinetChefProfile from './elements/Cabinet/CabinetChefProfile.jsx'
 import CabinetBecomeChef from './elements/Cabinet/CabinetBecomeChef.jsx'
 import CabinetChefMenu from './elements/Cabinet/CabinetChefMenu.jsx'
+import CabinetAdminAddData from './elements/Cabinet/CabinetAdimAddData.jsx'
 
 function App() {
   console.log('app')
@@ -45,6 +46,7 @@ function App() {
       <Route path="chef-profile" element={<CabinetChefProfile/>}/>
       <Route path="become-chef" element={<CabinetBecomeChef person={person} setPerson={setPerson}/>}/>
       <Route path="chef-menu" element={<CabinetChefMenu/>}/>
+      <Route path="admin-data" element={<CabinetAdminAddData person={person}/>}/>
     </Route>
     
   </Routes>
