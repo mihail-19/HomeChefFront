@@ -40,25 +40,57 @@ const getDishCategories = async () =>{
     return res
 }
 
-const addDishCategory = async (category) =>{
-
+const addDishCategory = async (categoryName) =>{
+    const url = serverUrl + "/common-data/dish-categories"
+    const category = {
+        name: categoryName
+    }
+    const res = axios.post(url, category, {
+        withCredentials: true,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+    )
+    return res
 }
 
-const removeDishCategory = async (category) => {
-
+const removeDishCategory = async (id) => {
+    const url = serverUrl + "/common-data/dish-categories/" + id
+    const res = axios.delete(url, {
+        withCredentials: true
+    })
+    return res
 }
 
 
 const getTags = async () => {
-
+    const url  = serverUrl + "/common-data/tags"
+    const res = axios.get(url)
+    return res
 }
 
-const addTag = async (tag) => {
-
+const addTag = async (tagName) => {
+    const url = serverUrl + "/common-data/tags"
+    const tag = {
+        name: tagName
+    }
+    const res = axios.post(url, tag, {
+        withCredentials: true,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+    )
+    return res
 }
 
-const removeTag = async (tag) => {
-
+const removeTag = async (id) => {
+    const url = serverUrl + "/common-data/tags/" + id
+    const res = axios.delete(url, {
+        withCredentials: true
+    })
+    return res
 }
 
 

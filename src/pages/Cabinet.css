@@ -57,6 +57,8 @@
 }
 .cabinet__content{
     height: 1200px;
+    flex-grow: 1;
+    padding: 0 0 15px 10px;    
 }
 .profile{
     padding: 20px 10px 10px 50px;
@@ -395,7 +397,6 @@
 
 
 .chef-menu{
-    width: 100%;
     padding: 0 20px;
 }
 .chef-menu__dishes{
@@ -474,13 +475,10 @@
 
 .admin-add-data{
     font-family: Montserrat;
-    width: 100%;
 }
 .admin-add-data__segment{
     padding-bottom: 30px;
-    width: 100%;
-    margin-left: 10px;
-    margin-bottom: 20px;
+    margin: 0 20px 50px 20px;
     border-bottom: 1px solid gray;
 }
 .admin-add-data__segment h3{
