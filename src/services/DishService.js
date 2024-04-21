@@ -23,4 +23,10 @@ const removeDish = async (dishId) => {
     return res
 }
 
-export {addDish, removeDish}
+const getAllDishes = async() => {
+    const url = serverUrl + "/dishes"
+    const res = axios.get(url)
+    return res
+}
+
+export {addDish, removeDish, getAllDishes}

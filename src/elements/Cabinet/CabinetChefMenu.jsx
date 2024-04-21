@@ -51,8 +51,13 @@ const CabinetChefMenu = () =>{
                                     <div className="chef-menu__dish-param">Час пригот.: {dish.cookingTime} хв.</div>
                                 </div>
                                 <div className="chef-menu__dish-row">
-                                    <div className="chef-menu__dish-param">Категорія: {dish.dishCategory}</div>
+                                    <div className="chef-menu__dish-param">Категорія: {dish.dishCategory?.name}</div>
                                     <div className="chef-menu__dish-param">{dish.isActive ? "Активна" : "Не активна"}</div>
+                                </div>
+                                <div className="chef-menu__dish-tags">
+                                    Теги: {dish.dishTags?.map(tag => {
+                                        return <div className="add-dish__tag_selected-tags">{tag.name}</div>
+                                    })}
                                 </div>
                                 <div className="chef-menu__dish-row">
                                     <button className="chef-menu__edit-dish-button">Редагувати</button>

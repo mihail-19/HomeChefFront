@@ -4,6 +4,7 @@ import { getChef, updateChef } from '../../services/ChefService'
 import { useOutletContext } from 'react-router-dom'
 import { updateImage } from '../../services/PersonService'
 import serverUrl from '../../serverUrl'
+import imagesUrl from '../../imagesUrl'
 const CabinetMyProfile = () => {
     console.log('cabinet chef profile')
     const [firstName, setFirstName] = useState('')
@@ -28,7 +29,7 @@ const CabinetMyProfile = () => {
             setAddress(context.chef.address)
             setLegalStatusId(0)
             setIsActive(context.chef.isActive)
-            setImageUrl(serverUrl + context.chef.person.imageURL)
+            setImageUrl(imagesUrl + context.chef.person.imageURL)
             console.log(context.chef.person.imageURL)
         }
     }, [context])

@@ -12,6 +12,7 @@ import CabinetChefProfile from './elements/Cabinet/CabinetChefProfile.jsx'
 import CabinetBecomeChef from './elements/Cabinet/CabinetBecomeChef.jsx'
 import CabinetChefMenu from './elements/Cabinet/CabinetChefMenu.jsx'
 import CabinetAdminAddData from './elements/Cabinet/CabinetAdimAddData.jsx'
+import Dishes from './pages/Dishes.jsx'
 
 function App() {
   console.log('app')
@@ -40,7 +41,7 @@ function App() {
   
   <Routes>
     <Route path="/HomeChefFront" element={<Homepage />}/>
-    
+    <Route path="/HomeChefFront/dishes" element={<Dishes/>}/>
 
     <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
       <Route path="chef-profile" element={<CabinetChefProfile/>}/>

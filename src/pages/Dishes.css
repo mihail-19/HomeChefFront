@@ -1,0 +1,148 @@
+.dishes{
+    padding: 0 30px;
+    font-family: Montserrat;
+}
+.dishes h1{
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+.dishes__menu{
+    height: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+.dishes__content{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.dishes__dish{
+    position: relative;
+    width: 350px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    padding-bottom: 10px;
+    flex-shrink: 0;
+}
+.dishes__chef-info{
+    position: absolute;
+    right: 1px;
+    top: 135px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    z-index: 20;
+   
+}
+.dishes__chef-img{
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 1px solid rgb(134, 134, 134);
+    box-shadow: -2px 0px 4px rgb(112, 111, 111);
+}
+.dishes__chef-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.dishes__chef-rating{
+    display: flex;
+    align-items: center;
+    width: 65px;
+    height: 25px;
+    font-size: 10px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    box-shadow: -1px 1px 2px rgb(168, 166, 166);
+    padding: 0 1px 0 4px;
+    gap: 2px;
+}
+.dishes__chef-rating span{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+}
+.dishes__chef-rating img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.dishes__dish-img{
+    height: 180px;
+    border-radius: 15px;
+}
+
+.dishes__dish-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+.dishes__dish-info{
+    padding: 10px;
+}
+.dishes__dish-chef-name{
+    font-weight: 400;
+    font-size: 16px;
+    height: 25px;
+    padding: 5px 0;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+.dishes__dish-name{
+    font-weight: 500;
+    font-size: 14px;
+    height: 25px;
+    overflow: hidden;
+}
+.dishes__dish-description{
+    font-weight: 300;
+    font-size: 14px;
+    padding: 5px 0;
+    height: 50px;
+    overflow: hidden;
+}
+.dishes__dish-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    height: 50px;
+}
+.dish__dish-tag{
+    height: 16px;
+    font-size: 12px;
+    padding: 2px 4px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    cursor: default;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+.dishes__dish-buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.dishes__dish-buttons button, .dishes__dish-buttons a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #BC7BAA;
+    color: #FFFFFF;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    height: 40px;
+    padding: 0 5px;
+    border-radius: 10px;
+
+}

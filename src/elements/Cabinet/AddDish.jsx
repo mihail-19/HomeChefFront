@@ -1,15 +1,16 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import '../../pages/Cabinet.css'
 import dishImg from '../../assets/dishImg.png'
 import questionImg from '../../assets/questionImg.png'
 import closeImg from '../../assets/burgerCloseButton.png'
 import {addDish} from '../../services/DishService'
 import { useOutletContext } from "react-router-dom"
+import { getDishCategories, getTags } from "../../services/DataService"
 const AddDish = ({showAddDish, setShowAddDish}) => {
    console.log(showAddDish)
     const [name, setName] = useState('')
-    const [description, setDescription] = useState('Lorem ipsum dolor sit amet consectetur. Integer dolor faucibus pellentesque dictum turpis scelerisque.')
-    const [ingredients, setIngredients] = useState('Томатна паста, картопля, свинина, сіль, перець, кріп, капуста, буряк')
+    const [description, setDescription] = useState('')
+    const [ingredients, setIngredients] = useState('')
     const [isActive, setIsActive] = useState(true)
     const [cookingTime, setCookingTime] = useState(30)
     const [price, setPrice] = useState(1)
@@ -18,7 +19,29 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
     const [weight, setWeight] = useState(1)
     const [image, setImage] = useState(undefined)
     const context = useOutletContext()
+    const [categoryList, setCategoryList] = useState([
+        
+    ])
+    const [tagList, setTagList] = useState([
+        
+    ])
+    useEffect(() => {
+        loadCategoryList()
+        loadTagList()
+    }, [])
+
+    async function loadCategoryList(){
+        const {data} = await getDishCategories()
+        setCategoryList(data)
+    }
+    async function loadTagList(){
+        const {data} = await getTags()
+        setTagList(data)
+    }
+
     async function sendAddDish(){
+        const dishCategory = categoryList.find(c => Number(categoryId) === c.id)
+      
         const dish = {
             name: name,
             description: description,
@@ -26,7 +49,9 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
             isActive: isActive,
             cookingTime: cookingTime,
             price: price,
-            weight: weight
+            weight: weight,
+            dishCategory: dishCategory,
+            dishTags: tags
         }
         await addDish(dish, image)
         context.loadChef()
@@ -56,21 +81,7 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
             tag
         ])
     }
-    const categoryList = [
-        {id:1, name:'Перші страви'},
-        {id:2, name:'Другі страви'},
-        {id:3, name:'Десерти'},
-        {id:4, name:'Піцца'},
-        {id:5, name:'Закуски'}
-    ]
-    const [tagList, setTagList] = useState([
-        {id:1, name:'Торт'},
-        {id:2, name:'Українська кухня'},
-        {id:3, name:'Азіатська кухня'},
-        {id:4, name:'Європейська кухня'},
-        {id:5, name:'Веган'},
-        {id:6, name:'Глютен фрі'}
-    ])
+    
     return (
         <div className={showAddDish ? "add-dish modal-active" : "add-dish"} onClick={() => setShowAddDish(false)}>
             <div className="add-dish__content" onClick={e => e.stopPropagation()}>
