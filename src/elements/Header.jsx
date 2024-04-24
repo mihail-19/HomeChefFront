@@ -5,7 +5,7 @@ import Auth from './Auth.jsx'
 import './Header.css'
 import citiesOfBuisiness from '../services/citiesOfBuisiness'
 import cityArrow from '../assets/headerCityArrow.png'
-import cart from '../assets/cart.png'
+import cartImg from '../assets/cart.png'
 import burgerMenuIcon from '../assets/burgerMenuIcon.png'
 import burgerCloseButton from '../assets/burgerCloseButton.png'
 import facebookIcon from '../assets/facebookIcon.png'
@@ -13,7 +13,7 @@ import instagramIcon from '../assets/instagramIcon.png'
 import telegramIcon from '../assets/telegramIcon.png'
 import mailIcon from '../assets/mailIcon.png'
 import {logout} from '../services/AuthService.js'
-const Header = ({isAuth, setIsAuth, person, setPerson})=>{
+const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
     const [city, setCity] = useState("Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
@@ -82,9 +82,12 @@ const Header = ({isAuth, setIsAuth, person, setPerson})=>{
                                
                             </div>
                         </li>
-                        <li>
-                            <Link to="/cart" className='header__cart'>
-                                <img src={cart}></img>
+                        <li className='header__cart-container'>
+                            {cart && cart.cartProducts && cart.cartProducts.length > 0 &&
+                                <div className='header__cart-number'>{cart.cartProducts.length}</div>
+                            }
+                            <Link to="/HomeChefFront/cart" className='header__cart'>
+                                <img src={cartImg}></img>
                             </Link>
                         </li>
                     </ul>

@@ -123,6 +123,26 @@
     user-select: none;
   }
   
+  .header__cart-container{
+    position: relative;
+    padding-right: 5px;
+  }
+  .header__cart-number{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    border-radius: 50%;
+    z-index: 20;
+    top: 0;
+    right: 0;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.9;
+  }
+
   .header__auth{
     display: flex;
     gap: 18px;

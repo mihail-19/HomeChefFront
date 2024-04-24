@@ -1,0 +1,111 @@
+.cart{
+    padding-left: 77px;
+    font-family: Montserrat;
+}
+.cart__top{
+
+}
+.cart__products{
+    
+}
+.cart__product{
+    display: flex;
+    margin-bottom: 70px;
+    gap: 30px;
+}
+.cart__product-left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cart__product-img{
+    width: 280px;
+    height: 180px;
+    border-radius: 30px;
+}
+.cart__product-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+
+.cart__product-menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+}
+.cart__product-number-menu{
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    flex-basis: 50%;
+    background-color: #dad8d8;
+    padding: 2px 15px;
+    border-radius: 20px;
+}
+.cart__product-number-menu-button{
+    font-size: 32px;
+    font-weight: 500;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+.cart__product-number{
+    font-size: 16px;
+    font-weight: 400;
+}
+.cart__product-remove-button{
+    width: 35px;
+    height: 35px;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+}
+.cart__product-remove-button img{
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
+
+
+.cart__product-right{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.cart__dish-name{
+    font-size: 30px;
+    font-weight: 600;
+}
+.cart__dish-price{
+    font-size: 30px;
+    font-weight: 600;
+}
+.cart__dish-description{
+    font-size: 20px;
+    font-weight: 300;
+}
+.cart__total-price{
+    font-size: 24px;
+    font-weight: 500;
+}
+.cart__order-button{
+    background-color: #000000;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 22px;
+    width: 250px;
+    height: 51px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+

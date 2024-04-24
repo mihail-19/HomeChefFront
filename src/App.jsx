@@ -13,12 +13,15 @@ import CabinetBecomeChef from './elements/Cabinet/CabinetBecomeChef.jsx'
 import CabinetChefMenu from './elements/Cabinet/CabinetChefMenu.jsx'
 import CabinetAdminAddData from './elements/Cabinet/CabinetAdimAddData.jsx'
 import Dishes from './pages/Dishes.jsx'
-
+import {getCart} from './services/CartService.js'
+import Cart from './pages/Cart.jsx'
 function App() {
   console.log('app')
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
   const [person, setPerson] = useState({})
+  const [cart, setCart] = useState({})
   useEffect(() => {
+    loadCart()
     if(isAuth){
       sendGetPerson()
     }
@@ -36,13 +39,17 @@ function App() {
       console.log(error)
     }
   }
+  const loadCart = async () => {
+    const {data} = await getCart()
+    setCart(data)
+  }
   return<>
-  <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson}/>
+  <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart}/>
   
   <Routes>
     <Route path="/HomeChefFront" element={<Homepage />}/>
-    <Route path="/HomeChefFront/dishes" element={<Dishes/>}/>
-
+    <Route path="/HomeChefFront/dishes" element={<Dishes loadCart={loadCart}/>}/>
+    <Route path="/HomeChefFront/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
     <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
       <Route path="chef-profile" element={<CabinetChefProfile/>}/>
       <Route path="become-chef" element={<CabinetBecomeChef person={person} setPerson={setPerson}/>}/>

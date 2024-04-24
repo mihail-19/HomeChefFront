@@ -5,7 +5,8 @@ import imagesUrl from "../imagesUrl"
 import emptyDishIconImg from '../assets/dishImg.png'
 import rankingIcon from '../assets/rankingIcon.png'
 import './Dishes.css'
-const Dishes = () => {
+import { addDishToCart } from "../services/CartService"
+const Dishes = ({loadCart}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
     useEffect(() => {
@@ -16,6 +17,12 @@ const Dishes = () => {
         setDishes(data)
         setLoading(false)
     }
+
+    async function sendAddToCart(dish){
+        await addDishToCart(dish)
+        loadCart()
+    }
+
     if(loading){
         return <div className="dishes">Завантажуємо...</div>
     }
@@ -47,7 +54,7 @@ const Dishes = () => {
                                 })}
                             </div>
                             <div className="dishes__dish-buttons">
-                                <button>Додати у кошик</button>
+                                <button onClick={() => sendAddToCart(dish)}>Додати у кошик</button>
                                 <Link to={"/HomeChefFront/chefs/" + dish.chef.id + "/dishes"}>Інші страви шефа</Link>
                             </div>
                         </div>
