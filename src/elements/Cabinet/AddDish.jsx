@@ -95,7 +95,7 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
 
                         <div className="add-dish__photo">
                             <div className="add-dish__image">
-                                <img src={dishImg}></img>
+                                <img src={image ? URL.createObjectURL(image) : dishImg}></img>
                             </div>
                             <button className="add-dish__add-photo-button" onClick={() => document.getElementById('imageInput').click()}>Додати фото</button>
                             <input id="imageInput" type="file"  onChange={e => setImage(e.target.files[0])} ></input>

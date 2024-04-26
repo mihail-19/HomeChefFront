@@ -12,6 +12,9 @@ import facebookIcon from '../assets/facebookIcon.png'
 import instagramIcon from '../assets/instagramIcon.png'
 import telegramIcon from '../assets/telegramIcon.png'
 import mailIcon from '../assets/mailIcon.png'
+import userMenuIcon from '../assets/user.png'
+import homeChefLogo from '../assets/HomeChefLogo.png'
+import imageUrl from '../imagesUrl.js'
 import {logout} from '../services/AuthService.js'
 const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
     const [city, setCity] = useState("Місто")
@@ -52,7 +55,9 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
     }
     return (
         <div className='header'>
-                <div className='header__logo'>Home<br/> Chef</div>
+                <Link to="/HomeChefFront" className='header__logo'>
+                    <img src={homeChefLogo}></img>
+                </Link>
                 <div className='header__search'>
                     <input type="text" placeholder='Знайти за назвою страви'></input>
                     <button className='header__search-button'>Знайти</button>
@@ -60,7 +65,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                 <nav className='header__nav'>
                     <ul className='header__menu'>
                         <li className='header__menu-item'>
-                            <Link to='/dishes' className='header__menu-link header__menu-link_catalog'>Страви</Link>
+                            <Link to='/HomeChefFront/dishes' className='header__menu-link header__menu-link_catalog'>Страви</Link>
                         </li>
                         <li className='header__menu-item'>
                             <Link to='/about-us' className='header__menu-link'>Про нас</Link>
@@ -105,8 +110,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                 }
                 {isAuth &&
                     <div className='header__auth'>
-                        <div className='header__username'>{person && person.username}</div>
-                        <button to='/register' className='header__logout-button' onClick={sendLogout}>Вийти</button>
+                        <UserMenu/>
                     </div>
                 }
                 {showBurger && <div className='burger__shadow-in-burger-menu' onClick={switchShowBurger}></div>}
@@ -122,10 +126,15 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                                 <img src={burgerCloseButton}></img>
                             </div>
                         </div>
-                        <div className='header__burger-menu-auth'>
-                            <Link to='/login' className='header__burger-menu-signin'>Вхід</Link>
-                            <Link to='/register' className='header__burger-menu-register'>Реєстрація</Link>
-                        </div>
+                        {!isAuth &&
+                            <div className='header__burger-menu-auth'>
+                                <button className='header__burger-menu-signin' onClick={switchShowAuthWindow}>Вхід</button>
+                                <button className='header__burger-menu-register' onClick={switchShowRegisterWindow}>Реєстрація</button>
+                            </div>
+                        }
+                        {isAuth &&
+                            <div className='header__burger-menu-auth'>{person.username}</div>
+                        }
                         <nav className='header__burger-menu-nav'>
                             <ul>
                                 <li>
@@ -133,9 +142,15 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                                         <img src={cart}></img>
                                     </Link>
                                 </li>
+                                
                                 <li className='header__burger-menu-nav-item'>
                                     <Link to='/dishes' className='header__burger-menu-link header__burger-menu-link_catalog'>Страви</Link>
                                 </li>
+                                {isAuth &&
+                                    <li className='header__burger-menu-nav-item'>
+                                        <Link to='/HomeChefFront/cabinet' className='header__burger-menu-link'>Кабінет</Link>
+                                    </li>
+                                }
                                 <li className='header__burger-menu-nav-item header__burger-menu-cities' onClick={switchShowCities}>
                                     <div >{city}</div>
                                     <div >
@@ -150,6 +165,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                                     }
                                     
                                 </li>
+                                
                                 <li className='header__burger-menu-nav-item'>
                                     <Link to='/about-us' className='header__burger-menu-link'>Про нас</Link>
                                 </li>
@@ -187,5 +203,31 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
         </div>
         
     )
+
+    function UserMenu(){
+        const [showUserMenu, setShowUserMenu] = useState(false)
+        
+        return(
+            <div className='header__user-menu-icon' onClick={() => {if(!showUserMenu) setShowUserMenu(true)}}>
+                <img src={person.imageUrl ? imageUrl + person.imageUrl : userMenuIcon}></img>
+                    <div className={showUserMenu ? 'header__user-menu header__display-block' : 'header__user-menu'}>
+                        <div className='header__user-menu-top' >
+                            <img src={burgerCloseButton} onClick={() => setShowUserMenu(false)}></img>
+                        </div>
+                        <div className='header__user-menu-username'>{person && person.username}</div>
+                        <div className='header__user-menu-nav'>
+                            <Link to="/HomeChefFront/cabinet">Кабінет</Link>
+                            
+                        </div>  
+                        <button to='/register' className='header__logout-button' onClick={sendLogout}>Вийти</button>
+                    </div>
+                
+            </div>
+            
+        )
+    }
 }
+
+
+
 export default Header

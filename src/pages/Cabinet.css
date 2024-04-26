@@ -399,6 +399,16 @@
 .chef-menu{
     padding: 0 20px;
 }
+.chef-menu__add-dish-button{
+    font-family: Montserrat;
+    font-size: 20px;
+    margin: 20px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    padding: 10px;
+    cursor: pointer;
+}
+
 .chef-menu__dishes{
     width: 100%;
     display: flex;

@@ -10,12 +10,22 @@
     
   }
   .header__logo{
-    width: 164px;
-    font-family: Poiret One, sans-serif;
-    font-weight: 400;
-    font-size: 1.67vw;
-    line-height: 2.19vw;
+    width: 100px;
+    height: 100px;
   }
+  .header__logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media(max-width: 700px){
+    .header__logo{
+      width: 60px;
+      height: 60px;
+    }
+  }
+
   .header__search{
     display: flex;
     align-items: center;
@@ -122,7 +132,16 @@
     margin-left: 10px;
     user-select: none;
   }
-  
+  .header__cart{
+    display: block;
+    width: 30px;
+    height: 30px;
+  }
+  .header__cart img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .header__cart-container{
     position: relative;
     padding-right: 5px;
@@ -134,8 +153,8 @@
     background-color: red;
     border-radius: 50%;
     z-index: 20;
-    top: 0;
-    right: 0;
+    top: -5px;
+    right: -5px;
     font-size: 10px;
     display: flex;
     justify-content: center;
@@ -211,7 +230,7 @@
     left: 0;
     width: 100vw;
     height: 100%;
-    z-index: 70;
+    z-index: 10;
     background-color: #1c2220;
     opacity: 0.4;
   }
@@ -224,7 +243,7 @@
     right: 0;
     width: 90%;
     background-color: rgb(255, 255, 255);
-    z-index: 100;
+    z-index: 20;
     max-height: 100%;
     overflow-y: scroll;
   }
@@ -384,3 +403,69 @@
       object-fit: cover;
     }
   }
+
+  .header__user-menu-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .header__user-menu-icon img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .header__user-menu{
+    position: absolute;
+    right: 0;
+    top: 15px;
+    width: 250px;
+    font-family: Montserrat;
+    background-color: rgb(189, 199, 193);
+    z-index: 10;
+    padding: 10px 20px 20px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    display: none;
+  }
+  .header__user-menu-username{
+    font-size: 22px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
+    font-weight: 700;
+  }
+  .header__user-menu-nav{
+    margin-top: 40px;
+    margin-bottom: 80px;
+  }
+  .header__user-menu-nav a{
+    text-decoration: underline;
+    color: black;
+    margin-bottom: 15px;
+    display: block;
+    cursor: pointer;
+  }
+  .header__user-menu button{
+    border: 1px solid gray;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .header__user-menu-top{
+    height: 15px;
+    display: flex;
+    justify-content: right;
+  }
+  .header__user-menu-top img{
+    height: 100%;
+    width: 15px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .header__display-block{
+    display: block;
+  }
+  

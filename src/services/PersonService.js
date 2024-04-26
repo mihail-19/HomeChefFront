@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const serverUrl = 'http://localhost:8080'
+import serverUrl from "../serverUrl"
 const  getPerson = async () =>{
     const url = serverUrl + '/person/data'
     const res = axios.get(url, {

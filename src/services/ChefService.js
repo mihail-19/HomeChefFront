@@ -1,5 +1,5 @@
 import axios from "axios"
-const serverUrl = 'http://localhost:8080'
+import serverUrl from "../serverUrl"
 const getChef = async () => {
     const url = serverUrl + '/chefs/my-data'
     return axios.get(url, {

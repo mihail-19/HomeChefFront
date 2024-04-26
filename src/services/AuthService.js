@@ -1,5 +1,5 @@
 import axios from "axios"
-const serverUrl = 'http://localhost:8080'
+import serverUrl from "../serverUrl"
 function register(email, password){
     console.log('register user')
     const url = serverUrl + '/register'
