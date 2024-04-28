@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import './AddDish.css'
-import dishImg from '../../assets/dishImg.png'
+import defaultDishImg from '../../assets/dishImg.png'
 import questionImg from '../../assets/questionImg.png'
 import closeImg from '../../assets/burgerCloseButton.png'
 import { getDish, updateDish } from '../../services/DishService'
@@ -9,7 +9,10 @@ import { getDishCategories, getTags } from "../../services/DataService"
 import Snackbar from "../utility/Snackbar"
 import ModalCenter from '../utility/ModalCenter'
 import Loading from "../utility/Loading"
-const AddDish = ({showUpdateDish, setShowUpdateDish, dishId}) => {
+import imagesUrl from "../../imagesUrl"
+const AddDish = ({showUpdateDish, setShowUpdateDish, dish}) => {
+    console.log('update dish')
+    console.log(dish)
     const [isLoading, setIsLoading] = useState(true)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
@@ -24,27 +27,34 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dishId}) => {
     const context = useOutletContext()
     const [categoryList, setCategoryList] = useState([])
     const [tagList, setTagList] = useState([])
-    const [dish, setDish] = useState({})
+    const [dishImg, setDishImg] = useState(undefined)
     const snackbarRef = useRef(null)
     useEffect(() => {
-        loadDish()
-        loadCategoryList()
-        loadTagList()
-        setIsLoading(false)
-    }, [])
+       if(showUpdateDish){
+            loadCategoryList()
+            loadTagList()
+            loadDish()
+            setIsLoading(false)
+       }
+    }, [showUpdateDish])
 
-    async function loadDish(){
-        const {data} = getDish(dishId)
-        setDish(data)
-        setName(data.name)
-        setDescription(data.description)
-        setIngredients(data.ingredients)
-        setIsActive(data.isActive)
-        setCookingTime(data.cookingTime)
-        setPrice(data.price)
-        setCatehoryId(data.category.id)
-        setTags(data.tags)
-        setWeight(data.weight)
+    function loadDish(){
+        setName(dish.name)
+        setDescription(dish.description)
+        setIngredients(dish.ingredients)
+        setIsActive(dish.isActive)
+        setCookingTime(dish.cookingTime)
+        setPrice(dish.price)
+        setCatehoryId(dish.dishCategory.id)
+        setTags(dish.dishTags)
+        setWeight(dish.weight)
+        if(dish.imageURL){
+            setDishImg(imagesUrl + dish.imageURL)
+        } else {
+            setDishImg(defaultDishImg)
+        }
+        console.log(dishImg)
+        console.log(image)
     }
     async function loadCategoryList(){
         const {data} = await getDishCategories()
@@ -66,7 +76,7 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dishId}) => {
         dish.price = price
         dish.weight = weight
         dish.dishCategory = dishCategory
-        dish.tags = tags
+        dish.dishTags = tags
         try{
             await update(dish, image)
             snackbarRef.current.show('Дані оновлено', false)
@@ -102,9 +112,11 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dishId}) => {
             tag
         ])
     }
-    
+    if(!showUpdateDish){
+        return <></>
+    }
     return (
-        <ModalCenter isActive={showAddDish} setIsActive={setShowAddDish} content={windowContent()}/>
+        <ModalCenter isActive={showUpdateDish} setIsActive={setShowUpdateDish} content={windowContent()}/>
     )
     function windowContent(){
         return <div className="add-dish__inner">
@@ -228,7 +240,7 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dishId}) => {
                     </div>
 
                     <div className="add-dish__bottom">
-                        <button className="add-dish__save-button" onClick={sendAddDish}>Зберегти</button>
+                        <button className="add-dish__save-button" onClick={sendUpdateDish}>Зберегти</button>
                     </div>
 
                 </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import AddDish from "./AddDish"
+import UpdateDish from './UpdateDish'
 import '../../pages/Cabinet.css'
 import { useOutletContext } from "react-router-dom"
 import serverUrl from "../../serverUrl"
@@ -9,6 +10,7 @@ const CabinetChefMenu = () =>{
     const [showAddDish, setShowAddDish] = useState(false)
     const context = useOutletContext()
     const [dishes, setDishes] = useState([])
+    const [showUpdateDish, setShowUpdateDish] = useState(false)
     function openAddDishWindow(){
         setShowAddDish(true)
     }
@@ -34,11 +36,13 @@ const CabinetChefMenu = () =>{
                     </div>
                     <button className="chef-menu__add-dish-button" onClick={openAddDishWindow}>Додати страву</button>
                     <AddDish showAddDish={showAddDish} setShowAddDish={setShowAddDish}/>
+                    
                 </div>
                 <div className="chef-menu__dishes">
                     {dishes.map(dish => {
                         return <div className="chef-menu__dish">
-                            <div className="chef-menu__dish-img">
+                            <UpdateDish showUpdateDish={showUpdateDish} setShowUpdateDish={setShowUpdateDish} dish={dish}/>
+                            <div className="chef-menu__dish-img" >
                                 <img src={imagesUrl + dish.imageURL}></img>
                                 
                             </div>
@@ -60,7 +64,7 @@ const CabinetChefMenu = () =>{
                                     })}
                                 </div>
                                 <div className="chef-menu__dish-row">
-                                    <button className="chef-menu__edit-dish-button">Редагувати</button>
+                                    <button className="chef-menu__edit-dish-button" onClick={() => {if(!showUpdateDish) setShowUpdateDish(true)}}>Редагувати</button>
                                     <button className="chef-menu__delete-dish-button" onClick={() => sendRemoveDish(dish.id)}>Видалити</button>
                                 </div>
                             </div>
