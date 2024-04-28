@@ -29,4 +29,16 @@ const getAllDishes = async() => {
     return res
 }
 
-export {addDish, removeDish, getAllDishes}
+const getDish = async (id) => {
+    const url = serverUrl + "/dishes/" + id
+    const res = axios.get(url, {withCredentials:true})
+    return res
+}
+
+const updateDish = async (dish) => {
+    const url = serverUrl + "/dishes/" + dish.id
+    const res = axios.post(url, dish, {withCredentials:true})
+    return res
+}
+
+export {addDish, removeDish, getAllDishes, getDish, updateDish}

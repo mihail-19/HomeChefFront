@@ -6,6 +6,7 @@ import emptyDishIconImg from '../assets/dishImg.png'
 import rankingIcon from '../assets/rankingIcon.png'
 import './Dishes.css'
 import { addDishToCart } from "../services/CartService"
+import Loading from "../elements/utility/Loading"
 const Dishes = ({loadCart}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
@@ -13,21 +14,23 @@ const Dishes = ({loadCart}) => {
         loadDishes()
     }, [])
     async function loadDishes(){
+        setLoading(true)
         const {data} = await getAllDishes()
         setDishes(data)
         setLoading(false)
     }
 
     async function sendAddToCart(dish){
+        setLoading(true)
         await addDishToCart(dish)
         loadCart()
+        setLoading(false)
     }
 
-    if(loading){
-        return <div className="dishes">Завантажуємо...</div>
-    }
+   
     return (
         <div className="dishes">
+            <Loading isActive={loading} seIsActive={setLoading}/>
             <h1>Страви</h1>
             <div className="dishes__menu"></div>
             <div className="dishes__content">

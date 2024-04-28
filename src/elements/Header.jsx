@@ -133,13 +133,17 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                             </div>
                         }
                         {isAuth &&
-                            <div className='header__burger-menu-auth'>{person.username}</div>
+                            <div className='header__burger-menu-auth'>
+                                {person.username}
+                                <button to='/register' className='header__logout-button' onClick={sendLogout}>Вийти</button>
+                            </div>
+                            
                         }
                         <nav className='header__burger-menu-nav'>
                             <ul>
                                 <li>
-                                    <Link to="/cart" className='header__cart'>
-                                        <img src={cart}></img>
+                                    <Link to="/HomeChefFront/cart" className='header__cart'>
+                                        <img src={cartImg}></img>
                                     </Link>
                                 </li>
                                 
@@ -198,8 +202,8 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                         </nav>
                     </div>
                 }
-                {showRegisterWindow && <Register setShowRegisterWindow={setShowRegisterWindow} />}
-                {showAuthWindow && <Auth setShowAuthWindow={setShowAuthWindow} setIsAuth={setIsAuth} setPerson={setPerson}/>}
+                {showRegisterWindow && <Register showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} />}
+                {showAuthWindow && <Auth showAuthWindow={showAuthWindow} setShowAuthWindow={setShowAuthWindow} setIsAuth={setIsAuth} setPerson={setPerson}/>}
         </div>
         
     )
@@ -216,7 +220,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                         </div>
                         <div className='header__user-menu-username'>{person && person.username}</div>
                         <div className='header__user-menu-nav'>
-                            <Link to="/HomeChefFront/cabinet">Кабінет</Link>
+                            <Link to="/HomeChefFront/cabinet" onClick={() => setShowUserMenu(false)}>Кабінет</Link>
                             
                         </div>  
                         <button to='/register' className='header__logout-button' onClick={sendLogout}>Вийти</button>

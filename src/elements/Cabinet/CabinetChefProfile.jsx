@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import defaultChefImage from '../../assets/registerLogo.png'
 import { getChef, updateChef } from '../../services/ChefService'
 import { useOutletContext } from 'react-router-dom'
 import { updateImage } from '../../services/PersonService'
+import Snackbar from '../utility/Snackbar'
+import Loading from '../utility/Loading'
 import serverUrl from '../../serverUrl'
 import imagesUrl from '../../imagesUrl'
 const CabinetMyProfile = () => {
-    console.log('cabinet chef profile')
+    const [isLoading, setIsLoading] = useState(true)
     const [firstName, setFirstName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
@@ -17,6 +19,9 @@ const CabinetMyProfile = () => {
     const [isActive, setIsActive] = useState(false)
     const [image, setImage] = useState(undefined)
     const [imageUrl, setImageUrl] = useState(defaultChefImage)
+
+    const snackbarRef = useRef(null)
+
     const context = useOutletContext()
     useEffect(() =>{
         console.log('use effect')
@@ -30,7 +35,7 @@ const CabinetMyProfile = () => {
             setLegalStatusId(0)
             setIsActive(context.chef.isActive)
             setImageUrl(imagesUrl + context.chef.person.imageURL)
-            console.log(context.chef.person.imageURL)
+            setIsLoading(false)
         }
     }, [context])
     let profileData = 
@@ -75,19 +80,33 @@ const CabinetMyProfile = () => {
                 email: email
             }            
         }
-        await updateChef(chef)
-        if(image){
-            await updateImage(image)
+        setIsLoading(true)
+        try{
+            await updateChef(chef)
+            if(image){
+                await updateImage(image)
+            }
+            snackbarRef.current.show('Дані оновлено', false)
+            context.loadChef()
+        } catch(error){
+            snackbarRef.current.show('Сталася помилка', true)
+        } finally{
+            setIsLoading(false)
         }
-        setImageUrl(defaultChefImage)
-        context.loadChef()
      }
        
     return (
         <div className="profile">
+            <Loading isActive={isLoading} setIsActive={setIsLoading}/>
+            <Snackbar ref={snackbarRef}/>
             <div className="profile__top">
                 <div className="profile__user-image">
-                   <img src={imageUrl}></img>
+                    {!image && 
+                        <img src={imageUrl}></img>
+                    }
+                    {image && 
+                        <img src={URL.createObjectURL(image)}></img>
+                    }
                 </div>
                 <div className='profile__id'>{context.chef.person.username} #{context.chef.id}</div>
             </div>

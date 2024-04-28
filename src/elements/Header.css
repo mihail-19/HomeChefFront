@@ -213,7 +213,7 @@
     justify-content: center;
     font-family: Roboto Light;
     font-weight: 300;
-    font-size: 1vw;
+    font-size: 14px;
     color: #FFFFFF;
     text-decoration: none;
     padding: 0 10px;
@@ -417,7 +417,7 @@
     border-radius: 50%;
   }
   .header__user-menu{
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 15px;
     width: 250px;
@@ -428,6 +428,7 @@
     font-size: 18px;
     border-radius: 10px;
     display: none;
+    cursor: default;
   }
   .header__user-menu-username{
     font-size: 22px;

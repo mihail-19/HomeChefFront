@@ -3,14 +3,14 @@ import './AddDish.css'
 import dishImg from '../../assets/dishImg.png'
 import questionImg from '../../assets/questionImg.png'
 import closeImg from '../../assets/burgerCloseButton.png'
-import {addDish} from '../../services/DishService'
+import { getDish, updateDish } from '../../services/DishService'
 import { useOutletContext } from "react-router-dom"
 import { getDishCategories, getTags } from "../../services/DataService"
 import Snackbar from "../utility/Snackbar"
 import ModalCenter from '../utility/ModalCenter'
 import Loading from "../utility/Loading"
-const AddDish = ({showAddDish, setShowAddDish}) => {
-    const [isLoading, setIsLoading] = useState(false)
+const AddDish = ({showUpdateDish, setShowUpdateDish, dishId}) => {
+    const [isLoading, setIsLoading] = useState(true)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [ingredients, setIngredients] = useState('')
@@ -22,19 +22,30 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
     const [weight, setWeight] = useState(1)
     const [image, setImage] = useState(undefined)
     const context = useOutletContext()
-    const [categoryList, setCategoryList] = useState([
-        
-    ])
-    const [tagList, setTagList] = useState([
-        
-    ])
-
+    const [categoryList, setCategoryList] = useState([])
+    const [tagList, setTagList] = useState([])
+    const [dish, setDish] = useState({})
     const snackbarRef = useRef(null)
     useEffect(() => {
+        loadDish()
         loadCategoryList()
         loadTagList()
+        setIsLoading(false)
     }, [])
 
+    async function loadDish(){
+        const {data} = getDish(dishId)
+        setDish(data)
+        setName(data.name)
+        setDescription(data.description)
+        setIngredients(data.ingredients)
+        setIsActive(data.isActive)
+        setCookingTime(data.cookingTime)
+        setPrice(data.price)
+        setCatehoryId(data.category.id)
+        setTags(data.tags)
+        setWeight(data.weight)
+    }
     async function loadCategoryList(){
         const {data} = await getDishCategories()
         setCategoryList(data)
@@ -44,24 +55,21 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
         setTagList(data)
     }
 
-    async function sendAddDish(){
-        const dishCategory = categoryList.find(c => Number(categoryId) === c.id)
-      
-        const dish = {
-            name: name,
-            description: description,
-            ingredients: ingredients,
-            isActive: isActive,
-            cookingTime: cookingTime,
-            price: price,
-            weight: weight,
-            dishCategory: dishCategory,
-            dishTags: tags
-        }
+    async function sendUpdateDish(){
         setIsLoading(true)
+        const dishCategory = categoryList.find(c => Number(categoryId) === c.id)
+        dish.name = name
+        dish.description = description
+        dish.ingredients = ingredients
+        dish.isActive = isActive
+        dish.cookingTime = cookingTime
+        dish.price = price
+        dish.weight = weight
+        dish.dishCategory = dishCategory
+        dish.tags = tags
         try{
-            await addDish(dish, image)
-            snackbarRef.current.show('Додано страву', false)
+            await update(dish, image)
+            snackbarRef.current.show('Дані оновлено', false)
             context.loadChef()
             setShowAddDish(false)
         } catch(error){

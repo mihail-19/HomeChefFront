@@ -1,21 +1,9 @@
 .register{
-    position: fixed;
-    top: 159px;
-    left: 50%;
-    transform: translate(-50%, -0%);
-    z-index: 70;
     width: 850px;
-    border-radius: 20px;
     font-family: Montserrat;
     background-color: white;
-    border: 1px solid black;
+    
 }
-.register__top{
-    display: flex;
-    justify-content: end;
-    padding: 15px 18px 0 0;
-}
-
 
 .register__close-button{
     width: 20px;

@@ -1,0 +1,17 @@
+.loading{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 50vw;
+    height: 64px;
+    width: 64px;
+    pointer-events: none;
+}
+.loading_active{
+    display: block;
+}
+.loading img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
