@@ -35,9 +35,17 @@ const getDish = async (id) => {
     return res
 }
 
-const updateDish = async (dish) => {
-    const url = serverUrl + "/dishes/" + dish.id
-    const res = axios.post(url, dish, {withCredentials:true})
+const updateDish = async (id, dish, imageFile) => {
+    const url = serverUrl + "/dishes/" + id
+    const formData = new FormData()
+    formData.append("dish", JSON.stringify(dish))
+    formData.append("file", imageFile)
+    const res = axios.post(url, formData, {
+        withCredentials: true,
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+    })
     return res
 }
 

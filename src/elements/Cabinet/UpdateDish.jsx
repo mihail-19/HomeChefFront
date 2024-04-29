@@ -11,8 +11,6 @@ import ModalCenter from '../utility/ModalCenter'
 import Loading from "../utility/Loading"
 import imagesUrl from "../../imagesUrl"
 const AddDish = ({showUpdateDish, setShowUpdateDish, dish}) => {
-    console.log('update dish')
-    console.log(dish)
     const [isLoading, setIsLoading] = useState(true)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
@@ -38,6 +36,11 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dish}) => {
        }
     }, [showUpdateDish])
 
+
+    useEffect(() => {
+        console.log(image)
+    }, image)
+
     function loadDish(){
         setName(dish.name)
         setDescription(dish.description)
@@ -53,8 +56,6 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dish}) => {
         } else {
             setDishImg(defaultDishImg)
         }
-        console.log(dishImg)
-        console.log(image)
     }
     async function loadCategoryList(){
         const {data} = await getDishCategories()
@@ -62,27 +63,34 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dish}) => {
     }
     async function loadTagList(){
         const {data} = await getTags()
-        setTagList(data)
+        
+        setTagList(data.filter(t => !dish.dishTags.find(dt => dt.id == t.id)))
     }
 
     async function sendUpdateDish(){
         setIsLoading(true)
         const dishCategory = categoryList.find(c => Number(categoryId) === c.id)
-        dish.name = name
-        dish.description = description
-        dish.ingredients = ingredients
-        dish.isActive = isActive
-        dish.cookingTime = cookingTime
-        dish.price = price
-        dish.weight = weight
-        dish.dishCategory = dishCategory
-        dish.dishTags = tags
+        const newDish = {
+            id: dish.id,
+            name : name,
+            description : description,
+            ingredients : ingredients,
+            isActive : isActive,
+            cookingTime : cookingTime,
+            price : price,
+            weight : weight,
+            dishCategory : dishCategory,
+            dishTags : tags
+        }
         try{
-            await update(dish, image)
+            await updateDish(newDish.id, newDish, image)
             snackbarRef.current.show('Дані оновлено', false)
             context.loadChef()
-            setShowAddDish(false)
+            setShowUpdateDish(false)
+            dish.imageURL = undefined
         } catch(error){
+            console.log('error while updating')
+            console.log(error)
             snackbarRef.current.show('Помилка', true)
         } finally{
             setIsLoading(false)
@@ -118,6 +126,8 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dish}) => {
     return (
         <ModalCenter isActive={showUpdateDish} setIsActive={setShowUpdateDish} content={windowContent()}/>
     )
+
+
     function windowContent(){
         return <div className="add-dish__inner">
                 <Loading isActive={isLoading} setIsActive={setIsLoading}/>
@@ -128,8 +138,8 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dish}) => {
                             <div className="add-dish__image">
                                 <img src={image ? URL.createObjectURL(image) : dishImg}></img>
                             </div>
-                            <button className="add-dish__add-photo-button" onClick={() => document.getElementById('imageInput').click()}>Додати фото</button>
-                            <input id="imageInput" type="file"  onChange={e => setImage(e.target.files[0])} ></input>
+                            <button className="add-dish__add-photo-button" onClick={() => document.getElementById('dishUpdateimageInput').click()}>Додати фото</button>
+                            <input id="dishUpdateimageInput" type="file"  onChange={e => setImage(e.target.files[0])} ></input>
                         </div>
 
                         <div className="add-dish__top-column">
