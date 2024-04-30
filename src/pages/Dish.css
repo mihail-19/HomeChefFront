@@ -1,0 +1,87 @@
+.dish{
+    font-family: Montserrat;
+}
+
+.dish h1{
+
+} 
+.dish h2{
+
+} 
+.dish h3{
+
+}
+
+.dish__main-content{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.dish__left{
+    width: 35%;
+}
+.dish__img{
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 20px;
+}
+.dish__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+.dish__chef{
+
+}
+.dish__chef-top{
+
+}
+.dish__chef-img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+.dish__chef-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.dish__chef-name{
+
+}
+.dish__chef-rank{
+
+}
+.dish__chef-dishes-button{
+
+}
+
+
+
+.dish__right{
+    width: 50%;
+}
+
+.dish__dish-menu{
+
+}
+.dish__price{
+
+}
+.dish__weight{
+
+}
+.dish__buy-button{
+
+}
+.dish__desription{
+
+}
+.dish__ingredients{
+
+}
+.dish__dishes{
+
+}
