@@ -267,8 +267,6 @@ function Homepage() {
       </div>
     
     
-      <Footer/>
-
     </>
     
   )

@@ -49,4 +49,11 @@ const updateDish = async (id, dish, imageFile) => {
     return res
 }
 
-export {addDish, removeDish, getAllDishes, getDish, updateDish}
+const getDishesForChef = async (chefId) => {
+    const url = serverUrl + "/dishes/for-chef"
+    const params = new URLSearchParams([['chefId', chefId]])
+    const res = axios.get(url, {params}, {withCredentials:true})
+    return res 
+}
+
+export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef}

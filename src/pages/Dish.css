@@ -3,36 +3,54 @@
 }
 
 .dish h1{
-
+    font-weight: 700;
+    font-size: 24px;
+    margin: 0;
 } 
 .dish h2{
-
 } 
 .dish h3{
-
+    font-weight: 500;
+    margin: 10px 0 0 0;
 }
 
 .dish__main-content{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 120px;
     gap: 20px;
 }
+
+
+
 .dish__left{
-    width: 35%;
+    width: 500px;
+    flex-shrink: 0;
 }
+
 .dish__img{
     width: 100%;
     aspect-ratio: 16/9;
     border-radius: 20px;
 }
+
 .dish__img img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 20px;
 }
-.dish__chef{
 
+.dish__chef-container{
+    display: flex;
+    justify-content: left;
+    padding-top: 20px;
+}
+.dish__chef{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .dish__chef-top{
 
@@ -55,33 +73,89 @@
 
 }
 .dish__chef-dishes-button{
-
+    background-color: #BC7BAA;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 15px;
+    text-decoration: none;
+    display: block;
 }
 
 
 
 .dish__right{
-    width: 50%;
+    width: 850px;
 }
 
 .dish__dish-menu{
-
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 40px 0;
 }
 .dish__price{
-
+    background-color: #88A69D;
+    color: white;
+    border-radius: 15px;
+    padding: 4px 10px;
+    font-weight: 500;
+    font-family: Roboto;
+    font-size: 24px;
+    text-align: center;
 }
 .dish__weight{
 
 }
 .dish__buy-button{
-
+    background-color: #BC7BAA;
+    color: white;
+    padding: 8px;
+    font-size: 24px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
 }
-.dish__desription{
 
+
+.dish__desription{
+    margin: 20px 0 40px 0;
+    font-weight: 300;
 }
 .dish__ingredients{
-
+    margin-top: 10px;
+    font-weight: 300;
+    font-size: 16px;
+}
+.dish__chef-dishes-container{
+    margin: 20px 0 80px 20px;
 }
 .dish__dishes{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+   
+}
 
+@media(max-width: 800px){
+    .dish__main-content{
+        flex-direction: column;
+        align-items: center;
+    }
+    .dish__left{
+        display: flex;
+        width: 95%;
+        justify-content: space-around;
+        align-items: center;
+        gap: 10px;
+    }
+    .dish__img{
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+    }
+    .dish__right{
+        width: 100%;
+    }
 }
