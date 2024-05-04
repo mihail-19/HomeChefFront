@@ -171,6 +171,9 @@
     cursor: pointer;
 }
 
+.profile__locality-container{
+    position: relative;
+}
 
 
 

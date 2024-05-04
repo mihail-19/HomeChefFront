@@ -1,0 +1,20 @@
+.locality-list{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    background-color: white;
+    z-index: 80;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.locality-list button{
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    padding: 2px;
+    text-align: left;
+}
+.locality-list_active{
+    display: block;
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { getChef, registerChef } from '../../services/ChefService'
 import { getPerson } from '../../services/PersonService'
+import LocalityList from '../LocalityList'
 
 const CabinetMyProfile = ({person, setPerson}) => {
     let cityList = 
@@ -18,6 +19,9 @@ const CabinetMyProfile = ({person, setPerson}) => {
     const [email, setEmail] = useState(person.email)
     const [phone, setPhone] = useState('')
     const [cityId, setCityId] = useState(person.city ? profileData.city.id : null)
+    const [cityName, setCityName] = useState('')
+    const [locality, setLocality] = useState({})
+    const [isActiveLocality, setIsActiveLocality] = useState(false)
     const [description, setDecription] = useState('')
     const [address, setAddress] = useState('')
     const [legalStatusId, setLegalStatusId] = useState(1)
@@ -36,6 +40,20 @@ const CabinetMyProfile = ({person, setPerson}) => {
         const res = await getPerson()
         setPerson(res.data)
     }
+
+    function searchCity(name){
+        setCityName(name)
+        if(name.length > 2){
+            setIsActiveLocality(true)
+        } else {
+            setIsActiveLocality(false)
+        }
+    }
+    function setLocalityAndName(locality){
+        //todo chef profile city change to locality
+        setCityName(locality.name)
+    }
+
     return (
         <div className="profile">
             <div className="profile__top">
@@ -80,12 +98,12 @@ const CabinetMyProfile = ({person, setPerson}) => {
                             <label className='profile__info-tag'>
                                 Місто 
                             </label>
-                            <select value={cityId} onChange={e => setCityId(e.target.value)}>
-                                {cityList.map(c => {
-                                    return <option value={c.id}>{c.name}</option>
-                                })}
-                            </select> 
+                            <input type="text" className='profile__info-input' value={cityName} onChange={e => searchCity(e.target.value)}></input>
+                            <div className='profile__locality-container'>
+                                <LocalityList isActive={isActiveLocality} setIsActive={setIsActiveLocality} setLocality={setLocalityAndName} name={cityName}/>
+                            </div> 
                         </div>
+                        
                                            
                     </div>
                     <div className='profile__info-column'>
