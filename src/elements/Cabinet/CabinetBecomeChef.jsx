@@ -4,11 +4,7 @@ import { getPerson } from '../../services/PersonService'
 import LocalityList from '../LocalityList'
 
 const CabinetMyProfile = ({person, setPerson}) => {
-    let cityList = 
-        [
-            {id:1, name:"Київ"},
-            {id:2, name:"Харків"}
-        ]
+    
     let legalStatusList = 
         [
             {id:1, value:"фізична особа"},
@@ -18,8 +14,7 @@ const CabinetMyProfile = ({person, setPerson}) => {
     const [firstName, setFirstName] = useState(person.firstName)
     const [email, setEmail] = useState(person.email)
     const [phone, setPhone] = useState('')
-    const [cityId, setCityId] = useState(person.city ? profileData.city.id : null)
-    const [cityName, setCityName] = useState('')
+    const [cityName, setCityName] = useState(person && person.locality ? person.locality.name : '')
     const [locality, setLocality] = useState({})
     const [isActiveLocality, setIsActiveLocality] = useState(false)
     const [description, setDecription] = useState('')
@@ -27,7 +22,7 @@ const CabinetMyProfile = ({person, setPerson}) => {
     const [legalStatusId, setLegalStatusId] = useState(1)
     const [isActive, setIsActive] = useState(true)
     async function sendRegisterChef(){
-        const tempPerson = {firstName: firstName, email: email}
+        const tempPerson = {firstName: firstName, email: email, locality: locality}
        
         const chef = {
             person: tempPerson,
@@ -51,6 +46,7 @@ const CabinetMyProfile = ({person, setPerson}) => {
     }
     function setLocalityAndName(locality){
         //todo chef profile city change to locality
+        setLocality(locality)
         setCityName(locality.name)
     }
 

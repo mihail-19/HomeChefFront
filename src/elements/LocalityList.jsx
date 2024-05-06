@@ -43,12 +43,12 @@ const LocalityList = ({isActive, setIsActive, setLocality, name}) => {
 
     function localityPretyPrint(locality){
         let type = ''
-        if(locality.type === 'село'){
-            type = 'с.'
-        } else if(locality.type === 'місто'){
+        if(locality.type.toLowerCase() === 'село'){
+            type = 'с. '
+        } else if(locality.type.toLowerCase() === 'місто'){
             type = 'м.'
-        } else if(locality.type === 'селище'){
-            type = 'сел.'
+        } else if(locality.type.toLowerCase() === 'селище'){
+            type = 'сел. '
         }
         const region = locality.region && locality.region.length > 0 ? ', обл: ' + locality.region : ''
         return type + locality.name + region

@@ -7,19 +7,21 @@ import Snackbar from '../utility/Snackbar'
 import Loading from '../utility/Loading'
 import serverUrl from '../../serverUrl'
 import imagesUrl from '../../imagesUrl'
+import LocalityList from '../LocalityList'
 const CabinetMyProfile = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [firstName, setFirstName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
-    const [cityId, setCityId] = useState(0)
     const [description, setDescription] = useState('')
     const [address, setAddress] = useState('')
     const [legalStatusId, setLegalStatusId] = useState(null)
     const [isActive, setIsActive] = useState(false)
     const [image, setImage] = useState(undefined)
     const [imageUrl, setImageUrl] = useState(defaultChefImage)
-
+    const [locality, setLocality] = useState({})
+    const [localityName, setLocalityName] = useState('')
+    const [isActiveLocality, setIsActiveLocality] = useState(false)
     const snackbarRef = useRef(null)
 
     const context = useOutletContext()
@@ -29,13 +31,18 @@ const CabinetMyProfile = () => {
             setFirstName(context.chef.person.firstName)
             setEmail(context.chef.person.email)
             setPhone(context.chef.phone)
-            setCityId(0)
             setDescription(context.chef.description)
             setAddress(context.chef.address)
             setLegalStatusId(0)
             setIsActive(context.chef.isActive)
             setImageUrl(imagesUrl + context.chef.person.imageURL)
             setIsLoading(false)
+            setLocality(context.chef.person.locality)
+            console.log(context.chef.person.locality)
+            setLocalityName(context.chef.person.locality ? context.chef.person.locality.name : '')
+            // if(context.chef.person.locality){
+            //     setLocalityName(locality.name)
+            // }
         }
     }, [context])
     let profileData = 
@@ -77,7 +84,8 @@ const CabinetMyProfile = () => {
             isActive: isActive,
             person: {
                 firstName: firstName,
-                email: email
+                email: email,
+                locality: locality
             }            
         }
         setIsLoading(true)
@@ -94,7 +102,19 @@ const CabinetMyProfile = () => {
             setIsLoading(false)
         }
      }
-       
+     function setLocalityAndName(locality){
+        //todo chef profile city change to locality
+        setLocality(locality)
+        setLocalityName(locality.name)
+    }  
+    function searchCity(name){
+        setLocalityName(name)
+        if(name.length > 1){
+            setIsActiveLocality(true)
+        } else {
+            setIsActiveLocality(false)
+        }
+    }
     return (
         <div className="profile">
             <Loading isActive={isLoading} setIsActive={setIsLoading}/>
@@ -152,11 +172,10 @@ const CabinetMyProfile = () => {
                             <label className='profile__info-tag'>
                                 Місто 
                             </label>
-                            <select value={cityId} onChange={e => setCityId(e.target.value)}>
-                                {cityList.map(c => {
-                                    return <option value={c.id}>{c.name}</option>
-                                })}
-                            </select> 
+                            <input type="text" className='profile__info-input' value={localityName} onChange={e => searchCity(e.target.value)}></input>
+                            <div className='profile__locality-container'>
+                                <LocalityList isActive={isActiveLocality} setIsActive={setIsActiveLocality} setLocality={setLocalityAndName} name={localityName}/>
+                            </div> 
                         </div>
                         
                         
