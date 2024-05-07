@@ -38,7 +38,7 @@ const CabinetMyProfile = ({person, setPerson}) => {
 
     function searchCity(name){
         setCityName(name)
-        if(name.length > 2){
+        if(name.length > 1){
             setIsActiveLocality(true)
         } else {
             setIsActiveLocality(false)

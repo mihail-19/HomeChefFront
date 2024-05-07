@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 import Register from './Register.jsx'
+import ActiveLocalityList from './ActiveLocalityList.jsx'
 import Auth from './Auth.jsx'
 import './Header.css'
 import citiesOfBuisiness from '../services/citiesOfBuisiness'
@@ -17,7 +18,7 @@ import homeChefLogo from '../assets/HomeChefLogo.png'
 import imageUrl from '../imagesUrl.js'
 import {logout} from '../services/AuthService.js'
 const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
-    const [city, setCity] = useState("Місто")
+    const [city, setCity] = useState(localStorage.getItem('locality') ? JSON.parse(localStorage.getItem('locality')).name : "Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
     const [showRegisterWindow, setShowRegisterWindow] = useState(false)
@@ -34,8 +35,9 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
     function switchShowCities(){
         setShowCities(!showCities)
     }
-    function chooseCity(c){
-        setCity(c)
+    function chooseCity(locality){
+        localStorage.setItem('locality', JSON.stringify(locality))
+        setCity(locality.name)
         setShowCities(false)
     }
     function switchShowRegisterWindow(){
@@ -49,6 +51,8 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
         logout().then(res => {
             console.log('logout')
             localStorage.setItem('isAuth', 'false')
+            localStorage.clear()
+            setCity('Місто')
             setIsAuth(false)
             setPerson(null)
         })
@@ -74,13 +78,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                         <li className='header__menu-item'>
                             <div className='header__menu-link header__city-button' onClick={switchShowCities}>
                                 <div className='header__city'>{city}</div>
-                                {(showCities && !showBurger) &&
-                                    <div className='header__city-list'>
-                                    {citiesOfBuisiness().map(c => 
-                                        <div className='header__city-list-item' onClick={() => chooseCity(c)}>{c.name}</div>                                        
-                                    )}
-                                    </div>    
-                                }
+                                    <ActiveLocalityList isActive={showCities} setIsActive={setShowCities} setLocality={chooseCity}/>   
                                 <div className='header__city-arrow'>
                                     <img className={ showCities && 'header__rotated'} src={cityArrow}></img>
                                 </div>

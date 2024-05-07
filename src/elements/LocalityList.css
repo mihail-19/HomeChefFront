@@ -6,6 +6,8 @@
     background-color: white;
     z-index: 80;
     max-height: 200px;
+    width: 200px;
+    padding: 2px 5px;
     overflow-y: auto;
 }
 .locality-list button{
@@ -16,5 +18,31 @@
     text-align: left;
 }
 .locality-list_active{
-    display: block;
+    display: block !important;
+}
+
+.active-locality{
+    position: absolute;
+    left: 0;
+    top: 40px;
+    display: none;
+    background-color: white;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 200px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: default;
+}
+.active-locality button{
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    padding: 2px;
+    text-align: left;
+}
+.active-locality__list{
+
 }
