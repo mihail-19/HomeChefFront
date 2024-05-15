@@ -1,0 +1,103 @@
+.hc-calendar{
+    position: relative;
+    width: 120px;
+    
+}
+.hc-calendar__input{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 5px;
+    width: calc(100% - 11px);
+}
+.hc-calendar__input input{
+    font-size: 14px !important;
+    padding: 1px;
+    border: none !important;
+    text-align: right;
+    user-select: all;
+}
+.hc-calendar__input input:focus{
+    outline: none;
+  }
+.hc-calendar__day-input{
+    width: 15px !important;
+}
+.hc-calendar__year-input{
+    width: 34px !important;
+}
+
+.hc-calendar__calendar-button{
+    border: none;
+    display: block;
+    padding: 0;
+    width: 20px;
+    height: 18px;
+    cursor: pointer;
+    background-color: rgb(125, 161, 125);
+}
+.hc-calendar__calendar-button img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hc-calendar__calendar-conteiner{
+    width: 250px;
+    position: fixed;
+    margin-top: 10px;
+}
+.react-calendar{
+    width: 250px;
+    max-width: none;
+    line-height: 1em;
+    
+    display: none;
+
+}
+.react-calendar_active{
+    display: block;
+}
+.react-calendar__navigation{
+    margin-bottom: 2px;
+}
+
+.hc-timepicker{
+    width: 80px;
+}
+.hc-picker__container{
+    position: fixed;
+}
+.hc-timepicker__picker{
+    display: flex;
+    height: 210px;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 3px;
+}
+.hc-timepicker__list{
+    overflow-y: scroll;
+    padding: 2px 5px;
+}
+.hc-timepicker__picker-element{
+    cursor: pointer;
+    padding: 2px;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+
+
+.hc-timepicker__picker-button{
+    border: none;
+    display: block;
+    padding: 0;
+    width: 20px;
+    height: 18px;
+    cursor: pointer;
+}
+.hc-timepicker__picker-button img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

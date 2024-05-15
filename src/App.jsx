@@ -42,8 +42,12 @@ function App() {
     }
   }
   const loadCart = async () => {
-    const {data} = await getCart()
-    setCart(data)
+    try{
+      const {data} = await getCart()
+      setCart(data)
+    } catch(error){
+      console.error(error)
+    }
   }
   return(
   <>

@@ -1,0 +1,59 @@
+.order{
+    font-family: Monserrat;
+    padding: 1px 10px 20px 25px;
+    width: 400px;
+    overflow-y: auto;
+}
+.order h2{
+    font-size: 24px;
+    font-weight: 700;
+    margin: 2px 2px 15px 2px;
+   
+    text-align: center;
+}
+.order label{
+    font-weight: 500;
+    font-size: 16px;
+    display: block;
+}
+.order__input{
+    padding: 2px 5px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    height: 35px;
+    width: 250px;
+}
+.order__item{
+    margin-bottom: 20px
+}
+.order__datetime{
+    display: flex;
+    gap: 15px;
+}
+.order__datetime-item{
+
+}
+.order__sum{
+    font-weight: 400;
+    font-size: 18px;    
+    margin-top: 100px;
+}
+.order__delivery{
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.order__submit-button{
+    width: 170px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+}

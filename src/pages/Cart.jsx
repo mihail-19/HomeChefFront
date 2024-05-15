@@ -3,8 +3,16 @@ import {addDishToCart, decreaseDishNumber, removeDish} from '../services/CartSer
 import imagesUrl from '../imagesUrl'
 import removeIcon from '../assets/delete.png'
 import './Cart.css'
+import Order from '../elements/Order'
+import { useState } from 'react'
+import DatePicker from 'react-date-picker'
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css';
+import HomeChefCalendar from '../elements/utility/HomeChefCalendar'
 const Cart = ({cart, loadCart}) => {
 
+    const [showOrder, setShowOrder] = useState(false)
+    const [date, setDate] = useState(new Date())
     async function sendIncreaseDishNumber(dish){
         await addDishToCart(dish)
         loadCart()
@@ -27,11 +35,18 @@ const Cart = ({cart, loadCart}) => {
 
 
     if(!cart || !cart.cartProducts || cart.cartProducts.lengt < 1){
-        return <div className="cart__no-products">Корзина пуста</div>
+        return <div className="cart__no-products">Корзина пуста
+                    <button onClick={() => setShowOrder(true)}>Відкрити</button>
+                    <Order showOrder={showOrder} setShowOrder={setShowOrder} cart={cart}/>
+                    <input type='date'></input>
+                    <div>{date.getDate()} {date.getMonth()+1} {date.getFullYear()}</div>
+                    <HomeChefCalendar date={date} setDate={setDate}/>
+            </div>
     }
 
     return (
         <div className="cart">
+            <Order showOrder={showOrder} setShowOrder={setShowOrder} cart={cart}/>
             <div className="cart__top"></div>
             <div className="cart__products">
                 {cart.cartProducts.map(product => {
@@ -61,7 +76,7 @@ const Cart = ({cart, loadCart}) => {
                 })}
             </div>
             <div className='cart__total-price'>Сума до сплати: {calculateTotalPrice()} ₴</div>
-            <button className='cart__order-button'>Замовити</button>
+            <button className='cart__order-button' onClick={() => setShowOrder(true)}>Замовити</button>
         </div>
     )
 }
