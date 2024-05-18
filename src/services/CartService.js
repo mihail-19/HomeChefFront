@@ -24,4 +24,10 @@ async function removeDish(dish){
     return res
 }
 
-export {getCart, addDishToCart, decreaseDishNumber, removeDish}
+async function removeAllFromCart(){
+    const url = serverUrl + "/cart/my-cart"
+    const res = axios.delete(url, {withCredentials:true})
+    return res
+}
+
+export {getCart, addDishToCart, decreaseDishNumber, removeDish, removeAllFromCart}

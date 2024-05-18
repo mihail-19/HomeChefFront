@@ -13,6 +13,7 @@ const Cart = ({cart, loadCart}) => {
 
     const [showOrder, setShowOrder] = useState(false)
     const [date, setDate] = useState(new Date())
+    const [isConfirmed, setIsConfirmed] = useState(false)
     async function sendIncreaseDishNumber(dish){
         await addDishToCart(dish)
         loadCart()
@@ -36,17 +37,12 @@ const Cart = ({cart, loadCart}) => {
 
     if(!cart || !cart.cartProducts || cart.cartProducts.lengt < 1){
         return <div className="cart__no-products">Корзина пуста
-                    <button onClick={() => setShowOrder(true)}>Відкрити</button>
-                    <Order showOrder={showOrder} setShowOrder={setShowOrder} cart={cart}/>
-                    <input type='date'></input>
-                    <div>{date.getDate()} {date.getMonth()+1} {date.getFullYear()}</div>
-                    <HomeChefCalendar date={date} setDate={setDate}/>
             </div>
     }
 
     return (
         <div className="cart">
-            <Order showOrder={showOrder} setShowOrder={setShowOrder} cart={cart}/>
+            <Order showOrder={showOrder} setShowOrder={setShowOrder} cart={cart} loadCart={loadCart}/>
             <div className="cart__top"></div>
             <div className="cart__products">
                 {cart.cartProducts.map(product => {

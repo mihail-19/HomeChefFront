@@ -35,9 +35,10 @@
 
 }
 .order__sum{
-    font-weight: 400;
-    font-size: 18px;    
-    margin-top: 100px;
+    font-weight: 600;
+    font-size: 22px;    
+    margin-top: 20px;
+    text-decoration: underline;
 }
 .order__delivery{
     font-weight: 400;
@@ -56,4 +57,16 @@
     border-radius: 15px;
     cursor: pointer;
     font-size: 18px;
+}
+
+.order__results{
+
+}
+.order__results h2{
+
+}
+.order__results h3{
+    color: green;
+    text-align: center;
+    font-style: italic;
 }

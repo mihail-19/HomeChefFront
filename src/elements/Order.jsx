@@ -1,20 +1,28 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ModalCenter from './utility/ModalCenter'
 import HomeChefCalendar from './utility/HomeChefCalendar'
 import './Order.css'
 import HomeChefTimePicker from './utility/HomeChefTimePicker'
 import { addOrder } from '../services/OrderService'
-const Order = ({showOrder, setShowOrder, cart}) =>{
+import { removeAllFromCart } from '../services/CartService'
+const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
     const [address, setAddress] = useState('')
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [date, setDate] = useState(new Date())
+    const [orders, setOrders] = useState([])
     const [isConfirmed, setIsConfirmed] = useState(false)
 
+    useEffect(() => {
+        if(!showOrder && isConfirmed){
+            loadCart()
+            setIsConfirmed(false)
+        }
+    }, [showOrder, isConfirmed])
 
     return (
-        <ModalCenter isActive={showOrder} setIsActive={setShowOrder} content={windowContent()}/>
+        <ModalCenter isActive={showOrder} setIsActive={setShowOrder} content={ isConfirmed ? afterConfirmWindow() : windowContent()}/>
     )
     function calculateTotalPrice(){
         let price = 0
@@ -32,7 +40,25 @@ const Order = ({showOrder, setShowOrder, cart}) =>{
             products: cart.cartProducts
         }
         const {data} = await addOrder(order)
-        console.log(data)
+        setOrders(data)
+        setIsConfirmed(true)
+        const res = await removeAllFromCart()
+    }
+
+    function afterConfirmWindow(){
+        return (
+            <div className='order'>
+                {orders.map(order => {
+                    return <div className='order__results'>
+                                <h2>Ваше замовлення оформелене</h2>
+                                {orders.length > 1 && 'Ви обрали блюда різних шефів, тож замовлення розбито на ' + orders.length + ' заказів'}
+                                <h3>Номер замовлення: {order.id}</h3>
+                                <p>Очікуйте підтвердження - найближчим часом з Вами зв'яжеться шеф</p>
+                                <p>Дякуємо, що користуєтесь нашим сервісом!</p>
+                        </div>  
+                })}
+            </div>
+        )
     }
 
     function windowContent(){
