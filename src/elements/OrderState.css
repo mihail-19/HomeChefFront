@@ -1,0 +1,22 @@
+.order-state{
+    font-family: Roboto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    font-style: italic;
+    align-items: center;
+    justify-content: center;
+}
+.order-state__canceled{
+    color: red;
+}
+.order-state__element{
+    padding: 2px;
+    color: rgb(216, 213, 213);
+}
+.order-state__element_active{
+    color: rgb(180, 164, 13);
+}
+.order-state__element_finished{
+    color: rgb(19, 201, 19);
+}

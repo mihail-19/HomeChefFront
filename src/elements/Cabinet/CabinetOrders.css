@@ -1,0 +1,137 @@
+.orders{
+    font-family: Roboto;
+    width: 100%;
+    font-size: 14px;
+}
+.orders td{
+    text-align: center;
+}
+.orders tr:hover{
+    background-color: rgba(153, 129, 129, 0.2);
+}
+.orders__actions-button{
+    width: 35px;
+    height: 35px;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+.orders__actions-button img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+
+.cabinet-order{
+    width: 720px;
+    height: 600px;
+    padding: 5px 5px 10px 5px;
+    font-family: Roboto;
+    font-size: 16px;
+    overflow: hidden;
+}
+.cabinet-order h1{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+.cabinet-order h3{
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.cabinet-order__state{
+    padding: 10px;
+    font-size: 14px;
+}
+
+.cabinet-order__products{
+    overflow-y: auto;
+    height: 300px;
+}
+.cabinet-order__product{
+    display: flex;
+    gap: 5px;
+}
+.cabinet-order__dish-img{
+    width: 190px;
+    height: 94px;
+    border: 1px solid gray;
+    display: block;
+}
+.cabinet-order__dish-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.cabinet-order__product-info{
+
+}
+.cabinet-order__dish-name{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.chef-orders{
+    font-family: Roboto;
+    margin: 20px;
+    border: 1px solid gray;
+    border-radius: 15px;
+}
+.chef-orders__menu{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px 1px;
+}
+.chef-orders__menu-element{
+    position: relative;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.chef-orders__menu-count{
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    font-size: 8px;
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.85;
+}
+.chef-orders__orders-list{
+    border-top: 1px solid gray;
+    padding: 15px 5px;
+}
+
+
+

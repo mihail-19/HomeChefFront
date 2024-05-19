@@ -62,7 +62,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
         }
         if(isChef){
             return <ul>
-                <li><Link to="/cabinet/chef-orders" className={showFlags[0] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(0)}>Мої замовлення</Link></li>
+                <li><Link to="chef-orders" className={showFlags[0] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(0)}>Мої замовлення</Link></li>
                 <li><Link to="chef-profile" className={showFlags[1] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(1)}>Мій профіль</Link></li>
                 <li><Link to="chef-menu" className={showFlags[2] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(2)}>Моє меню</Link></li>
                 <li><Link to="/cabinet/reviews" className={showFlags[3] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(3)}>Мої відгуки</Link></li>

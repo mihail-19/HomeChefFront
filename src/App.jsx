@@ -5,7 +5,6 @@ import serverUrl from './serverUrl'
 import { useEffect, useState } from 'react'
 import { getPerson } from './services/PersonService'
 import Homepage from './pages/Homepage'
-import Cabinet from './pages/Cabinet'
 import Header from './elements/Header'
 import Footer from './elements/Footer.jsx'
 import CabinetChefLayout from './pages/CabinetChefLayout'
@@ -17,6 +16,7 @@ import Dishes from './pages/Dishes.jsx'
 import {getCart} from './services/CartService.js'
 import Cart from './pages/Cart.jsx'
 import Dish from './pages/Dish.jsx'
+import CabinetChefOrders from './elements/Cabinet/CabinetChefOrders.jsx'
 function App() {
   console.log('app')
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
@@ -64,6 +64,7 @@ function App() {
           <Route path="become-chef" element={<CabinetBecomeChef person={person} setPerson={setPerson}/>}/>
           <Route path="chef-menu" element={<CabinetChefMenu/>}/>
           <Route path="admin-data" element={<CabinetAdminAddData person={person}/>}/>
+          <Route path="chef-orders" element={<CabinetChefOrders/>}/>
         </Route>
         
       </Routes>

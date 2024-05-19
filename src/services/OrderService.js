@@ -7,4 +7,16 @@ async function addOrder(order){
     return res
 }
 
-export {addOrder}
+async function getChefOrders(){
+    const url = serverUrl + '/chefs/my-orders'
+    const res= axios.get(url, {withCredentials:true})
+    return res
+}
+
+async function promoteOrder(order){
+    const url = serverUrl + '/orders/' + order.id + '/promote'
+    const res = axios.put(url,{}, {withCredentials:true})
+    return res
+}
+
+export {addOrder, getChefOrders, promoteOrder}

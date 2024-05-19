@@ -7,7 +7,6 @@ import{
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
-import Cabinet from './pages/Cabinet.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
