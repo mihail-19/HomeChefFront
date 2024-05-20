@@ -6,9 +6,14 @@ const CabinetChefOrders = () => {
     const [loading, setLoading] = useState(true)
     const [windowNumber, setWindowNumber] = useState(1)
     const [orders, setOrders] = useState([])
+    const [newOrdersNum, setNewOrdersNum] = useState(0)
     useEffect(() => {
         loadOrders()
     }, [])
+
+    useEffect(() => {
+        setNewOrdersNum(orders.filter(o => o.state === "NEW").length)
+    }, [orders])
 
 
     async function loadOrders(){
@@ -35,7 +40,9 @@ const CabinetChefOrders = () => {
                 </button>
                 <button onClick={setWindowNumber(1)} className="chef-orders__menu-element">
                     В очікуванні
-                <div className="chef-orders__menu-count">{countNewOrders()}</div>
+                    {newOrdersNum > 0 &&
+                        <div className="chef-orders__menu-count">{newOrdersNum}</div>
+                    }
                 </button>
                 <button onClick={setWindowNumber(2)} className="chef-orders__menu-element">
                     В роботі

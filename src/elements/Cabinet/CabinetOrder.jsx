@@ -4,10 +4,26 @@ import './CabinetOrders.css'
 import { Link } from "react-router-dom"
 import OrderState from "../OrderState"
 import {promoteOrder, getChefOrders} from '../../services/OrderService'
-const CabinetOrder = ({showOrder, setShowOrder, order, setOrders, setLoading}) => {
-    
-    if(!order || !order.products){
+import { useEffect, useState } from "react"
+const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, setOrders, setLoading}) => {
+    console.log('rendered')
+    console.log(order)
+
+    if(!order ){
+        console.log('return empry')
         return <></>
+    }
+    useEffect(() => {
+        if(!showOrder){
+            loadOrders()
+        }
+    }, [showOrder])
+
+    async function loadOrders(){
+        setLoading(true)
+        const {data} = await getChefOrders()
+        setOrders(data)
+        setLoading(false)
     }
 
     return <ModalCenter isActive={showOrder} setIsActive={setShowOrder} content={windowContent()}/>
@@ -30,6 +46,9 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrders, setLoading}) =
     }
 
     function OrderProducts({products}){
+        if(!products){
+            return <></>
+        }
         return (
             <div className="cabinet-order__products">
                 {products.map(product => {
@@ -50,6 +69,9 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrders, setLoading}) =
     }
 
     function calculatePrice(products){
+        if(!products){
+            return 0
+        }
         let price = 0
         products.forEach(product => {
             price += product.dish.price * product.dishNumber
@@ -61,8 +83,9 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrders, setLoading}) =
         setLoading(true)
         const res = await promoteOrder(order)
         const {data} = await getChefOrders()
-        setOrders(data)
-        order = data.filter(o => o.id === order.id)
+       // setOrders(data)
+       let tempOrder = data.find(o => o.id === order.id)
+        setOrder(tempOrder)
         setLoading(false)
     }
 
@@ -74,6 +97,8 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrders, setLoading}) =
                 return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Почати готувати</button>
             case "COOKING":
                 return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Підтвердити готовність</button>
+            case "READY":
+                return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Віддати кур'єру</button>
             case "DELIVERING":
                 return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Віддано у доставку</button>
             case "DELIVERED":

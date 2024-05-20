@@ -1,9 +1,9 @@
 
 import './Modal.css'
 import closeImg from '../../assets/burgerCloseButton.png'
+import { useEffect } from 'react'
 
 const ModalCenter = ({isActive, setIsActive, content}) => {
-
     return (
         <div className={isActive ? "modal modal_active" : "modal"} onClick={() => setIsActive(false)}>
             <div className="modal__content" onClick={e => e.stopPropagation()}>

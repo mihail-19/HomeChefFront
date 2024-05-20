@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 const OrdersTable = ({orders, setOrders, setLoading}) => {
     const [showOrder, setShowOrder] = useState(false)
     const [currentOrder, setCurrentOrder] = useState({})
+    console.log('orders table rendered')
     function openOrderWindow(order){
         setCurrentOrder(order)
         setShowOrder(true)
@@ -18,9 +19,10 @@ const OrdersTable = ({orders, setOrders, setLoading}) => {
             setShowOrder(true)
         }
     }, [orders])
+   
     return(
         <table className="orders">
-            <CabinetOrder showOrder={showOrder} setShowOrder={setShowOrder} order={currentOrder} setOrders={setOrders} setLoading={setLoading}/>
+            <CabinetOrder showOrder={showOrder} setShowOrder={setShowOrder} order={currentOrder} setOrder={setCurrentOrder} setOrders={setOrders} setLoading={setLoading}/>
             <tr>
                 <th>ID(№)</th>
                 <th>Дата отримання</th>
