@@ -27,7 +27,7 @@ const CabinetChefOrders = () => {
             <Loading isActive={loading} seIsActive={setLoading}/>
             <TopMenu/>
             <div className="chef-orders__orders-list">
-                <OrdersTable orders={orders} setOrders={setOrders} setLoading={setLoading}/>
+                <OrdersTable orders={filteredOrders()} setOrders={setOrders} setLoading={setLoading}/>
             </div>
         </div>
     )
@@ -35,19 +35,19 @@ const CabinetChefOrders = () => {
     function TopMenu(){
         return (
             <div className="chef-orders__menu">
-                <button onClick={setWindowNumber(0)} className="chef-orders__menu-element">
+                <button onClick={() => setWindowNumber(0)} className={windowNumber === 0 ? "chef-orders__menu-element chef-orders__menu-element_all" : "chef-orders__menu-element"}>
                     Всі
                 </button>
-                <button onClick={setWindowNumber(1)} className="chef-orders__menu-element">
+                <button onClick={() => setWindowNumber(1)} className={windowNumber === 1 ? "chef-orders__menu-element chef-orders__menu-element_new" : "chef-orders__menu-element"}>
                     В очікуванні
                     {newOrdersNum > 0 &&
                         <div className="chef-orders__menu-count">{newOrdersNum}</div>
                     }
                 </button>
-                <button onClick={setWindowNumber(2)} className="chef-orders__menu-element">
+                <button onClick={() => setWindowNumber(2)} className={windowNumber === 2 ? "chef-orders__menu-element chef-orders__menu-element_in-progres" : "chef-orders__menu-element"}>
                     В роботі
                 </button>
-                <button onClick={setWindowNumber(3)} className="chef-orders__menu-element">
+                <button onClick={() => setWindowNumber(3)} className={windowNumber === 3 ? "chef-orders__menu-element chef-orders__menu-element_finished" : "chef-orders__menu-element"}>
                     Завершені
                 </button>
             </div>
@@ -59,9 +59,14 @@ const CabinetChefOrders = () => {
         if(windowNumber === 0){
             return orders
         } else if (windowNumber === 1){
-            return orders.filter(o => o.state === '')
+            return orders.filter(o => o.state === 'NEW')
+        } else if (windowNumber === 2){
+            return orders.filter(o => o.state !== "NEW" && o.state !== "DELIVERED")
+        } else if (windowNumber === 3){
+            return orders.filter(o => o.state === "DELIVERED")
+        } else {
+            return orders
         }
-        orders.filter()
     }
     function countNewOrders(){
         return orders.filter(o => o.state === "NEW").length

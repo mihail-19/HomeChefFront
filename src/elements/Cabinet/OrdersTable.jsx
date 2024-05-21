@@ -8,17 +8,16 @@ import { useEffect, useState } from 'react'
 const OrdersTable = ({orders, setOrders, setLoading}) => {
     const [showOrder, setShowOrder] = useState(false)
     const [currentOrder, setCurrentOrder] = useState({})
-    console.log('orders table rendered')
     function openOrderWindow(order){
         setCurrentOrder(order)
         setShowOrder(true)
     }
-    useEffect(() => {
-        if(currentOrder && showOrder){
-            setCurrentOrder(orders.filter(o => o.id === currentOrder.id))
-            setShowOrder(true)
-        }
-    }, [orders])
+    // useEffect(() => {
+    //     if(currentOrder && showOrder){
+    //         setCurrentOrder(orders.filter(o => o.id === currentOrder.id))
+    //         setShowOrder(true)
+    //     }
+    // }, [orders])
    
     return(
         <table className="orders">

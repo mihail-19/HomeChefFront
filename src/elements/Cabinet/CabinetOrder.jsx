@@ -1,16 +1,13 @@
 import ModalCenter from "../utility/ModalCenter"
 import defaultDishImg from '../../assets/dishImg.png'
+import imageUrl from '../../imagesUrl'
 import './CabinetOrders.css'
 import { Link } from "react-router-dom"
 import OrderState from "../OrderState"
 import {promoteOrder, getChefOrders} from '../../services/OrderService'
 import { useEffect, useState } from "react"
 const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, setOrders, setLoading}) => {
-    console.log('rendered')
-    console.log(order)
-
     if(!order ){
-        console.log('return empry')
         return <></>
     }
     useEffect(() => {
@@ -84,7 +81,10 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, setOrders, setL
         const res = await promoteOrder(order)
         const {data} = await getChefOrders()
        // setOrders(data)
+       console.log(data)
+       console.log(order)
        let tempOrder = data.find(o => o.id === order.id)
+       console.log(tempOrder)
         setOrder(tempOrder)
         setLoading(false)
     }
