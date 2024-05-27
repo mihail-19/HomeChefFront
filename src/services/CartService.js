@@ -30,4 +30,27 @@ async function removeAllFromCart(){
     return res
 }
 
-export {getCart, addDishToCart, decreaseDishNumber, removeDish, removeAllFromCart}
+function isValidDishLocality(dish, cart, userLocality){
+    const dishLocality = dish.chef.person.dishLocality
+    //Should be removed in pord - chef should always have a locality
+    if(!dishLocality){
+        return true
+    }
+
+    if(userLocality){
+        if(userLocality.name !== dishLocality){
+            return false
+        }
+    }
+    if(!cart){
+        return true
+    }
+    cart.products.forEach(product => {
+        if(product.dish.chef.locality != dishLocality){
+            return false
+        }
+    })
+    return true
+}
+
+export {getCart, addDishToCart, decreaseDishNumber, removeDish, removeAllFromCart, isValidDishLocality}

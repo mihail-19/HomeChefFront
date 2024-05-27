@@ -7,12 +7,24 @@ import HomeChefTimePicker from './utility/HomeChefTimePicker'
 import { addOrder } from '../services/OrderService'
 import { removeAllFromCart } from '../services/CartService'
 const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
+    const [orderLocality, steOrderLocality] = useState({})
+    const [cityName, setCityName] = useState('')
     const [address, setAddress] = useState('')
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [date, setDate] = useState(new Date())
     const [orders, setOrders] = useState([])
     const [isConfirmed, setIsConfirmed] = useState(false)
+    const [showCityError, setShowCityError] = useState(false)
+    const [locality, setLocality] = useState({})
+
+    useEffect(() => {
+        const locality = localStorage.getItem('locality')
+        if(locality){
+            setCityName(JSON.parse(locality).name)
+            steOrderLocality(locality)
+        }
+    }, [])
 
     useEffect(() => {
         if(!showOrder && isConfirmed){
@@ -20,6 +32,32 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
             setIsConfirmed(false)
         }
     }, [showOrder, isConfirmed])
+
+    useEffect(() => {
+        checkDishLocality()
+    }, [cart])
+
+    function checkDishLocality(){
+        if(!cart || !cart.cartProducts || cart.cartProducts.length < 1){
+            setShowCityError(false)
+            return
+        }
+        if(cart.cartProducts.length < 2){
+            setShowCityError(false)
+            setLocality(cart.cartProducts[0].dish.chef.locality)
+            return
+        }
+        const firstLocalityId = cart.cartProducts[0].dish.chef.locality.id
+        for(let i = 1; i<cart.cartProducts.length; i++){
+            console.log(firstLocalityId + ' : ' + cart.cartProducts[i].dish.chef.locality.id)
+            if(firstLocalityId !== cart.cartProducts[i].dish.chef.locality.id){
+                setShowCityError(true)
+                return
+            }
+        }
+        setShowCityError(false)
+        setLocality(firstLocalityId)
+    }
 
     return (
         <ModalCenter isActive={showOrder} setIsActive={setShowOrder} content={ isConfirmed ? afterConfirmWindow() : windowContent()}/>
@@ -66,8 +104,8 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
             <div className='order'>
                 <h2>Оформити замовлення</h2>
                 <div className='order__item'>
-                    <label>Місто</label>
-                    
+                    <div className='order__city'>Місто: {locality?.name}</div>
+                    {showCityError && <div className='order__error'>Страви у Вашому замовленні готють шефи з разних міст. Будь ласка, <b>видаліть страви</b>, що готують шефи не з Вашого міста!</div>}
                 </div>
                 <div className='order__item'>
                     <label>Адреса доставки</label>

@@ -5,12 +5,18 @@ import imagesUrl from "../imagesUrl"
 import emptyDishIconImg from '../assets/dishImg.png'
 import rankingIcon from '../assets/rankingIcon.png'
 import './Dishes.css'
-import { addDishToCart } from "../services/CartService"
+import { addDishToCart, isValidDishLocality } from "../services/CartService"
 import Loading from "../elements/utility/Loading"
 import DishCard from "../elements/DishCard"
+import { useRef } from "react"
+import Snackbar from "../elements/utility/Snackbar"
+import Confirm from "../elements/utility/Confirm"
 const Dishes = ({loadCart}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
+    const dishToSave = useRef({})
+    const snackbarRef = useRef(null)
+    const confirmRef = useRef(null)
     useEffect(() => {
         loadDishes()
     }, [])
@@ -22,16 +28,31 @@ const Dishes = ({loadCart}) => {
     }
 
     async function sendAddToCart(dish){
+       
+        dishToSave.current = dish
+        confirmRef.current.show('Блюдо не відповідає заданому місту. Все одно додати в кошик?')
+       // isValidDishLocality(dish, cart, undefined)
+       
+    }
+
+    async function sendAfterConfirmed(){
         setLoading(true)
-        await addDishToCart(dish)
+        await addDishToCart(dishToSave.current)
         loadCart()
         setLoading(false)
+    }
+
+    function rejectAddingDish(){
+        dishToSave.current = {}
+
     }
 
    
     return (
         <div className="dishes">
             <Loading isActive={loading} seIsActive={setLoading}/>
+            <Snackbar ref={snackbarRef}/>
+            <Confirm okFunction={sendAfterConfirmed} noFunction={rejectAddingDish} ref={confirmRef}/>
             <h1>Страви</h1>
             <div className="dishes__menu"></div>
             <div className="dishes__content">

@@ -70,3 +70,8 @@
     text-align: center;
     font-style: italic;
 }
+
+.order__error{
+    color: red;
+    font-size: 12px;
+}

@@ -65,7 +65,7 @@ const Cart = ({cart, loadCart}) => {
                         <div className='cart__product-right'>
                             <div className='cart__dish-name'>Страва: {product.dish.name}</div>
                             <div className='cart__dish-price'>Ціна: {product.dish.price} ₴</div>
-                            <div className='cart__dish-description'>{product.dish.description}</div>
+                            <div className='cart__dish-chef-info'>Шеф {product.dish.chef.firstName}, місто {product.dish.chef.locality?.name}</div>
                         </div>
                         
                     </div>
