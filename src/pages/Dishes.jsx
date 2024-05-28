@@ -5,13 +5,13 @@ import imagesUrl from "../imagesUrl"
 import emptyDishIconImg from '../assets/dishImg.png'
 import rankingIcon from '../assets/rankingIcon.png'
 import './Dishes.css'
-import { addDishToCart, isValidDishLocality } from "../services/CartService"
+import { addDishToCart, isDishLocalityValidToUser, isDishLocalityValidCartLocalities } from "../services/CartService"
 import Loading from "../elements/utility/Loading"
 import DishCard from "../elements/DishCard"
 import { useRef } from "react"
 import Snackbar from "../elements/utility/Snackbar"
 import Confirm from "../elements/utility/Confirm"
-const Dishes = ({loadCart}) => {
+const Dishes = ({cart, loadCart}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
     const dishToSave = useRef({})
@@ -30,12 +30,29 @@ const Dishes = ({loadCart}) => {
     async function sendAddToCart(dish){
        
         dishToSave.current = dish
-        confirmRef.current.show('Блюдо не відповідає заданому місту. Все одно додати в кошик?')
-       // isValidDishLocality(dish, cart, undefined)
+        const locality = JSON.parse(localStorage.getItem('locality'))
+        if(!isDishLocalityValidToUser(dish, locality)){
+            let txt
+            if(locality){
+                txt ='Блюдо готується в населеному пункті ' + dish.chef.locality.name + ', Ви обрали місто ' + locality?.name + '. Все одно додати в кошик?'
+                
+            } else {
+                txt ='Блюдо готується в населеному пункті ' + dish.chef.locality.name + ', а Ви не обрали місто. Все одно додати в кошик?'
+            }
+            confirmRef.current.show(txt)
+        } else {
+            sendAfterConfirmed()
+        }
+        
        
     }
 
     async function sendAfterConfirmed(){
+        if(!isDishLocalityValidCartLocalities(dishToSave.current, cart)){
+            console.log('cart validation error')
+            snackbarRef.current.show(<div><Link to="/HomeChefFront/cart">Кошик</Link> містить блюда з інших міст</div>, true, 5000)
+            return
+        }
         setLoading(true)
         await addDishToCart(dishToSave.current)
         loadCart()

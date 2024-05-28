@@ -56,7 +56,7 @@ function App() {
       
       <Routes>
         <Route path="/HomeChefFront" element={<Homepage />}/>
-        <Route path="/HomeChefFront/dishes" element={<Dishes loadCart={loadCart}/>}/>
+        <Route path="/HomeChefFront/dishes" element={<Dishes cart={cart} loadCart={loadCart}/>}/>
         <Route path="/HomeChefFront/dishes/:id" element={<Dish/>}/>
         <Route path="/HomeChefFront/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
         <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>

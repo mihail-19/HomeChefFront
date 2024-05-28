@@ -9,11 +9,14 @@ const Snackbar = forwardRef((props, ref) => {
     const [message, setMessage] = useState('')
     const [isError, setIsError] = useState(false)
     useImperativeHandle(ref, () => ({
-        show(msg, isErr){
+        show(msg, isErr, timeToHideCustom){
             setMessage(msg)
             setIsError(isErr)
             setIsActive(true)
-            setTimeout(() => setIsActive(false), timeToHide)
+            if(!timeToHideCustom){
+                timeToHideCustom = timeToHide
+            }
+            setTimeout(() => setIsActive(false), timeToHideCustom)
         }
     }))
    

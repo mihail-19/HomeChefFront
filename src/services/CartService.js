@@ -30,27 +30,48 @@ async function removeAllFromCart(){
     return res
 }
 
-function isValidDishLocality(dish, cart, userLocality){
-    const dishLocality = dish.chef.person.dishLocality
+
+function isDishLocalityValidToUser(dish, userLocality){
+    const dishLocality = dish.chef.locality
     //Should be removed in pord - chef should always have a locality
     if(!dishLocality){
         return true
     }
 
     if(userLocality){
-        if(userLocality.name !== dishLocality){
+        console.log('user locality: ' + userLocality.name)
+        if(userLocality.id !== dishLocality.id){
+            console.log('user locality is not equal dish locality')
             return false
         }
+    } else {
+        console.log('no user locality')
+        return false
     }
-    if(!cart){
-        return true
-    }
-    cart.products.forEach(product => {
-        if(product.dish.chef.locality != dishLocality){
-            return false
-        }
-    })
     return true
 }
 
-export {getCart, addDishToCart, decreaseDishNumber, removeDish, removeAllFromCart, isValidDishLocality}
+function isDishLocalityValidCartLocalities(dish, cart){
+    const dishLocality = dish.chef.locality
+    //Should be removed in pord - chef should always have a locality
+    if(!dishLocality){
+        return true
+    }
+
+    
+    if(!cart){
+        console.log('no cart')
+        return true
+    }
+    console.log(cart)
+    for(let i = 0; i < cart.cartProducts.length; i++){
+        let product = cart.cartProducts[i]
+        if(product.dish.chef.locality.id !== dishLocality.id){
+            return false
+        }
+    }
+    
+    return true
+}
+
+export {getCart, addDishToCart, decreaseDishNumber, removeDish, removeAllFromCart, isDishLocalityValidToUser, isDishLocalityValidCartLocalities}

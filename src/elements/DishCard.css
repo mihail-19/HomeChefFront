@@ -79,13 +79,19 @@
     font-weight: 400;
     font-size: 16px;
     height: 25px;
-    padding: 5px 0;
-    margin-bottom: 15px;
+    padding: 2px 0;
+    
     overflow: hidden;
 }
+.dish-card__dish-locality{
+    font-size: 12px;
+    margin-bottom: 10px;
+    padding: 2px 0;
+    color: rgb(145, 142, 142);
+}
 .dish-card__dish-name{
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 16px;
     height: 25px;
     overflow: hidden;
 }
