@@ -418,7 +418,7 @@
   }
   .header__user-menu{
     position: fixed;
-    right: 0;
+    right: -250px;
     top: 15px;
     width: 250px;
     font-family: Montserrat;
@@ -427,8 +427,15 @@
     padding: 10px 20px 20px 20px;
     font-size: 18px;
     border-radius: 10px;
-    display: none;
+    visibility: hidden;
     cursor: default;
+    transition: all 0.3s linear ;
+    
+  }
+  .header__user-menu_active{
+    visibility: visible;
+    right: 0;
+    transition: all 0.3s linear ;
   }
   .header__user-menu-username{
     font-size: 22px;

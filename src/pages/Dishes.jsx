@@ -49,8 +49,7 @@ const Dishes = ({cart, loadCart}) => {
 
     async function sendAfterConfirmed(){
         if(!isDishLocalityValidCartLocalities(dishToSave.current, cart)){
-            console.log('cart validation error')
-            snackbarRef.current.show(<div><Link to="/HomeChefFront/cart">Кошик</Link> містить блюда з інших міст</div>, true, 5000)
+            snackbarRef.current.show(<div>Не можна додавати страви з різних міст <Link to="/HomeChefFront/cart">Кошик</Link></div>, true, 5000)
             return
         }
         setLoading(true)

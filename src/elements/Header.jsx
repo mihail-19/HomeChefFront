@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import Register from './Register.jsx'
 import ActiveLocalityList from './ActiveLocalityList.jsx'
@@ -32,13 +32,34 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
         }
         setShowBurger(!showBurger)
     }
+
+    useEffect(() => {
+        if(showCities){
+            window.addEventListener("click", closeCityListener)
+        } else {
+            window.removeEventListener("click", closeCityListener)
+        }
+    }, [showCities])
+
+    const closeCityListener = useCallback((e) => {
+         if(!document.getElementById("header-city").contains(e.target)){
+             setShowCities(false)
+         }
+    }, [])
+
     function switchShowCities(){
         setShowCities(!showCities)
     }
     function chooseCity(locality){
-        localStorage.setItem('locality', JSON.stringify(locality))
-        setCity(locality.name)
-        setShowCities(false)
+        if(locality){
+            localStorage.setItem('locality', JSON.stringify(locality))
+            setCity(locality.name)
+            setShowCities(false)
+        } else {
+            setCity("Місто")
+            setShowCities(false)
+            localStorage.removeItem('locality')
+        }
     }
     function switchShowRegisterWindow(){
         setShowRegisterWindow(!showRegisterWindow)
@@ -76,7 +97,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                         </li>
                         
                         <li className='header__menu-item'>
-                            <div className='header__menu-link header__city-button' onClick={switchShowCities}>
+                            <div id="header-city" className='header__menu-link header__city-button' onClick={switchShowCities}>
                                 <div className='header__city'>{city}</div>
                                     <ActiveLocalityList isActive={showCities} setIsActive={setShowCities} setLocality={chooseCity}/>   
                                 <div className='header__city-arrow'>
@@ -208,11 +229,25 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
 
     function UserMenu(){
         const [showUserMenu, setShowUserMenu] = useState(false)
+        useEffect(() => {
+            if(showUserMenu){
+                window.addEventListener("click", closeUserMenuListener)
+            } else {
+                window.removeEventListener("click", closeUserMenuListener)
+            }
+        }, [showUserMenu])
         
+
+        const closeUserMenuListener = useCallback((e) => {
+            if(!document.getElementById("header-user-menu").contains(e.target)){
+                setShowUserMenu(false)
+            }
+        }, [])
+
         return(
-            <div className='header__user-menu-icon' onClick={() => {if(!showUserMenu) setShowUserMenu(true)}}>
+            <div id="header-user-menu" className='header__user-menu-icon' onClick={() => {if(!showUserMenu) setShowUserMenu(true)}}>
                 <img src={person.imageUrl ? imageUrl + person.imageUrl : userMenuIcon}></img>
-                    <div className={showUserMenu ? 'header__user-menu header__display-block' : 'header__user-menu'}>
+                    <div className={showUserMenu ? 'header__user-menu header__user-menu_active' : 'header__user-menu'}>
                         <div className='header__user-menu-top' >
                             <img src={burgerCloseButton} onClick={() => setShowUserMenu(false)}></img>
                         </div>

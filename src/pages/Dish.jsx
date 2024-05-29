@@ -1,18 +1,24 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { getDish, getDishesForChef } from "../services/DishService"
+import { addDishToCart, isDishLocalityValidToUser, isDishLocalityValidCartLocalities } from "../services/CartService"
 import imagesUrl from "../imagesUrl"
 import ChefRank from "../elements/ChefRank"
 import { Link, useParams } from "react-router-dom"
 import './Dish.css'
 import DishCard from "../elements/DishCard"
 import Loading from "../elements/utility/Loading"
-const Dish = () => {
+import Snackbar from "../elements/utility/Snackbar"
+import Confirm from "../elements/utility/Confirm"
+const Dish = ({cart, loadCart}) => {
     
     const {id} = useParams()
     console.log('dish page, id=' + id)
     const [dish, setDish] = useState({})
     const [chefDishes, setChefDishes] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const dishToSave = useRef({})
+    const snackbarRef = useRef(null)
+    const confirmRef = useRef(null)
     useEffect(() => {
         loadDish()
     }, [id])
@@ -36,6 +42,41 @@ const Dish = () => {
         setChefDishes(data)
     }
 
+    async function sendAddToCart(dish){
+       
+        dishToSave.current = dish
+        const locality = JSON.parse(localStorage.getItem('locality'))
+        if(!isDishLocalityValidToUser(dish, locality)){
+            let txt
+            if(locality){
+                txt ='Блюдо готується в населеному пункті ' + dish.chef.locality.name + ', Ви обрали місто ' + locality?.name + '. Все одно додати в кошик?'
+                
+            } else {
+                txt ='Блюдо готується в населеному пункті ' + dish.chef.locality.name + ', а Ви не обрали місто. Все одно додати в кошик?'
+            }
+            confirmRef.current.show(txt)
+        } else {
+            sendAfterConfirmed()
+        }
+        
+       
+    }
+
+    async function sendAfterConfirmed(){
+        if(!isDishLocalityValidCartLocalities(dishToSave.current, cart)){
+            snackbarRef.current.show(<div>Не можна додавати страви з різних міст <Link to="/HomeChefFront/cart">Кошик</Link></div>, true, 5000)
+            return
+        }
+        setIsLoading(true)
+        await addDishToCart(dishToSave.current)
+        loadCart()
+        setIsLoading(false)
+    }
+    function rejectAddingDish(){
+        dishToSave.current = {}
+
+    }
+
     if(isLoading){
         return <></>
     }
@@ -43,6 +84,8 @@ const Dish = () => {
     return (
         <div className="dish">
             <Loading isActive={isLoading} seIsActive={setIsLoading}/>
+            <Snackbar ref={snackbarRef}/>
+            <Confirm okFunction={sendAfterConfirmed} noFunction={rejectAddingDish} ref={confirmRef}/>
             <div className="dish__main-content">
                 <div className="dish__left">
                     <div className="dish__img">
@@ -55,7 +98,7 @@ const Dish = () => {
                         <div className="dish__dish-menu">
                             <div className="dish__price">{dish.price} ₴</div>
                             
-                            <button className="dish__buy-button">Замовити</button>
+                            <button className="dish__buy-button" onClick={() => sendAddToCart(dish)}>Замовити</button>
                         </div>
                         <div className="dish__weight">Вага: {dish.weight} гр.</div>
                         <div className="dish__desription">{dish.description}</div>
@@ -84,7 +127,7 @@ const Dish = () => {
                 <h2>Інші страви шефа в цій категорії</h2>
                 <div className="dish__dishes">
                     {chefDishes.map(d => {
-                       return <DishCard dish={d} sendAddToCart={undefined}/>
+                       return <DishCard dish={d} sendAddToCart={sendAddToCart}/>
                     })}
                 </div>
             </div>

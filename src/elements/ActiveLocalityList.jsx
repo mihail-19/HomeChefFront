@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import serverUrl from "../serverUrl"
+import removeIcon from '../assets/burgerCloseButton.png'
 import axios from "axios"
 import './LocalityList.css'
 const ActiveLocalityList = ({isActive, setIsActive, setLocality}) => {
     const [localities, setLocalities] = useState([])
     const [name, setName] = useState('')
+    
     useEffect(() =>{
-        console.log(isActive)
         if(isActive){
             searchLocality()
-        }
+        } 
     }, [isActive])
+
     async function searchLocality(){
         console.log('loading')
         const url = serverUrl + '/common-data/active-localities/with-dishes'
@@ -30,22 +32,39 @@ const ActiveLocalityList = ({isActive, setIsActive, setLocality}) => {
         setLocalities([])
         setIsActive(false)
     }
+    function removeLocality(){
+        setLocality(null)
+        setLocalities([])
+    }
 
-
-    return (
-        <div className={isActive ? "active-locality locality-list_active" : "active-locality"} onClick={e => e.stopPropagation()}>
-            <label>Населений пункт</label>
-            <input type="text" value={name} onChange={e => setName(e.target.value)}></input>
-            <div className="active-locality__list">
-                {localities.map(activeLocality => {
-                    return (
-                        <button onClick={() => choseLocality(activeLocality)}>{localityPretyPrint(activeLocality)}</button>
-                    )
-                })}
+    const currentLocality = JSON.parse(localStorage.getItem('locality'))
+    if(!currentLocality){
+        return (
+            <div id="active-locality" className={isActive ? "active-locality locality-list_active" : "active-locality"} onClick={e => e.stopPropagation()}>
+                <label>Населений пункт</label>
+                <input type="text" value={name} onChange={e => setName(e.target.value)}></input>
+                <div className="active-locality__list">
+                    {localities.map(activeLocality => {
+                        return (
+                            <button onClick={() => choseLocality(activeLocality)}>{localityPretyPrint(activeLocality)}</button>
+                        )
+                    })}
+                </div>
             </div>
-        </div>
-        
-    )
+            
+        )
+    } else{
+        return (
+            <div className={isActive ? "active-locality locality-list_active" : "active-locality"} onClick={e => e.stopPropagation()}>
+                <div className="active-locality__current-locality" >
+                    <div className="active-locality__current-locality-name">{currentLocality.name}</div>
+                    <button className="active-loclity__remove-current" onClick={removeLocality}><img src={removeIcon} about="скинути населений пункт" alt="скинути населений пункт"></img></button>
+                </div>
+                
+            </div>
+            
+        )
+    }
 
     function localityPretyPrint(activeLocality){
         const loc = activeLocality.locality
