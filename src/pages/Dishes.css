@@ -15,6 +15,7 @@
 
 .dishes__menu{
     width: 210px;
+    flex-shrink: 0;
 }
 .dishes__menu-element{
     width: 100%;
@@ -23,11 +24,14 @@
     align-items: center;
     justify-content: space-between;
     border: 1px solid gray;
-    padding: 0 10px 0 5px;
     font-size: 16px;
     border-radius: 10px;
     cursor: pointer;
     margin: 10px 0 15px 0;
+    
+}
+.dishes__menu-element-text{
+    margin-left: 5px;
 }
 .dishes__menu-arrow{
     width: 12px;
@@ -35,6 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 10px;
 }
 .dishes__menu-arrow img{
     width: 100%;
@@ -75,6 +80,44 @@
 
 
 
+.dishes__params{
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+.dishes__param{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    font-size: 12px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    gap: 10px;
+}
+.dishes__remove-param{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+.dishes__remove-param img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+}
+.dishes__params-category{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.dishes__params-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
 
 
@@ -85,13 +128,25 @@
 
 
 
+
+
+
+
+
+
+
+
+.dishes__content{
+    margin-left: 30px;
+}
 
 
 .dishes__list{
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    margin-left: 20px;
+   
+    flex-shrink: 0;
 }
 .dishes__dish{
     position: relative;

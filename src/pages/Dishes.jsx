@@ -14,11 +14,13 @@ import Confirm from "../elements/utility/Confirm"
 import {parse, stringify} from '../services/DishParamService'
 import {getDishCategories, getTags} from '../services/DataService'
 import arrow from '../assets/headerCityArrow.png'
+import removeIcon from '../assets/burgerCloseButton.png'
 const Dishes = ({cart, loadCart}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
     const [totalPages, setTotalPages] = useState(0)
-
+    const [categories, setCategories] = useState([])
+    const [tags, setTags] = useState([])
     const dishToSave = useRef({})
     const snackbarRef = useRef(null)
     const confirmRef = useRef(null)
@@ -26,7 +28,10 @@ const Dishes = ({cart, loadCart}) => {
 
     const {params} = useParams()
     const [paramsParsed, setParamsParsed] = useState({})
-   
+
+    useEffect(() => {
+        loadTagsAndCategories()
+    }, [])
     useEffect(() => {
         console.log(params)
         setParamsParsed(parse(params))
@@ -35,6 +40,16 @@ const Dishes = ({cart, loadCart}) => {
     useEffect(() => {
         loadDishes()
     }, [paramsParsed])
+
+    async function loadTagsAndCategories(){
+        const tagsRes = await getTags()
+        const categoriesRes = await getDishCategories()
+        setTags(tagsRes.data)
+        setCategories(categoriesRes.data)
+    }
+
+
+
     async function loadDishes(){
         setLoading(true)
         const pageNumber = paramsParsed && paramsParsed.page ? paramsParsed.page-1 : 0
@@ -90,6 +105,7 @@ const Dishes = ({cart, loadCart}) => {
             <Confirm okFunction={sendAfterConfirmed} noFunction={rejectAddingDish} ref={confirmRef}/>
             <DishMenu params={paramsParsed}/>
             <div className="dishes__content">
+                <ParamsSelected params={paramsParsed}/>
                 <div className="dishes__list">
                     {dishes.map(dish => {
                         return <DishCard dish={dish} sendAddToCart={sendAddToCart}/>
@@ -101,37 +117,78 @@ const Dishes = ({cart, loadCart}) => {
         </div>
     )
 
+    function ParamsSelected({params}){
+        if(!params){
+            return <></>
+        }
+        let chosenTags = undefined
+        let chosenCategory = undefined
+        if(params.tags){
+            chosenTags = params.tags.map(tagId => tags.find(tag => tag.id === tagId))
+        }
+        if(params.category){
+            chosenCategory = categories.find(c => c.id === params.category)
+        }
+        function removeCategoryElement(c){
+            const paramsCopy = {...params}
+            paramsCopy.category = undefined
+            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+
+            return removeElement(url, c.name)
+        }
+        function removeTagElement(t){
+            console.log(t)
+            if(!params || !params.tags || !t){
+                return
+            }
+            const paramsCopy = JSON.parse(JSON.stringify(params))
+            paramsCopy.tags = paramsCopy.tags.filter(tag => t.id !== tag)
+            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+            return removeElement(url, t.name)
+        }
+
+        function removeElement(url, text){
+                return (
+                    <div className="dishes__param">
+                        {text}
+                        <Link to={url} className="dishes__remove-param">
+                            <img src={removeIcon}></img>
+                        </Link>
+                    </div>
+                )
+        }
+        return (
+            <div className="dishes__params">
+                {chosenCategory &&
+                    <div className="dishes__params-category">
+                       <div> Категорія:</div> {removeCategoryElement(chosenCategory)}
+                    </div>
+                }
+                {chosenTags && 
+                    <div className="dishes__params-tags">
+                        <div> Теги:</div>
+                        {chosenTags?.map(t => removeTagElement(t))}
+                    </div>
+                }
+            </div>
+        )
+
+    }
+
     function DishMenu({params}){
         const [showCategory, setShowCategory] = useState(params && params.category ? true : false)
         const [showTags, setShowTags] = useState(params && params.tags ? true : false)
         const [price, setShowPrice] = useState(false)
-        const [categories, setCategories] = useState([])
-        const [tags, setTags] = useState([])
-        async function loadCategories(){
-            const {data} = await getDishCategories()
-            setCategories(data)
-        }
-        async function loadTags(){
-            const {data} = await getTags()
-            setTags(data.filter(tag => !hasTagWithId(params.tags, tag.id)))
-            //setTags(data)
-        }
+       
+       
         function hasTagWithId(tags, id){
-            return tags.find(t => t === id) ? true : false
+            if(!params || !params.tags){
+                return false
+            }
+            return params.tags.find(t => t === id) ? true : false
         }
         
         
-        useEffect(() => {
-            if(showCategory){
-                loadCategories()
-            }
-        }, [showCategory])
-        useEffect(() => {
-            if(showTags){
-                loadTags()
-            }
-        }, [showTags])
-
         function categoryToLink(category){
             const paramsCopy = {...params}
             paramsCopy.category = category.id
@@ -139,7 +196,7 @@ const Dishes = ({cart, loadCart}) => {
             return <Link to={url} className="dishes__category-link">{category.name}</Link>
         }
         function tagToLink(tag){
-            const paramsCopy = JSON.parse(JSON.stringify(params))
+            const paramsCopy = params ? JSON.parse(JSON.stringify(params)) : {}
             if(!paramsCopy.tags){
                 paramsCopy.tags = []
             } 
@@ -152,7 +209,7 @@ const Dishes = ({cart, loadCart}) => {
         return (
             <div className="dishes__menu">
                 <div className="dishes__menu-element" onClick={() => showCategory ? setShowCategory(false) : setShowCategory(true)}>
-                    Категорія 
+                    <div className="dishes__menu-element-text">Категорія</div> 
                     <div className={showCategory ? "dishes__menu-arrow dishes__menu-arrow_active" : "dishes__menu-arrow"}>
                         <img src={arrow}></img>
                     </div>
@@ -164,14 +221,14 @@ const Dishes = ({cart, loadCart}) => {
                 }
 
                 <div className="dishes__menu-element" onClick={() => showTags ? setShowTags(false) : setShowTags(true)}>
-                    Теги 
+                    <div className="dishes__menu-element-text">Теги </div>
                     <div className={showTags ? "dishes__menu-arrow dishes__menu-arrow_active" : "dishes__menu-arrow"}>
                         <img src={arrow}></img>
                     </div>
                 </div>
                 {showTags && 
                     <div className="dishes__menu-tags">
-                       {tags?.map(tagToLink)}
+                       {tags?.filter(tag => !hasTagWithId(params?.tags, tag.id)).map(tagToLink)}
                     </div>
                 }
             </div>

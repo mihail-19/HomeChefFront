@@ -12,7 +12,7 @@ function parse(paramsString){
             if(param[0] === 'page'){
                 paramsObject.page = parseInt(param[1])
             } else if(param[0] === 'category'){
-                paramsObject.category = param[1]
+                paramsObject.category = parseInt(param[1])
             } else if(param[0] === 'tags'){
                 const splittedTags = param[1].split(',')
                 console.log(splittedTags.length)
