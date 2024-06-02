@@ -16,7 +16,7 @@ const DishCard = ({dish, sendAddToCart}) => {
                     <span><img src={rankingIcon}></img></span> {dish.chef.ranking ? dish.chef.ranking.rank : "0/0"}
                 </div>
             </div>
-            <Link to={"/HomeChefFront/dishes/" + dish.id} className="dish-card__dish-img">
+            <Link to={"/HomeChefFront/dish/" + dish.id} className="dish-card__dish-img">
                 <img src={imagesUrl + dish.imageURL}></img>
             </Link>
             <div className="dish-card__dish-info">

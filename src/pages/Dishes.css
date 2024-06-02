@@ -1,6 +1,7 @@
 .dishes{
     padding: 0 30px;
     font-family: Montserrat;
+    display: flex;
 }
 .dishes h1{
     font-size: 32px;
@@ -8,16 +9,89 @@
     margin: 0 0 10px 0;
     padding: 0;
 }
+
+
+
+
 .dishes__menu{
-    height: 30px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
+    width: 210px;
 }
-.dishes__content{
+.dishes__menu-element{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid gray;
+    padding: 0 10px 0 5px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px 0 15px 0;
+}
+.dishes__menu-arrow{
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dishes__menu-arrow img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.3s;
+}
+.dishes__menu-arrow_active img{
+    transform: rotate(-90deg);
+    transition: 0.3s;
+}
+.dishes__menu-params{
+    padding: 2px;
+}
+.dishes__menu-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.dishes__category-link{
+    display: block;
+}
+.dishes__tag-link{
+    display: block;
+    padding: 2px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dishes__list{
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
+    margin-left: 20px;
 }
 .dishes__dish{
     position: relative;
@@ -145,4 +219,39 @@
     padding: 0 5px;
     border-radius: 10px;
 
+}
+
+
+.dishes__pages{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 30px 0;
+}
+.dishes__page-blocks{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.dishes__page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    border: 1px solid gray;
+}
+.dishes__page:hover{
+    border: 1px solid rgb(22, 182, 35);
+    color: rgb(22, 182, 35);
+}
+.dishes__page_current{
+    color: rgb(185, 181, 181);
+}
+.dishes__page_current:hover{
+    border: 1px solid gray !important;
+    color: rgb(185, 181, 181);  
 }

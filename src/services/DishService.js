@@ -23,9 +23,10 @@ const removeDish = async (dishId) => {
     return res
 }
 
-const getAllDishes = async() => {
+const getAllDishes = async(pageNumber) => {
     const url = serverUrl + "/dishes"
-    const res = axios.get(url, {withCredentials:true})
+    const params = new URLSearchParams([['pageNumber', pageNumber]])
+    const res = axios.get(url, {params}, {withCredentials:true})
     return res
 }
 
