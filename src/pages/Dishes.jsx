@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllDishes } from "../services/DishService"
+import { getAllDishes, getAllDishesWithFilters } from "../services/DishService"
 import { Link, useParams } from "react-router-dom"
 import imagesUrl from "../imagesUrl"
 import emptyDishIconImg from '../assets/dishImg.png'
@@ -33,7 +33,6 @@ const Dishes = ({cart, loadCart}) => {
         loadTagsAndCategories()
     }, [])
     useEffect(() => {
-        console.log(params)
         setParamsParsed(parse(params))
     }, [params])
 
@@ -53,7 +52,13 @@ const Dishes = ({cart, loadCart}) => {
     async function loadDishes(){
         setLoading(true)
         const pageNumber = paramsParsed && paramsParsed.page ? paramsParsed.page-1 : 0
-        const {data} = await getAllDishes(pageNumber)
+        let res
+        if(paramsParsed && (paramsParsed.category || paramsParsed.tags)){
+            res = await getAllDishesWithFilters(pageNumber, paramsParsed.category, paramsParsed.tags)
+        } else {
+            res = await getAllDishes(pageNumber)
+        }
+        const data = res.data
         if(data.totalPages !== totalPages){
             setTotalPages(data.totalPages)
         }
@@ -107,7 +112,7 @@ const Dishes = ({cart, loadCart}) => {
             <div className="dishes__content">
                 <ParamsSelected params={paramsParsed}/>
                 <div className="dishes__list">
-                    {dishes.map(dish => {
+                    {dishes?.map(dish => {
                         return <DishCard dish={dish} sendAddToCart={sendAddToCart}/>
                     })}
                     
@@ -137,7 +142,6 @@ const Dishes = ({cart, loadCart}) => {
             return removeElement(url, c.name)
         }
         function removeTagElement(t){
-            console.log(t)
             if(!params || !params.tags || !t){
                 return
             }
@@ -239,9 +243,7 @@ const Dishes = ({cart, loadCart}) => {
 
     function Pages ({params, totalPages}){
         const blocksMaxNumber = 4
-        console.log(params)
         if(!totalPages || totalPages === 0){
-            console.log(totalPages)
             
             return <></>
         }
@@ -268,7 +270,6 @@ const Dishes = ({cart, loadCart}) => {
                 }
                 
             }
-            console.log(pages)
             return pages
         }
             

@@ -18,7 +18,6 @@ import Cart from './pages/Cart.jsx'
 import Dish from './pages/Dish.jsx'
 import CabinetChefOrders from './elements/Cabinet/CabinetChefOrders.jsx'
 function App() {
-  console.log('app')
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
   const [person, setPerson] = useState({})
   const [cart, setCart] = useState({})
@@ -32,7 +31,6 @@ function App() {
   const sendGetPerson = async () => {
     try{
       const {data} = await getPerson()
-      console.log(data)
       setPerson(data)
     } catch (error){
       console.log('error getting person')

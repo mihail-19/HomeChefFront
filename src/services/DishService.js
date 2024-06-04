@@ -30,6 +30,24 @@ const getAllDishes = async(pageNumber) => {
     return res
 }
 
+const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds) => {
+    const url = serverUrl + "/dishes"
+    let paramsArray
+    if(!categoryIds && !tagIds){
+        paramsArray = [['pageNumber', pageNumber]]
+    } else if (categoryIds && tagIds){
+        paramsArray = [['pageNumber', pageNumber], ['categoryIds', categoryIds], ['tagIds', tagIds]]
+    } else if (categoryIds){
+        paramsArray = [['pageNumber', pageNumber], ['categoryIds', categoryIds]]
+    } else if (tagIds){
+        paramsArray = [['pageNumber', pageNumber], ['tagIds', tagIds]]
+    }
+    const params = new URLSearchParams(paramsArray)
+    console.log(paramsArray)
+    const res = axios.get(url, {params}, {withCredentials:true})
+    return res
+}
+
 const getDish = async (id) => {
     const url = serverUrl + "/dishes/" + id
     const res = axios.get(url, {withCredentials:true})
@@ -57,4 +75,4 @@ const getDishesForChef = async (chefId) => {
     return res 
 }
 
-export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef}
+export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef, getAllDishesWithFilters}
