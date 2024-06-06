@@ -11,17 +11,10 @@ function parse(paramsString){
         if(param.length > 1){
             if(param[0] === 'page'){
                 paramsObject.page = parseInt(param[1])
-            } else if(param[0] === 'category'){
-                paramsObject.category = parseInt(param[1])
+            } else if(param[0] === 'categories'){
+                paramsObject.categories = multipleParamsToArray(param[1])
             } else if(param[0] === 'tags'){
-                const splittedTags = param[1].split(',')
-                console.log(splittedTags.length)
-                paramsObject.tags = []
-                for(let i = 0; i<splittedTags.length;i++){
-                    console.log('push')
-                    paramsObject.tags.push(parseInt(splittedTags[i]))
-                }
-                console.log(paramsObject.tags)
+                paramsObject.tags = multipleParamsToArray(param[1])
             } else if(param[0] === 'city'){
                 paramsObject.city === param[1]
             }
@@ -29,6 +22,15 @@ function parse(paramsString){
         }
     });
     return paramsObject
+}
+
+function multipleParamsToArray(str){
+    const splittedTags = str.split(',')
+    const arr = []
+    for(let i = 0; i<splittedTags.length;i++){
+        arr.push(parseInt(splittedTags[i]))
+    }    
+    return arr
 }
 
 function stringify(params){
@@ -39,11 +41,18 @@ function stringify(params){
         }
         res += 'page=' + params.page
     }
-    if(params.category){
+    if(params.categories){
         if(res.length > 0){
             res += ';'
         }
-        res += 'category=' + params.category
+        res += 'categories='
+        for(let i =0; i<params.categories.length; i++){
+            if(i < params.categories.length - 1){
+                res += params.categories[i] + ','
+            } else {
+                res += params.categories[i]
+            }
+        }
     }
     if(params.city){
         if(res.length > 0){

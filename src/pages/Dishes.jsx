@@ -15,6 +15,7 @@ import {parse, stringify} from '../services/DishParamService'
 import {getDishCategories, getTags} from '../services/DataService'
 import arrow from '../assets/headerCityArrow.png'
 import removeIcon from '../assets/burgerCloseButton.png'
+import selectedIcon from '../assets/checkboxSelectedBlack.png'
 const Dishes = ({cart, loadCart}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
@@ -28,17 +29,20 @@ const Dishes = ({cart, loadCart}) => {
 
     const {params} = useParams()
     const [paramsParsed, setParamsParsed] = useState({})
-
     useEffect(() => {
+        if(params){
+            const pParsed = parse(params)
+            setParamsParsed(pParsed)
+            loadDishes(pParsed)
+        }
         loadTagsAndCategories()
     }, [])
     useEffect(() => {
-        setParamsParsed(parse(params))
+        const pParsed = parse(params)
+        setParamsParsed(pParsed)
+        loadDishes(pParsed)
     }, [params])
 
-    useEffect(() => {
-        loadDishes()
-    }, [paramsParsed])
 
     async function loadTagsAndCategories(){
         const tagsRes = await getTags()
@@ -49,12 +53,12 @@ const Dishes = ({cart, loadCart}) => {
 
 
 
-    async function loadDishes(){
+    async function loadDishes(paramsParsed){
         setLoading(true)
         const pageNumber = paramsParsed && paramsParsed.page ? paramsParsed.page-1 : 0
         let res
-        if(paramsParsed && (paramsParsed.category || paramsParsed.tags)){
-            res = await getAllDishesWithFilters(pageNumber, paramsParsed.category, paramsParsed.tags)
+        if(paramsParsed && (paramsParsed.categories || paramsParsed.tags)){
+            res = await getAllDishesWithFilters(pageNumber, paramsParsed.categories, paramsParsed.tags)
         } else {
             res = await getAllDishes(pageNumber)
         }
@@ -127,16 +131,23 @@ const Dishes = ({cart, loadCart}) => {
             return <></>
         }
         let chosenTags = undefined
-        let chosenCategory = undefined
+        let chosenCategories = undefined
         if(params.tags){
             chosenTags = params.tags.map(tagId => tags.find(tag => tag.id === tagId))
         }
-        if(params.category){
-            chosenCategory = categories.find(c => c.id === params.category)
+        if(params.categories){
+            chosenCategories = params.categories.map(cId => categories.find(c => c.id === cId))
         }
         function removeCategoryElement(c){
-            const paramsCopy = {...params}
-            paramsCopy.category = undefined
+            if(!params || !params.categories || !c){
+                return
+            }
+            const paramsCopy = JSON.parse(JSON.stringify(params))
+            if(paramsCopy.categories.length > 1){
+                paramsCopy.categories = paramsCopy.categories.filter(cId => c.id !== cId)
+            } else {
+                paramsCopy.categories = undefined
+            }
             const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
 
             return removeElement(url, c.name)
@@ -163,9 +174,10 @@ const Dishes = ({cart, loadCart}) => {
         }
         return (
             <div className="dishes__params">
-                {chosenCategory &&
+                {chosenCategories &&
                     <div className="dishes__params-category">
-                       <div> Категорія:</div> {removeCategoryElement(chosenCategory)}
+                       <div> Категорія:</div> 
+                       {chosenCategories?.map(c => removeCategoryElement(c))}
                     </div>
                 }
                 {chosenTags && 
@@ -180,7 +192,7 @@ const Dishes = ({cart, loadCart}) => {
     }
 
     function DishMenu({params}){
-        const [showCategory, setShowCategory] = useState(params && params.category ? true : false)
+        const [showCategory, setShowCategory] = useState(params && params.categories ? true : false)
         const [showTags, setShowTags] = useState(params && params.tags ? true : false)
         const [price, setShowPrice] = useState(false)
        
@@ -194,10 +206,29 @@ const Dishes = ({cart, loadCart}) => {
         
         
         function categoryToLink(category){
-            const paramsCopy = {...params}
-            paramsCopy.category = category.id
+            const paramsCopy = params ? JSON.parse(JSON.stringify(params)) : {}
+            const hasCategory = paramsCopy.categories && paramsCopy.categories.find(c => c === category.id)
+            if(!paramsCopy.categories){
+                paramsCopy.categories = []
+            }
+            if(hasCategory){
+                if(paramsCopy.categories.length > 1){
+                    paramsCopy.categories = paramsCopy.categories.filter(c => c !== category.id)
+                } else {
+                    paramsCopy.categories = undefined
+                }
+            } else {
+                paramsCopy.categories.push(category.id)
+            }
             const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
-            return <Link to={url} className="dishes__category-link">{category.name}</Link>
+            return (
+                <Link to={url} className="dishes__category-link">
+                    <div className={hasCategory ? 'dishes__category-checkbox dishes__category-checkbox_selected' : 'dishes__category-checkbox'}>
+                        <img src={selectedIcon}></img>
+                    </div>
+                    {category.name}
+                </Link>
+            )
         }
         function tagToLink(tag){
             const paramsCopy = params ? JSON.parse(JSON.stringify(params)) : {}
@@ -206,7 +237,9 @@ const Dishes = ({cart, loadCart}) => {
             } 
             paramsCopy.tags.push(tag.id)
             const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
-            return <Link to={url} className="dishes__tag-link">{tag.name}</Link>
+            return (
+                <Link to={url} className="dishes__tag-link">{tag.name}</Link>
+            )
         }
 
 
