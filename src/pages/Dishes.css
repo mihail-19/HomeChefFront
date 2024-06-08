@@ -323,8 +323,19 @@
     border: 1px solid rgb(22, 182, 35);
     color: rgb(22, 182, 35);
 }
+.dishes__page_disabled{
+    color: rgb(187, 185, 185);
+    border: 1px solid rgb(158, 157, 157);
+    cursor: default;
+}
+.dishes__page_disabled:hover{
+    color: rgb(187, 185, 185);
+    border: 1px solid rgb(158, 157, 157);
+}
+
 .dishes__page_current{
     color: rgb(185, 181, 181);
+    cursor: default;
 }
 .dishes__page_current:hover{
     border: 1px solid gray !important;

@@ -12,28 +12,43 @@ function parse(paramsString){
             if(param[0] === 'page'){
                 paramsObject.page = parseInt(param[1])
             } else if(param[0] === 'categories'){
-                paramsObject.categories = multipleParamsToArray(param[1])
+                const arr = multipleParamsToArray(param[1])
+                if(arr && arr.length > 0){
+                    paramsObject.categories = arr
+                }
             } else if(param[0] === 'tags'){
-                paramsObject.tags = multipleParamsToArray(param[1])
+                const arr = multipleParamsToArray(param[1])
+                if(arr && arr.length > 0){
+                    paramsObject.tags = arr
+                }
+
             } else if(param[0] === 'city'){
                 paramsObject.city === param[1]
             }
             
         }
     });
-    return paramsObject
+    console.log(paramsObject)
+    return Object.keys(paramsObject).length > 0 ? paramsObject : undefined
 }
 
 function multipleParamsToArray(str){
     const splittedTags = str.split(',')
     const arr = []
     for(let i = 0; i<splittedTags.length;i++){
-        arr.push(parseInt(splittedTags[i]))
+        const intValue = parseInt(splittedTags[i])
+        if(!isNaN(intValue) && isFinite(intValue) && !arr.includes(intValue)){
+            arr.push(intValue)
+        }
     }    
+    console.log(arr)
     return arr
 }
 
 function stringify(params){
+    if(!params){
+        return ''
+    }
     let res = ''
     if(params.page && params.page > 1){
         if(res.length > 0){

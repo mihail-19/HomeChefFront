@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getAllDishes, getAllDishesWithFilters } from "../services/DishService"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import imagesUrl from "../imagesUrl"
 import emptyDishIconImg from '../assets/dishImg.png'
 import rankingIcon from '../assets/rankingIcon.png'
@@ -25,28 +25,42 @@ const Dishes = ({cart, loadCart}) => {
     const dishToSave = useRef({})
     const snackbarRef = useRef(null)
     const confirmRef = useRef(null)
+    const navigate = useNavigate()
 
 
     const {params} = useParams()
     const [paramsParsed, setParamsParsed] = useState({})
     useEffect(() => {
-        if(params){
-            const pParsed = parse(params)
+       loadTagsAndCategories(params)
+    }, [])
+    useEffect(() => {
+        loadTagsAndCategories(params)
+    }, [params])
+
+    //Navigate if params contains not valid data or ID of params are not contained in list
+    function parseParams(params, tags, categories){
+        const pParsed = parse(params)
+        if(pParsed && pParsed.categories){
+            const categoryIds = categories.map(c => c.id)
+            pParsed.categories = pParsed.categories.filter(cId => categoryIds.includes(cId))
+        }
+        if(pParsed && pParsed.tags){
+            const tagIds = tags.map(c => c.id)
+            pParsed.tags = pParsed.tags.filter(tId => tagIds.includes(tId))
+        }
+        if(pParsed && stringify(pParsed) !== params){
+            navigate('/HomeChefFront/dishes/' + stringify(pParsed))
+        } else {
             setParamsParsed(pParsed)
             loadDishes(pParsed)
         }
-        loadTagsAndCategories()
-    }, [])
-    useEffect(() => {
-        const pParsed = parse(params)
-        setParamsParsed(pParsed)
-        loadDishes(pParsed)
-    }, [params])
+    }
 
 
-    async function loadTagsAndCategories(){
+    async function loadTagsAndCategories(params){
         const tagsRes = await getTags()
         const categoriesRes = await getDishCategories()
+        parseParams(params, tagsRes.data, categoriesRes.data)
         setTags(tagsRes.data)
         setCategories(categoriesRes.data)
     }
@@ -172,8 +186,21 @@ const Dishes = ({cart, loadCart}) => {
                     </div>
                 )
         }
+        function removeAllFilters(){
+            if(!params || (!params.tags && !params.categories)){
+                return
+            }
+            // const paramsCopy = {...params}
+            // paramsCopy.tags = undefined
+            // paramsCopy.categories = undefined
+            const url = '/HomeChefFront/dishes' 
+            return removeElement(url, 'Скинути все')
+        }
         return (
             <div className="dishes__params">
+                <div className="dishes__params-category">
+                    {removeAllFilters()}
+                </div>
                 {chosenCategories &&
                     <div className="dishes__params-category">
                        <div> Категорія:</div> 
@@ -310,13 +337,23 @@ const Dishes = ({cart, loadCart}) => {
 
         return (
             <div className="dishes__pages">
-                <Link to={currentPage > 1 ? buildLinkToPage(currentPage - 1) : ''} className="dishes__page">{'<'}</Link>
+                {currentPage > 1 &&
+                    <Link to={buildLinkToPage(currentPage - 1)} className="dishes__page">{'<'}</Link>
+                }
+                {currentPage < 2 && 
+                    <div className="dishes__page dishes__page_disabled">{'<'}</div>
+                }
                 <div className="dishes__page-blocks">
                     {buildPages().map(p => {
-                        return <Link to={buildLinkToPage(p.pageNumber)} className={p.isCurrent ? 'dishes__page dishes__page_current' : 'dishes__page'}>{p.pageNumber}</Link>
+                        return p.isCurrent ? <div className="dishes__page dishes__page_current">{p.pageNumber}</div> : <Link to={buildLinkToPage(p.pageNumber)} className='dishes__page'>{p.pageNumber}</Link>
                     })}
                 </div>
-                <div className="dishes__page">{'>'}</div>
+                {currentPage < totalPages &&
+                    <Link to={buildLinkToPage(currentPage + 1)} className="dishes__page">{'>'}</Link>
+                }
+                {currentPage  >= totalPages && 
+                    <div className="dishes__page dishes__page_disabled">{'>'}</div>
+                }
             </div>
         )
     }
