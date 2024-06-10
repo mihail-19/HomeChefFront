@@ -8,19 +8,45 @@ const LocalityList = ({isActive, setIsActive, setLocality, name}) => {
         if(isActive){
             searchLocality(name)
         }
-    }, [name])
+    }, [name, isActive])
+    
     async function searchLocality(name){
         const url = serverUrl + '/locality/search'
         const params = new URLSearchParams([['namePart', name]])
         const {data} = await axios.get(url, {params}, {withCredentials:true})
-        setLocalities(data.sort((a, b) => {
+        setLocalities(sortLocalities(data, name))
+    }
+
+    function sortLocalities(localities, name){
+        const sorted = localities.sort((a, b) => {
+            //city is bigger then country
             if(a.type === 'місто' && b.type !== 'місто'){
                 return -1
             } else if (b.type === 'місто' && a.type !== 'місто'){
                 return 1
             }
+            //Both are cities
+            if(a.type === 'місто' && b.type === 'місто'){
+                //Kyiv is a biggest city
+                if(a.name.toLowerCase() === 'київ'){
+                    return -1
+                } else if (b.name.toLowerCase() === 'київ'){
+                    return 1
+                }
+                if(a.region.startsWith(a.name) && !b.region.startsWith(b.name)){
+                    return -1
+                } else if (b.region.startsWith(a.name) && !a.region.startsWith(b.name)){
+                    return 1
+                }
+
+            }
             return 0
-        }))
+        })
+        if(name.length < 3){
+            return sorted.slice(0, 20)
+        } else{
+            return sorted
+        }
     }
     
     function choseLocality(locality){

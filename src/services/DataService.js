@@ -24,6 +24,12 @@ const addCity = async (cityName) =>{
     return res
 }
 
+const updateCities = async () => {
+    const url = serverUrl + '/locality/update'
+    const res = axios.get(url)
+    return res
+}
+
 const removeCity = async (cityId) =>{
     const url = serverUrl + "/common-data/cities/" + cityId
     const res = axios.delete(url, {
@@ -95,4 +101,4 @@ const removeTag = async (id) => {
 
 
 
-export {addCity, getCities, removeCity, getDishCategories, addDishCategory, removeDishCategory, addTag, getTags, removeTag}
+export {updateCities, getCities, removeCity, getDishCategories, addDishCategory, removeDishCategory, addTag, getTags, removeTag}

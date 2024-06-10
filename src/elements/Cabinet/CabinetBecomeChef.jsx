@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { getChef, registerChef } from '../../services/ChefService'
 import { getPerson } from '../../services/PersonService'
 import LocalityList from '../LocalityList'
@@ -36,19 +36,28 @@ const CabinetMyProfile = ({person, setPerson}) => {
         setPerson(res.data)
     }
 
+    const localitySearchClickListener = useCallback((e) => {
+        if(!document.getElementById("menu-localities").contains(e.target)){
+            setIsActiveLocality(false)
+            document.removeEventListener('click', localitySearchClickListener)
+        }
+    })
     function searchCity(name){
         setCityName(name)
-        if(name.length > 1){
-            setIsActiveLocality(true)
-        } else {
-            setIsActiveLocality(false)
-        }
+        document.addEventListener('click', localitySearchClickListener)
+        setIsActiveLocality(true)
+        // if(name.length > 1){
+        //     setIsActiveLocality(true)
+        // } else {
+        //     setIsActiveLocality(false)
+        // }
     }
     function setLocalityAndName(locality){
         //todo chef profile city change to locality
         setLocality(locality)
         setCityName(locality.name)
     }
+
 
     return (
         <div className="profile">
@@ -90,12 +99,12 @@ const CabinetMyProfile = ({person, setPerson}) => {
                 </div>
                 <div className='profile__info-row'>
                     <div className='profile__info-column'>
-                        <div className='profile__info-element'>
+                        <div id="menu-localities" className='profile__info-element'>
                             <label className='profile__info-tag'>
                                 Місто 
                             </label>
-                            <input type="text" className='profile__info-input' value={cityName} onChange={e => searchCity(e.target.value)}></input>
-                            <div className='profile__locality-container'>
+                            <input type="text" className='profile__info-input' value={cityName} onFocus={(e) => searchCity(e.target.value)} onChange={e => searchCity(e.target.value)}></input>
+                            <div  className='profile__locality-container'>
                                 <LocalityList isActive={isActiveLocality} setIsActive={setIsActiveLocality} setLocality={setLocalityAndName} name={cityName}/>
                             </div> 
                         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import defaultChefImage from '../../assets/registerLogo.png'
 import { getChef, updateChef } from '../../services/ChefService'
 import { useOutletContext } from 'react-router-dom'
@@ -25,6 +25,12 @@ const CabinetMyProfile = () => {
     const snackbarRef = useRef(null)
 
     const context = useOutletContext()
+    const localitySearchClickListener = useCallback((e) => {
+        if(!document.getElementById("menu-localities").contains(e.target)){
+            setIsActiveLocality(false)
+            document.removeEventListener('click', localitySearchClickListener)
+        }
+    })
     useEffect(() =>{
         console.log('use effect')
         if(context && context.chef && context.chef.person){
@@ -71,9 +77,7 @@ const CabinetMyProfile = () => {
             {id:2, value:"фізачни особа-підприємець"},
             {id:3, value:"самозайнята особа"}
         ]
-     if(!context.chef || !context.chef.person){
-         return <div>loading...</div>
-     }
+     
    
      async function saveChef(){
         const chef = {
@@ -107,13 +111,12 @@ const CabinetMyProfile = () => {
         setLocality(locality)
         setLocalityName(locality.name)
     }  
+
+   
     function searchCity(name){
         setLocalityName(name)
-        if(name.length > 1){
-            setIsActiveLocality(true)
-        } else {
-            setIsActiveLocality(false)
-        }
+        document.addEventListener('click', localitySearchClickListener)
+        setIsActiveLocality(true)
     }
     return (
         <div className="profile">
@@ -128,7 +131,7 @@ const CabinetMyProfile = () => {
                         <img src={URL.createObjectURL(image)}></img>
                     }
                 </div>
-                <div className='profile__id'>{context.chef.person.username} #{context.chef.id}</div>
+                <div className='profile__id'>{context?.chef?.person?.username} #{context?.chef?.id}</div>
             </div>
             <div className='profile__top-button-container'>
                 <button className='profile__update-photo-button' onClick={() => document.getElementById('imageInput').click()} >Редагувати</button>
@@ -168,11 +171,11 @@ const CabinetMyProfile = () => {
                 </div>
                 <div className='profile__info-row'>
                     <div className='profile__info-column'>
-                        <div className='profile__info-element'>
+                        <div id="menu-localities" className='profile__info-element'>
                             <label className='profile__info-tag'>
                                 Місто 
                             </label>
-                            <input type="text" className='profile__info-input' value={localityName} onChange={e => searchCity(e.target.value)}></input>
+                            <input type="text" className='profile__info-input' value={localityName} onFocus={(e) => searchCity(e.target.value)} onChange={e => searchCity(e.target.value)}></input>
                             <div className='profile__locality-container'>
                                 <LocalityList isActive={isActiveLocality} setIsActive={setIsActiveLocality} setLocality={setLocalityAndName} name={localityName}/>
                             </div> 

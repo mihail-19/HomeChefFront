@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react"
-import { getCities, addCity, removeCity, addDishCategory, getDishCategories, removeDishCategory, getTags, addTag, removeTag  } from "../../services/DataService"
+import { useEffect, useState, useRef } from "react"
+import { getCities, updateCities, removeCity, addDishCategory, getDishCategories, removeDishCategory, getTags, addTag, removeTag  } from "../../services/DataService"
 import '../../pages/Cabinet.css'
 import removeImg from '../../assets/delete.png'
 import { useNavigate } from "react-router-dom"
+import Snackbar from "../utility/Snackbar"
+import Loading from "../utility/Loading"
 const CabinetAdminAddData = ({person}) => {
-    const [loading, setLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true)
     const [city, setCity] = useState('')
     const [cities, setCities] = useState([])
     const [category, setCategory] = useState('')
     const [categories, setCategories] = useState([])
     const [tag, setTag] = useState('')
     const [tags, setTags] = useState([])
+    const snackbarRef = useRef(null)
     const navigate = useNavigate()
     useEffect(() => {
         if(person && person.authorities){
-            setLoading(false)
+            setIsLoading(false)
             if(person.authorities.find(a => a.authority === 'admin') === undefined){
                 navigate("/HomeChefFront")
             }
@@ -40,9 +43,11 @@ const CabinetAdminAddData = ({person}) => {
     }
 
 
-    async function sendAddCity(){
-        await addCity(city)
-        loadCities()
+    async function sendUpdateCities(){
+        setIsLoading(true)
+        await updateCities(city)
+        setIsLoading(false)
+        snackbarRef.current.show('Дані міст оновлено', false)
     }
     async function sendAddCategory(){
         await addDishCategory(category)
@@ -66,24 +71,19 @@ const CabinetAdminAddData = ({person}) => {
         loadTags()
     }
 
-    if(loading){
-        return <div className="admin-add-data">Завантажуємо...</div>
-    }
+    
 
     return(
         <div className="admin-add-data">
+            <Loading isActive={isLoading} setIsActive={setIsLoading}/>
+            <Snackbar ref={snackbarRef}/>
             <div className="admin-add-data__segment">
                 <h3>Міста</h3>
-                <label>Додати місто</label>
+                <label>Населені пункти</label>
                 <div className="admin-add-data__input-element">
-                    <input type="text" value={city} onChange={e => setCity(e.target.value)}></input>
-                    <button onClick={sendAddCity}>Додати</button>
+                    <button onClick={sendUpdateCities}>Оновити</button>
                 </div>
-                <div className="admin-add-data__data-container">
-                    {cities.map(city => {
-                        return <div className="admin-add-data__data">{city.name} <button onClick={() => sendRemoveCity(city.id)}><img src={removeImg}></img></button></div>
-                    })}
-                </div>
+                
             </div>
             <div className="admin-add-data__segment">
                 <h3>Категорії страв</h3>
