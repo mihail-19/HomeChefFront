@@ -17,7 +17,7 @@ import userMenuIcon from '../assets/user.png'
 import homeChefLogo from '../assets/HomeChefLogo.png'
 import imageUrl from '../imagesUrl.js'
 import {logout} from '../services/AuthService.js'
-const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
+const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocality})=>{
     const [city, setCity] = useState(localStorage.getItem('locality') ? JSON.parse(localStorage.getItem('locality')).name : "Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
@@ -55,9 +55,11 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
             localStorage.setItem('locality', JSON.stringify(locality))
             setCity(locality.name)
             setShowCities(false)
+            setLocality(locality)
         } else {
             setCity("Місто")
             setShowCities(false)
+            setLocality(undefined)
             localStorage.removeItem('locality')
         }
     }
@@ -99,7 +101,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart})=>{
                         <li className='header__menu-item'>
                             <div id="header-city" className='header__menu-link header__city-button' onClick={switchShowCities}>
                                 <div className='header__city'>{city}</div>
-                                    <ActiveLocalityList isActive={showCities} setIsActive={setShowCities} setLocality={chooseCity}/>   
+                                    <ActiveLocalityList isActive={showCities} setIsActive={setShowCities} locality={locality} setLocality={chooseCity}/>   
                                 <div className='header__city-arrow'>
                                     <img className={ showCities && 'header__rotated'} src={cityArrow}></img>
                                 </div>

@@ -3,7 +3,7 @@ import serverUrl from "../serverUrl"
 import removeIcon from '../assets/burgerCloseButton.png'
 import axios from "axios"
 import './LocalityList.css'
-const ActiveLocalityList = ({isActive, setIsActive, setLocality}) => {
+const ActiveLocalityList = ({isActive, setIsActive, locality, setLocality}) => {
     const [localities, setLocalities] = useState([])
     const [name, setName] = useState('')
     
@@ -37,8 +37,8 @@ const ActiveLocalityList = ({isActive, setIsActive, setLocality}) => {
         setLocalities([])
     }
 
-    const currentLocality = JSON.parse(localStorage.getItem('locality'))
-    if(!currentLocality){
+    //const currentLocality = JSON.parse(localStorage.getItem('locality'))
+    if(!locality){
         return (
             <div id="active-locality" className={isActive ? "active-locality locality-list_active" : "active-locality"} onClick={e => e.stopPropagation()}>
                 <label>Населений пункт</label>
@@ -57,7 +57,7 @@ const ActiveLocalityList = ({isActive, setIsActive, setLocality}) => {
         return (
             <div className={isActive ? "active-locality locality-list_active" : "active-locality"} onClick={e => e.stopPropagation()}>
                 <div className="active-locality__current-locality" >
-                    <div className="active-locality__current-locality-name">{currentLocality.name}</div>
+                    <div className="active-locality__current-locality-name">{locality.name}</div>
                     <button className="active-loclity__remove-current" onClick={removeLocality}><img src={removeIcon} about="скинути населений пункт" alt="скинути населений пункт"></img></button>
                 </div>
                 

@@ -16,12 +16,17 @@ import {getDishCategories, getTags} from '../services/DataService'
 import arrow from '../assets/headerCityArrow.png'
 import removeIcon from '../assets/burgerCloseButton.png'
 import selectedIcon from '../assets/checkboxSelectedBlack.png'
-const Dishes = ({cart, loadCart}) => {
+import ActiveLocalityList from "../elements/ActiveLocalityList"
+import axios from "axios"
+import serverUrl from "../serverUrl"
+const Dishes = ({cart, loadCart, locality}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
     const [totalPages, setTotalPages] = useState(0)
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
+    const [dishesLocality, setDishesLocality] = useState(locality)
+    const [activeLocalities, setActiveLocalities] = useState([])
     const dishToSave = useRef({})
     const snackbarRef = useRef(null)
     const confirmRef = useRef(null)
@@ -30,6 +35,12 @@ const Dishes = ({cart, loadCart}) => {
 
     const {params} = useParams()
     const [paramsParsed, setParamsParsed] = useState({})
+   
+    useEffect(() => {
+        if(!paramsParsed || !paramsParsed.city){
+            setDishesLocality(locality)
+        }
+    }, [locality])
     useEffect(() => {
        loadTagsAndCategories(params)
     }, [])
@@ -38,8 +49,20 @@ const Dishes = ({cart, loadCart}) => {
     }, [params])
 
     //Navigate if params contains not valid data or ID of params are not contained in list
-    function parseParams(params, tags, categories){
+    function parseParams(params, tags, categories, activeLocalities){
         const pParsed = parse(params)
+        if(pParsed && isFinite(pParsed.city)){
+            if (pParsed.city === 0){
+                setDishesLocality(undefined)
+            } else {
+                const foundLocality = activeLocalities.find(al => al.locality.id === pParsed.city)
+                if(foundLocality){
+                    setDishesLocality(foundLocality.locality)
+                } else{
+                    pParsed.city = undefined
+                }
+            } 
+        }
         if(pParsed && pParsed.categories){
             const categoryIds = categories.map(c => c.id)
             pParsed.categories = pParsed.categories.filter(cId => categoryIds.includes(cId))
@@ -49,6 +72,9 @@ const Dishes = ({cart, loadCart}) => {
             pParsed.tags = pParsed.tags.filter(tId => tagIds.includes(tId))
         }
         if(pParsed && stringify(pParsed) !== params){
+            console.log(pParsed)
+            console.log(stringify(pParsed))
+            console.log(params)
             navigate('/HomeChefFront/dishes/' + stringify(pParsed))
         } else {
             setParamsParsed(pParsed)
@@ -60,13 +86,25 @@ const Dishes = ({cart, loadCart}) => {
     async function loadTagsAndCategories(params){
         const tagsRes = await getTags()
         const categoriesRes = await getDishCategories()
-        parseParams(params, tagsRes.data, categoriesRes.data)
+        const localitiesRes = await loadActiveLocalities()
+        parseParams(params, tagsRes.data, categoriesRes.data, localitiesRes.data)
         setTags(tagsRes.data)
         setCategories(categoriesRes.data)
+        setActiveLocalities(localitiesRes.data.sort((a, b) => {
+            if(a.type === 'місто' && b.type !== 'місто'){
+                return -1
+            } else if (b.type === 'місто' && a.type !== 'місто'){
+                return 1
+            }
+            return 0
+        }))
     }
 
 
-
+    async function loadActiveLocalities(){
+        const url = serverUrl + '/common-data/active-localities/with-dishes'
+        return axios.get(url, {withCredentials:true})
+    }
     async function loadDishes(paramsParsed){
         setLoading(true)
         const pageNumber = paramsParsed && paramsParsed.page ? paramsParsed.page-1 : 0
@@ -222,7 +260,7 @@ const Dishes = ({cart, loadCart}) => {
         const [showCategory, setShowCategory] = useState(params && params.categories ? true : false)
         const [showTags, setShowTags] = useState(params && params.tags ? true : false)
         const [price, setShowPrice] = useState(false)
-       
+        const [showChooseLocality, setShowChooseLocality] = useState(false)
        
         function hasTagWithId(tags, id){
             if(!params || !params.tags){
@@ -272,6 +310,15 @@ const Dishes = ({cart, loadCart}) => {
 
         return (
             <div className="dishes__menu">
+                <div className="dishes__menu-element" onClick={() => showChooseLocality ? setShowChooseLocality(false) : setShowChooseLocality(true)}>
+                    <div className="dishes__menu-element-text">{dishesLocality ? dishesLocality.name : 'Місто'}</div> 
+                    <div className={showChooseLocality ? "dishes__menu-arrow dishes__menu-arrow_active" : "dishes__menu-arrow"}>
+                        <img src={arrow}></img>
+                    </div>
+                </div>
+                {showChooseLocality &&
+                    <ActiveLocalityList isActive={showChooseLocality} setIsActive={undefined} locality={dishesLocality} setLocality={setDishesLocality}/>
+                }
                 <div className="dishes__menu-element" onClick={() => showCategory ? setShowCategory(false) : setShowCategory(true)}>
                     <div className="dishes__menu-element-text">Категорія</div> 
                     <div className={showCategory ? "dishes__menu-arrow dishes__menu-arrow_active" : "dishes__menu-arrow"}>

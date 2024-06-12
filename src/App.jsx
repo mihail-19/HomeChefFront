@@ -21,6 +21,13 @@ function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
   const [person, setPerson] = useState({})
   const [cart, setCart] = useState({})
+  const [locality, setLocality] = useState(undefined)
+  useEffect(() => {
+    const fromStorage = JSON.parse(localStorage.getItem('locality'))
+    if(fromStorage){
+        setLocality(fromStorage)
+    }
+  }, [])
   useEffect(() => {
     loadCart()
     if(isAuth){
@@ -50,11 +57,11 @@ function App() {
   return(
   <>
     <div className='home-chef-content'>
-      <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart}/>
+      <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart} locality={locality} setLocality={setLocality}/>
       
       <Routes>
         <Route path="/HomeChefFront" element={<Homepage />}/>
-        <Route path="/HomeChefFront/dishes/:params?" element={<Dishes cart={cart} loadCart={loadCart}/>}/>
+        <Route path="/HomeChefFront/dishes/:params?" element={<Dishes cart={cart} loadCart={loadCart} locality={locality}/>}/>
         <Route path="/HomeChefFront/dish/:id" element={<Dish cart={cart} loadCart={loadCart}/>}/>
         <Route path="/HomeChefFront/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
         <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>

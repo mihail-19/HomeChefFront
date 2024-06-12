@@ -30,6 +30,11 @@
     margin: 10px 0 15px 0;
     
 }
+
+.dishes__menu .active-locality{
+    position: unset;
+    border: none;
+}
 .dishes__menu-element-text{
     margin-left: 5px;
 }

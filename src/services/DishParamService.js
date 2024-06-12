@@ -23,7 +23,8 @@ function parse(paramsString){
                 }
 
             } else if(param[0] === 'city'){
-                paramsObject.city === param[1]
+                paramsObject.city = parseInt(param[1])
+                console.log(paramsObject.city)
             }
             
         }
@@ -69,7 +70,7 @@ function stringify(params){
             }
         }
     }
-    if(params.city){
+    if(isFinite(params.city)){
         if(res.length > 0){
             res += ';'
         }
