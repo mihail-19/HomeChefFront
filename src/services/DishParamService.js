@@ -5,7 +5,6 @@ function parse(paramsString){
     }
     const paramsSplitted = paramsString.split(';')
     const paramsObject = {}
-    console.log(paramsObject)
     paramsSplitted.forEach(element => {
         const param = element.split('=')
         if(param.length > 1){
@@ -24,12 +23,10 @@ function parse(paramsString){
 
             } else if(param[0] === 'city'){
                 paramsObject.city = parseInt(param[1])
-                console.log(paramsObject.city)
             }
             
         }
     });
-    console.log(paramsObject)
     return Object.keys(paramsObject).length > 0 ? paramsObject : undefined
 }
 
@@ -42,7 +39,6 @@ function multipleParamsToArray(str){
             arr.push(intValue)
         }
     }    
-    console.log(arr)
     return arr
 }
 

@@ -39,6 +39,7 @@ const Dishes = ({cart, loadCart, locality}) => {
     useEffect(() => {
         if(!paramsParsed || !paramsParsed.city){
             setDishesLocality(locality)
+            loadTagsAndCategories(params)
         }
     }, [locality])
     useEffect(() => {
@@ -50,7 +51,17 @@ const Dishes = ({cart, loadCart, locality}) => {
 
     //Navigate if params contains not valid data or ID of params are not contained in list
     function parseParams(params, tags, categories, activeLocalities){
-        const pParsed = parse(params)
+        let pParsed = parse(params)
+        if(!pParsed && !locality){
+            setDishesLocality(undefined)
+        }
+        if(locality){
+            if(!pParsed){
+                pParsed = {city:locality.id}
+            } else if(!isFinite(pParsed.city)){
+                pParsed.city = locality.id
+            }
+        }
         if(pParsed && isFinite(pParsed.city)){
             if (pParsed.city === 0){
                 setDishesLocality(undefined)
@@ -109,11 +120,12 @@ const Dishes = ({cart, loadCart, locality}) => {
         setLoading(true)
         const pageNumber = paramsParsed && paramsParsed.page ? paramsParsed.page-1 : 0
         let res
-        if(paramsParsed && (paramsParsed.categories || paramsParsed.tags)){
-            res = await getAllDishesWithFilters(pageNumber, paramsParsed.categories, paramsParsed.tags)
-        } else {
-            res = await getAllDishes(pageNumber)
-        }
+        res = await getAllDishesWithFilters(pageNumber, paramsParsed?.categories, paramsParsed?.tags, paramsParsed?.city)
+        // if(paramsParsed && (paramsParsed.categories || paramsParsed.tags)){
+        //     res = await getAllDishesWithFilters(pageNumber, paramsParsed.categories, paramsParsed.tags)
+        // } else {
+        //     res = await getAllDishesWithFilters(pageNumber)
+        // }
         const data = res.data
         if(data.totalPages !== totalPages){
             setTotalPages(data.totalPages)
@@ -307,6 +319,23 @@ const Dishes = ({cart, loadCart, locality}) => {
             )
         }
 
+        function localityToLink(loc){
+            const paramsCopy = {...params}
+            if(loc){
+                paramsCopy.city = loc.id
+            } else {
+                paramsCopy.city = 0
+            }
+            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+            return(
+                <Link to={url} className={loc && dishesLocality && loc.id === dishesLocality.id ? "dishes__city-link dishes__city-link_active" : "dishes__city-link"}>{loc ? loc.name : 'Всі'}</Link>
+            )
+        }
+
+        function localitiesList(){
+            return activeLocalities.map(al => localityToLink(al.locality))
+        }
+
 
         return (
             <div className="dishes__menu">
@@ -317,7 +346,11 @@ const Dishes = ({cart, loadCart, locality}) => {
                     </div>
                 </div>
                 {showChooseLocality &&
-                    <ActiveLocalityList isActive={showChooseLocality} setIsActive={undefined} locality={dishesLocality} setLocality={setDishesLocality}/>
+                    <div className="dishes__menu-params">
+                        {localityToLink(null)}
+                        {localitiesList()}
+                    </div>
+                   //<ActiveLocalityList isActive={showChooseLocality} setIsActive={undefined} locality={dishesLocality} setLocality={setDishesLocality}/>
                 }
                 <div className="dishes__menu-element" onClick={() => showCategory ? setShowCategory(false) : setShowCategory(true)}>
                     <div className="dishes__menu-element-text">Категорія</div> 

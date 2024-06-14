@@ -30,18 +30,29 @@ const getAllDishes = async(pageNumber) => {
     return res
 }
 
-const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds) => {
+const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds, localityId) => {
     const url = serverUrl + "/dishes"
-    let paramsArray
-    if(!categoryIds && !tagIds){
-        paramsArray = [['pageNumber', pageNumber]]
-    } else if (categoryIds && tagIds){
-        paramsArray = [['pageNumber', pageNumber], ['categoryIds', categoryIds], ['tagIds', tagIds]]
-    } else if (categoryIds){
-        paramsArray = [['pageNumber', pageNumber], ['categoryIds', categoryIds]]
-    } else if (tagIds){
-        paramsArray = [['pageNumber', pageNumber], ['tagIds', tagIds]]
+    let paramsArray = []
+    paramsArray.push(['pageNumber', pageNumber])
+    if(categoryIds){
+        paramsArray.push(['categoryIds', categoryIds])
     }
+    if(tagIds){
+        paramsArray.push(['tagIds', tagIds])
+    }
+    if(localityId){
+        paramsArray.push(['localityId', localityId])
+    }
+    // if(!categoryIds && !tagIds){
+    //     paramsArray = [['pageNumber', pageNumber]]
+    // } else if (categoryIds && tagIds){
+    //     paramsArray = [['pageNumber', pageNumber], ['categoryIds', categoryIds], ['tagIds', tagIds]]
+    // } else if (categoryIds){
+    //     paramsArray = [['pageNumber', pageNumber], ['categoryIds', categoryIds]]
+    // } else if (tagIds){
+    //     paramsArray = [['pageNumber', pageNumber], ['tagIds', tagIds]]
+    // }
+    
     const params = new URLSearchParams(paramsArray)
     console.log(paramsArray)
     const res = axios.get(url, {params}, {withCredentials:true})

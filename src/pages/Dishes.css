@@ -96,6 +96,15 @@
     text-decoration: none;
     color: black;
 }
+.dishes__city-link{
+    display: block;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+.dishes__city-link_active{
+    color: green;
+}
 
 
 
