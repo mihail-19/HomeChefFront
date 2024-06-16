@@ -30,7 +30,7 @@ const getAllDishes = async(pageNumber) => {
     return res
 }
 
-const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds, localityId) => {
+const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds, localityId, price) => {
     const url = serverUrl + "/dishes"
     let paramsArray = []
     paramsArray.push(['pageNumber', pageNumber])
@@ -43,6 +43,10 @@ const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds, localityI
     if(localityId){
         paramsArray.push(['localityId', localityId])
     }
+    if(price && price.length === 2){
+        paramsArray.push(['price', price])
+    }
+    
     // if(!categoryIds && !tagIds){
     //     paramsArray = [['pageNumber', pageNumber]]
     // } else if (categoryIds && tagIds){
@@ -86,4 +90,10 @@ const getDishesForChef = async (chefId) => {
     return res 
 }
 
-export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef, getAllDishesWithFilters}
+const getPriceRange = async () => {
+    const url = serverUrl + "/dishes/price-range"
+    const res = axios.get(url, {withCredentials:true})
+    return res
+}
+
+export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef, getAllDishesWithFilters, getPriceRange}

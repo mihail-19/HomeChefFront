@@ -23,6 +23,7 @@ const DishCard = ({dish, sendAddToCart}) => {
             <div className="dish-card__dish-info">
                 <div className="dish-card__dish-chef-name">Шеф {dish.chef.firstName}</div>
                 <div className="dish-card__dish-locality"> {dish.chef.locality?.name}</div>
+                <div className="dish-card__dish-chef-name">{dish.price} грн</div>
                 <div className="dish-card__dish-name">{dish.name}</div>
                 <div className="dish-card__dish-description">{dish.description}</div>
                 <div className="dish-card__dish-tags">

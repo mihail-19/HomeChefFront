@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllDishes, getAllDishesWithFilters } from "../services/DishService"
+import { getAllDishes, getAllDishesWithFilters, getPriceRange } from "../services/DishService"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import imagesUrl from "../imagesUrl"
 import emptyDishIconImg from '../assets/dishImg.png'
@@ -13,12 +13,16 @@ import Snackbar from "../elements/utility/Snackbar"
 import Confirm from "../elements/utility/Confirm"
 import {parse, stringify} from '../services/DishParamService'
 import {getDishCategories, getTags} from '../services/DataService'
-import arrow from '../assets/headerCityArrow.png'
+
 import removeIcon from '../assets/burgerCloseButton.png'
-import selectedIcon from '../assets/checkboxSelectedBlack.png'
+
 import ActiveLocalityList from "../elements/ActiveLocalityList"
 import axios from "axios"
 import serverUrl from "../serverUrl"
+import RangeSlider from "../elements/utility/RangeSlider"
+import { Slider } from "@mui/material"
+import TestEntity from "./TestEntity"
+import DishMenu from "./DishMenu"
 const Dishes = ({cart, loadCart, locality}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
@@ -27,15 +31,20 @@ const Dishes = ({cart, loadCart, locality}) => {
     const [tags, setTags] = useState([])
     const [dishesLocality, setDishesLocality] = useState(locality)
     const [activeLocalities, setActiveLocalities] = useState([])
+    const [maxPriceRange, setMaxPriceRange] = useState({low:0, high:1000000})
     const dishToSave = useRef({})
     const snackbarRef = useRef(null)
     const confirmRef = useRef(null)
     const navigate = useNavigate()
-
-
     const {params} = useParams()
     const [paramsParsed, setParamsParsed] = useState({})
-   
+    const [priceValues, setPriceValues] = useState([0, 1000])
+    console.log('refresh')
+
+   useEffect(() => {
+    console.log('load price')
+    loadPrice()
+   }, [])
     useEffect(() => {
         if(!paramsParsed || !paramsParsed.city){
             setDishesLocality(locality)
@@ -93,11 +102,16 @@ const Dishes = ({cart, loadCart, locality}) => {
         }
     }
 
-
+    async function loadPrice(){
+        const maxPriceRangeRes = await getPriceRange()
+        setMaxPriceRange(maxPriceRangeRes.data)
+        setPriceValues([maxPriceRangeRes.data.low, maxPriceRangeRes.data.high])
+    }
     async function loadTagsAndCategories(params){
         const tagsRes = await getTags()
         const categoriesRes = await getDishCategories()
         const localitiesRes = await loadActiveLocalities()
+       
         parseParams(params, tagsRes.data, categoriesRes.data, localitiesRes.data)
         setTags(tagsRes.data)
         setCategories(categoriesRes.data)
@@ -109,6 +123,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             }
             return 0
         }))
+       
     }
 
 
@@ -120,7 +135,7 @@ const Dishes = ({cart, loadCart, locality}) => {
         setLoading(true)
         const pageNumber = paramsParsed && paramsParsed.page ? paramsParsed.page-1 : 0
         let res
-        res = await getAllDishesWithFilters(pageNumber, paramsParsed?.categories, paramsParsed?.tags, paramsParsed?.city)
+        res = await getAllDishesWithFilters(pageNumber, paramsParsed?.categories, paramsParsed?.tags, paramsParsed?.city, paramsParsed?.price)
         // if(paramsParsed && (paramsParsed.categories || paramsParsed.tags)){
         //     res = await getAllDishesWithFilters(pageNumber, paramsParsed.categories, paramsParsed.tags)
         // } else {
@@ -176,7 +191,17 @@ const Dishes = ({cart, loadCart, locality}) => {
             <Loading isActive={loading} seIsActive={setLoading}/>
             <Snackbar ref={snackbarRef}/>
             <Confirm okFunction={sendAfterConfirmed} noFunction={rejectAddingDish} ref={confirmRef}/>
-            <DishMenu params={paramsParsed}/>
+            <DishMenu 
+                params={paramsParsed} 
+                maxPriceRange={maxPriceRange} 
+                priceValues={priceValues} 
+                setPriceValues={setPriceValues} 
+                dishesLocality={dishesLocality} 
+                activeLocalities={activeLocalities}
+                categories={categories}
+                tags={tags}
+                navigate={navigate}
+            />
             <div className="dishes__content">
                 <ParamsSelected params={paramsParsed}/>
                 <div className="dishes__list">
@@ -268,116 +293,7 @@ const Dishes = ({cart, loadCart, locality}) => {
 
     }
 
-    function DishMenu({params}){
-        const [showCategory, setShowCategory] = useState(params && params.categories ? true : false)
-        const [showTags, setShowTags] = useState(params && params.tags ? true : false)
-        const [price, setShowPrice] = useState(false)
-        const [showChooseLocality, setShowChooseLocality] = useState(false)
-       
-        function hasTagWithId(tags, id){
-            if(!params || !params.tags){
-                return false
-            }
-            return params.tags.find(t => t === id) ? true : false
-        }
-        
-        
-        function categoryToLink(category){
-            const paramsCopy = params ? JSON.parse(JSON.stringify(params)) : {}
-            const hasCategory = paramsCopy.categories && paramsCopy.categories.find(c => c === category.id)
-            if(!paramsCopy.categories){
-                paramsCopy.categories = []
-            }
-            if(hasCategory){
-                if(paramsCopy.categories.length > 1){
-                    paramsCopy.categories = paramsCopy.categories.filter(c => c !== category.id)
-                } else {
-                    paramsCopy.categories = undefined
-                }
-            } else {
-                paramsCopy.categories.push(category.id)
-            }
-            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
-            return (
-                <Link to={url} className="dishes__category-link">
-                    <div className={hasCategory ? 'dishes__category-checkbox dishes__category-checkbox_selected' : 'dishes__category-checkbox'}>
-                        <img src={selectedIcon}></img>
-                    </div>
-                    {category.name}
-                </Link>
-            )
-        }
-        function tagToLink(tag){
-            const paramsCopy = params ? JSON.parse(JSON.stringify(params)) : {}
-            if(!paramsCopy.tags){
-                paramsCopy.tags = []
-            } 
-            paramsCopy.tags.push(tag.id)
-            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
-            return (
-                <Link to={url} className="dishes__tag-link">{tag.name}</Link>
-            )
-        }
-
-        function localityToLink(loc){
-            const paramsCopy = {...params}
-            if(loc){
-                paramsCopy.city = loc.id
-            } else {
-                paramsCopy.city = 0
-            }
-            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
-            return(
-                <Link to={url} className={loc && dishesLocality && loc.id === dishesLocality.id ? "dishes__city-link dishes__city-link_active" : "dishes__city-link"}>{loc ? loc.name : 'Всі'}</Link>
-            )
-        }
-
-        function localitiesList(){
-            return activeLocalities.map(al => localityToLink(al.locality))
-        }
-
-
-        return (
-            <div className="dishes__menu">
-                <div className="dishes__menu-element" onClick={() => showChooseLocality ? setShowChooseLocality(false) : setShowChooseLocality(true)}>
-                    <div className="dishes__menu-element-text">{dishesLocality ? dishesLocality.name : 'Місто'}</div> 
-                    <div className={showChooseLocality ? "dishes__menu-arrow dishes__menu-arrow_active" : "dishes__menu-arrow"}>
-                        <img src={arrow}></img>
-                    </div>
-                </div>
-                {showChooseLocality &&
-                    <div className="dishes__menu-params">
-                        {localityToLink(null)}
-                        {localitiesList()}
-                    </div>
-                   //<ActiveLocalityList isActive={showChooseLocality} setIsActive={undefined} locality={dishesLocality} setLocality={setDishesLocality}/>
-                }
-                <div className="dishes__menu-element" onClick={() => showCategory ? setShowCategory(false) : setShowCategory(true)}>
-                    <div className="dishes__menu-element-text">Категорія</div> 
-                    <div className={showCategory ? "dishes__menu-arrow dishes__menu-arrow_active" : "dishes__menu-arrow"}>
-                        <img src={arrow}></img>
-                    </div>
-                </div>
-                {showCategory && 
-                    <div className="dishes__menu-params">
-                       {categories?.map(categoryToLink)}
-                    </div>
-                }
-
-                <div className="dishes__menu-element" onClick={() => showTags ? setShowTags(false) : setShowTags(true)}>
-                    <div className="dishes__menu-element-text">Теги </div>
-                    <div className={showTags ? "dishes__menu-arrow dishes__menu-arrow_active" : "dishes__menu-arrow"}>
-                        <img src={arrow}></img>
-                    </div>
-                </div>
-                {showTags && 
-                    <div className="dishes__menu-tags">
-                       {tags?.filter(tag => !hasTagWithId(params?.tags, tag.id)).map(tagToLink)}
-                    </div>
-                }
-            </div>
-        )
-    }
+    
 
 
 

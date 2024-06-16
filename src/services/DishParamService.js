@@ -23,6 +23,11 @@ function parse(paramsString){
 
             } else if(param[0] === 'city'){
                 paramsObject.city = parseInt(param[1])
+            } else if(param[0] === 'price'){
+                const arr = multipleParamsToArray(param[1])
+                if(arr && arr.length > 0){
+                    paramsObject.price = arr
+                }
             }
             
         }
@@ -84,6 +89,13 @@ function stringify(params){
                 res += params.tags[i]
             }
         }
+    }
+    if(params.price && params.price.length === 2){
+        if(res.length > 0){
+            res += ';'
+        }
+        res += 'price=' + params.price[0] + ',' + params.price[1]
+        
     }
     return res
 }
