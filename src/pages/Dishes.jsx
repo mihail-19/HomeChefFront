@@ -38,7 +38,7 @@ const Dishes = ({cart, loadCart, locality}) => {
     const navigate = useNavigate()
     const {params} = useParams()
     const [paramsParsed, setParamsParsed] = useState({})
-    const [priceValues, setPriceValues] = useState([0, 1000])
+    const [priceValues, setPriceValues] = useState(undefined)
     console.log('refresh')
 
    useEffect(() => {
@@ -55,8 +55,13 @@ const Dishes = ({cart, loadCart, locality}) => {
        loadTagsAndCategories(params)
     }, [])
     useEffect(() => {
+        
         loadTagsAndCategories(params)
     }, [params])
+
+    useEffect(() => {
+        loadPrice()
+    }, [paramsParsed])
 
     //Navigate if params contains not valid data or ID of params are not contained in list
     function parseParams(params, tags, categories, activeLocalities){
@@ -103,9 +108,13 @@ const Dishes = ({cart, loadCart, locality}) => {
     }
 
     async function loadPrice(){
-        const maxPriceRangeRes = await getPriceRange()
+        const maxPriceRangeRes = await getPriceRange(paramsParsed?.categories, paramsParsed?.tags, paramsParsed?.city)
         setMaxPriceRange(maxPriceRangeRes.data)
-        setPriceValues([maxPriceRangeRes.data.low, maxPriceRangeRes.data.high])
+        if(!paramsParsed?.price){
+            setPriceValues([maxPriceRangeRes.data.low, maxPriceRangeRes.data.high])
+        } else {
+            setPriceValues([paramsParsed.price[0], paramsParsed.price[1]])
+        }
     }
     async function loadTagsAndCategories(params){
         const tagsRes = await getTags()

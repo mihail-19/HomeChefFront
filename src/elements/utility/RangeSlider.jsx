@@ -7,6 +7,9 @@ const RangeSlider = ({rangeMax, values, setValues, onChangeCommited}) => {
     const max = 1000
     const min = 0
    console.log(rangeMax)
+   if(!values){
+    return <></>
+   }
     const handleChange = (event, newValues) => {
         setValues(newValues);
       }
