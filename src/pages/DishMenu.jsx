@@ -4,7 +4,7 @@ import arrow from '../assets/headerCityArrow.png'
 import {parse, stringify} from '../services/DishParamService'
 import { Link } from "react-router-dom"
 import selectedIcon from '../assets/checkboxSelectedBlack.png'
-function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLocality, activeLocalities, categories, tags, navigate}){
+function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLocality, activeLocalities, categories, tags, navigate, showDishMenu}){
     const [showCategory, setShowCategory] = useState(params && params.categories ? true : false)
     const [showTags, setShowTags] = useState(params && params.tags ? true : false)
     const [price, setShowPrice] = useState(false)
@@ -90,7 +90,6 @@ function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLoc
 
     return (
         <div className="dishes__menu">
-            
             <RangeSlider rangeMax={maxPriceRange} values={priceValues} setValues={setPriceValues} onChangeCommited={navigateOnPriceChange}/>
             
             <div className="dishes__menu-element" onClick={() => showChooseLocality ? setShowChooseLocality(false) : setShowChooseLocality(true)}>

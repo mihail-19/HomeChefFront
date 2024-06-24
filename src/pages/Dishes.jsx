@@ -27,6 +27,7 @@ const Dishes = ({cart, loadCart, locality}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
     const [totalPages, setTotalPages] = useState(0)
+    const [totalDishes, setTotalDishes] = useState(0)
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
     const [dishesLocality, setDishesLocality] = useState(locality)
@@ -39,6 +40,7 @@ const Dishes = ({cart, loadCart, locality}) => {
     const {params} = useParams()
     const [paramsParsed, setParamsParsed] = useState({})
     const [priceValues, setPriceValues] = useState(undefined)
+    const [showDishMenu, setShowDishMenu] = useState(false)
     console.log('refresh')
 
    useEffect(() => {
@@ -155,6 +157,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             setTotalPages(data.totalPages)
         }
         setDishes(data.content)
+        setTotalDishes(data.numberOfElements)
         setLoading(false)
     }
 
@@ -196,44 +199,52 @@ const Dishes = ({cart, loadCart, locality}) => {
 
    
     return (
-        <div className="dishes">
+
+        <div className="dishes__container">
             <Loading isActive={loading} seIsActive={setLoading}/>
             <Snackbar ref={snackbarRef}/>
             <Confirm okFunction={sendAfterConfirmed} noFunction={rejectAddingDish} ref={confirmRef}/>
-            <DishMenu 
-                params={paramsParsed} 
-                maxPriceRange={maxPriceRange} 
-                priceValues={priceValues} 
-                setPriceValues={setPriceValues} 
-                dishesLocality={dishesLocality} 
-                activeLocalities={activeLocalities}
-                categories={categories}
-                tags={tags}
-                navigate={navigate}
-            />
-            <div className="dishes__content">
-                <ParamsSelected params={paramsParsed}/>
-                <div className="dishes__list">
-                    {dishes?.map(dish => {
-                        return <DishCard dish={dish} sendAddToCart={sendAddToCart}/>
-                    })}
-                    
+            <ParamsSelected params={paramsParsed}/>
+            <div className={showDishMenu ? "dishes__menu-dark-area dishes__menu-dark-area_active" : "dishes__menu-dark-area"} onClick={() => setShowDishMenu(false)}></div>
+            <div className="dishes">
+                <div className={showDishMenu ? "dishes__menu-container dishes__menu-container_active" : "dishes__menu-container"}>
+                   <div className={showDishMenu ? "dishes__menu-title dishes__menu-title_active" : "dishes__menu-title"} onClick={() => setShowDishMenu(false)}> Фільтри</div>
+                    <DishMenu 
+                        params={paramsParsed} 
+                        maxPriceRange={maxPriceRange} 
+                        priceValues={priceValues} 
+                        setPriceValues={setPriceValues} 
+                        dishesLocality={dishesLocality} 
+                        activeLocalities={activeLocalities}
+                        categories={categories}
+                        tags={tags}
+                        navigate={navigate}
+                        showDishMenu={showDishMenu}
+                    />
                 </div>
-                <Pages params={paramsParsed} totalPages={totalPages}/>
+                <div className="dishes__content">
+                    
+                    <div className="dishes__list-container">
+                        <div className="dishes__list">
+                            {dishes?.map(dish => {
+                                return <DishCard dish={dish} sendAddToCart={sendAddToCart}/>
+                            })}
+                            
+                        </div>
+                    </div>
+                    <Pages params={paramsParsed} totalPages={totalPages}/>
+                </div>
             </div>
         </div>
     )
 
     function ParamsSelected({params}){
-        if(!params){
-            return <></>
-        }
         let chosenTags = undefined
         let chosenCategories = undefined
-        if(params.tags){
+        if(params?.tags){
             chosenTags = params.tags.map(tagId => tags.find(tag => tag.id === tagId))
         }
-        if(params.categories){
+        if(params?.categories){
             chosenCategories = params.categories.map(cId => categories.find(c => c.id === cId))
         }
         function removeCategoryElement(c){
@@ -272,7 +283,7 @@ const Dishes = ({cart, loadCart, locality}) => {
         }
         function removeAllFilters(){
             if(!params || (!params.tags && !params.categories)){
-                return
+                return <div></div>
             }
             // const paramsCopy = {...params}
             // paramsCopy.tags = undefined
@@ -280,25 +291,40 @@ const Dishes = ({cart, loadCart, locality}) => {
             const url = '/HomeChefFront/dishes' 
             return removeElement(url, 'Скинути все')
         }
+
         return (
             <div className="dishes__params">
-                <div className="dishes__params-category">
-                    {removeAllFilters()}
+                <div className="dishes__params-left">
+                    <div className="dishes__params-show-menu" onClick={() => setShowDishMenu(!showDishMenu)}>Фільтри</div>
+                    <div className="dishes__params-dishes-count">Знайдено блюд: {totalDishes}</div>
+                    <div className="dishes__params-filters">
+                        {removeAllFilters()}
+                        {chosenCategories &&
+                            <div className="dishes__params-name"> Категорія:</div> 
+                            
+                        }
+                        {chosenCategories && 
+                            chosenCategories?.map(c => removeCategoryElement(c))
+                        }
+                        {chosenTags && 
+                            <div className="dishes__params-name"> Теги:</div>
+                        
+                        }
+                        {chosenTags && 
+                            chosenTags?.map(t => removeTagElement(t))
+                        }
+                    </div>
                 </div>
-                {chosenCategories &&
-                    <div className="dishes__params-category">
-                       <div> Категорія:</div> 
-                       {chosenCategories?.map(c => removeCategoryElement(c))}
+                <div className="dishes__params-right">
+                    <div className="dishes__params-sort">
+                        За рейтингом
                     </div>
-                }
-                {chosenTags && 
-                    <div className="dishes__params-tags">
-                        <div> Теги:</div>
-                        {chosenTags?.map(t => removeTagElement(t))}
-                    </div>
-                }
+                </div>
             </div>
         )
+
+
+       
 
     }
 

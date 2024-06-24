@@ -26,8 +26,8 @@ const RangeSlider = ({rangeMax, values, setValues, onChangeCommited}) => {
                     {rangeMax.high}
                 </div>
             </div>
-                <Slider 
-                
+            <div className="slider__slider">
+                <Slider  
                 getAriaLabel={() => 'Temperature range'}
                 getAriaValueText={valuetext}
                     value={values} 
@@ -38,6 +38,7 @@ const RangeSlider = ({rangeMax, values, setValues, onChangeCommited}) => {
                     onChangeCommitted={(event, value) => onChangeCommited(value)}
                     step={1}
                 />
+                </div>
             </div>
     )
 }

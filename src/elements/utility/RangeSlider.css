@@ -1,18 +1,24 @@
 .slider-container{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .slider__border-values{
-    width: 100%;
+    width: 92%;
     display: flex;
     justify-content: space-between;
+}
+.slider__slider{
+    width: 92%;
 }
 .slider__border-value{
 
 }
 .slider{
-    width: 100%;
     height: 10px;
-    background-color: rgb(4, 97, 4);
+    background-color: rgb(25, 78, 25);
 }
 .slider .thumb{
     width: 20px;

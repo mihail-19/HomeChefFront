@@ -1,8 +1,18 @@
 .dishes{
-    padding: 0 30px;
-    font-family: Montserrat;
+    
+    
     display: flex;
 }
+.dishes__container{
+    font-family: Montserrat;
+    padding: 0 15px 0 30px;
+}
+@media(max-width: 1100px){
+    .dishes__container{
+        padding: 0 10px 0 10px;
+    }
+}
+
 .dishes h1{
     font-size: 32px;
     font-weight: 700;
@@ -12,11 +22,78 @@
 
 
 
-
 .dishes__menu{
     width: 210px;
     flex-shrink: 0;
+    padding: 20px 35px 35px 10px;
+    margin-bottom: 100px;
+    border-right: 1px solid rgb(210, 219, 210);
 }
+
+.dishes__menu-title{
+    display: none;
+    width: 90px;
+    height: 20px;
+    padding: 5px;
+    margin: 0 auto;
+    text-align: center;
+}
+.dishes__menu-title_active{
+    display: block;
+}
+.dishes__menu-dark-area{
+   visibility: hidden;
+    background-color: rgb(44, 42, 42);
+    opacity: 0.1;
+    transition: opacity 0.7s;
+    width:0;
+    height: 0;
+}
+.dishes__menu-dark-area_active{
+    visibility: visible;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 30;
+    opacity: 0.55;
+    transition: opacity 0.7s;
+    width: 100vw;
+    height: 100vh;
+}
+.dishes__menu-container{
+    left: -400px;
+    transition: 0.4s;
+    background-color: white;
+    z-index: 40;
+}
+.dishes__menu-container_active{
+    visibility: visible !important;
+    left: 0;
+    border: 1px solid rgb(210, 219, 210);
+}
+@media(max-width: 1330px){
+    .dishes__menu{
+        padding: 20px 10px 35px 20px;
+        width: 170px;
+        
+    }
+}
+@media(max-width: 1075px){
+    .dishes__menu-container{
+        position: fixed;
+        top:0;
+        visibility: hidden;
+    }
+    .dishes__menu{
+        padding: 20px 20px 35px 30px;
+        width: 230px;
+        
+    }
+    .dishes__list-container{
+        align-items: center;
+    }
+}
+
 .dishes__menu-element{
     width: 100%;
     height: 50px;
@@ -114,10 +191,71 @@
 
 
 
-.dishes__params{
-    margin-bottom: 30px;
+/* .dishes__params{
     font-size: 14px;
+    border-bottom: 1px solid rgb(210, 219, 210);
 }
+.dishes__params-top{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: top;
+} */
+ .dishes__params{
+    font-size: 14px;
+    border-bottom: 1px solid rgb(210, 219, 210);
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+
+ }
+.dishes__params-left{
+    display: flex;
+    align-items: top;
+   
+}
+.dishes__params-show-menu{
+    display: none;
+    padding: 2px;
+    border: 1px solid gray;
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: rgb(206, 197, 214);
+    cursor: pointer;
+}
+.dishes__params-dishes-count{
+    width: 200px;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+.dishes__params-filters{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+@media(max-width: 1080px){
+    .dishes__params-filters{
+        display: none;
+    }
+    .dishes__params-show-menu{
+        display: block;
+    }
+}
+
+.dishes__params-name{
+    margin-left: 20px;
+}
+.dishes__params-sort{
+    width: 100%;
+}
+.dishes__params-right{
+    flex-shrink: 0;
+    flex-basis: 120px;
+}
+
 .dishes__param{
     display: flex;
     justify-content: center;
@@ -146,6 +284,7 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 10px;
+    
 }
 .dishes__params-tags{
     display: flex;
@@ -153,7 +292,11 @@
     gap: 10px;
 }
 
-
+@media(max-width: 1280px){
+    .dishes__params-category, .dishes__params-tags{
+        display: none;
+    }
+}
 
 
 
@@ -171,16 +314,33 @@
 
 
 .dishes__content{
-    margin-left: 30px;
+    flex-basis: 100%;
+    
+    padding: 20px 10px;
 }
 
+.dishes__list-container{
+    display: flex;
+    padding-left: 100px;
+}
+
+@media(max-width: 1770px){
+    .dishes__list-container{
+        padding-left: 10px;
+    }
+}
 
 .dishes__list{
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-   
-    flex-shrink: 0;
+    max-width: 100%;
+    gap: 20px;
+    
+}
+@media(max-width: 1330px){
+    .dishes__list{
+        gap: 5px;
+    }
 }
 .dishes__dish{
     position: relative;
