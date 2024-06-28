@@ -12,7 +12,21 @@
         width: 270px;
     }
 }
-
+@media(max-width: 1075px){
+    .dish-card__dish{
+        width: 32%;
+    }
+}
+@media(max-width: 850px){
+    .dish-card__dish{
+        width: 49%;
+    }
+}
+@media(max-width: 600px){
+    .dish-card__dish{
+        width: 95%;
+    }
+}
 .dish-card__chef-info{
     position: absolute;
     right: 1px;

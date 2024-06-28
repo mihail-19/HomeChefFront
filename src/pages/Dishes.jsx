@@ -15,7 +15,7 @@ import {parse, stringify} from '../services/DishParamService'
 import {getDishCategories, getTags} from '../services/DataService'
 
 import removeIcon from '../assets/burgerCloseButton.png'
-
+import leftArrowIcon from '../assets/leftArrowIcon.png'
 import ActiveLocalityList from "../elements/ActiveLocalityList"
 import axios from "axios"
 import serverUrl from "../serverUrl"
@@ -208,7 +208,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             <div className={showDishMenu ? "dishes__menu-dark-area dishes__menu-dark-area_active" : "dishes__menu-dark-area"} onClick={() => setShowDishMenu(false)}></div>
             <div className="dishes">
                 <div className={showDishMenu ? "dishes__menu-container dishes__menu-container_active" : "dishes__menu-container"}>
-                   <div className={showDishMenu ? "dishes__menu-title dishes__menu-title_active" : "dishes__menu-title"} onClick={() => setShowDishMenu(false)}> Фільтри</div>
+                   <div className={showDishMenu ? "dishes__menu-title dishes__menu-title_active" : "dishes__menu-title"} onClick={() => setShowDishMenu(false)}> <img src={leftArrowIcon}></img> Фільтри</div>
                     <DishMenu 
                         params={paramsParsed} 
                         maxPriceRange={maxPriceRange} 

@@ -20,4 +20,17 @@ const updateChef = async(chef) => {
     })
 }
 
-export {getChef, registerChef, updateChef}
+const getAllChefs = async(pageNumber) => {
+    const url = serverUrl + '/chefs'
+    let paramsArray = []
+    if(pageNumber){
+        paramsArray.push(['pageNumber', pageNumber])
+    } else [
+        paramsArray.push(['pageNumber', 0])
+    ]
+    const params = new URLSearchParams(paramsArray)
+    const res = axios.get(url, {params}, {withCredentials:true})
+    return res
+}
+
+export {getChef, registerChef, updateChef, getAllChefs}

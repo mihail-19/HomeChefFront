@@ -17,6 +17,7 @@ import {getCart} from './services/CartService.js'
 import Cart from './pages/Cart.jsx'
 import Dish from './pages/Dish.jsx'
 import CabinetChefOrders from './elements/Cabinet/CabinetChefOrders.jsx'
+import Chefs from './pages/Chefs.jsx'
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
   const [person, setPerson] = useState({})
@@ -61,6 +62,7 @@ function App() {
       
       <Routes>
         <Route path="/HomeChefFront" element={<Homepage />}/>
+        <Route path="/HomeChefFront/chefs/:params?" element={<Chefs />}/>
         <Route path="/HomeChefFront/dishes/:params?" element={<Dishes cart={cart} loadCart={loadCart} locality={locality}/>}/>
         <Route path="/HomeChefFront/dish/:id" element={<Dish cart={cart} loadCart={loadCart}/>}/>
         <Route path="/HomeChefFront/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
