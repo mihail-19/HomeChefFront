@@ -6,15 +6,52 @@ import imagesUrl from "../imagesUrl"
 import rankingIcon from "../assets/rankingIcon.png"
 import defaultChefIcon from "../assets/defaultChefIcon.png"
 import './Chefs.css'
+import { useParams } from "react-router-dom"
+import { parse, stringify } from "../services/DishParamService"
+import Pages from "../elements/utility/Pages"
 const Chefs = () => {
     const [chefs, setChefs] = useState([])
-    useEffect(() => {
-        loadChefs()
-    }, [])
+    const [totalPages, setTotalPages] = useState(0)
+    const [paramsParsed, setParamsParsed] = useState({})
+    const {params} = useParams()
 
-    async function loadChefs(){
-        const {data} = await getAllChefs()
+    useEffect(() => {
+        parseParams(params)
+    }, [])
+    
+    useEffect(() => {
+        parseParams(params)
+    }, [params])
+
+    function parseParams(params){
+        let pParsed = parse(params)
+        if(pParsed && stringify(pParsed) !== params){
+            console.log(pParsed)
+            console.log(stringify(pParsed))
+            console.log(params)
+            navigate('/HomeChefFront/chefs/' + stringify(pParsed))
+        } else {
+            console.log(pParsed)
+            setParamsParsed(pParsed)
+            loadChefs(pParsed)
+        }
+    }
+
+
+    async function loadChefs(paramsParsed){
+        const pageNumber = paramsParsed && paramsParsed.page ? paramsParsed.page-1 : 0
+        console.log('page n ' + pageNumber)
+        const {data} = await getAllChefs(pageNumber)
+        if(data.totalPages !== totalPages){
+            setTotalPages(data.totalPages)
+        }
         setChefs(data.content)
+    } 
+    
+    function buildLinkToPage(page){
+        const paramsCopy = {...params}
+        paramsCopy.page = page
+        return '/HomeChefFront/chefs/' + stringify(paramsCopy)
     }
 
     return(
@@ -38,10 +75,12 @@ const Chefs = () => {
                                 <div className="chefs__chef-info-row">К-ть блюд: {chef.dishNumber}</div>
                                 <div className="chefs__chef-description">{chef.description}</div>
                             </div>
+                            
                         </div>
                     )
                 })}
             </div>
+            <Pages currentPage={paramsParsed && paramsParsed.page ? paramsParsed.page : 1} totalPages={totalPages} buildLinkToPage={buildLinkToPage}/>
         </div>
     )
 

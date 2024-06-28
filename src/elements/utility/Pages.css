@@ -1,0 +1,44 @@
+.pages{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 30px 0;
+}
+.pages__page-blocks{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.pages__page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    border: 1px solid gray;
+}
+.pages__page:hover{
+    border: 1px solid rgb(22, 182, 35);
+    color: rgb(22, 182, 35);
+}
+.pages__page_disabled{
+    color: rgb(187, 185, 185);
+    border: 1px solid rgb(158, 157, 157);
+    cursor: default;
+}
+.pages__page_disabled:hover{
+    color: rgb(187, 185, 185);
+    border: 1px solid rgb(158, 157, 157);
+}
+
+.pages__page_current{
+    color: rgb(185, 181, 181);
+    cursor: default;
+}
+.pages__page_current:hover{
+    border: 1px solid gray !important;
+    color: rgb(185, 181, 181);  
+}

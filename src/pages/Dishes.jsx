@@ -23,6 +23,7 @@ import RangeSlider from "../elements/utility/RangeSlider"
 import { Slider } from "@mui/material"
 import TestEntity from "./TestEntity"
 import DishMenu from "./DishMenu"
+import Pages from "../elements/utility/Pages"
 const Dishes = ({cart, loadCart, locality}) => {
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
@@ -160,6 +161,7 @@ const Dishes = ({cart, loadCart, locality}) => {
         setTotalDishes(data.numberOfElements)
         setLoading(false)
     }
+    
 
     async function sendAddToCart(dish){
        
@@ -197,6 +199,11 @@ const Dishes = ({cart, loadCart, locality}) => {
 
     }
 
+    function buildLinkToPage(page){
+        const paramsCopy = {...params}
+        paramsCopy.page = page
+        return '/HomeChefFront/dishes/' + stringify(paramsCopy)
+    }
    
     return (
 
@@ -232,7 +239,7 @@ const Dishes = ({cart, loadCart, locality}) => {
                             
                         </div>
                     </div>
-                    <Pages params={paramsParsed} totalPages={totalPages}/>
+                    <Pages currentPage={paramsParsed && paramsParsed.page ? paramsParsed.page : 1} totalPages={totalPages} buildLinkToPage={buildLinkToPage}/>
                 </div>
             </div>
         </div>
@@ -332,62 +339,9 @@ const Dishes = ({cart, loadCart, locality}) => {
 
 
 
-    function Pages ({params, totalPages}){
-        const blocksMaxNumber = 4
-        if(!totalPages || totalPages === 0){
-            
-            return <></>
-        }
-        const currentPage = params && params.page ? params.page : 1
-        function buildLinkToPage(page){
-            const paramsCopy = {...params}
-            paramsCopy.page = page
-            return '/HomeChefFront/dishes/' + stringify(paramsCopy)
-        }
-        function buildPages(){
-            const pages = []
-            
-            for(let i = 1; i < totalPages+1; i++){
-                if(i === currentPage){
-                    pages.push({
-                        pageNumber: i,
-                        isCurrent: true
-                    })
-                } else {
-                    pages.push({
-                        pageNumber: i,
-                        isCurrent: false
-                    })
-                }
-                
-            }
-            return pages
-        }
-            
+    
         
-
-        return (
-            <div className="dishes__pages">
-                {currentPage > 1 &&
-                    <Link to={buildLinkToPage(currentPage - 1)} className="dishes__page">{'<'}</Link>
-                }
-                {currentPage < 2 && 
-                    <div className="dishes__page dishes__page_disabled">{'<'}</div>
-                }
-                <div className="dishes__page-blocks">
-                    {buildPages().map(p => {
-                        return p.isCurrent ? <div className="dishes__page dishes__page_current">{p.pageNumber}</div> : <Link to={buildLinkToPage(p.pageNumber)} className='dishes__page'>{p.pageNumber}</Link>
-                    })}
-                </div>
-                {currentPage < totalPages &&
-                    <Link to={buildLinkToPage(currentPage + 1)} className="dishes__page">{'>'}</Link>
-                }
-                {currentPage  >= totalPages && 
-                    <div className="dishes__page dishes__page_disabled">{'>'}</div>
-                }
-            </div>
-        )
-    }
+       
 }
 
 export default Dishes
