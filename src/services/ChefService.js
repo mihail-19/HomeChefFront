@@ -6,6 +6,12 @@ const getChef = async () => {
         withCredentials: true
     })
 }
+
+const getChefById = async(chefId) => {
+    const url = serverUrl + '/chefs/' + chefId
+    return axios.get(url, {withCredentials:true})
+}
+
 const registerChef = async (chef) =>{
     const url = serverUrl + '/chefs/register'
     let res = axios.post(url, chef, {
@@ -33,4 +39,4 @@ const getAllChefs = async(pageNumber) => {
     return res
 }
 
-export {getChef, registerChef, updateChef, getAllChefs}
+export {getChef, registerChef, updateChef, getAllChefs, getChefById}

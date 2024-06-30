@@ -6,7 +6,7 @@ import imagesUrl from "../imagesUrl"
 import rankingIcon from "../assets/rankingIcon.png"
 import defaultChefIcon from "../assets/defaultChefIcon.png"
 import './Chefs.css'
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { parse, stringify } from "../services/DishParamService"
 import Pages from "../elements/utility/Pages"
 const Chefs = () => {
@@ -61,7 +61,7 @@ const Chefs = () => {
             <div className="chefs__chef-list">
                 {chefs.map(chef => {
                     return (
-                        <div className="chefs__chef">
+                        <Link to={"/HomeChefFront/chef/" + chef.id} className="chefs__chef">
                             <div className="chefs__chef-img">
                                 <img src={chef.imageURL ? imagesUrl + chef.imageURL : defaultChefIcon}></img>
                             </div>
@@ -76,7 +76,7 @@ const Chefs = () => {
                                 <div className="chefs__chef-description">{chef.description}</div>
                             </div>
                             
-                        </div>
+                        </Link>
                     )
                 })}
             </div>
