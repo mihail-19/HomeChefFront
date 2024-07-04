@@ -108,6 +108,10 @@
 }
 .profile__info{
     padding-top: 33px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
 }
 .profile__info-row{
     display: flex;
@@ -175,7 +179,13 @@
     position: relative;
 }
 
-
+.profile__info-inputs{
+}
+.profile__info-map{
+    width: 400px;
+    height: 350px;
+    background-color: red;
+}
 
 
 

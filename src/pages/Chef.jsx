@@ -7,6 +7,8 @@ import rankingIcon from "../assets/rankingIcon.png"
 import DishCard from "../elements/DishCard"
 import { getDishesForChef } from "../services/DishService"
 import './Chefs.css'
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from "react-leaflet"
+import 'leaflet/dist/leaflet.css'
 const Chef = () => {
     const {id} = useParams()
     const [chef, setChef] = useState(undefined)
@@ -35,7 +37,7 @@ const Chef = () => {
         const {data} = await getDishesForChef(chefId)
         setDishes(data)
     }
-
+   
     return (
         <div className="chef">
             
@@ -62,9 +64,18 @@ const Chef = () => {
                     <div className="chef__description">{chef?.description}</div>
                 </div>
 
-                <div className="chef__map">
-
-                </div>
+                {chef && chef.geoLocation && 
+                    <div className="chef__map">
+                        <MapContainer center={chef && chef.geoLocation ? [chef.geoLocation.lattitude, chef.geoLocation.longitude] : [49.991034, 36.229475]} zoom={13} >
+                            <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            <Marker position={chef && chef.geoLocation ? [chef.geoLocation.lattitude, chef.geoLocation.longitude] : [49.991034, 36.229475]} >
+                                <Popup>{chef?.username}</Popup>
+                            </Marker>
+                        </MapContainer>
+                    </div>
+                }
             </div>
             <h3>Блюда шефа {'(всього - ' + dishes?.length + ')'}</h3>
             <div className="chef__dishes">
@@ -74,6 +85,8 @@ const Chef = () => {
             </div>
         </div>
     )
+    
+    
     function buildRank(ranking){
         if(!ranking){
             return '0/0'
