@@ -246,7 +246,7 @@
     font-weight: 300;
     font-size: 12px;
     margin: 10px 0 10px 0;
-    height: 70px;
+    height: 50px;
 }
 .chef-menu__dish-row{
     display: flex;
@@ -262,6 +262,7 @@
     gap: 2px;
     align-items: center;
     margin-bottom: 10px;
+    height: 80px;
 }
 .chef-menu__dish-param{
     font-weight: 400;

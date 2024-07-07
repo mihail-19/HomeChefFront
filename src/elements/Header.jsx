@@ -89,7 +89,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                 <nav className='header__nav'>
                     <ul className='header__menu'>
                         <li className='header__menu-item'>
-                            <Link to='/HomeChefFront/chefs' className='header__menu-link'>Наші шефи</Link>
+                            <Link to='/HomeChefFront/chefs-map' className='header__menu-link'>Наші шефи</Link>
                         </li>
                         <li className='header__menu-item'>
                             <Link to='/HomeChefFront/dishes' className='header__menu-link header__menu-link_catalog'>Страви</Link>

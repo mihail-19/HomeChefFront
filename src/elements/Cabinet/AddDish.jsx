@@ -34,6 +34,18 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
         loadCategoryList()
         loadTagList()
     }, [])
+    useEffect(() => {
+        setName('')
+        setDescription('')
+        setIngredients('')
+        setIsActive(true)
+        setCookingTime(30)
+        setPrice(1)
+        setCatehoryId(1)
+        setTags([])
+        setWeight(1)
+        setImage(undefined)
+    }, [showAddDish])
 
     async function loadCategoryList(){
         const {data} = await getDishCategories()
@@ -126,7 +138,7 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
                                 </div>
                                 Опис страви 
                             </label>
-                            <textarea value={description} onChange={e => setDescription(e.target.value)}></textarea>
+                            <textarea className="add-dish__textarea-ingredient" value={description} onChange={e => setDescription(e.target.value)}></textarea>
                             <label>
                                 <div className="add-dish__question-img">
                                     <img src={questionImg}></img>    

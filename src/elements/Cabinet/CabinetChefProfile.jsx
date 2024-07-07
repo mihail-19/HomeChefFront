@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-import defaultChefImage from '../../assets/registerLogo.png'
+import defaultChefIcon from "../../assets/defaultChefIcon.png"
 import { getChef, updateChef } from '../../services/ChefService'
 import { useOutletContext } from 'react-router-dom'
 import { updateImage } from '../../services/PersonService'
@@ -20,7 +20,7 @@ const CabinetMyProfile = () => {
     const [legalStatusId, setLegalStatusId] = useState(null)
     const [isActive, setIsActive] = useState(false)
     const [image, setImage] = useState(undefined)
-    const [imageUrl, setImageUrl] = useState(defaultChefImage)
+    const [imageUrl, setImageUrl] = useState(defaultChefIcon)
     const [locality, setLocality] = useState({})
     const [localityName, setLocalityName] = useState('')
     const [isActiveLocality, setIsActiveLocality] = useState(false)
@@ -131,7 +131,7 @@ const CabinetMyProfile = () => {
             <div className="profile__top">
                 <div className="profile__user-image">
                     {!image && 
-                        <img src={imageUrl}></img>
+                        <img src={context && context.chef && context.chef.person && context.chef.person.imageURL ? imagesUrl + context.chef.person.imageURL : defaultChefIcon}></img>
                     }
                     {image && 
                         <img src={URL.createObjectURL(image)}></img>
@@ -222,7 +222,9 @@ const CabinetMyProfile = () => {
                     </div>
             </div>
                 <div className='profile__map-container'>
-                    <div>{position?.lat} {position?.lng}</div>
+                    <label className='profile__info-tag'>
+                    {position?.lat} {position?.lng}
+                    </label>
                     <div className='profile__info-map'>
                         <MapContainer center={[49.991034, 36.229475]} zoom={13} >
                             <ChangeView center={position} zoom={13}/>
@@ -251,8 +253,8 @@ const CabinetMyProfile = () => {
         const map = useMapEvents({
            
             click: (e) => {
-                setPosition(e.latlng)
-                console.log(e.latlng)
+                const corrected = {lat: e.latlng.lat.toPrecision(8), lng: e.latlng.lng.toPrecision(8)}
+                setPosition(corrected)
             }
         })
         return position ? <Marker position={position}></Marker> : null

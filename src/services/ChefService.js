@@ -26,7 +26,7 @@ const updateChef = async(chef) => {
     })
 }
 
-const getAllChefs = async(pageNumber) => {
+const getAllChefs = async(pageNumber, isUnpaged) => {
     const url = serverUrl + '/chefs'
     let paramsArray = []
     if(pageNumber){
@@ -34,6 +34,9 @@ const getAllChefs = async(pageNumber) => {
     } else [
         paramsArray.push(['pageNumber', 0])
     ]
+    if(isUnpaged){
+        paramsArray.push(['isUnpaged', true])
+    }
     const params = new URLSearchParams(paramsArray)
     const res = axios.get(url, {params}, {withCredentials:true})
     return res

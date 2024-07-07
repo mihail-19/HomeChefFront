@@ -77,7 +77,7 @@ const Chef = () => {
                     </div>
                 }
             </div>
-            <h3>Блюда шефа {'(всього - ' + dishes?.length + ')'}</h3>
+            <h3>Страви шефа {'(всього - ' + dishes?.length + ')'}</h3>
             <div className="chef__dishes">
                 {dishes?.map(dish => {
                     return <DishCard dish={dish} sendAddToCart={undefined}/>

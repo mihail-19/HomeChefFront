@@ -72,7 +72,7 @@ const Chefs = () => {
                                     <span><img src={rankingIcon}></img></span>
                                     {buildRank(chef.ranking)}
                                 </div>
-                                <div className="chefs__chef-info-row">К-ть блюд: {chef.dishNumber}</div>
+                                <div className="chefs__chef-info-row">К-ть страв: {chef.dishNumber}</div>
                                 <div className="chefs__chef-description">{chef.description}</div>
                             </div>
                             

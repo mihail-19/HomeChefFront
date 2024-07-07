@@ -11,6 +11,7 @@ const CabinetChefMenu = () =>{
     const context = useOutletContext()
     const [dishes, setDishes] = useState([])
     const [showUpdateDish, setShowUpdateDish] = useState(false)
+    const [dishToUpdate, setDishToUpdate] = useState(null)
     function openAddDishWindow(){
         setShowAddDish(true)
     }
@@ -36,12 +37,12 @@ const CabinetChefMenu = () =>{
                     </div>
                     <button className="chef-menu__add-dish-button" onClick={openAddDishWindow}>Додати страву</button>
                     <AddDish showAddDish={showAddDish} setShowAddDish={setShowAddDish}/>
-                    
+                    <UpdateDish showUpdateDish={showUpdateDish} setShowUpdateDish={setShowUpdateDish} dish={dishToUpdate}/>
                 </div>
                 <div className="chef-menu__dishes">
                     {dishes.map(dish => {
                         return <div className="chef-menu__dish">
-                            <UpdateDish showUpdateDish={showUpdateDish} setShowUpdateDish={setShowUpdateDish} dish={dish}/>
+                           
                             <div className="chef-menu__dish-img" >
                                 <img src={imagesUrl + dish.imageURL}></img>
                                 
@@ -64,7 +65,7 @@ const CabinetChefMenu = () =>{
                                     })}
                                 </div>
                                 <div className="chef-menu__dish-row">
-                                    <button className="chef-menu__edit-dish-button" onClick={() => {if(!showUpdateDish) setShowUpdateDish(true)}}>Редагувати</button>
+                                    <button className="chef-menu__edit-dish-button" onClick={() => {openUpdateDishWondow(dish)}}>Редагувати</button>
                                     <button className="chef-menu__delete-dish-button" onClick={() => sendRemoveDish(dish.id)}>Видалити</button>
                                 </div>
                             </div>
@@ -74,6 +75,14 @@ const CabinetChefMenu = () =>{
             </div>
         </div>
     )
+
+    function openUpdateDishWondow(dish){
+        if(!showUpdateDish){
+            setDishToUpdate(dish)
+            setShowUpdateDish(true)
+            
+        } 
+    }
 }
 
 export default CabinetChefMenu

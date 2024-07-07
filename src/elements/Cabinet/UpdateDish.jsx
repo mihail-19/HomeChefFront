@@ -156,7 +156,7 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dish}) => {
                                 </div>
                                 Опис страви 
                             </label>
-                            <textarea value={description} onChange={e => setDescription(e.target.value)}></textarea>
+                            <textarea className="add-dish__textarea-ingredient" value={description} onChange={e => setDescription(e.target.value)}></textarea>
                             <label>
                                 <div className="add-dish__question-img">
                                     <img src={questionImg}></img>    
