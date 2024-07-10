@@ -30,7 +30,7 @@ const getAllDishes = async(pageNumber) => {
     return res
 }
 
-const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds, localityId, price) => {
+const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds, localityId, price, sortParam) => {
     const url = serverUrl + "/dishes"
     let paramsArray = []
     paramsArray.push(['pageNumber', pageNumber])
@@ -45,6 +45,9 @@ const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds, localityI
     }
     if(price && price.length === 2){
         paramsArray.push(['price', price])
+    }
+    if(sortParam && sortParam !== 'popular'){
+        paramsArray.push(['sort', sortParam])
     }
     
     

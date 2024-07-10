@@ -28,6 +28,16 @@ function parse(paramsString){
                 if(arr && arr.length > 0){
                     paramsObject.price = arr
                 }
+            } else if(param[0] === 'sort'){
+                if(param[1] === 'cheap'){
+                    paramsObject.sort = 'cheap'
+                } else if(param[1] === 'expensive'){
+                    paramsObject.sort = 'expensive'
+                } else if(param[1] === 'latest'){
+                    paramsObject.sort = 'latest'
+                } else if(param[1] === 'popular'){
+                    paramsObject.sort = 'popular'
+                }
             }
             
         }
@@ -96,6 +106,12 @@ function stringify(params){
         }
         res += 'price=' + params.price[0] + ',' + params.price[1]
         
+    }
+    if(params.sort){
+        if(res.length > 0){
+            res += ';'
+        }
+        res += 'sort=' + params.sort
     }
     return res
 }

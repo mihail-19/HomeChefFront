@@ -42,6 +42,7 @@ const Dishes = ({cart, loadCart, locality}) => {
     const [paramsParsed, setParamsParsed] = useState({})
     const [priceValues, setPriceValues] = useState(undefined)
     const [showDishMenu, setShowDishMenu] = useState(false)
+    const [sortParam, setSortParam] = useState('')
     console.log('refresh')
 
    useEffect(() => {
@@ -99,6 +100,9 @@ const Dishes = ({cart, loadCart, locality}) => {
             const tagIds = tags.map(c => c.id)
             pParsed.tags = pParsed.tags.filter(tId => tagIds.includes(tId))
         }
+        if(pParsed && pParsed.sortParam){
+            setSortParam(pParsed.sortParam)
+        }
         if(pParsed && stringify(pParsed) !== params){
             console.log(pParsed)
             console.log(stringify(pParsed))
@@ -147,7 +151,7 @@ const Dishes = ({cart, loadCart, locality}) => {
         setLoading(true)
         const pageNumber = paramsParsed && paramsParsed.page ? paramsParsed.page-1 : 0
         let res
-        res = await getAllDishesWithFilters(pageNumber, paramsParsed?.categories, paramsParsed?.tags, paramsParsed?.city, paramsParsed?.price)
+        res = await getAllDishesWithFilters(pageNumber, paramsParsed?.categories, paramsParsed?.tags, paramsParsed?.city, paramsParsed?.price, paramsParsed?.sort)
         // if(paramsParsed && (paramsParsed.categories || paramsParsed.tags)){
         //     res = await getAllDishesWithFilters(pageNumber, paramsParsed.categories, paramsParsed.tags)
         // } else {
@@ -324,13 +328,23 @@ const Dishes = ({cart, loadCart, locality}) => {
                 </div>
                 <div className="dishes__params-right">
                     <div className="dishes__params-sort">
-                        За рейтингом
+                        <select value={sortParam} onChange={e => onSortChange(e.target.value)}>
+                            <option value="popular">Популярні</option>
+                            <option value="cheap">Спочатку дешеві</option>
+                            <option value="expensive">Спочатку дорогі</option>
+                            <option value="latest">Нові</option>
+                        </select>
                     </div>
                 </div>
             </div>
         )
 
-
+        function onSortChange(sortValue){
+            setSortParam(sortValue)
+            const paramsCopy = {...params}
+            paramsCopy.sort = sortValue
+            navigate("/HomeChefFront/dishes/" + stringify(paramsCopy))
+        }
        
 
     }
