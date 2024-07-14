@@ -151,7 +151,7 @@ const Dishes = ({cart, loadCart, locality}) => {
         setLoading(true)
         const pageNumber = paramsParsed && paramsParsed.page ? paramsParsed.page-1 : 0
         let res
-        res = await getAllDishesWithFilters(pageNumber, paramsParsed?.categories, paramsParsed?.tags, paramsParsed?.city, paramsParsed?.price, paramsParsed?.sort)
+        res = await getAllDishesWithFilters(pageNumber, paramsParsed)
         // if(paramsParsed && (paramsParsed.categories || paramsParsed.tags)){
         //     res = await getAllDishesWithFilters(pageNumber, paramsParsed.categories, paramsParsed.tags)
         // } else {
@@ -230,7 +230,6 @@ const Dishes = ({cart, loadCart, locality}) => {
                         categories={categories}
                         tags={tags}
                         navigate={navigate}
-                        showDishMenu={showDishMenu}
                     />
                 </div>
                 <div className="dishes__content">
@@ -282,6 +281,27 @@ const Dishes = ({cart, loadCart, locality}) => {
             return removeElement(url, t.name)
         }
 
+        function removePrice(){
+            if(!params || !params.price){
+                return
+            }
+            const paramsCopy = JSON.parse(JSON.stringify(params))
+            paramsCopy.price = undefined
+            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+            const txt = params.price[0] + '-' + params.price[1] + ' грн'
+            return removeElement(url, txt)
+        }
+        function removeSearch(){
+            if(!params || !params.search){
+                return null
+            }
+            const paramsCopy = {...params}
+            paramsCopy.search = undefined
+            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+            const txt = '\'' + params.search +'\''
+            return removeElement(url, txt)
+        }
+
         function removeElement(url, text){
                 return (
                     <div className="dishes__param">
@@ -293,7 +313,7 @@ const Dishes = ({cart, loadCart, locality}) => {
                 )
         }
         function removeAllFilters(){
-            if(!params || (!params.tags && !params.categories)){
+            if(!params || (!params.tags && !params.categories && !params.price && !params.search)){
                 return <div></div>
             }
             // const paramsCopy = {...params}
@@ -310,6 +330,8 @@ const Dishes = ({cart, loadCart, locality}) => {
                     <div className="dishes__params-dishes-count">Знайдено блюд: {totalDishes}</div>
                     <div className="dishes__params-filters">
                         {removeAllFilters()}
+                        {removeSearch()}
+                        {params && params.price && removePrice()}
                         {chosenCategories &&
                             <div className="dishes__params-name"> Категорія:</div> 
                             

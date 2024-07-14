@@ -28,6 +28,8 @@ function parse(paramsString){
                 if(arr && arr.length > 0){
                     paramsObject.price = arr
                 }
+            } else if(param[0] === 'search'){
+                paramsObject.search = param[1]
             } else if(param[0] === 'sort'){
                 if(param[1] === 'cheap'){
                     paramsObject.sort = 'cheap'
@@ -105,7 +107,12 @@ function stringify(params){
             res += ';'
         }
         res += 'price=' + params.price[0] + ',' + params.price[1]
-        
+    }
+    if(params.search){
+        if(res.length > 0){
+            res += ';'
+        }
+        res += 'search=' + params.search
     }
     if(params.sort){
         if(res.length > 0){

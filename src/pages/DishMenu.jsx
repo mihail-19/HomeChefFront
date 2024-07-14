@@ -1,14 +1,16 @@
 import { useState } from "react"
 import RangeSlider from "../elements/utility/RangeSlider"
 import arrow from '../assets/headerCityArrow.png'
+import searchIcon from '../assets/searchIcon.png'
 import {parse, stringify} from '../services/DishParamService'
 import { Link } from "react-router-dom"
 import selectedIcon from '../assets/checkboxSelectedBlack.png'
-function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLocality, activeLocalities, categories, tags, navigate, showDishMenu}){
+function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLocality, activeLocalities, categories, tags, navigate}){
     const [showCategory, setShowCategory] = useState(params && params.categories ? true : false)
     const [showTags, setShowTags] = useState(params && params.tags ? true : false)
     const [price, setShowPrice] = useState(false)
     const [showChooseLocality, setShowChooseLocality] = useState(false)
+    const [searchValue, setSearchValue] = useState(params && params.search ? params.search : '')
     
    console.log('dish menu refresh')
     function hasTagWithId(tags, id){
@@ -88,8 +90,21 @@ function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLoc
         navigate(url)
     }
 
+    function linkToSearch(){
+        const paramsCopy = params ? {...params} : {}
+        paramsCopy.search = searchValue
+        const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+        return url
+    }
+
     return (
         <div className="dishes__menu">
+            <div className="dishes__search">
+                <input type="text" className="dishes__search-input" value={searchValue} onChange={e => setSearchValue(e.target.value)}></input>
+                <Link to={linkToSearch()} className="dishes__search-button">
+                    <img src={searchIcon}></img>
+                </Link>
+            </div>
             <RangeSlider rangeMax={maxPriceRange} values={priceValues} setValues={setPriceValues} onChangeCommited={navigateOnPriceChange}/>
             
             <div className="dishes__menu-element" onClick={() => showChooseLocality ? setShowChooseLocality(false) : setShowChooseLocality(true)}>

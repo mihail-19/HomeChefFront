@@ -1,5 +1,5 @@
 
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 import '../App.css'
 
@@ -27,7 +27,13 @@ import Footer from '../elements/Footer'
 import { useEffect, useState } from 'react'
 import { getPerson } from '../services/PersonService'
 function Homepage() {
+  const [searchValue, setSearchValue] = useState('')
+  const navigate = useNavigate()
 
+  function searchDish(){
+    const url = '/HomeChefFront/dishes/search=' + searchValue
+    navigate(url)
+  }
   
   
   return (
@@ -38,8 +44,8 @@ function Homepage() {
             Те, що зроблено з любовʼю
           </div>
           <div className='home__search'>
-            <input type="text" placeholder='Знайти страву' ></input>
-            <button className='home__search-button'>Знайти</button>
+            <input type="text" placeholder='Знайти страву' value={searchValue} onChange={e => setSearchValue(e.target.value)}></input>
+            <button className='home__search-button' onClick={searchDish}>Знайти</button>
           </div>
         </div>
       </div>

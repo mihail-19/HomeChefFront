@@ -30,24 +30,27 @@ const getAllDishes = async(pageNumber) => {
     return res
 }
 
-const getAllDishesWithFilters = async(pageNumber, categoryIds, tagIds, localityId, price, sortParam) => {
+const getAllDishesWithFilters = async(pageNumber, filterParams) => {
     const url = serverUrl + "/dishes"
     let paramsArray = []
     paramsArray.push(['pageNumber', pageNumber])
-    if(categoryIds){
-        paramsArray.push(['categoryIds', categoryIds])
+    if(filterParams && filterParams.categories){
+        paramsArray.push(['categoryIds', filterParams.categories])
     }
-    if(tagIds){
-        paramsArray.push(['tagIds', tagIds])
+    if(filterParams && filterParams.tags){
+        paramsArray.push(['tagIds', filterParams.tags])
     }
-    if(localityId){
-        paramsArray.push(['localityId', localityId])
+    if(filterParams && filterParams.city){
+        paramsArray.push(['localityId', filterParams.city])
     }
-    if(price && price.length === 2){
-        paramsArray.push(['price', price])
+    if(filterParams && filterParams.price && filterParams.price.length === 2){
+        paramsArray.push(['price', filterParams.price])
     }
-    if(sortParam && sortParam !== 'popular'){
-        paramsArray.push(['sort', sortParam])
+    if(filterParams && filterParams.sort && filterParams.sort !== 'popular'){
+        paramsArray.push(['sort', filterParams.sort])
+    }
+    if(filterParams && filterParams.search){
+        paramsArray.push(['search', filterParams.search])
     }
     
     
