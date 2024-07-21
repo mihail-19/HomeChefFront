@@ -105,4 +105,30 @@ const getPriceRange = async (categoryIds, tagIds, localityId) => {
     return res
 }
 
-export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef, getAllDishesWithFilters, getPriceRange}
+const getDishReviews = async(dishId) => {
+    const url = serverUrl + "/dishes/" + dishId + "/reviews"
+    const res = axios.get(url, {withCredentials:true})
+    return res
+}
+
+const addDishReview = async(dishId, rating, txt) => {
+    const url = serverUrl + "/dishes/" + dishId + "/add-review"
+    const formData = new FormData()
+    
+    formData.append("rating", rating)
+    formData.append("txt", txt)
+    const res = axios.post(url, formData, {withCredentials:true})
+    return res
+}
+
+const answerDishReview = async(dishId, reviewId, txt) => {
+    const url = serverUrl + "/dishes/" + dishId + "/answer-review"
+    const formData = new FormData()
+    
+    formData.append("reviewId", reviewId)
+    formData.append("text", txt)
+    const res = axios.post(url, formData, {withCredentials:true})
+    return res
+}
+
+export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef, getAllDishesWithFilters, getPriceRange, getDishReviews, addDishReview, answerDishReview}

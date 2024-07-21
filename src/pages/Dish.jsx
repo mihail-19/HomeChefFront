@@ -86,6 +86,10 @@ const Dish = ({cart, loadCart}) => {
             <Loading isActive={isLoading} seIsActive={setIsLoading}/>
             <Snackbar ref={snackbarRef}/>
             <Confirm okFunction={sendAfterConfirmed} noFunction={rejectAddingDish} ref={confirmRef}/>
+            <div className="dish__top-navigation">
+                <Link to={'/HomeChefFront/dish/' + id} className="dish__navigation-button dish__navigation-button_active">Страва</Link>
+                <Link to={'/HomeChefFront/dish/' + id + '/comments'} className="dish__navigation-button">Відгуки</Link>
+            </div>
             <div className="dish__main-content">
                 <div className="dish__left">
                     <div className="dish__img">

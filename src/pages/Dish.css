@@ -1,5 +1,6 @@
 .dish{
     font-family: Montserrat;
+    padding: 0 10px 10px 20px;
 }
 
 .dish h1{
@@ -158,4 +159,131 @@
     .dish__right{
         width: 100%;
     }
+}
+
+
+
+
+
+
+.dish__top-navigation{
+    border-bottom: 1px solid rgb(190, 214, 189);
+    margin-bottom: 20px;
+}
+.dish__navigation-button{
+    text-decoration: none;
+    margin-right: 10px;
+    color: rgb(69, 82, 69);
+}
+.dish__navigation-button_active{
+    color: rgb(164, 206, 164);
+}
+
+
+.dish__add-review-button{
+    font-family: Montserrat;
+    font-size: 22px;
+    padding: 5px 15px;
+    cursor: pointer;
+    background-color: rgb(47, 122, 47);
+    color: rgb(254, 255, 254);
+    border: none;
+    border-radius: 10px;
+}
+.dish__reviews{
+    margin-top: 20px;
+}
+.dish__review{
+   
+    font-size: 16px;
+}
+.dish__review-rating{
+    display: flex;
+    gap: 2px;
+    margin-bottom: 5px;
+}
+.dish__review-rating-star{
+    width: 15px;
+    height: 15px;
+}
+.dish__review-rating-star img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dish__review-message{
+    font-family: Montserrat;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 350px;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+}
+.dish__review-message-info{
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    border-bottom: 1px solid rgb(158, 180, 158);
+    margin-bottom: 10px;
+}
+.dish__message-author-role{
+    padding: 2px;
+}
+.dish__message-author-role_admin{
+    
+}
+.dish__message-author-role_chef{
+    background-color: rgb(173, 218, 203);
+}
+.dish__review-name{
+
+}
+.dish__review-date{
+
+}
+
+.dish__add-review{
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.dish__add-review h2{
+    font-size: 20px;
+    margin: 0;
+    text-align: center;
+}
+.dish__add-rewiev-input{
+    width: 90%;
+    display: block;
+    margin-bottom: 10px;
+    height: 100px;
+    resize: none;
+}
+.dish__add-rewiev-submit{
+    font-size: 14px;
+    padding: 5px;
+    cursor: pointer;
+}
+.dish__review-child-container{
+    margin: 10px 0 10px 30px;
+}
+
+.dish__choose-rating{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.dish__choose-rating-star{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+.dish__choose-rating-star img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
