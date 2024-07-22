@@ -3,18 +3,21 @@ import imagesUrl from '../imagesUrl'
 import defaultDishImg from '../assets/defaultDish.jpg'
 import { Link } from 'react-router-dom'
 import './DishCard.css'
+import Rating from './utility/Rating'
 const DishCard = ({dish, sendAddToCart}) => {
     
 
 
     return (
         <div className="dish-card__dish">
+            <div className='dish-card__rating'>
+            </div>
             <div className="dish-card__chef-info">
                 <div className="dish-card__chef-img">
                     <img src={imagesUrl + dish.chef.imageURL}></img>
                 </div>
                 <div className="dish-card__chef-rating">
-                    <span><img src={rankingIcon}></img></span> {dish.chef.ranking ? dish.chef.ranking.rank : "0/0"}
+                    <span><img src={rankingIcon}></img></span> {dish.chef.ranking ? dish.chef.ranking.rank + '(' + dish.chef.ranking.voters + ')' : "0/0"}
                 </div>
             </div>
             <Link to={"/HomeChefFront/dish/" + dish.id} className="dish-card__dish-img">

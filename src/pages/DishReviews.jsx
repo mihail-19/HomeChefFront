@@ -5,6 +5,7 @@ import ModalCenter from '../elements/utility/ModalCenter'
 import ratingStartEmpty from '../assets/ratingStarEmpty.png'
 import ratingStarFilled from '../assets/ratingStarFilled.png'
 import './Dish.css'
+import Rating from "../elements/utility/Rating"
 const DishReviews = () => {
     const {id} = useParams()
     const [reviews, setReviews] = useState([])
@@ -65,23 +66,7 @@ const DishReviews = () => {
                 return <div className="dish__review-container">
                         <div className="dish__review">
                         
-                                <div className="dish__review-rating">
-                                    <div className="dish__review-rating-star">
-                                        {chooseReviewRatingImg(r.rating, 1)}
-                                    </div>
-                                    <div className="dish__review-rating-star">
-                                        {chooseReviewRatingImg(r.rating, 2)}
-                                    </div>
-                                    <div className="dish__review-rating-star">
-                                        {chooseReviewRatingImg(r.rating, 3)}
-                                    </div>
-                                    <div className="dish__review-rating-star">
-                                        {chooseReviewRatingImg(r.rating, 4)}
-                                    </div>
-                                    <div className="dish__review-rating-star">
-                                        {chooseReviewRatingImg(r.rating, 5)}
-                                    </div>
-                                </div>
+                                <Rating rating={r.rating}/>
                                 
                                 <Message msg={r.message}/>
                                 <div className="dish__review-controls">
