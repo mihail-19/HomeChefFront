@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import {getDishReviews, addDishReview, answerDishReview} from '../services/DishService'
+import {getDishReviews, addDishReview, answerDishReview, removeReview, removeReviewMessage} from '../services/DishService'
 import ModalCenter from '../elements/utility/ModalCenter'
 import ratingStartEmpty from '../assets/ratingStarEmpty.png'
 import ratingStarFilled from '../assets/ratingStarFilled.png'
 import './Dish.css'
 import Rating from "../elements/utility/Rating"
-const DishReviews = () => {
+const DishReviews = ({person}) => {
     const {id} = useParams()
     const [reviews, setReviews] = useState([])
     const [showAddReview, setShowAddReview] = useState(false)
@@ -43,13 +43,22 @@ const DishReviews = () => {
         loadReviews(id)
     }
 
-    function chooseReviewRatingImg(rating, position){
-        if(rating < position){
-            return <img src={ratingStartEmpty}></img>
-        } else {
-            return <img src={ratingStarFilled}></img>
+    function isAdmin(){
+        if(!person || !person.authorities){
+            return false
         }
+        if(person.authorities.find(a => a.authority === 'admin') === undefined){
+            return false
+        }
+        return true
     }
+
+    async function sendRemoveReview(reviewId){
+        const res = await removeReview(id, reviewId)
+        loadReviews(id)
+    }
+
+
 
     return (
         <div className="dish">
@@ -73,6 +82,7 @@ const DishReviews = () => {
                                     <button className="dish__review-answer-button" onClick={() => openAnswerReviewWindow(r.id)}>
                                         Відповісти
                                     </button>
+                                    {isAdmin() && <button className="dish__remove-review-button" onClick={() => sendRemoveReview(r.id)}>Видалити</button>}
                                 </div>
                         </div>
                         <div className="dish__review-child-container">

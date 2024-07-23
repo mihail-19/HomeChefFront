@@ -131,4 +131,21 @@ const answerDishReview = async(dishId, reviewId, txt) => {
     return res
 }
 
-export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef, getAllDishesWithFilters, getPriceRange, getDishReviews, addDishReview, answerDishReview}
+
+const removeReview = async(dishId, reviewId) => {
+    const url = serverUrl + "/dishes/" + dishId + "/reviews/" + reviewId
+    const res = axios.delete(url, {withCredentials:true})
+    return res
+}
+
+const removeReviewMessage = async(dishId, reviewId, messageId) => {
+    const url = serverUrl + "/dishes/" + dishId + "/reviews/" + reviewId
+    const formData = new FormData()
+    
+    formData.append("messageId", messageId)
+    const res = axios.patch(url, formData, {withCredentials:true} )
+    return res
+}
+
+export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef, getAllDishesWithFilters, getPriceRange, 
+    getDishReviews, addDishReview, answerDishReview, removeReview, removeReviewMessage}

@@ -70,7 +70,7 @@ function App() {
         <Route path="/HomeChefFront/chef/:id" element={<Chef/>}/>
         <Route path="/HomeChefFront/dishes/:params?" element={<Dishes cart={cart} loadCart={loadCart} locality={locality}/>}/>
         <Route path="/HomeChefFront/dish/:id" element={<Dish cart={cart} loadCart={loadCart}/>}/>
-        <Route path="/HomeChefFront/dish/:id/comments" element={<DishReviews/>}/>
+        <Route path="/HomeChefFront/dish/:id/comments" element={<DishReviews person={person}/>}/>
         <Route path="/HomeChefFront/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
         <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
           <Route path="chef-profile" element={<CabinetChefProfile/>}/>
