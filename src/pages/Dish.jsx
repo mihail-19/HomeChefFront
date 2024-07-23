@@ -9,6 +9,8 @@ import DishCard from "../elements/DishCard"
 import Loading from "../elements/utility/Loading"
 import Snackbar from "../elements/utility/Snackbar"
 import Confirm from "../elements/utility/Confirm"
+import defaultDishImg from '../assets/defaultDish.jpg'
+import Rating from "../elements/utility/Rating"
 const Dish = ({cart, loadCart}) => {
     
     const {id} = useParams()
@@ -93,7 +95,10 @@ const Dish = ({cart, loadCart}) => {
             <div className="dish__main-content">
                 <div className="dish__left">
                     <div className="dish__img">
-                        <img src={imagesUrl + dish.imageURL}></img>
+                        <div className="dish__dish-rating">
+                            <Rating rating={dish.ranking ? dish.ranking.rank : 0}/>
+                        </div>
+                        <img src={dish.imageURL ? imagesUrl + dish.imageURL : defaultDishImg}></img>
                     </div>
                     
                 </div>

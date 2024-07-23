@@ -3,7 +3,7 @@ import ratingStarFilled from '../../assets/ratingStarFilled.png'
 import './Rating.css'
 const Rating = ({rating}) => {
     function chooseReviewRatingImg(rating, position){
-        if(rating < position){
+        if(Math.round(rating) < position){
             return <img src={ratingStartEmpty}></img>
         } else {
             return <img src={ratingStarFilled}></img>

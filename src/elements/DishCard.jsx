@@ -11,13 +11,14 @@ const DishCard = ({dish, sendAddToCart}) => {
     return (
         <div className="dish-card__dish">
             <div className='dish-card__rating'>
+                <Rating rating={dish.ranking ? dish.ranking.rank : 0}/>
             </div>
             <div className="dish-card__chef-info">
                 <div className="dish-card__chef-img">
                     <img src={imagesUrl + dish.chef.imageURL}></img>
                 </div>
                 <div className="dish-card__chef-rating">
-                    <span><img src={rankingIcon}></img></span> {dish.chef.ranking ? dish.chef.ranking.rank + '(' + dish.chef.ranking.voters + ')' : "0/0"}
+                    <span><img src={rankingIcon}></img></span> {dish.chef.ranking ? dish.chef.ranking?.rank.toFixed(1) + '(' + dish.chef.ranking.voters + ')' : "0/0"}
                 </div>
             </div>
             <Link to={"/HomeChefFront/dish/" + dish.id} className="dish-card__dish-img">

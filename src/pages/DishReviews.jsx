@@ -98,8 +98,8 @@ const DishReviews = () => {
                 return <span className="dish__message-author-role dish__message-author-role_admin">{'[адмін]'}</span>
             } else if (msg.authorRole === "CHEF"){
                 return <span className="dish__message-author-role dish__message-author-role_chef">{'[шеф]'}</span>
-            } else {
-                return null
+            } else if(msg.authorRole === "USER"){
+                return <span className="dish__message-author-role dish__message-author-role_user">{'[покупець]'}</span>
             }
         }
         return (

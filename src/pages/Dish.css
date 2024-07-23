@@ -30,9 +30,16 @@
 }
 
 .dish__img{
+    position: relative;
     width: 100%;
     aspect-ratio: 16/9;
     border-radius: 20px;
+}
+
+.dish__dish-rating{
+    position: absolute;
+    left: 5px;
+    top: 5px;
 }
 
 .dish__img img{
@@ -232,10 +239,13 @@
     padding: 2px;
 }
 .dish__message-author-role_admin{
-    
+    background-color: rgb(187, 144, 124);
 }
 .dish__message-author-role_chef{
-    background-color: rgb(173, 218, 203);
+    background-color: rgb(165, 179, 115);
+}
+.dish__message-author-role_user{
+    background-color: rgb(145, 212, 179);
 }
 .dish__review-name{
 

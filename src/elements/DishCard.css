@@ -27,6 +27,13 @@
         width: 95%;
     }
 }
+
+.dish-card__rating{
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: 50;
+}
 .dish-card__chef-info{
     position: absolute;
     right: 1px;
