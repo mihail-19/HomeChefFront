@@ -1,0 +1,164 @@
+.about-us{
+    padding: 0 87px 10px 70px;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.about-us h1{
+    font-weight: 700;
+    font-size: 64px;
+    margin-bottom: 39px;
+}
+.about-us h2{
+    font-weight: 700;
+    font-size: 54px;
+    text-align: center;
+}
+.about-us p{
+    margin-block-start: 0;
+}
+.about-us b{
+
+}
+.about-us img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-us__top{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 149px;
+}
+.about-us__top-image{
+    width: 36.5vw;
+    height: 24.3vw;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+.about-us__top-image img{
+    border-radius: 10px;
+    
+}
+.about-us__top-text{
+    max-width: 875px;
+    flex-shrink: 1;
+}
+.about-us__values{
+    width: 1246px;
+    margin: 0 auto;
+}
+.about-us__values-images{
+    display: flex;
+    gap: 140px;
+    align-items: center;
+}
+.about-us__values-image{
+    width: 186px;
+    height: 186px;
+    border-radius: 50%;
+    margin-bottom: 42px;
+}
+.about-us__values-image img {
+    border-radius: 50%;
+}
+.about-us__values-text{
+    width: 100%;
+}
+.about-us__join-button{
+    width: 239px;
+    height: 59px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #BC7BAA;
+    color: #FFFFFF;
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    margin-bottom: 89px;
+}
+
+
+
+
+.about-us__line{
+    width:100%;
+    border-bottom: 1px solid gray;
+    margin-bottom: 88px;
+}
+
+
+
+
+
+.about-us__people{
+    margin: 87px 5px 89px 130px;
+}
+.about-us__people-images{
+    display: flex;
+    gap: 74px;
+    margin-bottom: 46px;
+}
+.about-us__poeple-image{
+    width: 319px;
+    height: 475px;
+}
+.about-us__people-text{
+    width: 1105px;
+}
+
+
+
+.about-us__story-images{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 64px;
+    gap: 64px;
+}
+.about-us__story-image{
+
+}
+.about-us__story-image_left{
+    width: 232px;
+    height: 349px;
+}
+.about-us__story-image_middle{
+    width: 569px;
+    height: 595px;
+}
+.about-us__story-image_right{
+    width: 288px;
+    height: 349px;
+}
+.about-us__story-text{
+    width: 853px;
+    margin: 0 auto;
+}
+
+
+
+.about-us__link{
+    width: 174px;
+    height: 59px;
+    background-color: #88A69D;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    margin-bottom: 89px;
+    text-decoration: none;
+}
+

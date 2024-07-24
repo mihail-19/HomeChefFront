@@ -21,6 +21,7 @@ import Chefs from './pages/Chefs.jsx'
 import Chef from './pages/Chef.jsx'
 import ChefsMap from './pages/ChefsMap.jsx'
 import DishReviews from './pages/DishReviews.jsx'
+import AboutUs from './pages/AboutUs.jsx'
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
   const [person, setPerson] = useState({})
@@ -65,6 +66,7 @@ function App() {
       
       <Routes>
         <Route path="/HomeChefFront" element={<Homepage />}/>
+        <Route path="/HomeChefFront/about-us" element={<AboutUs/>}/>
         <Route path="/HomeChefFront/chefs/:params?" element={<Chefs />}/>
         <Route path="/HomeChefFront/chefs-map" element={<ChefsMap/>}/>
         <Route path="/HomeChefFront/chef/:id" element={<Chef/>}/>
