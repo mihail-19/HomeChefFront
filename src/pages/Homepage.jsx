@@ -34,7 +34,9 @@ function Homepage() {
     const url = '/HomeChefFront/dishes/search=' + searchValue
     navigate(url)
   }
-  
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
   
   return (
     <>

@@ -2,6 +2,7 @@
     font-family: Montserrat;
     font-size: 24px;
     font-weight: 400;
+    margin-bottom: 100px;
 }
 
 .about-us h1{
@@ -131,6 +132,10 @@
     .about-us__values-images{
         width: 100%;
     }
+    .about-us__join-button{
+        margin-bottom: 46px;
+        margin-top: 20px;
+    }
 }
 @media(max-width: 680px){
     .about-us__values-images{
@@ -176,12 +181,27 @@
     width: 75%;
 }
 
+
 @media(max-width: 1450px){
+    .about-us__people{
+        width: 94vw;
+    }
+    .about-us__poeple-image{
+        width: 20vw;
+    }
     .about-us__people-text{
         width: 100%;
     }
 }
-
+@media(max-width: 680px){
+    .about-us__people-images{
+        justify-content: space-around;
+        margin-bottom: 10px;
+    }
+    .about-us__poeple-image{
+        width: 25vw;
+    }
+}
 
 
 .about-us__story-images{
@@ -221,10 +241,44 @@
 
 @media(max-width: 1350px){
     .about-us__story-text{
-        width: 70%;
+        width: 86vw;
         font-size: 20px;
     }
+    .about-us__story-images{
+        width: 92vw;
+        
+    }
+    .about-us__story-image_left{
+        width: 16vw;
+    }
+    .about-us__story-image_middle{
+        width: 36vw;
+    }
+    .about-us__story-image_right{
+        width: 19vw;
+    }
 }
+@media(max-width: 700px){
+    .about-us__story-image_left{
+        width: 20vw;
+    }
+    .about-us__story-image_middle{
+        width: 40vw;
+    }
+    .about-us__story-image_right{
+        width: 23vw;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 .about-us__link{
     width: 174px;
     height: 59px;
@@ -275,3 +329,9 @@
     }
 }
 
+
+@media(max-width: 1350px){
+    .about-us p{
+        text-align: justify;
+    }
+}

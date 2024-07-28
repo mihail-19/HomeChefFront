@@ -27,6 +27,7 @@ function App() {
   const [person, setPerson] = useState({})
   const [cart, setCart] = useState({})
   const [locality, setLocality] = useState(undefined)
+  const [showRegisterWindow, setShowRegisterWindow] = useState(false)
   useEffect(() => {
     const fromStorage = JSON.parse(localStorage.getItem('locality'))
     if(fromStorage){
@@ -62,11 +63,12 @@ function App() {
   return(
   <>
     <div className='home-chef-content'>
-      <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart} locality={locality} setLocality={setLocality}/>
+      <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart} 
+              locality={locality} setLocality={setLocality} showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow}/>
       
       <Routes>
         <Route path="/HomeChefFront" element={<Homepage />}/>
-        <Route path="/HomeChefFront/about-us" element={<AboutUs/>}/>
+        <Route path="/HomeChefFront/about-us" element={<AboutUs setShowRegisterWindow={setShowRegisterWindow}/>}/>
         <Route path="/HomeChefFront/chefs/:params?" element={<Chefs />}/>
         <Route path="/HomeChefFront/chefs-map" element={<ChefsMap/>}/>
         <Route path="/HomeChefFront/chef/:id" element={<Chef/>}/>

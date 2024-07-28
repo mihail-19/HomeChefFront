@@ -16,7 +16,7 @@ import storyImgRight from '../assets/AboutUs/storyImgRight.png'
 
 import './AboutUs.css'
 
-const AboutUs = () => {
+const AboutUs = ({setShowRegisterWindow}) => {
 
 
     return(
@@ -79,7 +79,7 @@ const AboutUs = () => {
                         Ми прагнемо до постійного удосконалення і розвитку, щоб надавати найкращий сервіс і задовольняти потреби наших клієнтів.
                     </p>
                 </div>
-                <button className="about-us__join-button">
+                <button className="about-us__join-button" onClick={() => setShowRegisterWindow(true)}>
                     Стати Home Chef
                 </button>
             </div>
@@ -98,10 +98,10 @@ const AboutUs = () => {
                     <div className="about-us__poeple-image">
                         <img src={peopleImg2}></img>
                     </div>
-                    <div className="about-us__poeple-image">
+                    <div className="about-us__poeple-image about-us__hidden">
                         <img src={peopleImg3}></img>
                     </div>
-                    <div className="about-us__poeple-image">
+                    <div className="about-us__poeple-image ">
                         <img src={peopleImg4}></img>
                     </div>
                 </div>

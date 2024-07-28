@@ -17,11 +17,11 @@ import userMenuIcon from '../assets/user.png'
 import homeChefLogo from '../assets/HomeChefLogo.png'
 import imageUrl from '../imagesUrl.js'
 import {logout} from '../services/AuthService.js'
-const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocality})=>{
+const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocality, showRegisterWindow, setShowRegisterWindow})=>{
     const [city, setCity] = useState(localStorage.getItem('locality') ? JSON.parse(localStorage.getItem('locality')).name : "Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
-    const [showRegisterWindow, setShowRegisterWindow] = useState(false)
+    //const [showRegisterWindow, setShowRegisterWindow] = useState(false)
     const [showAuthWindow, setShowAuthWindow] = useState(false)
     function switchShowBurger(){
         //disable scroll whie burger menu flag changes. Value is opposite to current
@@ -95,7 +95,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                             <Link to='/HomeChefFront/dishes' className='header__menu-link header__menu-link_catalog'>Страви</Link>
                         </li>
                         <li className='header__menu-item'>
-                            <Link to='/about-us' className='header__menu-link'>Про нас</Link>
+                            <Link to='/HomeChefFront/about-us' className='header__menu-link'>Про нас</Link>
                         </li>
                         
                         <li className='header__menu-item'>
