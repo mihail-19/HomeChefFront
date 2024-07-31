@@ -22,6 +22,9 @@ import Chef from './pages/Chef.jsx'
 import ChefsMap from './pages/ChefsMap.jsx'
 import DishReviews from './pages/DishReviews.jsx'
 import AboutUs from './pages/AboutUs.jsx'
+import CabinetReviews from './elements/Cabinet/CabinetReviews.jsx'
+import CabinetUseful from './elements/Cabinet/CabinetUseful.jsx'
+import CabinetTarifs from './elements/Cabinet/CabinetTarifs.jsx'
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
   const [person, setPerson] = useState({})
@@ -78,6 +81,9 @@ function App() {
         <Route path="/HomeChefFront/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
         <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
           <Route path="chef-profile" element={<CabinetChefProfile/>}/>
+          <Route path="reviews" element={<CabinetReviews/>}/>
+          <Route path="usefull" element={<CabinetUseful/>}/>
+          <Route path="tarif" element={<CabinetTarifs/>}/>
           <Route path="become-chef" element={<CabinetBecomeChef person={person} setPerson={setPerson}/>}/>
           <Route path="chef-menu" element={<CabinetChefMenu/>}/>
           <Route path="admin-data" element={<CabinetAdminAddData person={person}/>}/>
