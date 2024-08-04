@@ -5,6 +5,7 @@ import './CabinetOrders.css'
 import closeIcon from '../../assets/registerCloseIcon.png'
 import CabinetOrder from './CabinetOrder'
 import { useEffect, useState } from 'react'
+import OrderState from '../utility/OrderState'
 const OrdersTable = ({orders, setOrders, setLoading}) => {
     const [showOrder, setShowOrder] = useState(false)
     const [currentOrder, setCurrentOrder] = useState({})
@@ -57,7 +58,7 @@ const OrdersTable = ({orders, setOrders, setLoading}) => {
         </table>
     )
 
-    function OrderState({order}){
+    function OrderState1({order}){
         let clsName = ''
         let txt = ''
         switch(order.state){

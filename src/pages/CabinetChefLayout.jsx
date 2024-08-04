@@ -82,9 +82,9 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
             </ul>
         } else if (isUser){
             return <ul>
-                    <li><Link to="/cabinet/client-orders" className={showFlags[0] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(0)}>Мої замовлення</Link></li>
-                    <li><Link to="/cabinet/client-profile" className={showFlags[1] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(1)}>Мій профіль</Link></li>
-                    <li><Link to="/cabinet/client-orders-state" className={showFlags[2] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(2)}>Статус замовлень</Link></li>
+                    <li><Link to="previous-dishes" className={showFlags[0] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(0)}>Історія замовлень</Link></li>
+                    <li><Link to="user-profile" className={showFlags[1] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(1)}>Мій профіль</Link></li>
+                    <li><Link to="user-orders" className={showFlags[2] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(2)}>Статус замовлень</Link></li>
                     <li><Link to="/cabinet/cart" className={showFlags[3] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(3)}>Кошик</Link></li>
                     <li><Link to="/cabinet/wishes" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Мої бажання</Link></li>
                     <li><Link to="become-chef" className={showFlags[5] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(5)}>Стати шефом</Link></li>
@@ -100,10 +100,18 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
         navigate("/HomeChefFront")
     }
 
+    function menuStyleClass(){
+        if(hasAuthority('chef') || hasAuthority('admin')){
+            return 'cabinet__menu_chef'
+        } else if (hasAuthority('user')){
+            return 'cabinet__menu_user'
+        }
+    }
+
     return <>
             <div className='cabinet__container'>
                 <div className='cabinet__menu-container'>
-                    <nav className='cabinet__menu'>
+                    <nav className={'cabinet__menu ' + menuStyleClass()} >
                         {links()}
                     </nav>
                 </div>

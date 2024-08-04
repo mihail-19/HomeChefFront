@@ -21,4 +21,17 @@ const updateImage = async (image) => {
     return res
 }
 
-export {getPerson, updateImage}
+const updatePersonByUser = async (person) => {
+    const url = serverUrl + '/person/user-update'
+    const res = axios.post(url, person, {withCredentials: true})
+    return res
+}
+
+const previousDishes = async () => {
+    const url = serverUrl + '/person/dish-story'
+    const res = axios.get(url, {withCredentials:true})
+    return res
+
+}
+
+export {getPerson, updateImage, updatePersonByUser, previousDishes}

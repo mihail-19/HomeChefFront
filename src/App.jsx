@@ -25,6 +25,9 @@ import AboutUs from './pages/AboutUs.jsx'
 import CabinetReviews from './elements/Cabinet/CabinetReviews.jsx'
 import CabinetUseful from './elements/Cabinet/CabinetUseful.jsx'
 import CabinetTarifs from './elements/Cabinet/CabinetTarifs.jsx'
+import CabinetUserOrders from './elements/Cabinet/CabinetUserOrders.jsx'
+import CabinetUserProfile from './elements/Cabinet/CabinetUserProfile.jsx'
+import CabinetUserDishStory from './elements/Cabinet/CabinetUserPreviousDishes.jsx'
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
   const [person, setPerson] = useState({})
@@ -88,6 +91,9 @@ function App() {
           <Route path="chef-menu" element={<CabinetChefMenu/>}/>
           <Route path="admin-data" element={<CabinetAdminAddData person={person}/>}/>
           <Route path="chef-orders" element={<CabinetChefOrders/>}/>
+          <Route path="user-orders" element={<CabinetUserOrders/>}/>
+          <Route path="user-profile" element={<CabinetUserProfile person={person}/>}/>
+          <Route path="previous-dishes" element={<CabinetUserDishStory person={person} cart={cart} loadCart={loadCart}/>}/>
         </Route>
         
       </Routes>

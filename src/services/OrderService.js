@@ -19,4 +19,11 @@ async function promoteOrder(order){
     return res
 }
 
-export {addOrder, getChefOrders, promoteOrder}
+
+async function getUserOrders(){
+    const url = serverUrl + '/orders/for-customer'
+    const res = axios.get(url, {withCredentials:true})
+    return res
+}
+
+export {addOrder, getChefOrders, promoteOrder, getUserOrders}
