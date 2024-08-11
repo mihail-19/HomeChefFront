@@ -28,6 +28,8 @@ import CabinetTarifs from './elements/Cabinet/CabinetTarifs.jsx'
 import CabinetUserOrders from './elements/Cabinet/CabinetUserOrders.jsx'
 import CabinetUserProfile from './elements/Cabinet/CabinetUserProfile.jsx'
 import CabinetUserDishStory from './elements/Cabinet/CabinetUserPreviousDishes.jsx'
+import CabinetAdminUsers from './elements/Cabinet/CabinetAdminUsers.jsx'
+import CabinetChefStory from './elements/Cabinet/CabinetChefStory.jsx'
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
   const [person, setPerson] = useState({})
@@ -89,11 +91,13 @@ function App() {
           <Route path="tarif" element={<CabinetTarifs/>}/>
           <Route path="become-chef" element={<CabinetBecomeChef person={person} setPerson={setPerson}/>}/>
           <Route path="chef-menu" element={<CabinetChefMenu/>}/>
+          <Route path="chef-story" element={<CabinetChefStory/>}/>
           <Route path="admin-data" element={<CabinetAdminAddData person={person}/>}/>
           <Route path="chef-orders" element={<CabinetChefOrders/>}/>
           <Route path="user-orders" element={<CabinetUserOrders/>}/>
-          <Route path="user-profile" element={<CabinetUserProfile person={person}/>}/>
+          <Route path="user-profile" element={<CabinetUserProfile person={person} sendGetPerson={sendGetPerson}/>}/>
           <Route path="previous-dishes" element={<CabinetUserDishStory person={person} cart={cart} loadCart={loadCart}/>}/>
+          <Route path="users-list" element={<CabinetAdminUsers person={person}/>}/>
         </Route>
         
       </Routes>

@@ -1,44 +1,57 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import './ChefStories.css'
 import SearchButtonLeft from '../assets/SearchButtonLeft.png'
 import SearchButtonRight from '../assets/SearchButtonRight.png'
 import chefStabImg1 from '../assets/stabs/chefStabImg1.png'
 import chefStabImg2 from '../assets/stabs/chefStabImg2.png'
 import chefStabImg3 from '../assets/stabs/chefStabImg3.png'
+import { getStories } from "../services/ChefStoryService"
+import imagesUrl from "../imagesUrl"
 
 const ChefStories = () =>{
     const defaultStories = [
         {
-            id: 1,
-            chefImgUrl: chefStabImg1,
+            chefId: 1,
+            imageURL: chefStabImg1,
             name: "Наталія",
             city: "м. Харків",
             kitchenTypes: ["українська", "європейська"],
-            storyName: "Моя історія",
-            storyText: "Lorem ipsum dolor sit amet consectetur. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
+            title: "Моя історія",
+            text: "Lorem ipsum dolor sit amet consectetur. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
         },
         {
-            id: 2,
-            chefImgUrl: chefStabImg2,
+            chefId: 2,
+            imageURL: chefStabImg2,
             name: "Світлана",
             city: "м. Київ",
             kitchenTypes: ["українська", "азіатська"],
-            storyName: "Моя історія",
-            storyText: "Vestibulum nulla purus est orci ut purus scelerisque.  Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
+            title: "Моя історія",
+            text: "Vestibulum nulla purus est orci ut purus scelerisque.  Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
             
         },
         {
-            id: 3,
-            chefImgUrl: chefStabImg3,
+            chefId: 3,
+            imageURL: chefStabImg3,
             name: "Антон",
             city: "м. Ужгород",
             kitchenTypes: ["українська", "мексиканська"],
-            storyName: "Моя історія",
-            storyText: "Lorem ipsum dolor sit amet consectetur. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
+            title: "Моя історія",
+            text: "Lorem ipsum dolor sit amet consectetur. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
             
         }
     ]
     const [stories, setStories] = useState(defaultStories); 
+
+    useEffect(() => {
+        loadStories()
+    }, [])
+
+    async function loadStories(){
+        const {data} = await getStories()
+        if(data && data.length > 0)
+        setStories(data)
+    }
+
     let initElems = 1
     if (window.matchMedia("(min-width: 1000px)").matches){
         initElems = 2
@@ -88,7 +101,7 @@ const ChefStories = () =>{
                 <div className="chef-story-item">
                     <div className="chef-story-item__header">
                         <div className="chef-story-item__header-img">
-                            <img src={story.chefImgUrl}></img>
+                            <img style={{borderRadius:"50%"}} src={imagesUrl + story.imageURL}></img>
                         </div>
                         <div className="chef-story-item__header-info">
                             <div className="chef-story-item__chef-info">
@@ -99,9 +112,9 @@ const ChefStories = () =>{
                             </div>
                         </div>
                     </div>
-                        <h3>{story.storyName}</h3>
+                        <h3>{story.title}</h3>
                         <div className="chef-story-item__story">
-                            {story.storyText}
+                            {story.text}
                         </div>
                 </div>
               )}

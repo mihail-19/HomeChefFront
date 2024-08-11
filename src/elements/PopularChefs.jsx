@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import './PopularChefs.css'
 import rankingIcon from '../assets/rankingIcon.png'
@@ -9,13 +9,15 @@ import dish1 from '../assets/stabs/dish1.png'
 import dish2 from '../assets/stabs/dish2.png'
 import dish3 from '../assets/stabs/dish3.png'
 import dish4 from '../assets/stabs/dish4.png'
+import { getPopularChefs } from "../services/ChefService"
+import imagesUrl from "../imagesUrl"
 const PopularChefs = () => {
 "https://data.homechefs/chefs/{id}"
     const defaultPopularChefs = [
         {
             id: 1,
-            name: "Євген",
-            imgUrl: chefEvgen,
+            firstName: "Євген",
+            imageURL: chefEvgen,
             kitchenTypes: ["українська", "європейська"],
             description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
             ranking: {
@@ -25,37 +27,37 @@ const PopularChefs = () => {
             dishes: [
                 {
                     id:1,
-                    imgUrl: dish1,
+                    imageURL: dish1,
                     name: "салат веселий",
                     type: "salad",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 120,
                     weight: 300
                 },
                 {
                     id:2,
-                    imgUrl: dish2,
+                    imageURL: dish2,
                     name: "сткейк",
                     type: "meet",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 250,
                     weight: 200
                 },
                 {
                     id:3,
-                    imgUrl: dish3,
+                    imageURL: dish3,
                     name: "тістечко",
                     type: "dessert",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 180,
                     weight: 150
                 },
                 {
                     id:4,
-                    imgUrl: dish4,
+                    imageURL: dish4,
                     name: "паштет курячий",
                     type: "pate",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 190,
                     weight: 180
                 }
@@ -66,8 +68,8 @@ const PopularChefs = () => {
         },
         {
             id: 2,
-            name: "Марія",
-            imgUrl: chefMary,
+            firstName: "Марія",
+            imageURL: chefMary,
             kitchenTypes: ["українська", "європейська"],
             description: "Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.  ",
             ranking: {
@@ -77,37 +79,37 @@ const PopularChefs = () => {
             dishes: [
                 {
                     id:1,
-                    imgUrl: dish1,
+                    imageURL: dish1,
                     name: "салат веселий",
                     type: "salad",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 120,
                     weight: 300
                 },
                 {
                     id:2,
-                    imgUrl: dish2,
+                    imageURL: dish2,
                     name: "сткейк",
                     type: "meet",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 250,
                     weight: 200
                 },
                 {
                     id:3,
-                    imgUrl: dish3,
+                    imageURL: dish3,
                     name: "тістечко",
                     type: "dessert",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 180,
                     weight: 150
                 },
                 {
                     id:4,
-                    imgUrl: dish4,
+                    imageURL: dish4,
                     name: "паштет курячий",
                     type: "pate",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 190,
                     weight: 180
                 }
@@ -116,8 +118,8 @@ const PopularChefs = () => {
         },
         {
             id: 3,
-            name: "Світлана",
-            imgUrl: chefSvitlana,
+            firstName: "Світлана",
+            imageURL: chefSvitlana,
             kitchenTypes: ["українська", "азіатська"],
             description: "Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.  ",
             ranking: {
@@ -127,37 +129,37 @@ const PopularChefs = () => {
             dishes: [
                 {
                     id:1,
-                    imgUrl: dish1,
+                    imageURL: dish1,
                     name: "салат веселий",
                     type: "salad",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 120,
                     weight: 300
                 },
                 {
                     id:2,
-                    imgUrl: dish2,
+                    imageURL: dish2,
                     name: "сткейк",
                     type: "meet",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 250,
                     weight: 200
                 },
                 {
                     id:3,
-                    imgUrl: dish3,
+                    imageURL: dish3,
                     name: "тістечко",
                     type: "dessert",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 180,
                     weight: 150
                 },
                 {
                     id:4,
-                    imgUrl: dish4,
+                    imageURL: dish4,
                     name: "паштет курячий",
                     type: "pate",
-                    desription: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
+                    description: "Lorem ipsum dolor sit amet consectetur. Arcu ornare nisl ut pharetra volutpat. Lorem ipsum dolor sit amet consectetur. ",
                     price: 190,
                     weight: 180
                 }
@@ -166,6 +168,15 @@ const PopularChefs = () => {
         }
     ]
     const [popularChefs, setPopularChefs] = useState(defaultPopularChefs)
+
+    useEffect(() => {
+        loadPopularChefs()
+    }, [])
+
+    async function loadPopularChefs(){
+        const {data} = await getPopularChefs()
+        setPopularChefs(data)
+    }
 
     //Calculate cards on page depending on page width
     let onPage = 1
@@ -228,10 +239,10 @@ const PopularChefs = () => {
 
                             <div className="popular-chefs__header">
                                 <div className="popular-chefs__chef-photo">
-                                    <img src={popularChef.imgUrl}></img>
+                                    <img src={imagesUrl + popularChef.imageURL}></img>
                                 </div>
                                 <div className="popular-chef__chef-info">
-                                    <h4>Шеф {popularChef.name}</h4>
+                                    <h4>Шеф {popularChef.firstName}</h4>
                                     <p><b>Кухня: </b> {popularChef.kitchenTypes[0]}, {popularChef.kitchenTypes[1]}</p>
                                     <Link to="/abc" className="popular-chef__chef-button">Замовити</Link>
                                 </div>
@@ -248,7 +259,7 @@ const PopularChefs = () => {
                                     <img src={rankingIcon}></img>
                                 </div>
                                 <div className="popular-chef__ranking-value">
-                                    {popularChef.ranking.rank} {calcRankVoters(popularChef.ranking.voters)}
+                                    {popularChef.ranking?.rank} {calcRankVoters(popularChef.ranking?.voters)}
                                 </div>
                             </div>
 
@@ -257,14 +268,14 @@ const PopularChefs = () => {
                                     <div className="popular-chef__dish">
                                         <div className="popular-chef__dish-img-container">
                                             <div className="popular-chef__dish-img">
-                                                <img src={dish.imgUrl}></img>
+                                                <img src={imagesUrl + dish.imageURL}></img>
                                             </div>
                                         </div>
                                         <div className="popular-chef__dish-info">
                                             <h5>{dish.name}</h5>
                                             <div className="popular-chef__dish-menu">
                                                 <div className="popular-chef__dish-description">
-                                                    {dish.desription}
+                                                    {dish.description}
                                                 </div>
                                                 <div className="popular-chef__dish-buttons">
                                                     <button className="popular-chef__dish-button popular-chef__dish-button_details">

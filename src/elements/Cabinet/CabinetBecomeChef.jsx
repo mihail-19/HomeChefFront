@@ -86,19 +86,6 @@ const CabinetMyProfile = ({person, setPerson}) => {
                             </label>
                             <input type="text" className='profile__info-input' value={phone} onChange={e => setPhone(e.target.value)}></input>
                         </div>
-                    </div>
-                    <div className='profile__info-column'>
-                        <div className='profile__info-element'>
-                            <label className='profile__info-tag'>
-                                Про мене
-                            </label>
-                            <textarea value={description} onChange={e => setDecription(e.target.value)}></textarea>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div className='profile__info-row'>
-                    <div className='profile__info-column'>
                         <div id="menu-localities" className='profile__info-element'>
                             <label className='profile__info-tag'>
                                 Місто 
@@ -108,15 +95,21 @@ const CabinetMyProfile = ({person, setPerson}) => {
                                 <LocalityList isActive={isActiveLocality} setIsActive={setIsActiveLocality} setLocality={setLocalityAndName} name={cityName}/>
                             </div> 
                         </div>
-                        
-                                           
-                    </div>
-                    <div className='profile__info-column'>
                         <div className='profile__info-element'>
                             <label className='profile__info-tag'>
                                 Адреса
                             </label>
                             <input type="text" className='profile__info-input' value={address} onChange={e => setAddress(e.target.value)}></input>
+                        </div>
+                        
+                        
+                    </div>
+                    <div className='profile__info-column'>
+                        <div className='profile__info-element'>
+                            <label className='profile__info-tag'>
+                                Про мене
+                            </label>
+                            <textarea value={description} onChange={e => setDecription(e.target.value)}></textarea>
                         </div>
                         <div className='profile__info-element'>
                             <label className='profile__info-tag'>
@@ -128,11 +121,7 @@ const CabinetMyProfile = ({person, setPerson}) => {
                                 })}
                             </select> 
                         </div>
-                        
-                    </div>
-                    <div className='profile__info-column'>
-                        <div></div>
-                    <div className='profile__info-element'>
+                        <div className='profile__info-element'>
                             <label className='profile__info-tag'>
                                 Активність 
                             </label>
@@ -143,9 +132,12 @@ const CabinetMyProfile = ({person, setPerson}) => {
                         </div>
                         
                     </div>
+                    
                 </div>
-                <button className='profile__submit-button' onClick={sendRegisterChef}>Зберегти зміни</button>
+                   
+               
             </div>
+            <button className='profile__submit-button' onClick={sendRegisterChef}>Зберегти зміни</button>
         </div>
     )
 }

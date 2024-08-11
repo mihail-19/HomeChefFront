@@ -28,8 +28,8 @@
     justify-content: space-between;
   }
   .popular-chefs__chef-photo{
-    width: 11.34%;
-    height: 11.34%;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
    
   }
@@ -37,6 +37,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
   }
   .popular-chef__chef-info{
     border-right: 1px solid gray;
@@ -120,11 +121,14 @@
   }
   .popular-chef__dish-img{
     border-radius: 50%;
+    width: 100px;
+    height: 100px;
   }
   .popular-chef__dish-img img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
   }
   
   .popular-chef__dish-info{
@@ -146,6 +150,9 @@
   .popular-chef__dish-description{
     font-weight: 400;
     font-size: 18px;
+    height: 120px;
+    overflow: hidden;
+    mask-image: linear-gradient(black 65%, transparent);
   }
   .popular-chef__dish-buttons{
     display: flex;

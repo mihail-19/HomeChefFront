@@ -5,7 +5,7 @@ import Loading from '../utility/Loading'
 import Snackbar from '../utility/Snackbar'
 import imagesUrl from '../../imagesUrl'
 import LocalityList from '../LocalityList'
-const CabinetMyProfile = ({person}) => {
+const CabinetMyProfile = ({person, sendGetPerson}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [image, setImage] = useState(undefined)
     const [firstName, setFirstName] = useState(person.firstName)
@@ -47,16 +47,27 @@ const CabinetMyProfile = ({person}) => {
     }  
 
     async function sendUpdateUser(){
+        setIsLoading(true)
         const personNew = {
             firstName: firstName,
             phone: phone,
             email: email,
             locality: locality
         }
-        await updatePersonByUser(personNew)
-        if(image){
-            await updateImage(image)
+        try{
+            await updatePersonByUser(personNew)
+            if(image){
+                await updateImage(image)
+            }
+            snackbarRef.current.show("Дані оновлено", false)
+        } catch (e){
+            snackbarRef.current.show("Сталася помилка", true)
+        } finally{
+            setIsLoading(false)
         }
+        sendGetPerson()
+        
+       
     }
 
     return (

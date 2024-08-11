@@ -42,4 +42,10 @@ const getAllChefs = async(pageNumber, isUnpaged) => {
     return res
 }
 
-export {getChef, registerChef, updateChef, getAllChefs, getChefById}
+const getPopularChefs = async () => {
+    const url = serverUrl + '/chefs/popular'
+    const res = axios.get(url, {withCredentials:true})
+    return res
+}
+
+export {getChef, registerChef, updateChef, getAllChefs, getChefById, getPopularChefs}
