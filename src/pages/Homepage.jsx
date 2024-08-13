@@ -18,6 +18,11 @@ import instagramIcon from '../assets/instagramIcon.png'
 import telegramIcon from '../assets/telegramIcon.png'
 import mailIcon from '../assets/mailIcon.png'
 
+import korysnyStravy from '../assets/korysnyStravy.png'
+import smachnyStravy from '../assets/smachnyStravy.png'
+import solodkyStravy from '../assets/solodkyStravy.png'
+import domashnyStravy from '../assets/domashnyStravy.png'
+
 import Header from '../elements/Header'
 import ChefStories from '../elements/ChefStories'
 import PopularChefs from '../elements/PopularChefs'
@@ -199,6 +204,50 @@ function Homepage() {
         </div>
        </div>
       </div>
+
+
+      <div className='home__content-screen'>
+        <div className='home__dishes-screen'>
+          <h2>Які страви чекають на вас?</h2>
+          <div className='home__dishes-container'>
+            <div className='home__dish-card'>
+              <div className='home__dish-image'>
+                <img src={korysnyStravy}></img>
+              </div>
+              <div className='home__dish-text'>
+                Корисні
+              </div>
+            </div>
+            <div className='home__dish-card'>
+              <div className='home__dish-image'>
+                <img src={smachnyStravy}></img>
+              </div>
+              <div className='home__dish-text'>
+                Смачні
+              </div>
+            </div>
+            <div className='home__dish-card'>
+              <div className='home__dish-image'>
+                <img src={solodkyStravy}></img>
+              </div>
+              <div className='home__dish-text'>
+                Солодкі
+              </div>
+            </div>
+            <div className='home__dish-card'>
+              <div className='home__dish-image'>
+                <img src={domashnyStravy}></img>
+              </div>
+              <div className='home__dish-text'>
+                Домашні
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
       <div className='home__content-screen'>
         <ChefStories/>
       </div>

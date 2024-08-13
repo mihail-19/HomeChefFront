@@ -6,7 +6,8 @@ import mailIcon from '../../assets/mailIcon.png'
 
 import serverUrl from "../../serverUrl"
 import { useState } from "react"
-const downloadUrl = serverUrl + '/common-data/chef-guide'
+import axios from "axios"
+const downloadUrl = serverUrl + '/common-data/files/chef-info'
 
 
 const CabinetUseful = () => {
@@ -15,6 +16,16 @@ const CabinetUseful = () => {
          const tempFlags = [...showFlags]
          tempFlags[index] = !tempFlags[index]
         setShowFlags(tempFlags)
+    }
+
+    const fileDownload = async () => {
+        const resp = await axios.get(downloadUrl, {responseType: 'blob', withCredentials: true, referrerPolicy: "unsafe-url" })
+        const blob = new Blob([resp.data])
+        const bloburl = window.URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = bloburl
+        link.download = 'chefUsefull.pdf'
+        link.click()
     }
 
 
