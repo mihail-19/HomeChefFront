@@ -1,12 +1,14 @@
 import axios from "axios"
 import serverUrl from "../serverUrl"
-function register(email, password){
+function register(username, password, email){
     console.log('register user')
     const url = serverUrl + '/register'
-    const formData = new FormData()
-    formData.append('username', email)
-    formData.append('password', password)
-    let res = axios.post(url, formData)
+    const user = {
+        username: username,
+        password: password,
+        email: email
+    }
+    let res = axios.post(url, user)
     return res
 }
 async function login(username, password){

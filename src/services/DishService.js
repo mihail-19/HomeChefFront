@@ -113,21 +113,22 @@ const getDishReviews = async(dishId) => {
 
 const addDishReview = async(dishId, rating, txt) => {
     const url = serverUrl + "/dishes/" + dishId + "/add-review"
-    const formData = new FormData()
     
-    formData.append("rating", rating)
-    formData.append("txt", txt)
-    const res = axios.post(url, formData, {withCredentials:true})
+    const review = {
+        rating: rating,
+        text: txt
+    }
+    const res = axios.post(url, review, {withCredentials:true})
     return res
 }
 
 const answerDishReview = async(dishId, reviewId, txt) => {
     const url = serverUrl + "/dishes/" + dishId + "/answer-review"
-    const formData = new FormData()
-    
-    formData.append("reviewId", reviewId)
-    formData.append("text", txt)
-    const res = axios.post(url, formData, {withCredentials:true})
+    const answer = {
+        reviewId: reviewId,
+        text: txt
+    }
+    const res = axios.post(url, answer, {withCredentials:true})
     return res
 }
 

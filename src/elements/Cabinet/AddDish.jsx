@@ -77,7 +77,8 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
             context.loadChef()
             setShowAddDish(false)
         } catch(error){
-            snackbarRef.current.show('Помилка', true)
+            console.log(error.response.data)
+            snackbarRef.current.show('Помилка: ' + error.response?.data, true, 5000)
         } finally{
             setIsLoading(false)
         }

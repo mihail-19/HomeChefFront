@@ -482,6 +482,20 @@ ul{
     font-size: 24px;
   }
 }
+@media(max-width: 700px){
+  .home__dishes-screen h2{
+    font-size: 28px;
+    max-width: 624px;
+    margin: 20px 0 24px 0;
+  }
+  .home__dish-card{
+    width: 42vw;
+    gap: 10px;
+  }
+  .home__dish-text{
+    margin-bottom: 20px;
+  }
+}
 
 
 

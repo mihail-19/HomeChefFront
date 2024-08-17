@@ -49,7 +49,7 @@ const CabinetChefMenu = () =>{
                             </div>
                             <div className="chef-menu__dish-info">
                                 <div className="chef-menu__dish-name">Назва: <b>{dish.name}</b></div>
-                                <div className="chef-menu__dish-description">Опис: {dish.description}</div>
+                                <div className="chef-menu__dish-description" style={{overflow: 'hidden', wordWrap: 'break-word'}}>Опис: {dish.description}</div>
                                 <div className="chef-menu__dish-row">
                                     <div className="chef-menu__dish-param">Ціна: {dish.price} грн</div>
                                     <div className="chef-menu__dish-param">Вага: {dish.weight} гр.</div>

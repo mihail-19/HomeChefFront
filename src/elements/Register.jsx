@@ -7,26 +7,48 @@ import { useState, useRef } from 'react'
 import Snackbar from './utility/Snackbar.jsx'
 import ModalCenter from './utility/ModalCenter.jsx'
 import Loading from './utility/Loading.jsx'
+import serverUrl from '../serverUrl.js'
+import axios from 'axios'
 const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
     const [isLoading, setIsLoading] = useState(false)
+    const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const snackbarRef = useRef(null)
-    function sendRegister(){
-        if(password === confirmPassword){
+
+    async function sendRegister(){
+        const isValidUsername = await checkUsername()
+        if(isValidUsername && password === confirmPassword){
             setIsLoading(true)
-            register(email, password)
+            register(username, password, email)
                 .then(res => {
                     console.log(res)
                     snackbarRef.current.show('Додано користувача', false)
                     setShowRegisterWindow(false)
                 }).catch(err => {
-                    snackbarRef.current.show('помилка', true)
+                    snackbarRef.current.show('Помилка: ' + err.response.data, true, 5000)
                 }).finally(() => {
                     setIsLoading(false)
                 })
         }
+    }
+
+    async function checkUsername(){
+        try{
+            await sendCheckUsername()
+            return true
+        } catch(err){
+            snackbarRef.current.show('Помилка: ' + err.response.data, true, 5000)
+            return false
+        }
+    }
+    async function sendCheckUsername(){
+        const url = serverUrl + '/persons/check-username'
+        const data = new FormData();
+        data.append('username', username)
+        const res = axios.post(url, data)
+        return res
     }
 
     return (
@@ -43,14 +65,14 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                     <img src={registerLogo}></img>
                 </div>
                     <div className='register__form'>
-                        
                         <div className='register__form-element'>
-                            <label>Email*</label>
+                            <label>Логін</label>
                             <div className='register__form-input'>
-                                <input name='email' type='text' placeholder='voloshyna@gmail.com' onChange={e => setEmail(e.target.value)}></input>
-                                <div className='register__form-prompt'>Email повинен бути справжнім</div>
+                                <input name='email' type='text' onChange={e => setUsername(e.target.value)}></input>
+                                <div className='register__form-prompt'></div>
                             </div>
                         </div>
+                        
                         <div className='register__form-element'>
                             <label>Створити пароль*</label>
                             <div className='register__form-input'>
@@ -62,6 +84,13 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                             <label>Підтвердити пароль</label>
                             <div className='register__form-input'>
                                 <input type='password' placeholder='**********' onChange={e => setConfirmPassword(e.target.value)}></input>
+                            </div>
+                        </div>
+                        <div className='register__form-element'>
+                            <label>Email*</label>
+                            <div className='register__form-input'>
+                                <input name='email' type='text' placeholder='voloshyna@gmail.com' onChange={e => setEmail(e.target.value)}></input>
+                                <div className='register__form-prompt'>Email повинен бути справжнім</div>
                             </div>
                         </div>
                         <button className='register__submit-button' onClick={sendRegister}>Стати HomeChef</button>

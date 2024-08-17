@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import {getDishReviews, addDishReview, answerDishReview, removeReview, removeReviewMessage} from '../services/DishService'
 import ModalCenter from '../elements/utility/ModalCenter'
@@ -6,6 +6,8 @@ import ratingStartEmpty from '../assets/ratingStarEmpty.png'
 import ratingStarFilled from '../assets/ratingStarFilled.png'
 import './Dish.css'
 import Rating from "../elements/utility/Rating"
+import Loading from "../elements/utility/Loading"
+import Snackbar from "../elements/utility/Snackbar"
 const DishReviews = ({person}) => {
     const {id} = useParams()
     const [reviews, setReviews] = useState([])
@@ -15,6 +17,8 @@ const DishReviews = ({person}) => {
     const [answeredReview, setAnsweredReview] = useState('')
     const [reviewToAnswerId, setReviewToAnswerId] = useState(-1)
     const [rating, setRating] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const snackbarRef = useRef(null)
 
     useEffect(() => {
         loadReviews(id)
@@ -27,20 +31,40 @@ const DishReviews = ({person}) => {
     }, [showAddReview, showAnswerReview])
 
     async function loadReviews(dishId){
+        setIsLoading(true)
         const {data} = await getDishReviews(dishId)
         setReviews(data)
+        setIsLoading(false)
     }
 
     async function addReview(){
-        const res = await addDishReview(id, rating, newReview)
-        setShowAddReview(false)
-        loadReviews(id)
+        setIsLoading(true)
+        try{
+            const res = await addDishReview(id, rating, newReview)
+            setShowAddReview(false)
+            loadReviews(id)
+            snackbarRef.current.show('Відгук додано', false)
+        } catch(error){
+            snackbarRef.current.show('Помилка: ' + error.response.data, true, 5000)
+        } finally{
+            setIsLoading(false)
+        }
+       
     }
 
     async function answerReview(reviewId){
-        const res = await answerDishReview(id, reviewId, answeredReview)
-        setShowAnswerReview(false)
-        loadReviews(id)
+        setIsLoading(true)
+        try{
+            const res = await answerDishReview(id, reviewId, answeredReview)
+            setShowAnswerReview(false)
+            loadReviews(id)
+            snackbarRef.current.show('Відповідь додано', false)
+        } catch(error){
+            snackbarRef.current.show('Помилка: ' + error.response.data, true, 5000)
+        } finally{
+            setIsLoading(false)
+        }
+        
     }
 
     function isAdmin(){
@@ -62,6 +86,8 @@ const DishReviews = ({person}) => {
 
     return (
         <div className="dish">
+            <Loading isActive={isLoading} setIsActive={setIsLoading}/>
+            <Snackbar ref={snackbarRef}/>
             <div className="dish__top-navigation">
                 <Link to={'/HomeChefFront/dish/' + id} className="dish__navigation-button">Страва</Link>
                 <Link to={'/HomeChefFront/dish/' + id + '/comments'} className="dish__navigation-button dish__navigation-button_active">Відгуки</Link>
