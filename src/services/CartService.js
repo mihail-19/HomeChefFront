@@ -9,18 +9,24 @@ async function getCart(){
 
 async function addDishToCart(dish){
     const url = serverUrl + "/cart/add-dish"
-    const res = axios.post(url, dish, {withCredentials: true})
+    const formData = new FormData()
+    formData.append('dishId', dish.id)
+    const res = axios.post(url, formData, {withCredentials: true})
     return res
 }
 async function decreaseDishNumber(dish){
     const url = serverUrl + "/cart/decrease-number"
-    const res = axios.post(url, dish, {withCredentials:true})
+    const formData = new FormData()
+    formData.append('dishId', dish.id)
+    const res = axios.post(url, formData, {withCredentials:true})
     return res
 }
 
 async function removeDish(dish){
     const url = serverUrl + "/cart/remove-dish"
-    const res = axios.post(url, dish, {withCredentials:true})
+    const formData = new FormData()
+    formData.append('dishId', dish.id)
+    const res = axios.post(url, formData, {withCredentials:true})
     return res
 }
 

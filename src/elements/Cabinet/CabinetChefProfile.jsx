@@ -34,20 +34,18 @@ const CabinetMyProfile = () => {
         }
     })
     useEffect(() =>{
-        console.log('use effect')
-        if(context && context.chef && context.chef.person){
-            setFirstName(context.chef.person.firstName)
-            setEmail(context.chef.person.email)
+        if(context && context.chef){
+            setFirstName(context.chef.firstName)
+            setEmail(context.chef.email)
             setPhone(context.chef.phone)
             setDescription(context.chef.description)
             setAddress(context.chef.address)
             setLegalStatusId(0)
             setIsActive(context.chef.isActive)
-            setImageUrl(imagesUrl + context.chef.person.imageURL)
+            setImageUrl(imagesUrl + context.chef.imageURL)
             setIsLoading(false)
-            setLocality(context.chef.person.locality)
-            console.log(context.chef.person.locality)
-            setLocalityName(context.chef.person.locality ? context.chef.person.locality.name : '')
+            setLocality(context.chef.locality)
+            setLocalityName(context.chef.locality ? context.chef.locality.name : '')
             if(context.chef.geoLocation){
                 setPosition({lat: context.chef.geoLocation.lattitude, lng: context.chef.geoLocation.longitude})
             }
@@ -91,12 +89,10 @@ const CabinetMyProfile = () => {
             description: description,
             address: address,
             isActive: isActive,
-            person: {
-                firstName: firstName,
-                email: email,
-                locality: locality
-            },
-            geoLocation: position ? {lattitude: position.lat, longitude: position.lng} : null            
+            email: email,
+            localityId: locality.id,
+            longitude: position?.lng,
+            lattitude: position?.lat
         }
         setIsLoading(true)
         try{
@@ -107,7 +103,7 @@ const CabinetMyProfile = () => {
             snackbarRef.current.show('Дані оновлено', false)
             context.loadChef()
         } catch(error){
-            snackbarRef.current.show('Сталася помилка', true)
+            snackbarRef.current.show('Помилка: ' + error.response.data, true, 5000)
         } finally{
             setIsLoading(false)
         }
@@ -131,13 +127,13 @@ const CabinetMyProfile = () => {
             <div className="profile__top">
                 <div className="profile__user-image">
                     {!image && 
-                        <img src={context && context.chef && context.chef.person && context.chef.person.imageURL ? imagesUrl + context.chef.person.imageURL : defaultChefIcon}></img>
+                        <img src={context && context.chef && context.chef.imageURL ? imagesUrl + context.chef.imageURL : defaultChefIcon}></img>
                     }
                     {image && 
                         <img src={URL.createObjectURL(image)}></img>
                     }
                 </div>
-                <div className='profile__id'>{context?.chef?.person?.username} #{context?.chef?.id}</div>
+                <div className='profile__id'>{context?.chef?.username} #{context?.chef?.id}</div>
             </div>
             <div className='profile__top-button-container'>
                 <button className='profile__update-photo-button' onClick={() => document.getElementById('imageInput').click()} >Редагувати</button>

@@ -99,6 +99,31 @@ const removeTag = async (id) => {
     return res
 }
 
+const addKitchenType = async (name) =>{
+    const url = serverUrl + '/common-data/kitchen-type'
+    const data = {
+        name: name
+    }
+    const res = axios.post(url, data, {withCredentials:true})
+    return res
 
+}
+const getKitchenTypes = async () => {
+    const url = serverUrl + '/common-data/kitchen-type'
+    const res = axios.get(url, {withCredentials: true})
+    return res
+}
 
-export {updateCities, getCities, removeCity, getDishCategories, addDishCategory, removeDishCategory, addTag, getTags, removeTag}
+const deleteKitchenType = async (id) => {
+    const url = serverUrl + '/common-data/kitchen-type/' + id
+    const res = axios.delete(url, {withCredentials: true})
+    return res
+}
+const getKitchenType = async (id) => {
+    const url = serverUrl + '/common-data/kitchen-type/' + id
+    const res = axios.get(url, {withCredentials: true})
+    return res
+}
+
+export {updateCities, getCities, removeCity, getDishCategories, addDishCategory, removeDishCategory, addTag, 
+    getTags, removeTag, addKitchenType, getKitchenTypes, deleteKitchenType, getKitchenType}

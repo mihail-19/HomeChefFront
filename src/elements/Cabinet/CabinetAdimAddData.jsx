@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-import { getCities, updateCities, removeCity, addDishCategory, getDishCategories, removeDishCategory, getTags, addTag, removeTag  } from "../../services/DataService"
+import { getCities, updateCities, removeCity, addDishCategory, getDishCategories, removeDishCategory, getTags, addTag, removeTag, getKitchenTypes, addKitchenType, deleteKitchenType  } from "../../services/DataService"
 import '../../pages/Cabinet.css'
 import removeImg from '../../assets/delete.png'
 import { useNavigate } from "react-router-dom"
@@ -13,6 +13,8 @@ const CabinetAdminAddData = ({person}) => {
     const [categories, setCategories] = useState([])
     const [tag, setTag] = useState('')
     const [tags, setTags] = useState([])
+    const [kitchenType, setKitchenType] = useState('')
+    const [kitchenTypes, setKitchenTypes] = useState([])
     const snackbarRef = useRef(null)
     const navigate = useNavigate()
     useEffect(() => {
@@ -28,6 +30,7 @@ const CabinetAdminAddData = ({person}) => {
         loadCities()
         loadCategories()
         loadTags()
+        loadKitchenTypes()
     }, [])
     async function loadCities(){
         const {data} = await getCities()
@@ -40,6 +43,10 @@ const CabinetAdminAddData = ({person}) => {
     async function loadTags(){
         const {data} = await getTags()
         setTags(data)
+    }
+    async function loadKitchenTypes(){
+        const {data} = await getKitchenTypes()
+        setKitchenTypes(data)
     }
 
 
@@ -71,6 +78,14 @@ const CabinetAdminAddData = ({person}) => {
         loadTags()
     }
 
+    async function sendAddKitchenType(){
+        await addKitchenType(kitchenType)
+        loadKitchenTypes()
+    }
+    async function sendRemoveKitchenType(id){
+        await deleteKitchenType(id)
+        loadKitchenTypes()
+    }
     
 
     return(
@@ -108,6 +123,19 @@ const CabinetAdminAddData = ({person}) => {
                 <div className="admin-add-data__data-container">
                     {tags.map(t => {
                         return <div className="admin-add-data__data">{t.name} <button onClick={() => sendRemoveTag(t.id)}><img src={removeImg}></img></button></div>
+                    })}
+                </div>
+            </div>
+            <div className="admin-add-data__segment">
+                <h3>Тип кухні</h3>
+                <label>Додати тип кухні</label>
+                <div className="admin-add-data__input-element">
+                    <input type="text" value={kitchenType} onChange={e => setKitchenType(e.target.value)}></input>
+                    <button onClick={sendAddKitchenType}>Додати</button>
+                </div>
+                <div className="admin-add-data__data-container">
+                    {kitchenTypes.map(t => {
+                        return <div className="admin-add-data__data">{t.name} <button onClick={() => sendRemoveKitchenType(t.id)}><img src={removeImg}></img></button></div>
                     })}
                 </div>
             </div>

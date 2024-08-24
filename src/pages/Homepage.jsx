@@ -94,63 +94,7 @@ function Homepage() {
         </div>
       </div>
 
-      <div className='home__content-screen'>
-          <div className='home__second-screen-content'>
-            <div className='home__second-screen-content-info'>
-              <div className='home__second-screen-content-left'>
-                <div className='home__second-screen-title'>
-                  Про нас та наші цінності
-                </div>
-                <div className='home__second-screen-img'>
-                  <img src={secondScreenImg}></img>
-                </div>
-              </div>
-              <div className='home__second-screen-content-right'>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur. Feugiat habitasse eros tincidunt sagittis. 
-                  Augue viverra pellentesque sed neque orci facilisis sodales. Non sit tristique nulla tortor duis morbi massa. Cras vestibulum lacus nullam dolor in lacus dictum nunc viverra.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur. Feugiat habitasse eros tincidunt sagittis. Augue viverra pellentesque sed neque orci facilisis sodales. 
-                  Non sit tristique nulla tortor duis morbi massa. Cras vestibulum lacus nullam dolor in lacus dictum nunc viverra.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur. Feugiat habitasse eros tincidunt sagittis. 
-                  1Augue viverra pellentesque sed neque orci facilisis sodales. Non sit tristique nulla tortor duis morbi massa. 
-                </p>
-              </div>
-            
-            </div>
-            <Link to="/become-chef" className='home__button'>
-              Стати Home Chef
-            </Link>
-          </div>
-
-          <div className='home__second-screen_mobile'>
-            <div className='home__second-screen-image-and-header'>
-              <h2>Про нас та наші цінності</h2>
-              <div className='home__second-screen-img_mobile'>
-                  <img src={secondScreenImg}></img>
-                </div>
-            </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur. Feugiat habitasse eros tincidunt sagittis. 
-                  Augue viverra pellentesque sed neque orci facilisis sodales. Non sit tristique nulla tortor duis morbi massa. Cras vestibulum lacus nullam dolor in lacus dictum nunc viverra.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur. Feugiat habitasse eros tincidunt sagittis. Augue viverra pellentesque sed neque orci facilisis sodales. 
-                  Non sit tristique nulla tortor duis morbi massa. Cras vestibulum lacus nullam dolor in lacus dictum nunc viverra.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur. Feugiat habitasse eros tincidunt sagittis. 
-                  1Augue viverra pellentesque sed neque orci facilisis sodales. Non sit tristique nulla tortor duis morbi massa. 
-                </p>
-                <Link to="/become-chef" className='home__button'>
-                Стати Home Chef
-               </Link>
-          </div>
-
-      </div>
+    
 
 
 

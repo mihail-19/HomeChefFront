@@ -56,14 +56,16 @@ const Dishes = ({cart, loadCart, locality}) => {
         }
     }, [locality])
     useEffect(() => {
+        console.log('useEffect base')
        loadTagsAndCategories(params)
     }, [])
     useEffect(() => {
-        
+        console.log('params')
         loadTagsAndCategories(params)
     }, [params])
 
     useEffect(() => {
+        console.log('params parsed')
         loadPrice()
     }, [paramsParsed])
 
@@ -124,6 +126,7 @@ const Dishes = ({cart, loadCart, locality}) => {
         }
     }
     async function loadTagsAndCategories(params){
+        
         const tagsRes = await getTags()
         const categoriesRes = await getDishCategories()
         const localitiesRes = await loadActiveLocalities()

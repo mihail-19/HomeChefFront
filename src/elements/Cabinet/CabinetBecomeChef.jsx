@@ -1,7 +1,10 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { getChef, registerChef } from '../../services/ChefService'
 import { getPerson } from '../../services/PersonService'
 import LocalityList from '../LocalityList'
+import Loading from '../utility/Loading'
+import Snackbar from '../utility/Snackbar'
+import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet'
 
 const CabinetMyProfile = ({person, setPerson}) => {
     
@@ -11,6 +14,10 @@ const CabinetMyProfile = ({person, setPerson}) => {
             {id:2, value:"фізачни особа-підприємець"},
             {id:3, value:"самозайнята особа"}
         ]
+
+    const [isLoading, setIsLoading] = useState(false)
+    const snackbarRef = useRef(null)
+
     const [firstName, setFirstName] = useState(person.firstName)
     const [email, setEmail] = useState(person.email)
     const [phone, setPhone] = useState('')
@@ -21,19 +28,33 @@ const CabinetMyProfile = ({person, setPerson}) => {
     const [address, setAddress] = useState('')
     const [legalStatusId, setLegalStatusId] = useState(1)
     const [isActive, setIsActive] = useState(true)
+    
+    const [position, setPosition] = useState(null)
+   
+
     async function sendRegisterChef(){
-        const tempPerson = {firstName: firstName, email: email, locality: locality}
-       
+        setIsLoading(true)
         const chef = {
-            person: tempPerson,
+            firstName: firstName, 
+            email: email, 
+            localityId: locality.id,
             phone: phone,
             description: description,
             address: address,
             isActive: isActive,
+            longitude: position?.lng,
+            lattitude: position?.lat
         }
-        const {data} = await registerChef(chef)
-        const res = await getPerson()
-        setPerson(res.data)
+        try{
+            const {data} = await registerChef(chef)
+            const res = await getPerson()
+            setPerson(res.data)
+        } catch(error){
+            snackbarRef.current.show('Помилка: ' + error.response.data, true, 5000)
+        } finally{
+            setIsLoading(false)
+        }
+        
     }
 
     const localitySearchClickListener = useCallback((e) => {
@@ -61,6 +82,8 @@ const CabinetMyProfile = ({person, setPerson}) => {
 
     return (
         <div className="profile">
+            <Loading isActive={isLoading} setIsActive={setIsLoading}/>
+            <Snackbar ref={snackbarRef}/>
             <div className="profile__top">
                 <h2>Стати шефом</h2>
             </div>
@@ -132,7 +155,20 @@ const CabinetMyProfile = ({person, setPerson}) => {
                         </div>
                         
                     </div>
-                    
+                    <div className='profile__map-container'>
+                        <label className='profile__info-tag'>
+                        {position?.lat} {position?.lng}
+                        </label>
+                        <div className='profile__info-map'>
+                            <MapContainer center={[49.991034, 36.229475]} zoom={13} >
+                                <ChangeView center={position} zoom={13}/>
+                                <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                                <AddMarker/>
+                            </MapContainer>
+                        </div>
+                    </div>
                 </div>
                    
                
@@ -140,6 +176,25 @@ const CabinetMyProfile = ({person, setPerson}) => {
             <button className='profile__submit-button' onClick={sendRegisterChef}>Зберегти зміни</button>
         </div>
     )
+    function ChangeView({center, zoom}){
+        const map = useMap()
+        if(center){
+            map.setView(center)
+        }
+        return null
+
+    }
+    function AddMarker(){
+        
+        const map = useMapEvents({
+           
+            click: (e) => {
+                const corrected = {lat: e.latlng.lat.toPrecision(8), lng: e.latlng.lng.toPrecision(8)}
+                setPosition(corrected)
+            }
+        })
+        return position ? <Marker position={position}></Marker> : null
+    }
 }
 
 export default CabinetMyProfile

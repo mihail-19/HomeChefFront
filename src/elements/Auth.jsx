@@ -10,7 +10,8 @@ const Register = ({showAuthWindow, setShowAuthWindow, setIsAuth, setPerson}) =>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isFailed, setIsFailed] = useState(false)
-    async function sendLogin(){
+    async function sendLogin(event){
+        event.preventDefault()
         try{
             const {data} = await login(email, password)
             setIsFailed(false)
@@ -54,11 +55,11 @@ const Register = ({showAuthWindow, setShowAuthWindow, setIsAuth, setPerson}) =>{
                     <img src={registerLogo}></img>
                 </div>
                     <div className='register__form'>
-                        
+                        <form onSubmit={event => sendLogin(event)}>
                         <div className='register__form-element'>
-                            <label>Email*</label>
+                            <label>Логін</label>
                             <div className='register__form-input'>
-                                <input name='email' type='text' placeholder='voloshyna@gmail.com' onChange={e => setEmail(e.target.value)}></input>
+                                <input name='email' type='text' onChange={e => setEmail(e.target.value)}></input>
                             </div>
                         </div>
                         <div className='register__form-element'>
@@ -72,7 +73,8 @@ const Register = ({showAuthWindow, setShowAuthWindow, setIsAuth, setPerson}) =>{
                                 <div className='register__error'>Невірний логін або пароль</div>
                             </div>
                         }
-                        <button className='register__submit-button' onClick={sendLogin}>Увійти</button>
+                        <button className='register__submit-button' type="submit">Увійти</button>
+                        </form>
                     </div>
             </div>
         )

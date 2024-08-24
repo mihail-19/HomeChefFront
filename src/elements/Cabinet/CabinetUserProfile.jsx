@@ -52,7 +52,7 @@ const CabinetMyProfile = ({person, sendGetPerson}) => {
             firstName: firstName,
             phone: phone,
             email: email,
-            locality: locality
+            localityId: locality.id
         }
         try{
             await updatePersonByUser(personNew)
