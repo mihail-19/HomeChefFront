@@ -1,10 +1,12 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { getChef, registerChef } from '../../services/ChefService'
 import { getPerson } from '../../services/PersonService'
 import LocalityList from '../LocalityList'
 import Loading from '../utility/Loading'
 import Snackbar from '../utility/Snackbar'
 import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet'
+import SelectMultiple from '../utility/SelectMultiple'
+import { getKitchenTypes } from '../../services/DataService'
 
 const CabinetMyProfile = ({person, setPerson}) => {
     
@@ -28,12 +30,27 @@ const CabinetMyProfile = ({person, setPerson}) => {
     const [address, setAddress] = useState('')
     const [legalStatusId, setLegalStatusId] = useState(1)
     const [isActive, setIsActive] = useState(true)
+    const [kitchenTypes, setKitchenTypes] = useState([])
+    const [chosenKitchenTypes, setChosenKitchenTypes] = useState([])
     
     const [position, setPosition] = useState(null)
    
 
+    useEffect(() => {
+        loadKitchenTypes()
+    }, [])
+
+
+    async function loadKitchenTypes(){
+        const {data} = await getKitchenTypes()
+        setKitchenTypes(data)
+    }
+
     async function sendRegisterChef(){
         setIsLoading(true)
+        const kitchenTypeIds = chosenKitchenTypes.map(t => {
+            return t.id
+        })
         const chef = {
             firstName: firstName, 
             email: email, 
@@ -43,7 +60,8 @@ const CabinetMyProfile = ({person, setPerson}) => {
             address: address,
             isActive: isActive,
             longitude: position?.lng,
-            lattitude: position?.lat
+            lattitude: position?.lat,
+            kitchenTypeIds: kitchenTypeIds
         }
         try{
             const {data} = await registerChef(chef)
@@ -126,6 +144,7 @@ const CabinetMyProfile = ({person, setPerson}) => {
                         </div>
                         
                         
+                        
                     </div>
                     <div className='profile__info-column'>
                         <div className='profile__info-element'>
@@ -148,11 +167,15 @@ const CabinetMyProfile = ({person, setPerson}) => {
                             <label className='profile__info-tag'>
                                 Активність 
                             </label>
-                            <select value={isActive} onChange={e => setIsActive(e.target.value)}>
+                            <select value={isActive} onChange={e => setIsActive(e.target.value)} >
                                 <option value={true}>Активний</option>
                                 <option value={false}>Не активний</option>
                             </select> 
                         </div>
+                        <div className='profile__info-element'>
+                           <SelectMultiple name={'Тип кухні'} variants={kitchenTypes} setSelectedVariants={setChosenKitchenTypes}/>
+                        </div>
+                        
                         
                     </div>
                     <div className='profile__map-container'>

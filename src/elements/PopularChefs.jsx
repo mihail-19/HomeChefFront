@@ -243,7 +243,7 @@ const PopularChefs = () => {
                                 </div>
                                 <div className="popular-chef__chef-info">
                                     <h4>Шеф {popularChef.firstName}</h4>
-                                    <p><b>Кухня: </b> {popularChef.kitchenTypes[0]}, {popularChef.kitchenTypes[1]}</p>
+                                    <p><b>Кухня: </b> {popularChef.kitchenTypes[0]?.name}, {popularChef.kitchenTypes[1]?.name}</p>
                                     <Link to="/abc" className="popular-chef__chef-button">Замовити</Link>
                                 </div>
                                 <div className="popular-chef__chef-description">
