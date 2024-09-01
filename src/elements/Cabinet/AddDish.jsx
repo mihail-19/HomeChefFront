@@ -81,6 +81,7 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
             snackbarRef.current.show('Помилка: ' + error.response?.data, true, 5000)
         } finally{
             setIsLoading(false)
+            tags.forEach(t => removeTag(t.id))
         }
     }
     

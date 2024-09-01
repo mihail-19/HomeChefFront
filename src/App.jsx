@@ -2,7 +2,7 @@
 import axios from 'axios'
 import {Route, Routes} from 'react-router-dom'
 import serverUrl from './serverUrl'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getPerson } from './services/PersonService'
 import Homepage from './pages/Homepage'
 import Header from './elements/Header'
@@ -30,24 +30,41 @@ import CabinetUserProfile from './elements/Cabinet/CabinetUserProfile.jsx'
 import CabinetUserDishStory from './elements/Cabinet/CabinetUserPreviousDishes.jsx'
 import CabinetAdminUsers from './elements/Cabinet/CabinetAdminUsers.jsx'
 import CabinetChefStory from './elements/Cabinet/CabinetChefStory.jsx'
+import CabinetNotifications from './elements/Cabinet/CabinetNotifications.jsx'
+
+const POLLING_TIME = 10000
+
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') === 'true')
   const [person, setPerson] = useState({})
   const [cart, setCart] = useState({})
   const [locality, setLocality] = useState(undefined)
   const [showRegisterWindow, setShowRegisterWindow] = useState(false)
+  const timerIdRef = useRef(null)
+
   useEffect(() => {
     const fromStorage = JSON.parse(localStorage.getItem('locality'))
     if(fromStorage){
         setLocality(fromStorage)
     }
   }, [])
+
   useEffect(() => {
     loadCart()
     if(isAuth){
       sendGetPerson()
+      timerIdRef.current = setInterval(sendGetPerson, POLLING_TIME)
     }
   }, [])
+
+  useEffect(() => {
+    if(!isAuth){
+      clearInterval(timerIdRef.current)
+    } else {
+      clearInterval(timerIdRef.current)
+      timerIdRef.current = setInterval(sendGetPerson, POLLING_TIME)
+    }
+  }, [isAuth])
 
   const sendGetPerson = async () => {
     try{
@@ -98,6 +115,7 @@ function App() {
           <Route path="user-profile" element={<CabinetUserProfile person={person} sendGetPerson={sendGetPerson}/>}/>
           <Route path="previous-dishes" element={<CabinetUserDishStory person={person} cart={cart} loadCart={loadCart}/>}/>
           <Route path="users-list" element={<CabinetAdminUsers person={person}/>}/>
+          <Route path="notifications/:params?" element={<CabinetNotifications person={person} setPerson={setPerson}/>}/>
         </Route>
         
       </Routes>
