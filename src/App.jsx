@@ -31,6 +31,8 @@ import CabinetUserDishStory from './elements/Cabinet/CabinetUserPreviousDishes.j
 import CabinetAdminUsers from './elements/Cabinet/CabinetAdminUsers.jsx'
 import CabinetChefStory from './elements/Cabinet/CabinetChefStory.jsx'
 import CabinetNotifications from './elements/Cabinet/CabinetNotifications.jsx'
+import ProductsSafety from './pages/ProductsSafety.jsx'
+import Certification from './pages/Certification.jsx'
 
 const POLLING_TIME = 10000
 
@@ -101,6 +103,8 @@ function App() {
         <Route path="/HomeChefFront/dish/:id" element={<Dish cart={cart} loadCart={loadCart}/>}/>
         <Route path="/HomeChefFront/dish/:id/comments" element={<DishReviews person={person}/>}/>
         <Route path="/HomeChefFront/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
+        <Route path="/HomeChefFront/products-safety" element={<ProductsSafety/>}/>
+        <Route path="/HomeChefFront/certification" element={<Certification/>}/>
         <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
           <Route path="chef-profile" element={<CabinetChefProfile/>}/>
           <Route path="reviews" element={<CabinetReviews/>}/>
