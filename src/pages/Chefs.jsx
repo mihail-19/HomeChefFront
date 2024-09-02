@@ -29,7 +29,7 @@ const Chefs = () => {
             console.log(pParsed)
             console.log(stringify(pParsed))
             console.log(params)
-            navigate('/HomeChefFront/chefs/' + stringify(pParsed))
+            navigate('/chefs/' + stringify(pParsed))
         } else {
             console.log(pParsed)
             setParamsParsed(pParsed)
@@ -51,7 +51,7 @@ const Chefs = () => {
     function buildLinkToPage(page){
         const paramsCopy = {...params}
         paramsCopy.page = page
-        return '/HomeChefFront/chefs/' + stringify(paramsCopy)
+        return '/chefs/' + stringify(paramsCopy)
     }
 
     return(
@@ -61,7 +61,7 @@ const Chefs = () => {
             <div className="chefs__chef-list">
                 {chefs.map(chef => {
                     return (
-                        <Link to={"/HomeChefFront/chef/" + chef.id} className="chefs__chef">
+                        <Link to={"/chef/" + chef.id} className="chefs__chef">
                             <div className="chefs__chef-img">
                                 <img src={chef.imageURL ? imagesUrl + chef.imageURL : defaultChefIcon}></img>
                             </div>

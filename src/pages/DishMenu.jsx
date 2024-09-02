@@ -36,7 +36,7 @@ function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLoc
         } else {
             paramsCopy.categories.push(category.id)
         }
-        const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+        const url = '/dishes/' + stringify(paramsCopy)
         return (
             <Link to={url} className="dishes__category-link">
                 <div className={hasCategory ? 'dishes__category-checkbox dishes__category-checkbox_selected' : 'dishes__category-checkbox'}>
@@ -52,7 +52,7 @@ function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLoc
             paramsCopy.tags = []
         } 
         paramsCopy.tags.push(tag.id)
-        const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+        const url = '/dishes/' + stringify(paramsCopy)
         return (
             <Link to={url} className="dishes__tag-link">{tag.name}</Link>
         )
@@ -65,7 +65,7 @@ function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLoc
         } else {
             paramsCopy.city = 0
         }
-        const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+        const url = '/dishes/' + stringify(paramsCopy)
         return(
             <Link to={url} className={loc && dishesLocality && loc.id === dishesLocality.id ? "dishes__city-link dishes__city-link_active" : "dishes__city-link"}>{loc ? loc.name : 'Всі'}</Link>
         )
@@ -84,7 +84,7 @@ function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLoc
         const paramsCopy = params ? {...params} : {}
         paramsCopy.price = price
         console.log(paramsCopy)
-        const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+        const url = '/dishes/' + stringify(paramsCopy)
         console.log(price)
         console.log(url)
         navigate(url)
@@ -93,7 +93,7 @@ function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLoc
     function linkToSearch(){
         const paramsCopy = params ? {...params} : {}
         paramsCopy.search = searchValue
-        const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+        const url = '/dishes/' + stringify(paramsCopy)
         return url
     }
 

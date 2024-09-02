@@ -66,7 +66,7 @@ const CabinetNotifications = ({person, setPerson}) => {
     function buildLinkToPage(page){
         const paramsCopy = {...params}
         paramsCopy.page = page
-        return '/HomeChefFront/cabinet/notifications/' + stringify(paramsCopy)
+        return '/cabinet/notifications/' + stringify(paramsCopy)
     }
 
     function openNotification(notification){

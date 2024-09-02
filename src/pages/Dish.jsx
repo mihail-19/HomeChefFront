@@ -66,7 +66,7 @@ const Dish = ({cart, loadCart}) => {
 
     async function sendAfterConfirmed(){
         if(!isDishLocalityValidCartLocalities(dishToSave.current, cart)){
-            snackbarRef.current.show(<div>Не можна додавати страви з різних міст <Link to="/HomeChefFront/cart">Кошик</Link></div>, true, 5000)
+            snackbarRef.current.show(<div>Не можна додавати страви з різних міст <Link to="/cart">Кошик</Link></div>, true, 5000)
             return
         }
         setIsLoading(true)
@@ -89,8 +89,8 @@ const Dish = ({cart, loadCart}) => {
             <Snackbar ref={snackbarRef}/>
             <Confirm okFunction={sendAfterConfirmed} noFunction={rejectAddingDish} ref={confirmRef}/>
             <div className="dish__top-navigation">
-                <Link to={'/HomeChefFront/dish/' + id} className="dish__navigation-button dish__navigation-button_active">Страва</Link>
-                <Link to={'/HomeChefFront/dish/' + id + '/comments'} className="dish__navigation-button">Відгуки</Link>
+                <Link to={'/dish/' + id} className="dish__navigation-button dish__navigation-button_active">Страва</Link>
+                <Link to={'/dish/' + id + '/comments'} className="dish__navigation-button">Відгуки</Link>
             </div>
             <div className="dish__main-content">
                 <div className="dish__left">
@@ -130,7 +130,7 @@ const Dish = ({cart, loadCart}) => {
                             <div className="dish__chef-rank">
                                 <ChefRank rank={dish.chef?.ranking}/>
                             </div>
-                            <Link to={"/HomeChefFront/chef/" + dish.chef?.id + "/dishes"} className="dish__chef-dishes-button">Всі страви</Link> 
+                            <Link to={"/chef/" + dish.chef?.id + "/dishes"} className="dish__chef-dishes-button">Всі страви</Link> 
                         </div>
                 </div>
                 <h2>Інші страви шефа в цій категорії</h2>

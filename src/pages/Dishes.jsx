@@ -109,7 +109,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             console.log(pParsed)
             console.log(stringify(pParsed))
             console.log(params)
-            navigate('/HomeChefFront/dishes/' + stringify(pParsed))
+            navigate('/dishes/' + stringify(pParsed))
         } else {
             setParamsParsed(pParsed)
             loadDishes(pParsed)
@@ -192,7 +192,7 @@ const Dishes = ({cart, loadCart, locality}) => {
 
     async function sendAfterConfirmed(){
         if(!isDishLocalityValidCartLocalities(dishToSave.current, cart)){
-            snackbarRef.current.show(<div>Не можна додавати страви з різних міст <Link to="/HomeChefFront/cart">Кошик</Link></div>, true, 5000)
+            snackbarRef.current.show(<div>Не можна додавати страви з різних міст <Link to="/cart">Кошик</Link></div>, true, 5000)
             return
         }
         setLoading(true)
@@ -209,7 +209,7 @@ const Dishes = ({cart, loadCart, locality}) => {
     function buildLinkToPage(page){
         const paramsCopy = {...params}
         paramsCopy.page = page
-        return '/HomeChefFront/dishes/' + stringify(paramsCopy)
+        return '/dishes/' + stringify(paramsCopy)
     }
    
     return (
@@ -270,7 +270,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             } else {
                 paramsCopy.categories = undefined
             }
-            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+            const url = '/dishes/' + stringify(paramsCopy)
 
             return removeElement(url, c.name)
         }
@@ -280,7 +280,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             }
             const paramsCopy = JSON.parse(JSON.stringify(params))
             paramsCopy.tags = paramsCopy.tags.filter(tag => t.id !== tag)
-            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+            const url = '/dishes/' + stringify(paramsCopy)
             return removeElement(url, t.name)
         }
 
@@ -290,7 +290,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             }
             const paramsCopy = JSON.parse(JSON.stringify(params))
             paramsCopy.price = undefined
-            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+            const url = '/dishes/' + stringify(paramsCopy)
             const txt = params.price[0] + '-' + params.price[1] + ' грн'
             return removeElement(url, txt)
         }
@@ -300,7 +300,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             }
             const paramsCopy = {...params}
             paramsCopy.search = undefined
-            const url = '/HomeChefFront/dishes/' + stringify(paramsCopy)
+            const url = '/dishes/' + stringify(paramsCopy)
             const txt = '\'' + params.search +'\''
             return removeElement(url, txt)
         }
@@ -322,7 +322,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             // const paramsCopy = {...params}
             // paramsCopy.tags = undefined
             // paramsCopy.categories = undefined
-            const url = '/HomeChefFront/dishes' 
+            const url = '/dishes' 
             return removeElement(url, 'Скинути все')
         }
 
@@ -368,7 +368,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             setSortParam(sortValue)
             const paramsCopy = {...params}
             paramsCopy.sort = sortValue
-            navigate("/HomeChefFront/dishes/" + stringify(paramsCopy))
+            navigate("/dishes/" + stringify(paramsCopy))
         }
        
 

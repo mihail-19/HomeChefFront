@@ -82,20 +82,20 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
     }
     return (
         <div className='header'>
-                <Link to="/HomeChefFront" className='header__logo'>
+                <Link to="/" className='header__logo'>
                     <img src={homeChefLogo}></img>
                 </Link>
                 
                 <nav className='header__nav'>
                     <ul className='header__menu'>
                         <li className='header__menu-item'>
-                            <Link to='/HomeChefFront/chefs-map' className='header__menu-link'>Наші шефи</Link>
+                            <Link to='/chefs-map' className='header__menu-link'>Наші шефи</Link>
                         </li>
                         <li className='header__menu-item'>
-                            <Link to='/HomeChefFront/dishes' className='header__menu-link header__menu-link_catalog'>Страви</Link>
+                            <Link to='/dishes' className='header__menu-link header__menu-link_catalog'>Страви</Link>
                         </li>
                         <li className='header__menu-item'>
-                            <Link to='/HomeChefFront/about-us' className='header__menu-link'>Про нас</Link>
+                            <Link to='/about-us' className='header__menu-link'>Про нас</Link>
                         </li>
                         
                         <li className='header__menu-item'>
@@ -112,7 +112,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                             {cart && cart.cartProducts && cart.cartProducts.length > 0 &&
                                 <div className='header__cart-number'>{cart.cartProducts.length}</div>
                             }
-                            <Link to="/HomeChefFront/cart" className='header__cart'>
+                            <Link to="/cart" className='header__cart'>
                                 <img src={cartImg}></img>
                             </Link>
                         </li>
@@ -163,7 +163,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                         <nav className='header__burger-menu-nav'>
                             <ul>
                                 <li>
-                                    <Link to="/HomeChefFront/cart" className='header__cart'>
+                                    <Link to="/cart" className='header__cart'>
                                         <img src={cartImg}></img>
                                     </Link>
                                 </li>
@@ -173,7 +173,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                                 </li>
                                 {isAuth &&
                                     <li className='header__burger-menu-nav-item'>
-                                        <Link to='/HomeChefFront/cabinet' className='header__burger-menu-link'>Кабінет</Link>
+                                        <Link to='/cabinet' className='header__burger-menu-link'>Кабінет</Link>
                                     </li>
                                 }
                                 <li className='header__burger-menu-nav-item header__burger-menu-cities' onClick={switchShowCities}>
@@ -258,7 +258,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                         </div>
                         <div className='header__user-menu-username'>{person && person.username}</div>
                         <div className='header__user-menu-nav'>
-                            <Link to="/HomeChefFront/cabinet" onClick={() => setShowUserMenu(false)}>Кабінет</Link>
+                            <Link to="/cabinet" onClick={() => setShowUserMenu(false)}>Кабінет</Link>
                             
                         </div>  
                         <button to='/register' className='header__logout-button' onClick={sendLogout}>Вийти</button>

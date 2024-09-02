@@ -161,7 +161,7 @@ const AboutUs = ({setShowRegisterWindow}) => {
                     Так зʼявився <b>Home Chef</b>.
                 </p>
 
-                <Link to="/HomeChefFront" className="about-us__link">На головну</Link>
+                <Link to="/" className="about-us__link">На головну</Link>
             </div>
 
             

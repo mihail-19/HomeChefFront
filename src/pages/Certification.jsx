@@ -1,7 +1,11 @@
 
 import './footerPages.css'
 import certificationImage from '../assets/certificationImage.png'
+import { useEffect } from 'react'
 const Certification = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
     return (
         <div className='certification'>
              <h1>Сертифікація</h1>

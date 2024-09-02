@@ -89,8 +89,8 @@ const DishReviews = ({person}) => {
             <Loading isActive={isLoading} setIsActive={setIsLoading}/>
             <Snackbar ref={snackbarRef}/>
             <div className="dish__top-navigation">
-                <Link to={'/HomeChefFront/dish/' + id} className="dish__navigation-button">Страва</Link>
-                <Link to={'/HomeChefFront/dish/' + id + '/comments'} className="dish__navigation-button dish__navigation-button_active">Відгуки</Link>
+                <Link to={'/dish/' + id} className="dish__navigation-button">Страва</Link>
+                <Link to={'/dish/' + id + '/comments'} className="dish__navigation-button dish__navigation-button_active">Відгуки</Link>
             </div>
             <button className="dish__add-review-button" onClick={() => setShowAddReview(true)}>Залишити відгук</button>
             <ModalCenter isActive={showAddReview} setIsActive={setShowAddReview} content={addReviewWindow()}/>

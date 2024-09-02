@@ -21,7 +21,7 @@ const DishCard = ({dish, sendAddToCart}) => {
                     <span><img src={rankingIcon}></img></span> {dish.chef.ranking ? dish.chef.ranking?.rank.toFixed(1) + '(' + dish.chef.ranking.voters + ')' : "0/0"}
                 </div>
             </div>
-            <Link to={"/HomeChefFront/dish/" + dish.id} className="dish-card__dish-img">
+            <Link to={"/dish/" + dish.id} className="dish-card__dish-img">
                 <img src={dish.imageURL ? imagesUrl + dish.imageURL : defaultDishImg}></img>
             </Link>
             <div className="dish-card__dish-info">
@@ -37,7 +37,7 @@ const DishCard = ({dish, sendAddToCart}) => {
                 </div>
                 <div className="dish-card__dish-buttons">
                     <button onClick={() => sendAddToCart(dish)}>Додати у кошик</button>
-                    <Link to={"/HomeChefFront/chefs/" + dish.chef.id + "/dishes"}>Інші страви шефа</Link>
+                    <Link to={"/chefs/" + dish.chef.id + "/dishes"}>Інші страви шефа</Link>
                 </div>
             </div>
         </div>

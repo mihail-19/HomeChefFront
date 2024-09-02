@@ -1,8 +1,11 @@
 
+import { useEffect } from 'react'
 import productSafetyImage from '../assets/productsSafetyImage.png'
 import './footerPages.css'
 const ProductsSafety = () => {
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
    
     return( 
         <div className='prod-safety__container'>

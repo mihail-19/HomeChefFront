@@ -214,23 +214,23 @@ function Homepage() {
               <div className='home__client-security-list'>
                 <div className='home__client-securiy-list-item'>
                   <div className='home__client-security-list-icon'></div>
-                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                  <div className='home__client-security-list-text'>Ми надаємо майбутнім шефам всю необхідну інформацію щодо поводження із продуктами.</div>
                 </div>
                 <div className='home__client-securiy-list-item'>
                   <div className='home__client-security-list-icon'></div>
-                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                  <div className='home__client-security-list-text'>Наші шефи зобовʼязані проходити сертифікаційний курс поводження із харчовими продуктами</div>
                 </div>
                 <div className='home__client-securiy-list-item'>
                   <div className='home__client-security-list-icon'></div>
-                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                  <div className='home__client-security-list-text'>Ми завжди підтримуємо звʼязок із нашими шефами і допомагаємо практичними порадами.</div>
                 </div>
                 <div className='home__client-securiy-list-item'>
                   <div className='home__client-security-list-icon'></div>
-                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                  <div className='home__client-security-list-text'>Продукти харчування повинні доставлятися охолодженими для довшого зберігання.</div>
                 </div>
                 <div className='home__client-securiy-list-item'>
                   <div className='home__client-security-list-icon'></div>
-                  <div className='home__client-security-list-text'>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.</div>
+                  <div className='home__client-security-list-text'>Кожен шеф несе особисту відповідальність за якість своїх страв.</div>
                 </div>
               </div>
               <div className='home__client-security-info'>

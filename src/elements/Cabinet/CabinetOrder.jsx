@@ -50,11 +50,11 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, setOrders, setL
             <div className="cabinet-order__products">
                 {products.map(product => {
                    return <div className="cabinet-order__product">
-                        <Link to={"/HomeChefFront/dishes/" + product.dish.id} className="cabinet-order__dish-img">
+                        <Link to={"/dishes/" + product.dish.id} className="cabinet-order__dish-img">
                             <img src={product.dish.imageURL ? imageUrl + product.dish.imageURL : defaultDishImg}></img>
                         </Link>
                         <div className="cabinet-order__product-info">
-                            <Link to={"/HomeChefFront/dishes/" + product.dish.id} className='cabinet-order__dish-name'>{product.dish.name}</Link>
+                            <Link to={"/dishes/" + product.dish.id} className='cabinet-order__dish-name'>{product.dish.name}</Link>
                             <div>Ціна: {product.dish.price}₴</div>
                             <div>К-ть: {product.dishNumber}</div>
                             <div>Вартість: {product.dish.price * product.dishNumber}</div>

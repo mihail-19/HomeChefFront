@@ -35,14 +35,13 @@ const Footer = () =>{
                         <h3>Основне</h3>
                         <Link to="/about-us">Про нас</Link>
                         <Link to="/products-safety">Безпечність продуктів</Link>
-                        <Link to="/pass-certification">Пройти сертифікацію</Link>
-                        <Link to="/help-center">Центр допомоги</Link>
+                        <Link to="/certification">Пройти сертифікацію</Link>
+                        <Link to="/helping-center">Центр допомоги</Link>
                     </div>
                     <div className="footer__nav-column">
                         <h3>Співпраця</h3>
                         <Link to="/become-chef">Cтати шефом</Link>
                         <Link to="/how-we-work">Як ми працюємо</Link>
-                        <Link to="/food-delivery">Доставка їжі</Link>
                     </div>
                 </nav>
             </div>

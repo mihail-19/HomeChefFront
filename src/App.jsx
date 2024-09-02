@@ -33,6 +33,8 @@ import CabinetChefStory from './elements/Cabinet/CabinetChefStory.jsx'
 import CabinetNotifications from './elements/Cabinet/CabinetNotifications.jsx'
 import ProductsSafety from './pages/ProductsSafety.jsx'
 import Certification from './pages/Certification.jsx'
+import HelpingCenter from './pages/HelpingCenter.jsx'
+import HowWeWork from './pages/HowWeWork.jsx'
 
 const POLLING_TIME = 10000
 
@@ -94,18 +96,20 @@ function App() {
               locality={locality} setLocality={setLocality} showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow}/>
       
       <Routes>
-        <Route path="/HomeChefFront" element={<Homepage />}/>
-        <Route path="/HomeChefFront/about-us" element={<AboutUs setShowRegisterWindow={setShowRegisterWindow}/>}/>
-        <Route path="/HomeChefFront/chefs/:params?" element={<Chefs />}/>
-        <Route path="/HomeChefFront/chefs-map" element={<ChefsMap/>}/>
-        <Route path="/HomeChefFront/chef/:id" element={<Chef/>}/>
-        <Route path="/HomeChefFront/dishes/:params?" element={<Dishes cart={cart} loadCart={loadCart} locality={locality}/>}/>
-        <Route path="/HomeChefFront/dish/:id" element={<Dish cart={cart} loadCart={loadCart}/>}/>
-        <Route path="/HomeChefFront/dish/:id/comments" element={<DishReviews person={person}/>}/>
-        <Route path="/HomeChefFront/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
-        <Route path="/HomeChefFront/products-safety" element={<ProductsSafety/>}/>
-        <Route path="/HomeChefFront/certification" element={<Certification/>}/>
-        <Route path="/HomeChefFront/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
+        <Route path="/" element={<Homepage />}/>
+        <Route path="/about-us" element={<AboutUs setShowRegisterWindow={setShowRegisterWindow}/>}/>
+        <Route path="/chefs/:params?" element={<Chefs />}/>
+        <Route path="/chefs-map" element={<ChefsMap/>}/>
+        <Route path="/chef/:id" element={<Chef/>}/>
+        <Route path="/dishes/:params?" element={<Dishes cart={cart} loadCart={loadCart} locality={locality}/>}/>
+        <Route path="/dish/:id" element={<Dish cart={cart} loadCart={loadCart}/>}/>
+        <Route path="/dish/:id/comments" element={<DishReviews person={person}/>}/>
+        <Route path="/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
+        <Route path="/products-safety" element={<ProductsSafety/>}/>
+        <Route path="/certification" element={<Certification/>}/>
+        <Route path="/helping-center" element={<HelpingCenter/>}/>
+        <Route path="/how-we-work" element={<HowWeWork/>}/>
+        <Route path="/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
           <Route path="chef-profile" element={<CabinetChefProfile/>}/>
           <Route path="reviews" element={<CabinetReviews/>}/>
           <Route path="usefull" element={<CabinetUseful/>}/>

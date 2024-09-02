@@ -36,7 +36,7 @@ const ChefsMap = () => {
                             
                            return <Marker position={[chef.geoLocation.lattitude, chef.geoLocation.longitude]}>
                                 <Popup>
-                                    <Link to={"/HomeChefFront/chef/" + chef.id} className="chefs-map__popup">
+                                    <Link to={"/chef/" + chef.id} className="chefs-map__popup">
                                         <div className="chefs-map__popup-name"><b>{'[' + chef.username + '] '}</b>{chef.firstName}</div>
                                         <div className="chefs-map__popup-img">
                                             <img src={chef.imageURL ? imagesUrl + chef.imageURL : defaultChefIcon}></img>
