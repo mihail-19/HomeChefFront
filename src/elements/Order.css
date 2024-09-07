@@ -4,6 +4,13 @@
     width: 400px;
     overflow-y: auto;
 }
+
+@media(max-width: 600px){
+    .order{
+        width: 320px;
+    }
+}
+
 .order h2{
     font-size: 24px;
     font-weight: 700;
@@ -51,12 +58,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000;
-    color: white;
+    background-color: #6d6a6a;
+    color: rgb(196, 186, 186);
     border: none;
     border-radius: 15px;
-    cursor: pointer;
+    cursor:not-allowed;
     font-size: 18px;
+}
+.order__submit-button_active{
+    background-color: #000000;
+    cursor: pointer;
 }
 
 .order__results{

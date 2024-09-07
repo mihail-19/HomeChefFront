@@ -90,9 +90,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                 <li><Link to="admin-settings" className={showFlags[0] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(0)}>Налаштування</Link></li>
                 <li><Link to="admin-data" className={showFlags[1] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(1)}>Внести дані</Link></li>
                 <li><Link to="users-list" className={showFlags[2] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(2)}>Користувачі</Link></li>
-                <li><Link to="/cabinet/cart" className={showFlags[3] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(3)}>Кошик</Link></li>
-                <li><Link to="/cabinet/wishes" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Мої бажання</Link></li>
-                <li><Link to="become-chef" className={showFlags[5] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(5)}>Стати шефом</Link></li>
+                
                 <li><Link className='cabinet__exit-Link'>Вийти</Link></li>
             </ul>
         } else if (isUser){
@@ -105,9 +103,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                     <li><Link to="previous-dishes" className={showFlags[1] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(1)}>Історія замовлень</Link></li>
                     <li><Link to="user-profile" className={showFlags[2] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(2)}>Мій профіль</Link></li>
                     <li><Link to="user-orders" className={showFlags[3] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(3)}>Статус замовлень</Link></li>
-                    <li><Link to="/cabinet/cart" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Кошик</Link></li>
-                    <li><Link to="/cabinet/wishes" className={showFlags[5] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(5)}>Мої бажання</Link></li>
-                    <li><Link to="become-chef" className={showFlags[6] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(6)}>Стати шефом</Link></li>
+                    <li><Link to="become-chef" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Стати шефом</Link></li>
                     <li><Link className='cabinet__exit-Link'>Вийти</Link></li>
                 </ul>
         }  else {

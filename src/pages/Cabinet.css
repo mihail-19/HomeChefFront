@@ -167,6 +167,7 @@
 }
 .profile__info-row{
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
 }
 .profile__info-column{
@@ -236,7 +237,13 @@
 .profile__info-map{
     width: 400px;
     height: 350px;
-    background-color: red;
+}
+
+@media(max-width: 600px){
+    .profile__info-map{
+        width: 320px;
+        height: 300px;
+    }
 }
 
 

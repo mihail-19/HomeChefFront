@@ -5,6 +5,7 @@ import './CabinetOrders.css'
 import { Link } from "react-router-dom"
 import OrderState from "../OrderState"
 import {promoteOrder, getChefOrders} from '../../services/OrderService'
+import prettyPrintDate from '../../elements/utility/prettyPrintDate'
 import { useEffect, useState } from "react"
 const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, setOrders, setLoading}) => {
     if(!order ){
@@ -38,6 +39,8 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, setOrders, setL
                 <div>Замовник: {order.name}</div>
                 
                 <div>Тел.: {order.phone}</div>
+                <div>Дата виконання: {prettyPrintDate(order.dateTimeToMake)}</div>
+                <div>Отримано: {prettyPrintDate(order.creationDate)}</div>
                 <OrderProducts products={order.products}/>
             </div>
     }

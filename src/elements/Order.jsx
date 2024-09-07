@@ -1,11 +1,12 @@
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ModalCenter from './utility/ModalCenter'
 import HomeChefCalendar from './utility/HomeChefCalendar'
 import './Order.css'
 import HomeChefTimePicker from './utility/HomeChefTimePicker'
 import { addOrder } from '../services/OrderService'
 import { removeAllFromCart } from '../services/CartService'
+import Snackbar from './utility/Snackbar'
 const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
     const [orderLocality, steOrderLocality] = useState({})
     const [cityName, setCityName] = useState('')
@@ -17,6 +18,12 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
     const [isConfirmed, setIsConfirmed] = useState(false)
     const [showCityError, setShowCityError] = useState(false)
     const [locality, setLocality] = useState({})
+    const [nameErrMsg, setNameErrMsg] = useState(null)
+    const [phoneErrMsg, setPhoneErrMsg] = useState(null)
+    const [isReady, setIsReady] = useState(false)
+
+       
+    const snackbarRef = useRef(null)
 
     useEffect(() => {
         const locality = localStorage.getItem('locality')
@@ -36,6 +43,11 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
     useEffect(() => {
         checkDishLocality()
     }, [cart])
+
+
+    useEffect(() => {
+        checkIsReady()
+    }, [name, phone])
 
     function checkDishLocality(){
         if(!cart || !cart.cartProducts || cart.cartProducts.length < 1){
@@ -59,6 +71,39 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
         setLocality(firstLocalityId)
     }
 
+
+
+    function checkPhone(value){
+        if(/^\+38(0\d{9})$/.test(value)){
+            setPhoneErrMsg(null)
+            return true
+        } else {
+            setPhoneErrMsg('Некоректний телефон')
+            return false
+        }
+    }
+
+    function checkName(value){
+        if(value && value.length > 1 && value.length<30){
+            setNameErrMsg(false)
+            return true
+        } else {
+            if(!value || value.length < 1){
+                setNameErrMsg('Ім\'я не має бути пустим')
+                return false
+            }
+        }
+    }
+
+    function checkIsReady(){
+        
+        if(checkPhone(phone) && checkName(name)){
+            setIsReady(true)
+        } else {
+            setIsReady(false)
+        }
+    }
+
     return (
         <ModalCenter isActive={showOrder} setIsActive={setShowOrder} content={ isConfirmed ? afterConfirmWindow() : windowContent()}/>
     )
@@ -69,18 +114,27 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
     }
 
     async function sendConfirmOrder(){
-
+        if(!isReady){
+            return
+        }
         const order = {
             name: name,
             phone: phone,
             address: address,
             dateTimeToMake: date,
-            products: cart.cartProducts
+            products: cart.cartProducts.map(p => {
+                return {dishId: p.dish.id, dishNumber: p.dishNumber}
+            })
         }
-        const {data} = await addOrder(order)
-        setOrders(data)
-        setIsConfirmed(true)
-        const res = await removeAllFromCart()
+        try{
+            const {data} = await addOrder(order)
+            setOrders(data)
+            setIsConfirmed(true)
+            const res = await removeAllFromCart()
+            snackbarRef.current.show('Замовлення додано', false)
+        } catch (error){
+            snackbarRef.current.show('Помилка: ' + error.response.data, true, 5000)
+        }
     }
 
     function afterConfirmWindow(){
@@ -99,9 +153,31 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
         )
     }
 
+   
+
     function windowContent(){
+
+        
+        function onChangePhone(value){
+            checkPhone(value)
+            setPhone(value)
+        }
+
+        
+        function onChangeName(value){
+            checkName(value)
+            setName(value)
+        }
+
+
+        const errMsgStyle = {
+            fontSize: '12px',
+            color: 'red',
+            height: '14px'
+        }
         return (
             <div className='order'>
+                <Snackbar ref={snackbarRef}/>
                 <h2>Оформити замовлення</h2>
                 <div className='order__item'>
                     <div className='order__city'>Місто: {locality?.name}</div>
@@ -113,11 +189,13 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
                 </div>
                 <div className='order__item'>
                     <label>Контактний телефон</label>
-                    <input type="text" className='order__input' value={phone} onChange={e => setPhone(e.target.value)}></input>
+                    <input type="text" className='order__input' value={phone} onChange={e => onChangePhone(e.target.value)}></input>
+                    <div style={errMsgStyle}>{phoneErrMsg}</div>
                 </div>
                 <div className='order__item'>
                     <label>Як до Вас звертатися</label>
-                    <input type="text" className='order__input' value={name} onChange={e => setName(e.target.value)}></input>
+                    <input type="text" className='order__input' value={name} onChange={e => onChangeName(e.target.value)}></input>
+                    <div style={errMsgStyle}>{nameErrMsg}</div>
                 </div>
                 <div className='order__datetime'>
                     <div className='order__datetime-item'>
@@ -131,7 +209,7 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
                 </div>
                 <div className='order__sum'>Сума: {calculateTotalPrice()}</div>
                 <div className='order__delivery'>Доставка: прораховується окремо</div>
-                <button className='order__submit-button' onClick={sendConfirmOrder}>Замовити</button>
+                <button className={isReady ? 'order__submit-button order__submit-button_active' : 'order__submit-button'} onClick={sendConfirmOrder}>Замовити</button>
             </div>
         )
     }

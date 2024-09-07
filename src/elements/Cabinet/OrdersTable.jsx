@@ -6,9 +6,11 @@ import closeIcon from '../../assets/registerCloseIcon.png'
 import CabinetOrder from './CabinetOrder'
 import { useEffect, useState } from 'react'
 import OrderState from '../utility/OrderState'
+import { useMediaQuery } from 'react-responsive'
 const OrdersTable = ({orders, setOrders, setLoading}) => {
     const [showOrder, setShowOrder] = useState(false)
     const [currentOrder, setCurrentOrder] = useState({})
+    const isMobile = useMediaQuery({maxWidth: 700})
     function openOrderWindow(order){
         setCurrentOrder(order)
         setShowOrder(true)
@@ -19,7 +21,21 @@ const OrdersTable = ({orders, setOrders, setLoading}) => {
     //         setShowOrder(true)
     //     }
     // }, [orders])
-   
+    if(isMobile){
+        return (
+        <div className='chef-orders__orders_mobile'>
+            {orders.map(order => {
+                return <div className='chef-orders__order_mobile'>
+                    <h3>{order.id}</h3>
+                    <p>Отримано: {prettyPrintDate(order.creationDate)}</p>
+                    <p>Тел.: {order.phone}</p>
+                    <p>Ім'я: {order.name}</p>
+                </div>
+            })}
+            
+        </div>
+        )
+    }
     return(
         <table className="orders">
             <CabinetOrder showOrder={showOrder} setShowOrder={setShowOrder} order={currentOrder} setOrder={setCurrentOrder} setOrders={setOrders} setLoading={setLoading}/>
@@ -38,7 +54,7 @@ const OrdersTable = ({orders, setOrders, setLoading}) => {
                 return <tr>
                     
                     <td>{order.id} </td>
-                    <td>{order.dateReceived}</td>
+                    <td>{prettyPrintDate(order.creationDate)}</td>
                     <td>{order.name}</td>
                     <td>{order.phone}</td>
                     <td>{calculateTotalPrice(order)}</td>

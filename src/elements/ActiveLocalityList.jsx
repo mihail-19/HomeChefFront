@@ -42,7 +42,10 @@ const ActiveLocalityList = ({isActive, setIsActive, locality, setLocality}) => {
         return (
             <div id="active-locality" className={isActive ? "active-locality locality-list_active" : "active-locality"} onClick={e => e.stopPropagation()}>
                 <label>Населений пункт</label>
-                <input type="text" value={name} onChange={e => setName(e.target.value)}></input>
+               {/*
+               <input type="text" value={name} onChange={e => setName(e.target.value)}></input>
+               */}
+                
                 <div className="active-locality__list">
                     {localities.map(activeLocality => {
                         return (

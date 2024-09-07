@@ -32,6 +32,7 @@ const CabinetMyProfile = ({person, setPerson}) => {
     const [isActive, setIsActive] = useState(true)
     const [kitchenTypes, setKitchenTypes] = useState([])
     const [chosenKitchenTypes, setChosenKitchenTypes] = useState([])
+    const [hasSelfPickup, setHasSelfPickup] = useState(false)
     
     const [position, setPosition] = useState(null)
    
@@ -145,6 +146,7 @@ const CabinetMyProfile = ({person, setPerson}) => {
                         
                         
                         
+                        
                     </div>
                     <div className='profile__info-column'>
                         <div className='profile__info-element'>
@@ -172,15 +174,22 @@ const CabinetMyProfile = ({person, setPerson}) => {
                                 <option value={false}>Не активний</option>
                             </select> 
                         </div>
+                        
                         <div className='profile__info-element'>
                            <SelectMultiple name={'Тип кухні'} variants={kitchenTypes} setSelectedVariants={setChosenKitchenTypes}/>
+                        </div>
+                        <div className='profile__info-element'>
+                            <label className='profile__info-tag' style={{padding: '0', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer'}}>
+                                 <input type='checkbox' style={{width: '20px', height: '20px'}} value={hasSelfPickup} onChange={e => setHasSelfPickup(e.target.value)}></input> Самовивіз
+                            </label>
+                            
                         </div>
                         
                         
                     </div>
                     <div className='profile__map-container'>
                         <label className='profile__info-tag'>
-                        {position?.lat} {position?.lng}
+                            Мої координати: {position?.lat} {position?.lng}
                         </label>
                         <div className='profile__info-map'>
                             <MapContainer center={[49.991034, 36.229475]} zoom={13} >

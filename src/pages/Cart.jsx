@@ -2,6 +2,7 @@
 import {addDishToCart, decreaseDishNumber, removeDish} from '../services/CartService'
 import imagesUrl from '../imagesUrl'
 import removeIcon from '../assets/delete.png'
+import defaultDishImg from '../assets/defaultDish.jpg'
 import './Cart.css'
 import Order from '../elements/Order'
 import { useState } from 'react'
@@ -49,7 +50,7 @@ const Cart = ({cart, loadCart}) => {
                   return  <div className="cart__product">
                         <div className="cart__product-left">
                             <div className="cart__product-img">
-                                <img src={imagesUrl + product.dish.imageURL}></img>
+                                <img src={product.dish.imageURL ? imagesUrl + product.dish.imageURL : defaultDishImg}></img>
                             </div>
                             <div className='cart__product-menu'>
                                 <div className="cart__product-number-menu">

@@ -109,4 +109,32 @@
     cursor: pointer;
 }
 
-
+@media(max-width: 1200px){
+    .cart__dish-name, .cart__dish-price{
+        font-size: 20px;
+    }
+    .cart__product-right {
+        gap: 10px;
+    }
+}
+@media(max-width: 780px){
+    .cart{
+        padding-left: 20px;
+    }
+    .cart__product{
+        margin-bottom: 10px;
+        flex-direction: column-reverse;
+    }
+    .cart__product-menu{
+        width: 300px;
+    }
+    .cart__product-left{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .cart__product-right {
+        gap: 5px;
+    }
+    
+}
