@@ -62,7 +62,8 @@ const CabinetMyProfile = ({person, setPerson}) => {
             isActive: isActive,
             longitude: position?.lng,
             lattitude: position?.lat,
-            kitchenTypeIds: kitchenTypeIds
+            kitchenTypeIds: kitchenTypeIds,
+            hasSelfPickup: hasSelfPickup
         }
         try{
             const {data} = await registerChef(chef)
@@ -180,7 +181,7 @@ const CabinetMyProfile = ({person, setPerson}) => {
                         </div>
                         <div className='profile__info-element'>
                             <label className='profile__info-tag' style={{padding: '0', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer'}}>
-                                 <input type='checkbox' style={{width: '20px', height: '20px'}} value={hasSelfPickup} onChange={e => setHasSelfPickup(e.target.value)}></input> Самовивіз
+                                 <input type='checkbox' style={{width: '20px', height: '20px'}} checked={hasSelfPickup} onChange={() => setHasSelfPickup(!hasSelfPickup)}></input> Самовивіз
                             </label>
                             
                         </div>

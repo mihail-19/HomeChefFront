@@ -7,20 +7,21 @@ import HomeChefTimePicker from './utility/HomeChefTimePicker'
 import { addOrder } from '../services/OrderService'
 import { removeAllFromCart } from '../services/CartService'
 import Snackbar from './utility/Snackbar'
-const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
+const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
     const [orderLocality, steOrderLocality] = useState({})
     const [cityName, setCityName] = useState('')
     const [address, setAddress] = useState('')
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [date, setDate] = useState(new Date())
-    const [orders, setOrders] = useState([])
+    const [order, setOrder] = useState([])
     const [isConfirmed, setIsConfirmed] = useState(false)
     const [showCityError, setShowCityError] = useState(false)
     const [locality, setLocality] = useState({})
     const [nameErrMsg, setNameErrMsg] = useState(null)
     const [phoneErrMsg, setPhoneErrMsg] = useState(null)
     const [isReady, setIsReady] = useState(false)
+    const [selfPickup, setSelfPickup] = useState(false)
 
        
     const snackbarRef = useRef(null)
@@ -42,7 +43,7 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
 
     useEffect(() => {
         checkDishLocality()
-    }, [cart])
+    }, [products])
 
 
     useEffect(() => {
@@ -50,19 +51,19 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
     }, [name, phone])
 
     function checkDishLocality(){
-        if(!cart || !cart.cartProducts || cart.cartProducts.length < 1){
+        if(!products || products.length < 1){
             setShowCityError(false)
             return
         }
-        if(cart.cartProducts.length < 2){
+        if(products.length < 2){
             setShowCityError(false)
-            setLocality(cart.cartProducts[0].dish.chef.locality)
+            setLocality(products[0].dish.chef.locality)
             return
         }
-        const firstLocalityId = cart.cartProducts[0].dish.chef.locality.id
-        for(let i = 1; i<cart.cartProducts.length; i++){
-            console.log(firstLocalityId + ' : ' + cart.cartProducts[i].dish.chef.locality.id)
-            if(firstLocalityId !== cart.cartProducts[i].dish.chef.locality.id){
+        const firstLocalityId = products[0].dish.chef.locality.id
+        for(let i = 1; i<products.length; i++){
+            console.log(firstLocalityId + ' : ' + products[i].dish.chef.locality.id)
+            if(firstLocalityId !== products[i].dish.chef.locality.id){
                 setShowCityError(true)
                 return
             }
@@ -109,7 +110,7 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
     )
     function calculateTotalPrice(){
         let price = 0
-        cart?.cartProducts?.forEach(p => price = price + p.dish.price*p.dishNumber)
+        products?.forEach(p => price = price + p.dish.price*p.dishNumber)
         return price
     }
 
@@ -122,15 +123,16 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
             phone: phone,
             address: address,
             dateTimeToMake: date,
-            products: cart.cartProducts.map(p => {
+            products: products.map(p => {
                 return {dishId: p.dish.id, dishNumber: p.dishNumber}
             })
         }
         try{
             const {data} = await addOrder(order)
-            setOrders(data)
+            setOrder(data)
             setIsConfirmed(true)
-            const res = await removeAllFromCart()
+            //now it is done on server
+            //const res = await removeAllFromCart()
             snackbarRef.current.show('Замовлення додано', false)
         } catch (error){
             snackbarRef.current.show('Помилка: ' + error.response.data, true, 5000)
@@ -140,15 +142,12 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
     function afterConfirmWindow(){
         return (
             <div className='order'>
-                {orders.map(order => {
-                    return <div className='order__results'>
-                                <h2>Ваше замовлення оформелене</h2>
-                                {orders.length > 1 && 'Ви обрали блюда різних шефів, тож замовлення розбито на ' + orders.length + ' заказів'}
-                                <h3>Номер замовлення: {order.id}</h3>
-                                <p>Очікуйте підтвердження - найближчим часом з Вами зв'яжеться шеф</p>
-                                <p>Дякуємо, що користуєтесь нашим сервісом!</p>
-                        </div>  
-                })}
+                <div className='order__results'>
+                    <h2>Ваше замовлення оформелене</h2>
+                    <h3>Номер замовлення: {order.id}</h3>
+                    <p>Очікуйте підтвердження - найближчим часом з Вами зв'яжеться шеф</p>
+                    <p>Дякуємо, що користуєтесь нашим сервісом!</p>
+                </div>  
             </div>
         )
     }
@@ -182,6 +181,11 @@ const Order = ({showOrder, setShowOrder, cart, loadCart}) =>{
                 <div className='order__item'>
                     <div className='order__city'>Місто: {locality?.name}</div>
                     {showCityError && <div className='order__error'>Страви у Вашому замовленні готють шефи з разних міст. Будь ласка, <b>видаліть страви</b>, що готують шефи не з Вашого міста!</div>}
+                </div>
+                <div className='order__item'>
+                    <label className='profile__info-tag' style={{padding: '0', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer'}}>
+                        <input type='checkbox' style={{width: '20px', height: '20px'}} checked={selfPickup} onChange={() => setSelfPickup(!selfPickup)}></input> Самовивіз
+                    </label>
                 </div>
                 <div className='order__item'>
                     <label>Адреса доставки</label>

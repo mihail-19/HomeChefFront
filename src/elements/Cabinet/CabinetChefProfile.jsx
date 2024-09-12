@@ -25,6 +25,7 @@ const CabinetMyProfile = () => {
     const [localityName, setLocalityName] = useState('')
     const [isActiveLocality, setIsActiveLocality] = useState(false)
     const [position, setPosition] = useState(null)
+    const [hasSelfPickup, setHasSelfPickup] = useState(false)
     const snackbarRef = useRef(null)
     const context = useOutletContext()
     const localitySearchClickListener = useCallback((e) => {
@@ -46,6 +47,7 @@ const CabinetMyProfile = () => {
             setIsLoading(false)
             setLocality(context.chef.locality)
             setLocalityName(context.chef.locality ? context.chef.locality.name : '')
+            setHasSelfPickup(context.chef.hasSelfPickup)
             if(context.chef.geoLocation){
                 setPosition({lat: context.chef.geoLocation.lattitude, lng: context.chef.geoLocation.longitude})
             }
@@ -92,7 +94,8 @@ const CabinetMyProfile = () => {
             email: email,
             localityId: locality.id,
             longitude: position?.lng,
-            lattitude: position?.lat
+            lattitude: position?.lat,
+            hasSelfPickup: hasSelfPickup
         }
         setIsLoading(true)
         try{
@@ -212,6 +215,12 @@ const CabinetMyProfile = () => {
                                     <option value={false}>Не активний</option>
                                 </select> 
                             </div>
+                            <div className='profile__info-element'>
+                            <label className='profile__info-tag' style={{padding: '0', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer'}}>
+                                 <input type='checkbox' style={{width: '20px', height: '20px'}} checked={hasSelfPickup} onChange={() => setHasSelfPickup(!hasSelfPickup)}></input> Самовивіз
+                            </label>
+                            
+                        </div>
                             
                         </div>
                         

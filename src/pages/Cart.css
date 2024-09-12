@@ -3,14 +3,21 @@
     font-family: Montserrat;
 }
 .cart__top{
-
+ border-bottom: 1px solid rgb(150, 177, 154);
+ margin-bottom: 50px;
+ width: 80%;
+}
+.cart__order{
+    border-bottom: 1px solid rgb(128, 128, 128);
+    margin-bottom: 40px;
+    padding: 0 10px 40px 0;
 }
 .cart__products{
     
 }
 .cart__product{
     display: flex;
-    margin-bottom: 70px;
+    margin-bottom: 30px;
     gap: 30px;
 }
 .cart__product-left{
@@ -19,8 +26,8 @@
     align-items: center;
 }
 .cart__product-img{
-    width: 280px;
-    height: 180px;
+    width: 240px;
+    height: 154px;
     border-radius: 30px;
 }
 .cart__product-img img{
@@ -80,11 +87,11 @@
     gap: 15px;
 }
 .cart__dish-name{
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 600;
 }
 .cart__dish-price{
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 600;
 }
 .cart__dish-description{
@@ -100,8 +107,8 @@
     color: #FFFFFF;
     font-weight: 400;
     font-size: 22px;
-    width: 250px;
-    height: 51px;
+    width: 200px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
