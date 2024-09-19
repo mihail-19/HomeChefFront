@@ -35,6 +35,7 @@ import ProductsSafety from './pages/ProductsSafety.jsx'
 import Certification from './pages/Certification.jsx'
 import HelpingCenter from './pages/HelpingCenter.jsx'
 import HowWeWork from './pages/HowWeWork.jsx'
+import CabinetUsefulForUser from './elements/Cabinet/CabinetUsefulForUser.jsx'
 
 const POLLING_TIME = 10000
 
@@ -112,7 +113,7 @@ function App() {
         <Route path="/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
           <Route path="chef-profile" element={<CabinetChefProfile/>}/>
           <Route path="reviews" element={<CabinetReviews/>}/>
-          <Route path="usefull" element={<CabinetUseful/>}/>
+          <Route path="chef-usefull" element={<CabinetUseful/>}/>
           <Route path="tarif" element={<CabinetTarifs/>}/>
           <Route path="become-chef" element={<CabinetBecomeChef person={person} setPerson={setPerson}/>}/>
           <Route path="chef-menu" element={<CabinetChefMenu/>}/>
@@ -122,6 +123,7 @@ function App() {
           <Route path="user-orders" element={<CabinetUserOrders/>}/>
           <Route path="user-profile" element={<CabinetUserProfile person={person} sendGetPerson={sendGetPerson}/>}/>
           <Route path="previous-dishes" element={<CabinetUserDishStory person={person} cart={cart} loadCart={loadCart}/>}/>
+          <Route path="usefull" element={<CabinetUsefulForUser/>}/>
           <Route path="users-list" element={<CabinetAdminUsers person={person}/>}/>
           <Route path="notifications/:params?" element={<CabinetNotifications person={person} setPerson={setPerson}/>}/>
         </Route>

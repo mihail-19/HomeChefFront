@@ -100,6 +100,11 @@
   }
   .header__menu-link_catalog{
     color: black;
+    border-bottom: 1px solid transparent;
+    transition: 0.5s;
+  }
+  .header__menu-link_catalog:hover{
+    transition: 0.7s;
     border-bottom: 1px solid gray;
   }
   
@@ -335,6 +340,7 @@
     text-decoration:  underline!important;
     font-weight: 400!important;
   }
+  
   .header__burger-menu-socila-media-links{
     margin-top: 20px;
     display: flex;

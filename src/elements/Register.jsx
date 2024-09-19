@@ -158,7 +158,7 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                     <img src={registerLogo}></img>
                 </div>
                     <div className='register__form'>
-                        <form onSubmit={event => sendRegister(event)}>
+                        <form onSubmit={event => sendRegister(event)} autocomplete="off">
                             <div className='register__form-element'>
                                 <label>Логін</label>
                                 <div className='register__form-input'>
@@ -171,7 +171,7 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                             <div className='register__form-element'>
                                 <label>Створити пароль*</label>
                                 <div className='register__form-input'>
-                                    <input name='password' type='password' placeholder='**********' onChange={e => onChangePwd(e.target.value)}></input>
+                                    <input name='passwordFeild' type='password' placeholder='**********' onChange={e => onChangePwd(e.target.value)} autocomplete="off"></input>
                                     <div className='register__form-prompt'>Пароль повинен бути надійним</div>
                                 </div>
                                 <div style={errMsgStyle}>{pwdErrMsg}</div>
@@ -179,7 +179,7 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                             <div className='register__form-element'>
                                 <label>Підтвердити пароль</label>
                                 <div className='register__form-input'>
-                                    <input type='password' placeholder='**********' onChange={e => onChangeConfirmPwd(e.target.value)}></input>
+                                    <input type='password' placeholder='**********' onChange={e => onChangeConfirmPwd(e.target.value)} autocomplete="off"></input>
                                 </div>
                                 <div style={errMsgStyle}>{confirmPwdErrMsg}</div>
                             </div>

@@ -510,7 +510,9 @@
     align-items: center;
     margin-top: 40px;
 }
-
+.cabinet-useful__link_user{
+    background-color: #BC7BAA;
+}
 
 .cabinet-useful__social-links{
     display: flex;

@@ -59,6 +59,7 @@
     height: 45px;
     padding: 0 2px 0 10px;
     border-radius: 18px;
+    border: 1px solid gray;
 }
 .register__form-prompt{
     margin-left: 14px;

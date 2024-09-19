@@ -81,7 +81,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                 <li><Link to="chef-menu" className={showFlags[3] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(3)}>Моє меню</Link></li>
                 <li><Link to="reviews" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Мої відгуки</Link></li>
                 <li><Link to="chef-story" className={showFlags[5] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(5)}>Моя історія</Link></li>
-                <li><Link to="usefull" className={showFlags[6] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(6)}>Корисне</Link></li>
+                <li><Link to="chef-usefull" className={showFlags[6] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(6)}>Корисне</Link></li>
                 <li><Link to="tarif" className={showFlags[7] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(7)}>Тарифний план</Link></li>
                 <li><Link className='cabinet__exit-Link'>Вийти</Link></li>
             </ul>
@@ -104,6 +104,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                     <li><Link to="user-profile" className={showFlags[2] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(2)}>Мій профіль</Link></li>
                     <li><Link to="user-orders" className={showFlags[3] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(3)}>Статус замовлень</Link></li>
                     <li><Link to="become-chef" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Стати шефом</Link></li>
+                    <li><Link to="usefull" className={showFlags[5] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(5)}>Корисне</Link></li>
                     <li><Link className='cabinet__exit-Link'>Вийти</Link></li>
                 </ul>
         }  else {
