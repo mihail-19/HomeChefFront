@@ -7,7 +7,7 @@ import mailIcon from '../../assets/mailIcon.png'
 import serverUrl from "../../serverUrl"
 import { useState } from "react"
 import axios from "axios"
-const downloadUrl = serverUrl + '/common-data/files/chef-info'
+const downloadUrl = serverUrl + '/common-data/files/user-info'
 
 
 const CabinetUsefulForUser = () => {

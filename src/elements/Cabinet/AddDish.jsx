@@ -128,23 +128,16 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
 
                         <div className="add-dish__top-column">
                             <label>
-                                <div className="add-dish__question-img">
-                                    <img src={questionImg}></img>    
-                                </div>
                                 Назва страви    
                             </label>
                             <input className="add-dish__name" type="text" value={name} onChange={e => setName(e.target.value)}></input>
                             <label>
-                                <div className="add-dish__question-img">
-                                    <img src={questionImg}></img>    
-                                </div>
+                               
                                 Опис страви 
                             </label>
                             <textarea className="add-dish__textarea-ingredient" value={description} onChange={e => setDescription(e.target.value)}></textarea>
                             <label>
-                                <div className="add-dish__question-img">
-                                    <img src={questionImg}></img>    
-                                </div>
+                               
                                 З чого складається страва 
                             </label>
                             <textarea className="add-dish__textarea-ingredient" value={ingredients} onChange={e => setIngredients(e.target.value)}></textarea>
@@ -153,36 +146,28 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
                         <div className="add-dish__top-column">
                             <div>
                                 <label>
-                                    <div className="add-dish__question-img">
-                                        <img src={questionImg}></img>    
-                                    </div>
+                                   
                                     Ціна, грн    
                                 </label>
                                 <input className="add-dish__time" type="text" value={price} onChange={e => setPrice(e.target.value)}></input>
                             </div>
                             <div>
                                 <label>
-                                    <div className="add-dish__question-img">
-                                        <img src={questionImg}></img>    
-                                    </div>
+                                    
                                     Час приготування, хв.    
                                 </label>
                                 <input className="add-dish__time" type="text" value={cookingTime} onChange={e => setCookingTime(e.target.value)}></input>
                             </div>
                             <div>
                                 <label>
-                                    <div className="add-dish__question-img">
-                                        <img src={questionImg}></img>    
-                                    </div>
+                                    
                                     Вага, грам    
                                 </label>
                                 <input className="add-dish__time" type="text" value={weight} onChange={e => setWeight(e.target.value)}></input>
                             </div>
                             <div>
                                 <label>
-                                    <div className="add-dish__question-img">
-                                        <img src={questionImg}></img>    
-                                    </div>
+                                    
                                     Активність    
                                 </label>
                                 <select className="add-dish__is-active" value={isActive} onChange={e => setIsActive(e.target.value)}>
@@ -197,9 +182,6 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
                     <div className="add-dish__row">
                         <div className="add-dish__categories">
                             <label>
-                                <div className="add-dish__question-img">
-                                    <img src={questionImg}></img>    
-                                </div>
                                 Категорія    
                             </label>
                             <select className="add-dish__is-active" value={categoryId} onChange={e => setCatehoryId(e.target.value)}>
@@ -215,9 +197,7 @@ const AddDish = ({showAddDish, setShowAddDish}) => {
                         
                         <div className="add-dish__tags">
                             <label>
-                                <div className="add-dish__question-img">
-                                    <img src={questionImg}></img>    
-                                </div>
+                                
                                 Теги    
                             </label>
                             <div className="add-dish__selected-tags">

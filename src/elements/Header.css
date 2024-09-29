@@ -216,9 +216,9 @@
   }
   .header__logout-button{
     display: flex;
-    height: 50px;
-    border-radius: 20px;
-    background-color: #be671f;
+    height: 46px;
+    border-radius: 15px !important;
+    background-color: black;
     align-items: center;
     justify-content: center;
     font-family: Roboto Light;
@@ -227,8 +227,9 @@
     color: #FFFFFF;
     text-decoration: none;
     padding: 0 10px;
+    width: 70px;
     user-select: none;
-    border: none;
+    border: none !important;
     cursor: pointer;
   }
   .header__burger-menu-icon{

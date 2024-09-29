@@ -45,7 +45,9 @@ function App() {
   const [cart, setCart] = useState({})
   const [locality, setLocality] = useState(undefined)
   const [showRegisterWindow, setShowRegisterWindow] = useState(false)
+  const [hasNotification, setHasNotifications] = useState(false) 
   const timerIdRef = useRef(null)
+  const eventSouceRef = useRef(null)
 
   useEffect(() => {
     const fromStorage = JSON.parse(localStorage.getItem('locality'))
@@ -56,20 +58,65 @@ function App() {
 
   useEffect(() => {
     loadCart()
-    if(isAuth){
-      sendGetPerson()
-      timerIdRef.current = setInterval(sendGetPerson, POLLING_TIME)
-    }
+    sendGetPerson()
   }, [])
 
+  //notification sse subscription
   useEffect(() => {
-    if(!isAuth){
-      clearInterval(timerIdRef.current)
-    } else {
-      clearInterval(timerIdRef.current)
-      timerIdRef.current = setInterval(sendGetPerson, POLLING_TIME)
+    if(isAuth){
+      openSseConnection()
+        return () => {
+          eventSouceRef.current.close(); // Закрыть соединение при размонтировании
+        }
     }
-  }, [isAuth])
+      // if(isAuth){
+      //   const eventSource = new EventSource(serverUrl + '/sse/notifications-subscribe', { withCredentials: true });
+        
+      //   if(eventSource.readyState)
+      //   eventSource.onmessage = (event) => {
+      //     const parsed = JSON.parse(event.data)
+      //     console.log(parsed)
+      //     console.log(isAuth)
+      //   }
+      // }
+  }, [])
+
+  function openSseConnection(){
+    eventSouceRef.current = new EventSource(serverUrl + '/sse/notifications-subscribe', { withCredentials: true })
+    eventSouceRef.current.onmessage = (event) => {
+      const parsed = JSON.parse(event.data)
+      console.log(parsed)
+      console.log(isAuth)
+    }
+    eventSouceRef.current.onerror = (error) => {
+      eventSouceRef.current.close()
+      openSseConnection()
+    }
+    window.onbeforeunload = function () {
+      console.log('close eventsource')
+      eventSouceRef.current.close();
+    };
+  }
+
+  useEffect(() => {
+    if(isAuth){
+      openSseConnection()
+        return () => {
+          eventSouceRef.current.close(); // Закрыть соединение при размонтировании
+        }
+    }
+  //   if(isAuth){
+  //     const eventSource = new EventSource(serverUrl + '/sse/notifications-subscribe', { withCredentials: true });
+      
+  //     // attaching a handler to receive message events
+  //     eventSource.onmessage = (event) => {
+  //       const parsed = JSON.parse(event.data)
+  //       console.log(parsed)
+  //       console.log(isAuth)
+  //     };
+  //     return () => eventSource.close();
+  // }
+}, [isAuth])
 
   const sendGetPerson = async () => {
     try{
@@ -94,7 +141,7 @@ function App() {
   <>
     <div className='home-chef-content'>
       <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart} 
-              locality={locality} setLocality={setLocality} showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow}/>
+              locality={locality} setLocality={setLocality} showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} hasNotifications={hasNotification}/>
       
       <Routes>
         <Route path="/" element={<Homepage />}/>

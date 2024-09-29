@@ -4,6 +4,9 @@
     width: 100%;
     padding-right: 25px;
 }
+.add-dish__inner input[type="text"]{
+    border: 1px solid gray;
+}
 .add-dish__close-button{
     width: 20px;
     height: 20px;

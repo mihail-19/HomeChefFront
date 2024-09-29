@@ -143,12 +143,12 @@
 }
 .profile__update-photo-button{
     width: 137px;
-    height: 30px;
+    height: 35px;
     margin: 0 auto;
     display: block;
     border-radius: 10px;
-    font-family: Poiret One;
-    font-weight: 400;
+    font-family: Poppins;
+    font-weight: 300;
     font-size: 20px;
     border: 1px solid gray;
     background-color: #FFFFFF;

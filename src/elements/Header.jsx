@@ -17,7 +17,7 @@ import userMenuIcon from '../assets/user.png'
 import homeChefLogo from '../assets/HomeChefLogo.png'
 import imageUrl from '../imagesUrl.js'
 import {logout} from '../services/AuthService.js'
-const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocality, showRegisterWindow, setShowRegisterWindow})=>{
+const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocality, showRegisterWindow, setShowRegisterWindow, hasNotifications})=>{
     const [city, setCity] = useState(localStorage.getItem('locality') ? JSON.parse(localStorage.getItem('locality')).name : "Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
@@ -248,7 +248,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
 
         return(
             <div id="header-user-menu" className='header__user-menu-icon' onClick={() => {if(!showUserMenu) setShowUserMenu(true)}}>
-                {person && person.hasNotifications &&
+                {hasNotifications &&
                     <div style={{position:'absolute', left:'-5px', top  :'0',width:'10px', height:'10px', borderRadius:'50%', backgroundColor:'green'}}></div>
                 }
                 <img src={person.imageUrl ? imageUrl + person.imageUrl : userMenuIcon}></img>
