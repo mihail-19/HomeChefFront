@@ -8,7 +8,7 @@ import { parse, stringify } from '../../services/DishParamService'
 import ModalCenter from '../utility/ModalCenter'
 import { getPerson } from '../../services/PersonService'
 import prettyPrintDate from '../utility/prettyPrintDate'
-const CabinetNotifications = ({person, setPerson}) => {
+const CabinetNotifications = ({person, sendGetPerson}) => {
 
     const [notifications, setNotifications] = useState([])
     const [pageNumber, setPageNumber] = useState(0)
@@ -21,31 +21,33 @@ const CabinetNotifications = ({person, setPerson}) => {
 
     useEffect(() => {
         parseParams()
-        if(person && person.hasNotifications){
-            loadPerson()
+        if(person && person.hasMessageNotification){
+            sendGetPerson()
         }
     }, [])
     useEffect(() => {
         parseParams()
-    }, [params])
-    useEffect(() => {
-        if(person && person.hasNotifications){
-            parseParams()
+        if(person && person.hasMessageNotification){
+            sendGetPerson()
         }
     }, [person])
+    useEffect(() => {
+        parseParams()
+    }, [params])
+    
     // useEffect(() => {
     //     if(paramsParsed){
     //         loadNotifications()
     //     }
     // }, [paramsParsed])
-    async function loadPerson(){
-        try{
-            const {data} = await getPerson()
-            setPerson(data)
-          } catch (error){
-            console.log(error)
-          }
-    }
+    // async function loadPerson(){
+    //     try{
+    //         const {data} = await getPerson()
+    //         setPerson(data)
+    //       } catch (error){
+    //         console.log(error)
+    //       }
+    // }
     function parseParams(){
         let pParsed = parse(params)
         console.log(pParsed)

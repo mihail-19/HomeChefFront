@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getChefOrders } from "../../services/OrderService"
 import Loading from "../utility/Loading"
 import OrdersTable from "./OrdersTable"
-const CabinetChefOrders = () => {
+const CabinetChefOrders = ({person, sendGetPerson}) => {
     const [loading, setLoading] = useState(true)
     const [windowNumber, setWindowNumber] = useState(1)
     const [orders, setOrders] = useState([])
@@ -18,6 +18,9 @@ const CabinetChefOrders = () => {
 
     async function loadOrders(){
         const {data} = await getChefOrders()
+        if(person && person.hasOrderNotification){
+            sendGetPerson()
+        }
         setOrders(data)
         setLoading(false)
     }

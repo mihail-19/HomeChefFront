@@ -45,9 +45,10 @@ function App() {
   const [cart, setCart] = useState({})
   const [locality, setLocality] = useState(undefined)
   const [showRegisterWindow, setShowRegisterWindow] = useState(false)
-  const [hasNotification, setHasNotifications] = useState(false) 
+  const [notification, setNotification] = useState(null) 
   const timerIdRef = useRef(null)
   const eventSouceRef = useRef(null)
+  const intervalRef = useRef(null)
 
   useEffect(() => {
     const fromStorage = JSON.parse(localStorage.getItem('locality'))
@@ -84,14 +85,17 @@ function App() {
   function openSseConnection(){
     eventSouceRef.current = new EventSource(serverUrl + '/sse/notifications-subscribe', { withCredentials: true })
     eventSouceRef.current.onmessage = (event) => {
-      const parsed = JSON.parse(event.data)
-      console.log(parsed)
-      console.log(isAuth)
+      if(event.data !== 'heartbeat'){
+        console.log('sse msg=' + event.data)
+        const parsed = JSON.parse(event.data)
+        setNotification(parsed.type)
+        sendGetPerson()
+      }
     }
-    eventSouceRef.current.onerror = (error) => {
-      eventSouceRef.current.close()
-      openSseConnection()
-    }
+    // eventSouceRef.current.onerror = (error) => {
+    //   eventSouceRef.current.close()
+    //   openSseConnection()
+    // }
     window.onbeforeunload = function () {
       console.log('close eventsource')
       eventSouceRef.current.close();
@@ -122,6 +126,8 @@ function App() {
     try{
       const {data} = await getPerson()
       setPerson(data)
+      setNotification(data.notificationType)
+      
     } catch (error){
       console.log('error getting person')
       setIsAuth(false)
@@ -141,7 +147,7 @@ function App() {
   <>
     <div className='home-chef-content'>
       <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart} 
-              locality={locality} setLocality={setLocality} showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} hasNotifications={hasNotification}/>
+              locality={locality} setLocality={setLocality} showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} notification={notification}/>
       
       <Routes>
         <Route path="/" element={<Homepage />}/>
@@ -166,13 +172,13 @@ function App() {
           <Route path="chef-menu" element={<CabinetChefMenu/>}/>
           <Route path="chef-story" element={<CabinetChefStory/>}/>
           <Route path="admin-data" element={<CabinetAdminAddData person={person}/>}/>
-          <Route path="chef-orders" element={<CabinetChefOrders/>}/>
+          <Route path="chef-orders" element={<CabinetChefOrders person={person} sendGetPerson={sendGetPerson}/>}/>
           <Route path="user-orders" element={<CabinetUserOrders/>}/>
           <Route path="user-profile" element={<CabinetUserProfile person={person} sendGetPerson={sendGetPerson}/>}/>
           <Route path="previous-dishes" element={<CabinetUserDishStory person={person} cart={cart} loadCart={loadCart}/>}/>
           <Route path="usefull" element={<CabinetUsefulForUser/>}/>
           <Route path="users-list" element={<CabinetAdminUsers person={person}/>}/>
-          <Route path="notifications/:params?" element={<CabinetNotifications person={person} setPerson={setPerson}/>}/>
+          <Route path="notifications/:params?" element={<CabinetNotifications person={person} sendGetPerson={sendGetPerson}/>}/>
         </Route>
         
       </Routes>

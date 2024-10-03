@@ -18,6 +18,7 @@
 .modal_active{
     opacity: 1;
     pointer-events: all;
+    overflow-y: auto;
 }
 
 .modal__content{
