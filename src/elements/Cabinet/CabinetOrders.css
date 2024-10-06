@@ -63,12 +63,12 @@
 
 
 .cabinet-order{
-    width: 720px;
-    height: 600px;
     padding: 5px 5px 10px 5px;
     font-family: Roboto;
     font-size: 16px;
-    overflow: hidden;
+    overflow: auto;
+    max-width: 90vw;
+    max-height: 90vh;
 }
 .cabinet-order h1{
     font-size: 20px;
@@ -151,6 +151,8 @@
     border: 1px solid rgb(128, 123, 123);
     border-radius: 15px;
     cursor: pointer;
+    color: black;
+    text-decoration: none;
 }
 .chef-orders__menu-element:hover{
     transition: 0.3s;
@@ -189,18 +191,57 @@
     font-size: 8px;
     width: 20px;
     height: 20px;
-    background-color: rgb(1, 107, 1);
+    
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0.85;
+}
+.chef-orders__menu-count_all{
+    background-color: #7e145e;
     color: white;
 }
+.chef-orders__menu-count_new{
+    background-color: rgb(1, 107, 1);
+    color: white;
+}
+.chef-orders__menu-count_in-progress{
+    background-color: #8b5003;
+    color: white;
+}
+.chef-orders__menu-count_finished{
+    background-color: rgb(3, 121, 139);
+    color: white;
+}
+
+@media(max-width: 600px){
+    .chef-orders{
+        margin: 10px;
+    }
+    .chef-orders__menu{
+        flex-wrap: wrap;
+    }
+    .chef-orders__menu-element{
+        font-size: 14px;
+        width: 120px;
+        height: 40px;
+        border-radius: 15px;
+    }
+}
+
+
+
 .chef-orders__orders-list{
     border-top: 1px solid gray;
     padding: 15px 5px;
 }
 
+
+
+
+.chef-orders__order_mobile{
+    background-color: white;
+}
 
 

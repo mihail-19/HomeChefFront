@@ -172,7 +172,7 @@ function App() {
           <Route path="chef-menu" element={<CabinetChefMenu/>}/>
           <Route path="chef-story" element={<CabinetChefStory/>}/>
           <Route path="admin-data" element={<CabinetAdminAddData person={person}/>}/>
-          <Route path="chef-orders" element={<CabinetChefOrders person={person} sendGetPerson={sendGetPerson}/>}/>
+          <Route path="chef-orders/:params?" element={<CabinetChefOrders person={person} sendGetPerson={sendGetPerson}/>}/>
           <Route path="user-orders" element={<CabinetUserOrders/>}/>
           <Route path="user-profile" element={<CabinetUserProfile person={person} sendGetPerson={sendGetPerson}/>}/>
           <Route path="previous-dishes" element={<CabinetUserDishStory person={person} cart={cart} loadCart={loadCart}/>}/>

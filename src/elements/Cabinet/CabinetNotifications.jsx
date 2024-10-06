@@ -90,7 +90,7 @@ const CabinetNotifications = ({person, sendGetPerson}) => {
                     <div>{n.title}</div> <div style={{fontSize:'0.7em'}}>{prettyPrintDate(n.date)}</div>
                     </div>
             })}
-            <Pages currentPage={paramsParsed && paramsParsed.page ? paramsParsed.page : 1} totalPages={totalPages} buildLinkToPage={buildLinkToPage}/>
+                <Pages currentPage={paramsParsed && paramsParsed.page ? paramsParsed.page : 1} totalPages={totalPages} buildLinkToPage={buildLinkToPage}/>
         </div>
     )
 

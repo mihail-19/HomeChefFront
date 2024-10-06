@@ -76,7 +76,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                         <div style={{position:'absolute', right:'25%', top  :'10px',width:'10px', height:'10px', borderRadius:'50%', backgroundColor:'green'}}></div>
                     }
                 </li>
-                <li style={{position:'relative'}}><Link to="chef-orders" className={showFlags[1] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(1)}>Мої замовлення</Link>
+                <li style={{position:'relative'}}><Link to="chef-orders/type=new" className={showFlags[1] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(1)}>Мої замовлення</Link>
                     {person && person.hasOrderNotification &&
                             <div style={{position:'absolute', right:'25%', top  :'10px',width:'10px', height:'10px', borderRadius:'50%', backgroundColor:'green'}}></div>
                         }

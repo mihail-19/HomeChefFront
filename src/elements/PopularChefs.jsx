@@ -10,6 +10,7 @@ import dish2 from '../assets/stabs/dish2.png'
 import dish3 from '../assets/stabs/dish3.png'
 import dish4 from '../assets/stabs/dish4.png'
 import { getPopularChefs } from "../services/ChefService"
+import defaultDishImg from '../assets/defaultDish.jpg'
 import imagesUrl from "../imagesUrl"
 const PopularChefs = () => {
 "https://data.homechefs/chefs/{id}"
@@ -264,11 +265,11 @@ const PopularChefs = () => {
                             </div>
 
                             <div className="popular-chef__dishes">
-                                {popularChef.dishes.map(dish => 
+                                {popularChef.dishes.slice(0,4).map(dish => 
                                     <div className="popular-chef__dish">
                                         <div className="popular-chef__dish-img-container">
                                             <div className="popular-chef__dish-img">
-                                                <img src={imagesUrl + dish.imageURL}></img>
+                                                <img src={dish.imageUrl ? imagesUrl + dish.imageURL : defaultDishImg}></img>
                                             </div>
                                         </div>
                                         <div className="popular-chef__dish-info">

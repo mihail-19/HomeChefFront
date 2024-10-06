@@ -269,9 +269,9 @@
     cursor: pointer;
 }
 .dishes__params-dishes-count{
-    width: 200px;
     margin-right: 20px;
-    flex-shrink: 0;
+    flex-shrink: 1;
+    word-wrap: wrap;
 }
 .dishes__params-filters{
     display: flex;
@@ -295,6 +295,11 @@
 .dishes__params-sort{
     width: 100%;
 }
+
+.dishes__params-sort select{
+    width: 150px;
+}
+
 .dishes__params-right{
     flex-shrink: 0;
     flex-basis: 120px;

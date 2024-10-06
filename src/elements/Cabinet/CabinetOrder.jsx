@@ -7,41 +7,46 @@ import OrderState from "../OrderState"
 import {promoteOrder, getChefOrders} from '../../services/OrderService'
 import prettyPrintDate from '../../elements/utility/prettyPrintDate'
 import { useEffect, useState } from "react"
-const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, setOrders, setLoading}) => {
+const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, setLoading}) => {
+    const [currentOrder, setCurrentOrder] = useState(order)
     if(!order ){
         return <></>
     }
     useEffect(() => {
+        setCurrentOrder(order)
+    }, [order])
+    useEffect(() => {
         if(!showOrder){
+            console.log('on close')
             loadOrders()
         }
     }, [showOrder])
 
-    async function loadOrders(){
-        setLoading(true)
-        const {data} = await getChefOrders()
-        setOrders(data)
-        setLoading(false)
-    }
+    // async function loadOrders(){
+    //     setLoading(true)
+    //     const {data} = await getChefOrders()
+    //     setOrders(data)
+    //     setLoading(false)
+    // }
 
     return <ModalCenter isActive={showOrder} setIsActive={setShowOrder} content={windowContent()}/>
 
     function windowContent(){
        return <div className="cabinet-order">
-                <h1>Замовлення № {order.id}</h1>
+                <h1>Замовлення № {currentOrder.id}</h1>
                 <div className="cabinet-order__state">
-                    <OrderState state={order.state}/>
+                    <OrderState state={currentOrder.state}/>
                 </div>
                 <div className="cabinet-order__controls">
                     {createButtons()}
                 </div>
-                <h3>Вартість: {calculatePrice(order.products)}₴</h3>
-                <div>Замовник: {order.name}</div>
+                <h3>Вартість: {calculatePrice(currentOrder.products)}₴</h3>
+                <div>Замовник: {currentOrder.name}</div>
                 
-                <div>Тел.: {order.phone}</div>
-                <div>Дата виконання: {prettyPrintDate(order.dateTimeToMake)}</div>
-                <div>Отримано: {prettyPrintDate(order.creationDate)}</div>
-                <OrderProducts products={order.products}/>
+                <div>Тел.: {currentOrder.phone}</div>
+                <div>Дата виконання: {prettyPrintDate(currentOrder.dateTimeToMake)}</div>
+                <div>Отримано: {prettyPrintDate(currentOrder.creationDate)}</div>
+                <OrderProducts products={currentOrder.products}/>
             </div>
     }
 
@@ -81,19 +86,15 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, setOrders, setL
 
     async function sendPromoteOrder(){
         setLoading(true)
-        const res = await promoteOrder(order)
-        const {data} = await getChefOrders()
-       // setOrders(data)
-       console.log(data)
-       console.log(order)
-       let tempOrder = data.find(o => o.id === order.id)
-       console.log(tempOrder)
-        setOrder(tempOrder)
+        const {data} = await promoteOrder(order)
+     //   loadOrders()
+        setCurrentOrder(data)
+        console.log(data)
         setLoading(false)
     }
 
     function createButtons(){
-        switch(order.state){
+        switch(currentOrder.state){
             case "NEW":
                 return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Підтвердити</button>
             case "CONFIRMED":

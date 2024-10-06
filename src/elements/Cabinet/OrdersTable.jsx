@@ -7,7 +7,7 @@ import CabinetOrder from './CabinetOrder'
 import { useEffect, useState } from 'react'
 import OrderState from '../utility/OrderState'
 import { useMediaQuery } from 'react-responsive'
-const OrdersTable = ({orders, setOrders, setLoading}) => {
+const OrdersTable = ({orders, loadOrders, setLoading}) => {
     const [showOrder, setShowOrder] = useState(false)
     const [currentOrder, setCurrentOrder] = useState({})
     const isMobile = useMediaQuery({maxWidth: 700})
@@ -24,8 +24,9 @@ const OrdersTable = ({orders, setOrders, setLoading}) => {
     if(isMobile){
         return (
         <div className='chef-orders__orders_mobile'>
+            <CabinetOrder showOrder={showOrder} setShowOrder={setShowOrder} order={currentOrder} setOrder={setCurrentOrder} loadOrders={loadOrders} setLoading={setLoading}/>
             {orders.map(order => {
-                return <div className='chef-orders__order_mobile'>
+                return <div className='chef-orders__order_mobile' onClick={() => openOrderWindow(order)}>
                     <h3>{order.id}</h3>
                     <p>Отримано: {prettyPrintDate(order.creationDate)}</p>
                     <p>Тел.: {order.phone}</p>
@@ -38,7 +39,7 @@ const OrdersTable = ({orders, setOrders, setLoading}) => {
     }
     return(
         <table className="orders">
-            <CabinetOrder showOrder={showOrder} setShowOrder={setShowOrder} order={currentOrder} setOrder={setCurrentOrder} setOrders={setOrders} setLoading={setLoading}/>
+            <CabinetOrder showOrder={showOrder} setShowOrder={setShowOrder} order={currentOrder} setOrder={setCurrentOrder} loadOrders={loadOrders} setLoading={setLoading}/>
             <tr>
                 <th>ID(№)</th>
                 <th>Дата отримання</th>

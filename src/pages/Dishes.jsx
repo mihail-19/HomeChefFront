@@ -165,7 +165,7 @@ const Dishes = ({cart, loadCart, locality}) => {
             setTotalPages(data.totalPages)
         }
         setDishes(data.content)
-        setTotalDishes(data.numberOfElements)
+        setTotalDishes(data.totalElements)
         setLoading(false)
     }
     
