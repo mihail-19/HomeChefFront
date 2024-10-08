@@ -35,4 +35,10 @@ async function getUserOrders(){
     return res
 }
 
-export {addOrder, getChefOrders, promoteOrder, getUserOrders}
+async function cancelOrder(id){
+    const url = serverUrl + '/orders/' + id + '/cancel'
+    const res = axios.put(url, {}, {withCredentials:true})
+    return res
+}
+
+export {addOrder, getChefOrders, promoteOrder, getUserOrders, cancelOrder}

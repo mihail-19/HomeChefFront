@@ -4,7 +4,7 @@ import imageUrl from '../../imagesUrl'
 import './CabinetOrders.css'
 import { Link } from "react-router-dom"
 import OrderState from "../OrderState"
-import {promoteOrder, getChefOrders} from '../../services/OrderService'
+import {promoteOrder, getChefOrders, cancelOrder} from '../../services/OrderService'
 import prettyPrintDate from '../../elements/utility/prettyPrintDate'
 import { useEffect, useState } from "react"
 const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, setLoading}) => {
@@ -29,6 +29,9 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, set
     //     setLoading(false)
     // }
 
+    function showSelfPickup(hasSelfPickup){
+        return hasSelfPickup ? 'так' : 'ні'
+    }
     return <ModalCenter isActive={showOrder} setIsActive={setShowOrder} content={windowContent()}/>
 
     function windowContent(){
@@ -39,6 +42,7 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, set
                 </div>
                 <div className="cabinet-order__controls">
                     {createButtons()}
+                    <button className="cabinet-order__cancel-button" onClick={() => sendCancelOrder(currentOrder.id)}>Відмінити</button>
                 </div>
                 <h3>Вартість: {calculatePrice(currentOrder.products)}₴</h3>
                 <div>Замовник: {currentOrder.name}</div>
@@ -46,6 +50,7 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, set
                 <div>Тел.: {currentOrder.phone}</div>
                 <div>Дата виконання: {prettyPrintDate(currentOrder.dateTimeToMake)}</div>
                 <div>Отримано: {prettyPrintDate(currentOrder.creationDate)}</div>
+                <div>Самовивіз: {showSelfPickup(order.selfPickup)} </div>
                 <OrderProducts products={currentOrder.products}/>
             </div>
     }
@@ -86,11 +91,22 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, set
 
     async function sendPromoteOrder(){
         setLoading(true)
-        const {data} = await promoteOrder(order)
+        const {data} = await promoteOrder(currentOrder)
      //   loadOrders()
         setCurrentOrder(data)
         console.log(data)
         setLoading(false)
+    }
+
+    async function sendCancelOrder(id){
+        setLoading(true)
+        try{
+            const {data} = await cancelOrder(id)
+            setCurrentOrder(data)
+        } finally{
+            setLoading(false)
+        }
+        
     }
 
     function createButtons(){

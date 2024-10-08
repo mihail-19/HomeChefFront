@@ -56,6 +56,9 @@ const CabinetMyProfile = () => {
             // }
         }
     }, [context])
+
+    
+
     let profileData = 
         {
             id: 1,
@@ -216,8 +219,9 @@ const CabinetMyProfile = () => {
                                 </select> 
                             </div>
                             <div className='profile__info-element'>
-                            <label className='profile__info-tag' style={{padding: '0', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer'}}>
-                                 <input type='checkbox' style={{width: '20px', height: '20px'}} checked={hasSelfPickup} onChange={() => setHasSelfPickup(!hasSelfPickup)}></input> Самовивіз
+                            <label className='checkbox-container'> Самовивіз
+                                 <input type='checkbox' style={{width: '20px', height: '20px'}} checked={hasSelfPickup} onChange={() => setHasSelfPickup(!hasSelfPickup)}></input> 
+                                 <span className='checkbox-checkmark'></span>
                             </label>
                             
                         </div>

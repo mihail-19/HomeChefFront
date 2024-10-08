@@ -17,7 +17,6 @@ const Cart = ({cart, loadCart}) => {
     const [isConfirmed, setIsConfirmed] = useState(false)
     const [currentProducts, setCurrentProducts] = useState([])
     const [productsDivided, setProductsDivided] = useState([])
-
     useEffect(() => {
         if(cart && cart.cartProducts){
             setProductsDivided(divideProducts(cart.cartProducts))

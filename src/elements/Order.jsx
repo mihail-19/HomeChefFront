@@ -23,8 +23,12 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
     const [isReady, setIsReady] = useState(false)
     const [selfPickup, setSelfPickup] = useState(false)
 
+
        
     const snackbarRef = useRef(null)
+
+    console.log(products)
+
 
     useEffect(() => {
         const locality = localStorage.getItem('locality')
@@ -32,6 +36,7 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
             setCityName(JSON.parse(locality).name)
             steOrderLocality(locality)
         }
+        
     }, [])
 
     useEffect(() => {
@@ -123,6 +128,7 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
             phone: phone,
             address: address,
             dateTimeToMake: date,
+            selfPickup: selfPickup,
             products: products.map(p => {
                 return {dishId: p.dish.id, dishNumber: p.dishNumber}
             })
@@ -152,6 +158,13 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
         )
     }
 
+
+    function hasSelfPickup(){
+        if(!products || products.length === 0){
+            return false
+        }
+        return products[0].dish.chef.hasSelfPickup
+    }
    
 
     function windowContent(){
@@ -183,8 +196,9 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
                     {showCityError && <div className='order__error'>Страви у Вашому замовленні готють шефи з разних міст. Будь ласка, <b>видаліть страви</b>, що готують шефи не з Вашого міста!</div>}
                 </div>
                 <div className='order__item'>
-                    <label className='profile__info-tag' style={{padding: '0', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer'}}>
-                        <input type='checkbox' style={{width: '20px', height: '20px'}} checked={selfPickup} onChange={() => setSelfPickup(!selfPickup)}></input> Самовивіз
+                    <label className='checkbox-container'>Самовивіз
+                        <input type='checkbox' disabled={hasSelfPickup() ? false : true} checked={selfPickup} onChange={() => setSelfPickup(!selfPickup)}></input> 
+                        <span className='checkbox-checkmark'></span>
                     </label>
                 </div>
                 <div className='order__item'>

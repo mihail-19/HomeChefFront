@@ -104,7 +104,7 @@ function App() {
 
   useEffect(() => {
     if(isAuth){
-      openSseConnection()
+     openSseConnection()
         return () => {
           eventSouceRef.current.close(); // Закрыть соединение при размонтировании
         }
