@@ -254,7 +254,7 @@
     right: 0;
     width: 90%;
     background-color: rgb(255, 255, 255);
-    z-index: 20;
+    z-index: 30;
     max-height: 100%;
     overflow-y: scroll;
   }
@@ -303,10 +303,16 @@
     border-bottom: 1px solid gray;
   }
   .header__burger-menu-signin{
-
+    color: black;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 15px;
   }
   .header__burger-menu-register{
-
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 15px;
   }
 
   .header__burger-menu-nav{
@@ -327,7 +333,9 @@
     gap: 10px;
   }
   .header__burger-menu-link{
-
+    color: black;
+    font-size: 20px;
+    font-weight: 300;
   }
   .header__burger-menu-city-list{
     margin-left: 10px;

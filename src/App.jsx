@@ -183,7 +183,7 @@ function App() {
         
       </Routes>
     </div>
-    <Footer/>
+    <Footer showRegisterWinow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow}/>
   </>
   )
 }

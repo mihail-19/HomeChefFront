@@ -4,7 +4,7 @@ import facebookFooterIcon from '../assets/facebookFooterIcon.png'
 import instagramFooterIcon from '../assets/instagramFooterIcon.png'
 import telegramFooterIcon from '../assets/telegramFooterIcon.png'
 import mailFooterIcon from '../assets/mailFooterIcon.png'
-const Footer = () =>{
+const Footer = ({showRegisterWinow, setShowRegisterWindow}) =>{
     return(
         <div className="footer">
             <div className="footer__top">
@@ -40,7 +40,7 @@ const Footer = () =>{
                     </div>
                     <div className="footer__nav-column">
                         <h3>Співпраця</h3>
-                        <Link to="/become-chef">Cтати шефом</Link>
+                        <button onClick={() => setShowRegisterWindow(true)}>Cтати шефом</button>
                         <Link to="/how-we-work">Як ми працюємо</Link>
                     </div>
                 </nav>

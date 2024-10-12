@@ -118,7 +118,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
 
     if(!isAuth){
         
-        navigate("/HomeChefFront")
+        navigate("/")
     }
 
     function menuStyleClass(){

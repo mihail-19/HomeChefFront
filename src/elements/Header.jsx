@@ -34,6 +34,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
     }
 
     useEffect(() => {
+        console.log(showCities)
         if(showCities){
             window.addEventListener("click", closeCityListener)
         } else {
@@ -42,12 +43,14 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
     }, [showCities])
 
     const closeCityListener = useCallback((e) => {
-         if(!document.getElementById("header-city").contains(e.target)){
+        console.log('click')
+         if(!document.getElementById("header-city")?.contains(e.target) && !document.getElementById("header-city-burger")?.contains(e.target)){
              setShowCities(false)
          }
     }, [])
 
     function switchShowCities(){
+        console.log(showCities)
         setShowCities(!showCities)
     }
     function chooseCity(locality){
@@ -80,6 +83,18 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
             setPerson(null)
         })
     }
+
+
+
+
+    function closeBurger(){
+        setTimeout(() => {
+            setShowBurger(false)
+        }, 100)
+    }
+
+
+
     return (
         <div className='header'>
                 <Link to="/" className='header__logo'>
@@ -99,14 +114,16 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                         </li>
                         
                         <li className='header__menu-item'>
-                            <div id="header-city" className='header__menu-link header__city-button' onClick={switchShowCities}>
-                                <div className='header__city'>{city}</div>
-                                    <ActiveLocalityList isActive={showCities} setIsActive={setShowCities} locality={locality} setLocality={chooseCity}/>   
-                                <div className='header__city-arrow'>
-                                    <img className={ showCities && 'header__rotated'} src={cityArrow}></img>
+                           {!showBurger && 
+                                <div id="header-city" className='header__menu-link header__city-button' onClick={switchShowCities}>
+                                    <div className='header__city'>{city}</div>
+                                        <ActiveLocalityList isActive={showCities} setIsActive={setShowCities} locality={locality} setLocality={chooseCity}/>   
+                                    <div className='header__city-arrow'>
+                                        <img className={ showCities && 'header__rotated'} src={cityArrow}></img>
+                                    </div>
+                                    
                                 </div>
-                               
-                            </div>
+                            }
                         </li>
                         <li className='header__cart-container'>
                             {cart && cart.cartProducts && cart.cartProducts.length > 0 &&
@@ -163,7 +180,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                         <nav className='header__burger-menu-nav'>
                             <ul>
                                 <li>
-                                    <Link to="/cart" className='header__cart'>
+                                    <Link onClick={closeBurger} to="/cart" className='header__cart'>
                                         <img src={cartImg}></img>
                                     </Link>
                                 </li>
@@ -173,36 +190,39 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                                 </li>
                                 {isAuth &&
                                     <li className='header__burger-menu-nav-item'>
-                                        <Link to='/cabinet' className='header__burger-menu-link'>Кабінет</Link>
+                                        <Link onClick={closeBurger} to='/cabinet' className='header__burger-menu-link'>Кабінет</Link>
                                     </li>
                                 }
                                 <li className='header__burger-menu-nav-item header__burger-menu-cities' onClick={switchShowCities}>
-                                    <div >{city}</div>
-                                    <div >
-                                        <img className={ showCities && 'header__rotated'} src={cityArrow}></img>
-                                    </div>
-                                    {showCities && showBurger &&
-                                        <div className='header__burger-menu-city-list'>
-                                        {citiesOfBuisiness().map(c => 
-                                            <div className='header__burger-menu-city-list-item' onClick={() => chooseCity(c)}>{c}</div>                                        
-                                        )}
-                                        </div>    
+                                   
+                                    {showBurger &&
+                                       <div id="header-city-burger" className='header__menu-link header__city-button' onClick={switchShowCities}>
+                                        <div className='header__burger-menu-link'>{city}</div>
+                                            <ActiveLocalityList isActive={showCities} setIsActive={setShowCities} locality={locality} setLocality={chooseCity}/>   
+                                        <div className='header__city-arrow'>
+                                            <img className={ showCities && 'header__rotated'} src={cityArrow}></img>
+                                        </div>
+                                       
+                                        </div>
                                     }
                                     
                                 </li>
                                 
                                 <li className='header__burger-menu-nav-item'>
-                                    <Link to='/about-us' className='header__burger-menu-link'>Про нас</Link>
+                                    <Link onClick={closeBurger} to='/about-us' className='header__burger-menu-link'>Про нас</Link>
                                 </li>
                                 <li className='header__burger-menu-nav-item'>
-                                    <Link to='/chefs' className='header__burger-menu-link'>Наші шефи</Link>
+                                    <Link onClick={closeBurger} to='/chefs-map' className='header__burger-menu-link'>Наші шефи</Link>
                                 </li>
                                 <li className='header__burger-menu-nav-item'>
-                                    <Link to='/become-chef' className='header__burger-menu-link'>Cтати шефом</Link>
+                                    {!isAuth &&
+                                        <button onClick={() => {closeBurger(); setShowRegisterWindow(true)}} className='header__burger-menu-link'>Cтати шефом</button>
+                                    }
+                                    {isAuth && 
+                                        <Link onClick={closeBurger} to='/cabinet/become-chef' className='header__burger-menu-link'>Стати шефом</Link>
+                                    }
                                 </li>
-                                <li className='header__burger-menu-nav-item'>
-                                    <Link to='/food-delivery' className='header__burger-menu-link'>Доставка їжі</Link>
-                                </li>
+                                
                                 <div className='header__burger-menu-socila-media-links'>
                                     <a href="https://facebook.com">
                                         <img src={facebookIcon}></img>
@@ -228,6 +248,8 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
         </div>
         
     )
+
+
 
     function UserMenu(){
         const [showUserMenu, setShowUserMenu] = useState(false)
