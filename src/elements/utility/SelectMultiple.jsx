@@ -74,7 +74,7 @@ const SelectMultiple = ({name, variants, setSelectedVariants}) => {
                     <img src={arrow} style={show ? arrowStyleActive : arrowStyle}></img>
                 </div>
             </div>
-            {show && <div style={{position:'absolute', left: '0', right: '0', backgroundColor: 'white', padding: '5px', border: '1px solid gray'}}>
+            {show && <div style={{position:'absolute', left: '0', right: '0', backgroundColor: 'white', padding: '5px', border: '1px solid gray', zIndex:'30'}}>
                 {elements.map(v => {
                     return <div onClick={() => changeVariant(v)} style={{display: 'flex', alignItems:'center', cursor: 'pointer', marginBottom: '5px'}}>
                         {getImgForChosenVariant(v)}

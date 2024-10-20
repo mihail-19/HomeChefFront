@@ -141,6 +141,7 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
             //const res = await removeAllFromCart()
             snackbarRef.current.show('Замовлення додано', false)
         } catch (error){
+            console.log(error)
             snackbarRef.current.show('Помилка: ' + error.response.data, true, 5000)
         }
     }

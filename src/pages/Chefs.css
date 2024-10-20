@@ -165,7 +165,12 @@
     text-decoration: none;
     color: black;
     display: block;
-    text-decoration: underline;
+    text-decoration: none;
+    word-break: break-all;
+    
+}
+.chef__info-link:hover{
+    color: blue;
 }
 
 .chef__description{

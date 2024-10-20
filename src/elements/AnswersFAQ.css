@@ -1,5 +1,7 @@
 .answers-faq{
     margin-top: 7.2vw;
+    padding-top: 50px;
+    border-top: 1px solid gray;
   }
   .answers-faq h2{
     font-family: Montserrat;

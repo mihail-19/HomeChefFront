@@ -186,7 +186,7 @@
     font-family: Poppins;
     padding-left: 6px;
 }
-.profile__info-element input[type="text"], select{
+.profile__info-element input[type="text"], .profile__info-element input[type="password"], select{
     display: block;
     font-family: Poppins;
     border: 1px solid rgb(175, 167, 167);
@@ -247,6 +247,25 @@
 }
 
 
+
+.profile__change-credentials{
+    border: 1px solid gray;
+    width: 250px;
+    margin: 40px 0 40px 0;
+    padding: 30px 10px 30px 5px;
+}
+.profile__change-credentials h3{
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+.profile__change-pwd-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: underline;
+    width: 150px;
+    color: rgb(143, 22, 22);
+}
 
 
 

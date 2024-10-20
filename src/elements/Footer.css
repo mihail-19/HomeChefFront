@@ -4,11 +4,12 @@
     color: #FFFFFF;
   }
   
-  .footer a, button{
+  .footer a, .footer button{
     color: #FFFFFF;
     font-family: Montserrat;
     text-decoration: none;
     background-color: inherit;
+    justify-content: left;
     text-align: left;
     padding: 0;
   }

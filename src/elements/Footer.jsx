@@ -4,7 +4,17 @@ import facebookFooterIcon from '../assets/facebookFooterIcon.png'
 import instagramFooterIcon from '../assets/instagramFooterIcon.png'
 import telegramFooterIcon from '../assets/telegramFooterIcon.png'
 import mailFooterIcon from '../assets/mailFooterIcon.png'
-const Footer = ({showRegisterWinow, setShowRegisterWindow}) =>{
+import { EMAIL, TELEGRAM } from "../constants"
+const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
+
+    function becomeChefButton(){
+        if(!isAuth){
+            return <button onClick={() => setShowRegisterWindow(true)}>Cтати шефом</button>
+        } else {
+            return <Link to='/cabinet/become-chef'>Стати шефом</Link>
+        }
+    }
+
     return(
         <div className="footer">
             <div className="footer__top">
@@ -19,10 +29,10 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow}) =>{
                         <a href="https://instagram.com">
                             <img src={instagramFooterIcon}></img>
                         </a>
-                        <a href="https://telegram.org">
+                        <a href={TELEGRAM}>
                             <img src={telegramFooterIcon}></img>
                         </a>
-                        <a href="mailto:homechef@gmail.com">
+                        <a href={'mailto:' + EMAIL}>
                             <img src={mailFooterIcon}></img>
                         </a>
                     </div>
@@ -40,7 +50,7 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow}) =>{
                     </div>
                     <div className="footer__nav-column">
                         <h3>Співпраця</h3>
-                        <button onClick={() => setShowRegisterWindow(true)}>Cтати шефом</button>
+                        {becomeChefButton()}
                         <Link to="/how-we-work">Як ми працюємо</Link>
                     </div>
                 </nav>

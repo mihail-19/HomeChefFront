@@ -5,6 +5,7 @@ import Loading from '../utility/Loading'
 import Snackbar from '../utility/Snackbar'
 import imagesUrl from '../../imagesUrl'
 import LocalityList from '../LocalityList'
+import { Link } from 'react-router-dom'
 const CabinetMyProfile = ({person, sendGetPerson}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [image, setImage] = useState(undefined)
@@ -119,7 +120,13 @@ const CabinetMyProfile = ({person, sendGetPerson}) => {
                         </div> 
                     </div>
                     <button className='profile__submit-button' onClick={sendUpdateUser}>Зберегти зміни</button>
+                    
                 </div>
+                
+            </div>
+            <div className='profile__change-credentials'>
+                <h3>Зміна даних для авторизації</h3>
+                <Link to="/cabinet/change-password" className='profile__change-pwd-button'>Змінити пароль</Link>
             </div>
         </div>
     )

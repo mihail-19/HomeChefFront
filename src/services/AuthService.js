@@ -27,4 +27,9 @@ function logout(){
     })
 }
 
-export {register, login, logout}
+async function confirmRegistration(uuid){
+    const url = serverUrl + '/register/confirm/' + uuid
+    return axios.get(url) 
+}
+
+export {register, login, logout, confirmRegistration}

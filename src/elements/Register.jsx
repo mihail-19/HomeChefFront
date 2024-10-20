@@ -9,6 +9,7 @@ import ModalCenter from './utility/ModalCenter.jsx'
 import Loading from './utility/Loading.jsx'
 import serverUrl from '../serverUrl.js'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
     const [isLoading, setIsLoading] = useState(false)
     const [username, setUsername] = useState('')
@@ -20,12 +21,14 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
     const [confirmPwdErrMsg, setConfirmPwdErrMsg] = useState(null)
     const [emailErrMsg, setEmailErrMsg] = useState(null)
     const [isReady, setIsReady] = useState(false)
+    const [registerFinished, setRegisterFinished] = useState(false)
+    const [confirmedTerms, setConfirmedTerms] = useState(false)
     const snackbarRef = useRef(null)
 
 
     useEffect(() => {
         checkIsReady()
-    },[username, email, password, confirmPassword])
+    },[username, email, password, confirmPassword, confirmedTerms])
 
     async function sendRegister(event){
         event.preventDefault()
@@ -35,7 +38,8 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                 .then(res => {
                     console.log(res)
                     snackbarRef.current.show('Додано користувача', false)
-                    setShowRegisterWindow(false)
+                   // setShowRegisterWindow(false)
+                   setRegisterFinished(true)
                 }).catch(err => {
                     snackbarRef.current.show('Помилка: ' + err.response.data, true, 5000)
                 }).finally(() => {
@@ -70,10 +74,15 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
         if(value.length < 3){
             setLoginErrMsg('Логін має бути більше 2-х символів')
             return false
-        } else {
+        } else if(!/^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{0,19}$/.test(value)){
+            setLoginErrMsg('Недопустимий логін')
+            return false
+        }
+         else {
             setLoginErrMsg(null)
             return true
         }
+        
     }
 
     function onBlurLogin(value){
@@ -109,7 +118,8 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
     }
 
     function checkIsReady(){
-        if(checkLogin(username) && checkPassword(password) && checkPasswordConfirm(confirmPassword) && checkEmail(email) ){
+        
+        if(checkLogin(username) && checkPassword(password) && checkPasswordConfirm(confirmPassword) && checkEmail(email) && confirmedTerms){
             checkIsFreeUsername().then(r => setIsReady(r))
         } else {
             setIsReady(false)
@@ -157,8 +167,20 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                 <div className='register__logo'>
                     <img src={registerLogo}></img>
                 </div>
-                    <div className='register__form'>
-                        <form onSubmit={event => sendRegister(event)} autocomplete="off">
+                {!registerFinished &&
+                    registerForm() 
+                }
+                {registerFinished && 
+                    <AfterRegisterInfo/>
+                }
+            </div>
+        )
+    }
+
+    function registerForm(){
+        return (
+            <div className='register__form'>
+                        <form onSubmit={event => sendRegister(event)} autoComplete="off">
                             <div className='register__form-element'>
                                 <label>Логін</label>
                                 <div className='register__form-input'>
@@ -171,7 +193,7 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                             <div className='register__form-element'>
                                 <label>Створити пароль*</label>
                                 <div className='register__form-input'>
-                                    <input name='passwordFeild' type='password' placeholder='**********' onChange={e => onChangePwd(e.target.value)} autocomplete="off"></input>
+                                    <input name='passwordFeild' type='password' placeholder='**********' onChange={e => onChangePwd(e.target.value)} autoComplete="off"></input>
                                     <div className='register__form-prompt'>Пароль повинен бути надійним</div>
                                 </div>
                                 <div style={errMsgStyle}>{pwdErrMsg}</div>
@@ -179,22 +201,35 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                             <div className='register__form-element'>
                                 <label>Підтвердити пароль</label>
                                 <div className='register__form-input'>
-                                    <input type='password' placeholder='**********' onChange={e => onChangeConfirmPwd(e.target.value)} autocomplete="off"></input>
+                                    <input type='password' placeholder='**********' onChange={e => onChangeConfirmPwd(e.target.value)} autoComplete="off"></input>
                                 </div>
                                 <div style={errMsgStyle}>{confirmPwdErrMsg}</div>
                             </div>
                             <div className='register__form-element'>
                                 <label>Email*</label>
                                 <div className='register__form-input'>
-                                    <input name='email' type='text' placeholder='voloshyna@gmail.com' onChange={e => onChangeEmail(e.target.value)}></input>
+                                    <input name='email' type='text' onChange={e => onChangeEmail(e.target.value)}></input>
                                     <div className='register__form-prompt'>Email повинен бути справжнім</div>
                                 </div>
                                 <div style={errMsgStyle}>{emailErrMsg}</div>
                             </div>
-                            <button className='register__submit-button' style={ !isReady ? passiveBtnSyle : {}} type="submit">Стати HomeChef</button>
+                            <div className='register__form-element' style={{display:'flex', alignItems:'center', gap:'10px'}}>
+                                <label style={{margin:'0', fontFamily:'Montserrat'}} className='checkbox-container'> Погоджуюсь з 
+                                    <input type='checkbox' style={{width: '20px', height: '20px'}} checked={confirmedTerms} onChange={() => setConfirmedTerms(!confirmedTerms)}></input> 
+                                    <span className='checkbox-checkmark'></span>
+                                </label> <Link style={{fontSize:'18px', textDecoration:'none', color:'purple'}} to={'/terms-of-use'}>умовами користування</Link>
+                            </div>
+                            <button className='register__submit-button' style={ !isReady ? passiveBtnSyle : {}} type="submit">Приєднатися</button>
                         </form>
                     </div>
-            </div>
+        )
+    }
+    function AfterRegisterInfo(){
+        return (
+        <div >
+            Ви успішно зареєструвалися на homechef.com.ua. Для активації облікового запису, пройдіть за посиланням, 
+            що буде надіслано на Вашу електронну пошту {'(будьте уважні - посилання може потрапити в спам)'}.
+        </div>
         )
     }
 }

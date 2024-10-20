@@ -37,7 +37,7 @@ const DishCard = ({dish, sendAddToCart}) => {
                 </div>
                 <div className="dish-card__dish-buttons">
                     <button onClick={() => sendAddToCart(dish)}>Додати у кошик</button>
-                    <Link to={"/chefs/" + dish.chef.id + "/dishes"}>Інші страви шефа</Link>
+                    <Link to={"/chef/" + dish.chef.id}>Інші страви шефа</Link>
                 </div>
             </div>
         </div>

@@ -46,35 +46,39 @@ const CabinetUsefulForUser = () => {
                 <div className="cabinet-useful__item">
                     <div className="cabinet-useful__itme-top" onClick={() => showOrHide(0)}>
                         <div className="cabinet-useful__question-text">
-                            Що відображається у користувачів при пошуку страви?
+                            Як відстежувати замовлення?
                         </div>
                         <div className="cabinet-useful__arrow">
                             <img src={faqArrow} className={showFlags[0] && "cabinet-useful__rotated"}></img>
                         </div>
                     </div>
-                    {showFlags[0] && <div className="cabinet-useful__answer">Поки не скисне</div>}
+                    {showFlags[0] && <div className="cabinet-useful__answer">Ви можете відстежувати статус свого замовлення в особистому кабінеті в розділі "Статус замовлень".</div>}
                 </div>
                 <div className="cabinet-useful__item">
                     <div className="cabinet-useful__itme-top" onClick={() => showOrHide(1)}>
                         <div className="cabinet-useful__question-text">
-                            Коли зʼявляється можливість додавати рецепти?
+                            Що гарантує якість мого замовлення?
                         </div>
                         <div className="cabinet-useful__arrow">
                             <img src={faqArrow} className={showFlags[1] && "cabinet-useful__rotated"}></img>
                         </div>
                     </div>
-                    {showFlags[1] && <div className="cabinet-useful__answer">Поки не скисне</div>}
+                    {showFlags[1] && <div className="cabinet-useful__answer">Кожен шеф ознайомлений із правилами взаємодії із платформою та наслідками неякісного або неналежного 
+                        виконання покладених на нього обовʼязків. Команда проєкту постійно відслідковує підозрілі сторінки та видаляє їх. Кожен шеф в особистому кабінеті 
+                        має додаткову інформацію щодо поводження із харчовими продуктами. Один із головних чинників - це репутація Шефа, яка може постраждати від неякісно 
+                        виконаного замовлення.</div>}
                 </div>
                 <div className="cabinet-useful__item">
                     <div className="cabinet-useful__itme-top" onClick={() => showOrHide(2)}>
                         <div className="cabinet-useful__question-text">
-                            Як формувати вартість страви?
+                            Чи можу я робити замовлення, якщо знаходжусь в іншому місті?
                         </div>
                         <div className="cabinet-useful__arrow">
                             <img src={faqArrow} className={showFlags[2] && "cabinet-useful__rotated"}></img>
                         </div>
                     </div>
-                    {showFlags[2] && <div className="cabinet-useful__answer">Поки не скисне</div>}
+                    {showFlags[2] && <div className="cabinet-useful__answer">Замовлення необхідно робити за місцем знаходження, адже 
+                        система попередить про невідповідність місцязнаходження Шефа та користувача.</div>}
                 </div>
             </div>
         )

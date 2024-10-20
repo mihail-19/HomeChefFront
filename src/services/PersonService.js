@@ -59,5 +59,17 @@ const deleteUser = async (userId) => {
     return res
 }
 
+const changePassword = async (pwd) => {
+    const url = serverUrl + '/person/change-password'
+    const data = {password:pwd}
+    const res = axios.post(url, data, {withCredentials:true})
+    return res
+}
+const changeEmail = async (email) => {
+    const url = serverUrl + '/person/change-email'
+    const data = {email:email}
+    const res = axios.post(url, data, {withCredentials:true})
+    return res
+}
 
-export {getPerson, updateImage, updatePersonByUser, previousDishes, getAllUsers, banUser, unbanUser, deleteUser}
+export {getPerson, updateImage, updatePersonByUser, previousDishes, getAllUsers, banUser, unbanUser, deleteUser, changePassword, changeEmail}

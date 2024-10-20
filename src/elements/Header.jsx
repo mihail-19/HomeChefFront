@@ -243,7 +243,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                         </nav>
                     </div>
                 }
-                {showRegisterWindow && <Register showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} />}
+                
                 {showAuthWindow && <Auth showAuthWindow={showAuthWindow} setShowAuthWindow={setShowAuthWindow} setIsAuth={setIsAuth} setPerson={setPerson}/>}
         </div>
         

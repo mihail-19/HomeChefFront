@@ -36,6 +36,10 @@ import Certification from './pages/Certification.jsx'
 import HelpingCenter from './pages/HelpingCenter.jsx'
 import HowWeWork from './pages/HowWeWork.jsx'
 import CabinetUsefulForUser from './elements/Cabinet/CabinetUsefulForUser.jsx'
+import RegistrationConfirm from './pages/RegistrationConfirm.jsx'
+import CabinetChangePassword from './elements/Cabinet/CabinetChangePassword.jsx'
+import Register from './elements/Register.jsx'
+import TermOfUse from './pages/TermOfUser.jsx'
 
 const POLLING_TIME = 10000
 
@@ -49,6 +53,11 @@ function App() {
   const timerIdRef = useRef(null)
   const eventSouceRef = useRef(null)
   const intervalRef = useRef(null)
+
+
+  useEffect(() => {
+    console.log(showRegisterWindow)
+  }, [showRegisterWindow])
 
   useEffect(() => {
     const fromStorage = JSON.parse(localStorage.getItem('locality'))
@@ -146,11 +155,13 @@ function App() {
   return(
   <>
     <div className='home-chef-content'>
+     <Register showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} />
       <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart} 
               locality={locality} setLocality={setLocality} showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} notification={notification}/>
       
       <Routes>
         <Route path="/" element={<Homepage />}/>
+        <Route path="/registration-confirm/:uuid" element={<RegistrationConfirm/>}/>
         <Route path="/about-us" element={<AboutUs setShowRegisterWindow={setShowRegisterWindow}/>}/>
         <Route path="/chefs/:params?" element={<Chefs />}/>
         <Route path="/chefs-map" element={<ChefsMap/>}/>
@@ -163,6 +174,7 @@ function App() {
         <Route path="/certification" element={<Certification/>}/>
         <Route path="/helping-center" element={<HelpingCenter/>}/>
         <Route path="/how-we-work" element={<HowWeWork/>}/>
+        <Route path="/terms-of-use" element={<TermOfUse/>}/>
         <Route path="/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
           <Route path="chef-profile" element={<CabinetChefProfile/>}/>
           <Route path="reviews" element={<CabinetReviews/>}/>
@@ -179,11 +191,12 @@ function App() {
           <Route path="usefull" element={<CabinetUsefulForUser/>}/>
           <Route path="users-list" element={<CabinetAdminUsers person={person}/>}/>
           <Route path="notifications/:params?" element={<CabinetNotifications person={person} sendGetPerson={sendGetPerson}/>}/>
+          <Route path="change-password" element={<CabinetChangePassword/>}/>
         </Route>
         
       </Routes>
     </div>
-    <Footer showRegisterWinow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow}/>
+    <Footer showRegisterWinow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} isAuth={isAuth}/>
   </>
   )
 }

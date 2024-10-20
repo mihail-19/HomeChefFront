@@ -1,6 +1,6 @@
 
 import {Link, useNavigate} from 'react-router-dom'
-
+import { TELEGRAM, EMAIL } from '../constants'
 import '../App.css'
 
 import sloganMenuImg from '../assets/sloganMenuImg.png'
@@ -197,7 +197,7 @@ function Homepage() {
       </div>
       
       
-      <PopularChefs/>
+      
       
       
       <div className='home__content-screen'>
@@ -248,10 +248,10 @@ function Homepage() {
                 <a href="https://instagram.com">
                   <img src={instagramIcon}></img>
                 </a>
-                <a href="https://telegram.org">
+                <a href={TELEGRAM}>
                   <img src={telegramIcon}></img>
                 </a>
-                <a href="mailto:homechef@gmail.com">
+                <a href={"mailto:" + EMAIL}>
                   <img src={mailIcon}></img>
                 </a>
             </div>
