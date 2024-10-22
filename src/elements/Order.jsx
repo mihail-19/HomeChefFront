@@ -197,14 +197,16 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
                     {showCityError && <div className='order__error'>Страви у Вашому замовленні готють шефи з разних міст. Будь ласка, <b>видаліть страви</b>, що готують шефи не з Вашого міста!</div>}
                 </div>
                 <div className='order__item'>
-                    <label className='checkbox-container'>Самовивіз
-                        <input type='checkbox' disabled={hasSelfPickup() ? false : true} checked={selfPickup} onChange={() => setSelfPickup(!selfPickup)}></input> 
+                    <label className='checkbox-container'> Самовивіз
+                        <input type='checkbox' style={{width: '20px', height: '20px'}} checked={selfPickup} onChange={() => setSelfPickup(!selfPickup)}></input> 
                         <span className='checkbox-checkmark'></span>
                     </label>
+                    
                 </div>
                 <div className='order__item'>
                     <label>Адреса доставки</label>
                     <input type="text" className='order__input' value={address} onChange={e => setAddress(e.target.value)}></input>
+                    <div style={errMsgStyle}></div>
                 </div>
                 <div className='order__item'>
                     <label>Контактний телефон</label>

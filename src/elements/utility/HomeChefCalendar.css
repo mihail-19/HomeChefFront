@@ -41,7 +41,7 @@
 .hc-calendar__calendar-button img{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 .hc-calendar__calendar-conteiner{
     width: 250px;
@@ -99,5 +99,5 @@
 .hc-timepicker__picker-button img{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }

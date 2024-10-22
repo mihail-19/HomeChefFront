@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './HomeChefCalendar.css'
-import calendarIcon from '../../assets/calendarIcon.png'
+import calendarIcon from '../../assets/calendarIcon.svg'
 const HomeChefCalendar = ({date, setDate}) => {
     const [day, setDay] = useState(date.getDate() > 9 ? date.getDate() : '0' + date.getDate())
     const [month, setMonth] = useState(date.getMonth()+1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth()+1))

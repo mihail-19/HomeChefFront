@@ -1,7 +1,7 @@
 import { useState } from "react"
 import 'react-calendar/dist/Calendar.css';
 import './HomeChefCalendar.css'
-import calendarIcon from '../../assets/timePicker.png'
+import calendarIcon from '../../assets/timePicker.svg'
 
 const HomeChefTimePicker = ({date, setDate}) => {
     const [isActive, setIsActive] = useState(false)

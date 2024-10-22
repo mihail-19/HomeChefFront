@@ -186,7 +186,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                                 </li>
                                 
                                 <li className='header__burger-menu-nav-item'>
-                                    <Link to='/dishes' className='header__burger-menu-link header__burger-menu-link_catalog'>Страви</Link>
+                                    <Link to='/dishes' className='header__burger-menu-link'>Страви</Link>
                                 </li>
                                 {isAuth &&
                                     <li className='header__burger-menu-nav-item'>

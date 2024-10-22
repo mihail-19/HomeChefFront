@@ -12,6 +12,7 @@
   .header__logo{
     width: 100px;
     height: 100px;
+    flex-grow: 0;
     cursor: pointer;
   }
   .header__logo a{
@@ -279,6 +280,7 @@
     font-weight: 400;
     font-size: 26px;
     line-height: 28px;
+    color: white;
   }
   .header__burger-menu-close-button{
     display: flex;
@@ -320,6 +322,7 @@
   }
   .header__burger-menu-nav ul{
     flex-direction: column;
+    align-items: center;
     flex-wrap: nowrap;
     margin-top: 20px;
     padding: 0px;
@@ -393,11 +396,7 @@
     .header__cart{
       display: block;
     }
-    .header__logo{
-      font-size: 24px;
-      line-height: 32px;
-      width: auto;
-    }
+    
     .header__search{
       width: 45%;
       border-radius: 20px;

@@ -22,24 +22,33 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
                     <div className="footer__logo">
                         Home Chef
                     </div>
-                    <div className="footer__social-links">
-                        <a href="https://facebook.com">
-                            <img src={facebookFooterIcon}></img>
-                        </a>
-                        <a href="https://instagram.com">
-                            <img src={instagramFooterIcon}></img>
-                        </a>
-                        <a href={TELEGRAM}>
-                            <img src={telegramFooterIcon}></img>
-                        </a>
-                        <a href={'mailto:' + EMAIL}>
-                            <img src={mailFooterIcon}></img>
-                        </a>
+                    <div className="footer__left-bottom">
+
+                        <div className="footer__bottom">
+                            <div className="footer__bottom-links">
+                                <Link to="/privat-policy">Політика Конфіденційності</Link>
+                                <Link to="/terms-of-use">Умови користування</Link>
+                            </div>
+                            
+                        </div>
+                        <div className="footer__social-links">
+                            <a href="https://facebook.com">
+                                <img src={facebookFooterIcon}></img>
+                            </a>
+                            <a href="https://instagram.com">
+                                <img src={instagramFooterIcon}></img>
+                            </a>
+                            <a href={TELEGRAM}>
+                                <img src={telegramFooterIcon}></img>
+                            </a>
+                            <a href={'mailto:' + EMAIL}>
+                                <img src={mailFooterIcon}></img>
+                            </a>
+                        </div>
                     </div>
-                    
                 </div>
 
-
+                <div className="footer__right">
                 <nav className="footer__nav">
                     <div className="footer__nav-column">
                         <h3>Основне</h3>
@@ -54,17 +63,13 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
                         <Link to="/how-we-work">Як ми працюємо</Link>
                     </div>
                 </nav>
+                <div className="footer__bottom-copyright">
+                    © Home Chef, 2024 | All rights raserved
+                </div>
+                </div>
             </div>
 
-            <div className="footer__bottom">
-                <div className="footer__bottom-links">
-                    <Link to="/privat-policy">Політика Конфіденційності</Link>
-                    <Link to="/terms-of-use">Умови користування</Link>
-                </div>
-                <div className="footer__bottom-copyright">
-                    © Korobky, Inc. 2024 | All rights raserved
-                </div>
-            </div>
+            
         </div>
     )
 }
