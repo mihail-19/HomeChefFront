@@ -17,6 +17,7 @@ import userMenuIcon from '../assets/user.png'
 import homeChefLogo from '../assets/HomeChefLogo.png'
 import imageUrl from '../imagesUrl.js'
 import {logout} from '../services/AuthService.js'
+import { hasAuthority, isUser } from '../services/Authorities.js'
 const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocality, showRegisterWindow, setShowRegisterWindow, notification})=>{
     const [city, setCity] = useState(localStorage.getItem('locality') ? JSON.parse(localStorage.getItem('locality')).name : "Місто")
     const [showCities, setShowCities] = useState(false)
@@ -89,7 +90,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
 
     function closeBurger(){
         setTimeout(() => {
-            setShowBurger(false)
+            switchShowBurger()
         }, 100)
     }
 
@@ -157,26 +158,34 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                     <div className='header__burger-menu'>
                         
                         <div className='header__burger-menu-top'>
-                            <div className='header__burger-menu-logo'>
-                                Home<br/>Chef
+                            <div className='header__burger-menu-top-buttons'>
+                                <div className='header__burger-menu-logo header__burger-menu-top-element'>
+                                    Home<br/>Chef
+                                </div>
+
+                                {isAuth &&
+                                    <div className='header__burger-menu-auth header__burger-menu-top-element'>
+                                        
+                                        <div className='header__burger-menu-photo'>
+                                            <img src={person.imageUrl ? imageUrl + person.imageUrl : userMenuIcon}></img>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                }
+
+                                <div className='header__burger-menu-top-element header__burger-menu-close-container'>
+                                    <div className='header__burger-menu-close-button' onClick={switchShowBurger}>
+                                        <img src={burgerCloseButton}></img>
+                                    </div>
+                                </div>
                             </div>
-                            <div className='header__burger-menu-close-button' onClick={switchShowBurger}>
-                                <img src={burgerCloseButton}></img>
-                            </div>
+                            <div className='header__burger-menu-username'>{isAuth && person.username}</div>
                         </div>
-                        {!isAuth &&
-                            <div className='header__burger-menu-auth'>
-                                <button className='header__burger-menu-signin' onClick={switchShowAuthWindow}>Вхід</button>
-                                <button className='header__burger-menu-register' onClick={switchShowRegisterWindow}>Реєстрація</button>
-                            </div>
-                        }
-                        {isAuth &&
-                            <div className='header__burger-menu-auth'>
-                                {person.username}
-                                <button to='/register' className='header__logout-button' onClick={sendLogout}>Вийти</button>
-                            </div>
-                            
-                        }
+
+                        <div className='header__burger-menu-content'>
+                       
+                       
                         <nav className='header__burger-menu-nav'>
                             <ul>
                                 <li>
@@ -186,7 +195,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                                 </li>
                                 
                                 <li className='header__burger-menu-nav-item'>
-                                    <Link to='/dishes' className='header__burger-menu-link'>Страви</Link>
+                                    <Link onClick={closeBurger} to='/dishes' className='header__burger-menu-link'>Страви</Link>
                                 </li>
                                 {isAuth &&
                                     <li className='header__burger-menu-nav-item'>
@@ -215,18 +224,31 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                                     <Link onClick={closeBurger} to='/chefs-map' className='header__burger-menu-link'>Наші шефи</Link>
                                 </li>
                                 <li className='header__burger-menu-nav-item'>
-                                    {!isAuth &&
-                                        <button onClick={() => {closeBurger(); setShowRegisterWindow(true)}} className='header__burger-menu-link'>Cтати шефом</button>
-                                    }
-                                    {isAuth && 
+                                    
+                                    {isAuth && isUser(person) && 
                                         <Link onClick={closeBurger} to='/cabinet/become-chef' className='header__burger-menu-link'>Стати шефом</Link>
                                     }
                                 </li>
-                                
-                                <div className='header__burger-menu-socila-media-links'>
-                                    <a href="https://facebook.com">
-                                        <img src={facebookIcon}></img>
-                                    </a>
+                               
+                                    {isAuth && 
+                                        <div className='header__bureger-auth-buttons'>
+                                            <button to='/register' style={{marginTop:'20px'}} className='header__logout-button' onClick={sendLogout}>Вийти</button>
+                                        </div>
+                                    }
+                                    {!isAuth && 
+                                        <div className='header__bureger-auth-buttons'>
+                                            <button className='header__burger-menu-register' onClick={switchShowRegisterWindow}>Реєстрація</button>
+                                            <button className='header__burger-menu-signin' onClick={switchShowAuthWindow}>Вхід</button>
+                                            
+                                        </div>
+                                    }
+                               
+                               
+                             
+
+                            </ul>
+                        </nav>
+                        <div className='header__burger-menu-socila-media-links'>
                                     <a href="https://instagram.com">
                                         <img src={instagramIcon}></img>
                                     </a>
@@ -236,11 +258,8 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                                     <a href="mailto:homechef@gmail.com">
                                         <img src={mailIcon}></img>
                                     </a>
-                                </div>
-                             
-
-                            </ul>
-                        </nav>
+                        </div>
+                    </div>
                     </div>
                 }
                 

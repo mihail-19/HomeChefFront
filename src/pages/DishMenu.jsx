@@ -3,7 +3,7 @@ import RangeSlider from "../elements/utility/RangeSlider"
 import arrow from '../assets/headerCityArrow.png'
 import searchIcon from '../assets/searchIcon.png'
 import {parse, stringify} from '../services/DishParamService'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import selectedIcon from '../assets/checkboxSelectedBlack.png'
 function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLocality, activeLocalities, categories, tags, navigate}){
     const [showCategory, setShowCategory] = useState(params && params.categories ? true : false)
@@ -97,10 +97,15 @@ function DishMenu({params, maxPriceRange, priceValues, setPriceValues, dishesLoc
         return url
     }
 
+    function searchKeyPress(e){
+        if(e.key === 'Enter'){
+            navigate(linkToSearch())
+        }
+    }
     return (
         <div className="dishes__menu">
             <div className="dishes__search">
-                <input type="text" className="dishes__search-input" value={searchValue} onChange={e => setSearchValue(e.target.value)}></input>
+                <input type="text" className="dishes__search-input" onKeyUp={searchKeyPress} value={searchValue} onChange={e => setSearchValue(e.target.value)}></input>
                 <Link to={linkToSearch()} className="dishes__search-button">
                     <img src={searchIcon}></img>
                 </Link>

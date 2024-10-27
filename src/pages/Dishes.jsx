@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import imagesUrl from "../imagesUrl"
 import emptyDishIconImg from '../assets/dishImg.png'
 import rankingIcon from '../assets/rankingIcon.png'
+import filterIcon from '../assets/filters.png'
 import './Dishes.css'
 import { addDishToCart, isDishLocalityValidToUser, isDishLocalityValidCartLocalities } from "../services/CartService"
 import Loading from "../elements/utility/Loading"
@@ -329,7 +330,9 @@ const Dishes = ({cart, loadCart, locality}) => {
         return (
             <div className="dishes__params">
                 <div className="dishes__params-left">
-                    <div className="dishes__params-show-menu" onClick={() => setShowDishMenu(!showDishMenu)}>Фільтри</div>
+                    <div className="dishes__params-show-menu" onClick={() => setShowDishMenu(!showDishMenu)}>
+                        <div className="dishes__params-filter-icon"><img src={filterIcon}></img></div>
+                    </div>
                     <div className="dishes__params-dishes-count">Знайдено блюд: {totalDishes}</div>
                     <div className="dishes__params-filters">
                         {removeAllFilters()}

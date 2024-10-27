@@ -2,11 +2,12 @@ import { Link, Outlet, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import './Cabinet.css'
 import { getChef } from "../services/ChefService"
+import { hasAuthority } from "../services/Authorities"
 const CabinetChefLayout = ({person, setPerson, isAuth}) => {
     const [showMenu, setShowMenu] = useState(false)
     useEffect(() => {
         console.log('cabinet chef layout')
-        if(isAuth && hasAuthority('chef')){
+        if(isAuth && hasAuthority('chef', person)){
             console.log('try load chef')
             loadChef()
         } else {
@@ -32,13 +33,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                 console.error('error loading chef')
             }
     }
-    function hasAuthority(authority){
-        if(!person || !person.authorities){
-            return false
-        }
-        const hasAuth = person.authorities.find(a => a.authority === authority) !== undefined
-        return hasAuth
-    }
+    
     const [showFlags, setShowFlags] = useState([false, true, false, false, false, false])
     const [chef, setChef] = useState({})
     const navigate = useNavigate();
@@ -53,9 +48,9 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
 
         let authorities = person.authorities
 
-        let isUser = hasAuthority('user')
-        let isChef = hasAuthority('chef')
-        let isAdmin = hasAuthority('admin')
+        let isUser = hasAuthority('user', person)
+        let isChef = hasAuthority('chef', person)
+        let isAdmin = hasAuthority('admin', person)
         
         function switchShowWindow(index){
             setShowMenu(false)
@@ -122,9 +117,9 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
     }
 
     function menuStyleClass(){
-        if(hasAuthority('chef') || hasAuthority('admin')){
+        if(hasAuthority('chef', person) || hasAuthority('admin', person)){
             return 'cabinet__menu_chef'
-        } else if (hasAuthority('user')){
+        } else if (hasAuthority('user', person)){
             return 'cabinet__menu_user'
         }
     }
