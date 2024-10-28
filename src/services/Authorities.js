@@ -6,13 +6,13 @@ function hasAuthority(authority, person){
     return hasAuth
 }
 function isChef(person){
-    return hasAuthority('user')
+    return hasAuthority('chef', person)
 }
 function isAdmin(person){
-    return hasAuthority('chef')
+    return hasAuthority('admin', person)
 }
 function isUser(person){
-    return hasAuthority('admin')
+    return hasAuthority('user', person)
 }
 
 export {hasAuthority, isChef, isAdmin, isUser}

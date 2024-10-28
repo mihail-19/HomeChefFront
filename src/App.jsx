@@ -54,7 +54,13 @@ function App() {
   const eventSouceRef = useRef(null)
   const intervalRef = useRef(null)
 
-
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'isAuth' && event.newValue === 'false') {
+        // Перенаправление или обновление интерфейса
+       setIsAuth(false)
+       eventSouceRef.current.close();
+    }
+  })
   useEffect(() => {
     console.log(showRegisterWindow)
   }, [showRegisterWindow])
@@ -68,7 +74,9 @@ function App() {
 
   useEffect(() => {
     loadCart()
-    sendGetPerson()
+    if(isAuth){
+      sendGetPerson()
+    }
   }, [])
 
   //notification sse subscription
@@ -79,6 +87,9 @@ function App() {
           eventSouceRef.current.close(); // Закрыть соединение при размонтировании
         }
     }
+
+
+
       // if(isAuth){
       //   const eventSource = new EventSource(serverUrl + '/sse/notifications-subscribe', { withCredentials: true });
         
@@ -118,6 +129,10 @@ function App() {
           eventSouceRef.current.close(); // Закрыть соединение при размонтировании
         }
     }
+
+
+
+
   //   if(isAuth){
   //     const eventSource = new EventSource(serverUrl + '/sse/notifications-subscribe', { withCredentials: true });
       
