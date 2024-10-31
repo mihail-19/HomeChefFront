@@ -18,7 +18,7 @@ import homeChefLogo from '../assets/HomeChefLogo.png'
 import imageUrl from '../imagesUrl.js'
 import {logout} from '../services/AuthService.js'
 import { hasAuthority, isUser } from '../services/Authorities.js'
-const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocality, showRegisterWindow, setShowRegisterWindow, notification})=>{
+const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocality, showRegisterWindow, setShowRegisterWindow, notification, sendLogout})=>{
     const [city, setCity] = useState(localStorage.getItem('locality') ? JSON.parse(localStorage.getItem('locality')).name : "Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
@@ -33,6 +33,12 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
         }
         setShowBurger(!showBurger)
     }
+
+    useEffect(() => {
+        if(!isAuth){
+            setCity('Місто')
+        }
+    }, [isAuth])
 
     useEffect(() => {
         console.log(showCities)
@@ -73,20 +79,6 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
     function switchShowAuthWindow(){
         setShowAuthWindow(!showAuthWindow)
     }
-    function sendLogout(){
-        
-        logout().then(res => {
-            console.log('logout')
-            localStorage.setItem('isAuth', 'false')
-            localStorage.clear()
-            setCity('Місто')
-            setIsAuth(false)
-            setPerson(null)
-        })
-    }
-
-
-
 
     function closeBurger(){
         setTimeout(() => {
@@ -149,7 +141,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                 }
                 {isAuth &&
                     <div className='header__auth'>
-                        <UserMenu/>
+                        <UserMenu person={person}/>
                     </div>
                 }
                 {showBurger && <div className='burger__shadow-in-burger-menu' onClick={switchShowBurger}></div>}
@@ -270,7 +262,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
 
 
 
-    function UserMenu(){
+    function UserMenu({person}){
         const [showUserMenu, setShowUserMenu] = useState(false)
         useEffect(() => {
             if(showUserMenu){

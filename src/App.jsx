@@ -40,6 +40,9 @@ import RegistrationConfirm from './pages/RegistrationConfirm.jsx'
 import CabinetChangePassword from './elements/Cabinet/CabinetChangePassword.jsx'
 import Register from './elements/Register.jsx'
 import TermOfUse from './pages/TermOfUser.jsx'
+import { Stomp } from '@stomp/stompjs'
+import SockJS from 'sockjs-client'
+import { logout } from './services/AuthService.js'
 
 const POLLING_TIME = 10000
 
@@ -53,7 +56,10 @@ function App() {
   const timerIdRef = useRef(null)
   const eventSouceRef = useRef(null)
   const intervalRef = useRef(null)
-
+  const socketFlag = useRef(null)
+  if (typeof global === 'undefined') {
+    window.global = window;
+  }
   window.addEventListener('storage', (event) => {
     if (event.key === 'isAuth' && event.newValue === 'false') {
         // Перенаправление или обновление интерфейса
@@ -79,72 +85,58 @@ function App() {
     }
   }, [])
 
-  //notification sse subscription
   useEffect(() => {
-    if(isAuth){
-      openSseConnection()
-        return () => {
-          eventSouceRef.current.close(); // Закрыть соединение при размонтировании
-        }
+    if(isAuth && person && person.username && !socketFlag.current){
+      registerSocket()
     }
-
-
-
-      // if(isAuth){
-      //   const eventSource = new EventSource(serverUrl + '/sse/notifications-subscribe', { withCredentials: true });
+  }, [person])
+  function sendLogout(){
         
-      //   if(eventSource.readyState)
-      //   eventSource.onmessage = (event) => {
-      //     const parsed = JSON.parse(event.data)
-      //     console.log(parsed)
-      //     console.log(isAuth)
-      //   }
-      // }
-  }, [])
+    logout().then(res => {
+        console.log('logout')
+        localStorage.setItem('isAuth', 'false')
+        localStorage.clear()
+        setLocality(null)
+        //setCity('Місто')
+        setIsAuth(false)
+        setPerson(null)
+    })
+}
+  
 
-  function openSseConnection(){
-    eventSouceRef.current = new EventSource(serverUrl + '/sse/notifications-subscribe', { withCredentials: true })
-    eventSouceRef.current.onmessage = (event) => {
-      if(event.data !== 'heartbeat'){
-        console.log('sse msg=' + event.data)
-        const parsed = JSON.parse(event.data)
-        setNotification(parsed.type)
-        sendGetPerson()
-      }
+  function registerSocket(){
+    console.log(person)
+    if(!person){
+      return
     }
-    // eventSouceRef.current.onerror = (error) => {
-    //   eventSouceRef.current.close()
-    //   openSseConnection()
-    // }
-    window.onbeforeunload = function () {
-      console.log('close eventsource')
-      eventSouceRef.current.close();
-    };
+    const socket = new SockJS(serverUrl + '/ws');
+        const stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, (frame) => {
+            console.log('Connected: ' + frame);
+
+            // Подписка на уведомления для конкретного пользователя
+            const userId = person.username; // Замените на актуальный userId
+            stompClient.subscribe(`/topic/${userId}`, (notification) => {
+                console.log('Received notification: ', notification.body);
+                const parsed = JSON.parse(notification.body)
+                setNotification(parsed.type)
+                sendGetPerson()
+            });
+            socketFlag.current = true
+        }, (error) => {
+          console.log(error)
+          socketFlag.current = false
+        });
+       
+        // Очистка при размонтировании компонента
+        return () => {
+            stompClient.disconnect();
+            socketFlag.current = false
+        };
   }
 
-  useEffect(() => {
-    if(isAuth){
-     openSseConnection()
-        return () => {
-          eventSouceRef.current.close(); // Закрыть соединение при размонтировании
-        }
-    }
-
-
-
-
-  //   if(isAuth){
-  //     const eventSource = new EventSource(serverUrl + '/sse/notifications-subscribe', { withCredentials: true });
-      
-  //     // attaching a handler to receive message events
-  //     eventSource.onmessage = (event) => {
-  //       const parsed = JSON.parse(event.data)
-  //       console.log(parsed)
-  //       console.log(isAuth)
-  //     };
-  //     return () => eventSource.close();
-  // }
-}, [isAuth])
+  
 
   const sendGetPerson = async () => {
     try{
@@ -172,7 +164,7 @@ function App() {
     <div className='home-chef-content'>
      <Register showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} />
       <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart} 
-              locality={locality} setLocality={setLocality} showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} notification={notification}/>
+              locality={locality} setLocality={setLocality} showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} notification={notification} sendLogout={sendLogout}/>
       
       <Routes>
         <Route path="/" element={<Homepage />}/>
