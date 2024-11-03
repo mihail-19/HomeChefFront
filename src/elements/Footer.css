@@ -25,9 +25,9 @@
   }
   .footer__logo{
     margin: 5.5vw 0 5.2vw 0;
-    font-family: Poiret One;
+    font-family: Poiret One !important;
     font-size: 3.33vw;
-    font-weight: 400;
+    font-weight: 400 !important;
     line-height: 3.9vw;
     width: 9.58vw;
   }

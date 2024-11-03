@@ -3,8 +3,10 @@
     padding: 0;
     margin: 0;
     background-color: #e5ebeb;
+    overflow-y: auto;
 }
 .cabinet__menu-container{
+    overflow-y: auto;
 }
 .cabinet__menu{
     width: 280px;
@@ -110,6 +112,7 @@
     width: 100% !important;
     height: 100% !important;
     padding: 0 !important;
+    overflow-y: auto;
 
 }
 

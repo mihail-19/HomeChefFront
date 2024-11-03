@@ -1,6 +1,6 @@
 
 import {Link, useNavigate} from 'react-router-dom'
-import { TELEGRAM, EMAIL } from '../constants'
+import { TELEGRAM, EMAIL, INSTAGRAM } from '../constants'
 import '../App.css'
 
 import sloganMenuImg from '../assets/sloganMenuImg.png'
@@ -36,7 +36,7 @@ function Homepage() {
   const navigate = useNavigate()
 
   function searchDish(){
-    const url = '/HomeChefFront/dishes/search=' + searchValue
+    const url = '/dishes/search=' + searchValue
     navigate(url)
   }
   useEffect(() => {
@@ -242,10 +242,8 @@ function Homepage() {
                 Ви завжди можете із нами звʼязатися
               </div>
               <div className='home__client-security-links'>
-                <a href="https://facebook.com">
-                  <img src={facebookIcon}></img>
-                </a>
-                <a href="https://instagram.com">
+               
+                <a href={INSTAGRAM}>
                   <img src={instagramIcon}></img>
                 </a>
                 <a href={TELEGRAM}>

@@ -4,7 +4,7 @@ import facebookFooterIcon from '../assets/facebookFooterIcon.png'
 import instagramFooterIcon from '../assets/instagramFooterIcon.png'
 import telegramFooterIcon from '../assets/telegramFooterIcon.png'
 import mailFooterIcon from '../assets/mailFooterIcon.png'
-import { EMAIL, TELEGRAM } from "../constants"
+import { EMAIL, INSTAGRAM, TELEGRAM } from "../constants"
 const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
 
     function becomeChefButton(){
@@ -19,9 +19,9 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
         <div className="footer">
             <div className="footer__top">
                 <div className="footer__left">
-                    <div className="footer__logo">
+                    <Link to="/" className="footer__logo">
                         Home Chef
-                    </div>
+                    </Link>
                     <div className="footer__left-bottom">
 
                         <div className="footer__bottom">
@@ -32,10 +32,7 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
                             
                         </div>
                         <div className="footer__social-links">
-                            <a href="https://facebook.com">
-                                <img src={facebookFooterIcon}></img>
-                            </a>
-                            <a href="https://instagram.com">
+                            <a href={INSTAGRAM}>
                                 <img src={instagramFooterIcon}></img>
                             </a>
                             <a href={TELEGRAM}>

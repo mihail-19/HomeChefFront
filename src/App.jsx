@@ -43,6 +43,8 @@ import TermOfUse from './pages/TermOfUser.jsx'
 import { Stomp } from '@stomp/stompjs'
 import SockJS from 'sockjs-client'
 import { logout } from './services/AuthService.js'
+import ForgetPassword from './pages/ForgetPassword.jsx'
+import RestoreAccount from './pages/RestoreAccaunt.jsx'
 
 const POLLING_TIME = 10000
 
@@ -182,6 +184,8 @@ function App() {
         <Route path="/helping-center" element={<HelpingCenter/>}/>
         <Route path="/how-we-work" element={<HowWeWork/>}/>
         <Route path="/terms-of-use" element={<TermOfUse/>}/>
+        <Route path="/forget-password" element={<ForgetPassword/>}/>
+        <Route path="/account-restore/:params" element={<RestoreAccount/>}/>
         <Route path="/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
           <Route path="chef-profile" element={<CabinetChefProfile/>}/>
           <Route path="reviews" element={<CabinetReviews/>}/>

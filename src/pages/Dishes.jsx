@@ -192,11 +192,12 @@ const Dishes = ({cart, loadCart, locality}) => {
     }
 
     async function sendAfterConfirmed(){
-        if(!isDishLocalityValidCartLocalities(dishToSave.current, cart)){
-            snackbarRef.current.show(<div>Не можна додавати страви з різних міст <Link to="/cart">Кошик</Link></div>, true, 5000)
-            return
-        }
+        // if(!isDishLocalityValidCartLocalities(dishToSave.current, cart)){
+        //     snackbarRef.current.show(<div>Не можна додавати страви з різних міст <Link to="/cart">Кошик</Link></div>, true, 5000)
+        //     return
+        // }
         setLoading(true)
+        
         await addDishToCart(dishToSave.current)
         loadCart()
         setLoading(false)

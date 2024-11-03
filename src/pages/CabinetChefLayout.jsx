@@ -16,13 +16,13 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
         }
     }, [person])
 
-    useEffect(() => {
-        if(showMenu){
-            document.body.style.overflowY = 'hidden'
-        } else {
-            document.body.style.overflowY = 'scroll'
-        }
-    }, [showMenu])
+    // useEffect(() => {
+    //     if(showMenu){
+    //         document.body.style.overflowY = 'hidden'
+    //     } else {
+    //         document.body.style.overflowY = 'scroll'
+    //     }
+    // }, [showMenu])
 
     async function loadChef(){
             console.log('load chef')
@@ -138,7 +138,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                         opacity: "0.3",
                         zIndex: "10",
                         display: showMenu ? "block" : "none"
-
+                      
                     }} onClick={() => setShowMenu(false)}>
 
                 </div>

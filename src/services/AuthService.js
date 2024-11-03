@@ -31,5 +31,28 @@ async function confirmRegistration(uuid){
     const url = serverUrl + '/register/confirm/' + uuid
     return axios.get(url) 
 }
+async function forgetPassword(email){
+    const url = serverUrl + '/forget-password/send-token'
+    const data = new FormData()
+    data.append('email', email)
+    return axios.post(url, data, {withCredentials: true})
+}
 
-export {register, login, logout, confirmRegistration}
+async function restoreAccountGetUsername(token){
+    const url = serverUrl + '/forget-password/change-password'
+    let paramsArray = []
+    paramsArray.push(['token', token])
+    const params = new URLSearchParams(paramsArray)
+    return axios.get(url, {params})
+}
+
+async function restoreAccountChangePassword(token, password){
+    const url = serverUrl + '/forget-password/change-password'
+    const data = new FormData()
+    data.append('token', token)
+    data.append('password', password)
+    const res = axios.post(url, data)
+    return res
+}
+
+export {register, login, logout, confirmRegistration, forgetPassword, restoreAccountGetUsername, restoreAccountChangePassword}
