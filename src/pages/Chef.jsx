@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { getChefById } from "../services/ChefService"
 import defaultChefIcon from "../assets/defaultChefIcon.png"
 import imagesUrl from "../imagesUrl"
@@ -77,12 +77,14 @@ const Chef = () => {
                     </div>
                 }
             </div>
-            <h3>Страви шефа {'(всього - ' + dishes?.length + ')'}</h3>
-            <div className="chef__dishes">
-                {dishes?.map(dish => {
-                    return <DishCard dish={dish} sendAddToCart={undefined}/>
-                })}
-            </div>
+            <h3> <Link to={"/chef/" + chef?.id + "/dishes"} className="chef__link-to-dishes"> Подивитись страви &rarr;</Link></h3>
+            {false && 
+                <div className="chef__dishes">
+                    {false && dishes?.map(dish => {
+                        return <DishCard dish={dish} sendAddToCart={undefined}/>
+                    })}
+                </div>
+            }
         </div>
     )
     

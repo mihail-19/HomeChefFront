@@ -120,7 +120,7 @@
     font-weight: 600;
     font-size: 18px;
     color: black;
-    text-decoration: underline;
+    text-decoration: none;
 
 }
 .cabinet-order__controls{
@@ -263,6 +263,7 @@
 @media(max-width: 600px){
     .chef-orders{
         margin: 10px;
+        border: none;
     }
     .chef-orders__menu{
         flex-wrap: wrap;
@@ -286,10 +287,11 @@
 
 
 .chef-orders__order_mobile{
-    background-color: #b6c9a8;
+   border: 1px solid gray;
     border-radius: 5px;
     padding: 5px;
     overflow-x: hidden;
+    margin-top: 10px;
 }
 .chef-orders__order-top_mobile{
     display: flex;

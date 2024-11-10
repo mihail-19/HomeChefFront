@@ -1,29 +1,45 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { getDishesForChefPaged } from "../services/DishService"
 import DishCard from "../elements/DishCard"
-import { isDishLocalityValidToUser } from "../services/CartService"
+import { addDishToCart, isDishLocalityValidToUser } from "../services/CartService"
 import Loading from "../elements/utility/Loading"
+import { useEffect, useRef, useState } from "react"
+import Confirm from "../elements/utility/Confirm"
+import Pages from "../elements/utility/Pages"
+import './ChefDishes.css'
 
-
-const ChefDishes = () => {
-    const PAGE_SIZE = 10
+const ChefDishes = ({loadCart}) => {
+    const PAGE_SIZE = 2
     const {id, pageNumber} = useParams()
     const [loading, setLoading] = useState(false)
     const [totalPages, setTotalPages] = useState(0)
     const [dishes, setDishes] = useState([])
-   
-    useState(() => {
+    const [totalDishes, setTotalDishes] = useState(0)
+    const [username, setUsername] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [chefLocality, setChefLocality] = useState(null)
+    const dishToSave = useRef(null)
+    const confirmRef = useRef(null)
+    useEffect(() => {
+        console.log(pageNumber)
         loadDishes()
     }, [])
+    useEffect(() => {
+        loadDishes()
+    },[pageNumber])
    
-    const loadDishes = async () => {
+    async function loadDishes() {
         const pageNum = pageNumber ? pageNumber-1 : 0
         const {data} = await getDishesForChefPaged(pageNum, PAGE_SIZE, id)
-        if(data.totalPages !== totalPages){
-            setTotalPages(data.totalPages)
+        const dishPages = data.dishes
+        if(dishPages.totalPages !== totalPages){
+            setTotalPages(dishPages.totalPages)
         }
-        setDishes(data.content)
-        setTotalDishes(data.totalElements)
+        setDishes(dishPages.content)
+        setTotalDishes(dishPages.totalElements)
+        setUsername(data.chefUsername)
+        setFirstName(data.chefFirstName)
+        setChefLocality(data.chefLocality)
     }
     async function sendAddToCart(dish){
        
@@ -55,16 +71,28 @@ const ChefDishes = () => {
         loadCart()
         setLoading(false)
     }
+    function rejectAddingDish(){
+        dishToSave.current = {}
+
+    }
+
+    function buildLinkToPage(page){
+        return '/chef/' + id + '/dishes/' + parseInt(page)
+    }
 
     return (
         <div className="chef-dishes">
              <Loading isActive={loading} seIsActive={setLoading}/>
+             <Confirm okFunction={sendAfterConfirmed} noFunction={rejectAddingDish} ref={confirmRef}/>
+             <h1>Страви шефа <Link to={"/chef/" + id} className="chef-dishes__chef-link">{firstName} </Link></h1>
+             <div className="chef-dishes__dish-count">Всього страв - {totalDishes}</div>
             <div className="chef-dishes__dish-list">
                 {dishes?.map(dish => {
                     return <DishCard dish={dish} sendAddToCart={sendAddToCart}/>
                 })}
                 
             </div>
+            <Pages currentPage={pageNumber ? parseInt(pageNumber) : 1} totalPages={totalPages} buildLinkToPage={buildLinkToPage}/>
         </div>
     )
 

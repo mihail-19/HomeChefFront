@@ -177,7 +177,7 @@ function App() {
         <Route path="/chefs-map" element={<ChefsMap/>}/>
         <Route path="/chef/:id" element={<Chef/>}/>
         <Route path="/dishes/:params?" element={<Dishes cart={cart} loadCart={loadCart} locality={locality}/>}/>
-        <Route path="/chef/:id/dishes/:params?" element={<ChefDishes/>}/>
+        <Route path="/chef/:id/dishes/:pageNumber?" element={<ChefDishes loadCart={loadCart}/>}/>
         <Route path="/dish/:id" element={<Dish cart={cart} loadCart={loadCart}/>}/>
         <Route path="/dish/:id/comments" element={<DishReviews person={person}/>}/>
         <Route path="/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>

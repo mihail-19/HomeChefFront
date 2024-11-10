@@ -1,0 +1,17 @@
+.chef-dishes{
+    padding: 20px;
+}
+.chef-dishes h1{
+    font-size: 28px;
+    margin: 10px 0 5px 0;
+}
+.chef-dishes__chef-link{
+    color: rgb(43, 88, 64);
+    text-decoration: none;
+}
+.chef-dishes__dish-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}

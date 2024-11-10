@@ -77,7 +77,7 @@ const CabinetUseful = () => {
                             Як зробити якісне фото, яке підійде до картки товару?
                         </div>
                         <div className="cabinet-useful__arrow">
-                            <img src={faqArrow} className={showFlags[0] && "cabinet-useful__rotated"}></img>
+                            <img src={faqArrow} className={showFlags[1] && "cabinet-useful__rotated"}></img>
                         </div>
                     </div>
                     {showFlags[1] && <div className="cabinet-useful__answer">
@@ -117,7 +117,7 @@ const CabinetUseful = () => {
 
                         </div>
                         <div className="cabinet-useful__arrow">
-                            <img src={faqArrow} className={showFlags[2] && "cabinet-useful__rotated"}></img>
+                            <img src={faqArrow} className={showFlags[3] && "cabinet-useful__rotated"}></img>
                         </div>
                     </div>
                     {showFlags[3] && <div className="cabinet-useful__answer">Кожен клієнт, який став “Шефом” не може повернутися до першочергових налаштувань свого облікового запису.
