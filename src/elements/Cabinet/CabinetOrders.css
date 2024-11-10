@@ -76,6 +76,12 @@
     margin: 0;
     text-align: center;
 }
+.cabinet-order__order-date{
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+    font-weight: 300;
+}
 .cabinet-order h3{
     font-size: 18px;
     margin: 5px 0;
@@ -99,6 +105,8 @@
     height: 94px;
     border: 1px solid gray;
     display: block;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 .cabinet-order__dish-img img{
     width: 100%;
@@ -106,14 +114,51 @@
     object-fit: cover;
 }
 .cabinet-order__product-info{
-
+    overflow: hidden;
 }
 .cabinet-order__dish-name{
     font-weight: 600;
     font-size: 18px;
+    color: black;
+    text-decoration: underline;
+
+}
+.cabinet-order__controls{
+    margin: 20px 0;
+}
+.cabinet-order__action-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #88A69D;
+    height: 40px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.cabinet-order__cancel-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ce4f46;
+    height: 30px;
+    border-radius: 10px;
 }
 
-
+.cabinet-order table{
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+.cabinet-order td{
+    border: 1px solid gray;
+    padding: 5px;
+    overflow: hidden;
+}
+.cabinet-order tr{
+    overflow: hidden;
+    max-width: 100%;
+}
 
 
 
@@ -241,7 +286,33 @@
 
 
 .chef-orders__order_mobile{
-    background-color: white;
+    background-color: #b6c9a8;
+    border-radius: 5px;
+    padding: 5px;
+    overflow-x: hidden;
 }
+.chef-orders__order-top_mobile{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.chef-orders__order_mobile h3{
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+}
+.chef-orders__order_mobile p{
+    margin: 0;
+}
+.chef-orders__mobile-order-date{
+    font-size: 12px;
+    text-align: right;
+    font-style: italic;
+}
+.chef-orders__time-to-make_mobile{
+    color: rgb(145, 2, 2);
+}
+
 
 

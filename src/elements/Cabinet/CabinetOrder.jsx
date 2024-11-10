@@ -37,6 +37,7 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, set
     function windowContent(){
        return <div className="cabinet-order">
                 <h1>Замовлення № {currentOrder.id}</h1>
+                <div className="cabinet-order__order-date">{prettyPrintDate(currentOrder.creationDate)}</div>
                 <div className="cabinet-order__state">
                     <OrderState state={currentOrder.state}/>
                 </div>
@@ -45,12 +46,24 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, set
                     <button className="cabinet-order__cancel-button" onClick={() => sendCancelOrder(currentOrder.id)}>Відмінити</button>
                 </div>
                 <h3>Вартість: {calculatePrice(currentOrder.products)}₴</h3>
-                <div>Замовник: {currentOrder.name}</div>
-                
-                <div>Тел.: {currentOrder.phone}</div>
-                <div>Дата виконання: {prettyPrintDate(currentOrder.dateTimeToMake)}</div>
-                <div>Отримано: {prettyPrintDate(currentOrder.creationDate)}</div>
-                <div>Самовивіз: {showSelfPickup(order.selfPickup)} </div>
+                <table>
+                    <tr>
+                        <td>Замовник</td>
+                        <td>{currentOrder.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Телефон</td>
+                        <td>{currentOrder.phone}</td>
+                    </tr>
+                    <tr>
+                        <td>Термін виконання</td>
+                        <td>{prettyPrintDate(currentOrder.dateTimeToMake)}</td>
+                    </tr>
+                    <tr>
+                        <td>Самовивіз</td>
+                        <td>{showSelfPickup(currentOrder.selfPickup)}</td>
+                    </tr>
+                </table>
                 <OrderProducts products={currentOrder.products}/>
             </div>
     }
@@ -61,13 +74,14 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, set
         }
         return (
             <div className="cabinet-order__products">
+                <h3>Страви:</h3>
                 {products.map(product => {
                    return <div className="cabinet-order__product">
-                        <Link to={"/dishes/" + product.dish.id} className="cabinet-order__dish-img">
+                        <Link to={"/dish/" + product.dish.id} className="cabinet-order__dish-img">
                             <img src={product.dish.imageURL ? imageUrl + product.dish.imageURL : defaultDishImg}></img>
                         </Link>
                         <div className="cabinet-order__product-info">
-                            <Link to={"/dishes/" + product.dish.id} className='cabinet-order__dish-name'>{product.dish.name}</Link>
+                            <Link to={"/dish/" + product.dish.id} className='cabinet-order__dish-name'>{product.dish.name}</Link>
                             <div>Ціна: {product.dish.price}₴</div>
                             <div>К-ть: {product.dishNumber}</div>
                             <div>Вартість: {product.dish.price * product.dishNumber}</div>

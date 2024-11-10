@@ -213,11 +213,11 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                                 </div>
                                 <div style={errMsgStyle}>{emailErrMsg}</div>
                             </div>
-                            <div className='register__form-element' style={{display:'flex', alignItems:'center', gap:'10px'}}>
-                                <label style={{margin:'0', fontFamily:'Montserrat'}} className='checkbox-container'> Погоджуюсь з 
-                                    <input type='checkbox' style={{width: '20px', height: '20px'}} checked={confirmedTerms} onChange={() => setConfirmedTerms(!confirmedTerms)}></input> 
-                                    <span className='checkbox-checkmark'></span>
-                                </label> <Link style={{fontSize:'18px', textDecoration:'none', color:'purple'}} to={'/terms-of-use'}>умовами користування</Link>
+                            <div className='register__form-element register__confirm-container'>
+                                <label className='checkbox-container register__confirm-label'>Погоджуюсь з 
+                                    <input type='checkbox' className='register__checkbox' checked={confirmedTerms} onChange={() => setConfirmedTerms(!confirmedTerms)}></input> 
+                                    <span className='checkbox-checkmark register__checkbox'></span>
+                                </label> <Link className='register__terms-link' to={'/terms-of-use'}>умовами користування</Link>
                             </div>
                             <button className='register__submit-button' style={ !isReady ? passiveBtnSyle : {}} type="submit">Приєднатися</button>
                         </form>

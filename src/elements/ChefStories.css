@@ -26,6 +26,7 @@
     padding: 0;
     border: none;
     cursor: pointer;
+    flex-shrink: 0;
   }
   .home__chef-stories-button img{
     width: 100%;
@@ -39,12 +40,11 @@
   }
   .chef-story-item{
     width: 45%;
-    height: 50vw;
+    height: 45vw;
     border-radius: 30px;
     border: 1px solid gray;
-    padding: 2.45vw 0 0 2.35vw;
+    padding: 30px 10px 0 30px;
     font-family: Montserrat;
-    
   
   }
   .chef-story-item h3{
@@ -81,9 +81,10 @@
   }
   .chef-story-item__story{
     font-weight: 400;
-    font-size: 1.875vw;
+    font-size: 1.5vw;
+    line-height: 1.4em;
     overflow-y: hidden;
-    height: 65%;
+    padding: 5px;
   }
   
   
@@ -107,6 +108,7 @@
     .chef-story-item{
       width: 90%;
       height: 450px;
+      padding: 20px 5px 5px 20px;
     }
     .chef-story-item__header-img{
       width: 20vw;
@@ -121,12 +123,20 @@
       font-size: 3vw;
     }
     .chef-story-item__story{
-      padding: 1.2vw 2px 3vw 1vw;
       font-weight: 400;
       font-size: 16px;
     }
     .home__chef-stories-button{
       width: 30px;
       height: 30px;
+    }
+  }
+  @media(max-width: 700px){
+    .chef-story-item{
+      padding: 10px 5px 5px 10px;
+      height: 480px;
+    }
+    .chef-story-item__story{
+      font-size: 14px;
     }
   }

@@ -86,6 +86,12 @@ const getDishesForChef = async (chefId) => {
     const res = axios.get(url, {params}, {withCredentials:true})
     return res 
 }
+const getDishesForChefPaged = async (pageNumber, pageSize, chefId) => {
+    const url = serverUrl + "/dishes/for-chef-paged"
+    const params = new URLSearchParams([['pageNumber', pageNumber], ['pageSize', pageSize], ['chefId', chefId]])
+    const res = axios.get(url, {params}, {withCredentials:true})
+    return res 
+}
 
 const getPriceRange = async (categoryIds, tagIds, localityId) => {
     const url = serverUrl + "/dishes/price-range"
@@ -149,4 +155,4 @@ const removeReviewMessage = async(dishId, reviewId, messageId) => {
 }
 
 export {addDish, removeDish, getAllDishes, getDish, updateDish, getDishesForChef, getAllDishesWithFilters, getPriceRange, 
-    getDishReviews, addDishReview, answerDishReview, removeReview, removeReviewMessage}
+    getDishReviews, addDishReview, answerDishReview, removeReview, removeReviewMessage, getDishesForChefPaged}

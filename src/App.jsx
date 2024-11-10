@@ -45,6 +45,7 @@ import SockJS from 'sockjs-client'
 import { logout } from './services/AuthService.js'
 import ForgetPassword from './pages/ForgetPassword.jsx'
 import RestoreAccount from './pages/RestoreAccaunt.jsx'
+import ChefDishes from './pages/ChefDIshes.jsx'
 
 const POLLING_TIME = 10000
 
@@ -176,6 +177,7 @@ function App() {
         <Route path="/chefs-map" element={<ChefsMap/>}/>
         <Route path="/chef/:id" element={<Chef/>}/>
         <Route path="/dishes/:params?" element={<Dishes cart={cart} loadCart={loadCart} locality={locality}/>}/>
+        <Route path="/chef/:id/dishes/:params?" element={<ChefDishes/>}/>
         <Route path="/dish/:id" element={<Dish cart={cart} loadCart={loadCart}/>}/>
         <Route path="/dish/:id/comments" element={<DishReviews person={person}/>}/>
         <Route path="/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>

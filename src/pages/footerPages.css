@@ -2,6 +2,8 @@
 .prod-safety__container{
     padding: 10px 80px 50px 70px;
     min-height: 1200px;
+    font-family: Montserrat;
+    font-weight: 300;
 }
 
 .prod-safety__content h1{
@@ -23,7 +25,6 @@
 }
 .prod-safety__txt{
     font-size: 24px;
-    font-weight: 400;
 }
 
 @media(max-width: 1480px){
@@ -42,7 +43,7 @@
         margin-right: 20px;
     }
     .prod-safety__txt{
-        font-size: 20px;
+        font-size: 18px;
     }
     .prod-safety__content h1{
         margin: 0 0 24px 0;
@@ -69,6 +70,8 @@
 .certification{
     padding: 10px 80px 50px 70px;
     min-height: 1200px;
+    font-family: Montserrat;
+    font-weight: 300;
 }
 .certification h1{
     margin: 0 0 52px 0;
@@ -90,7 +93,6 @@
 }
 .certification__text{
     font-size: 24px;
-    font-weight: 400;
 }
 @media(max-width: 1480px){
     .certification__text{
@@ -130,7 +132,6 @@
     .certification__text{
         font-size: 18px;
         line-height: 1.1em;
-        font-weight: 400;
     }
 }
 @media(max-width: 400px){
@@ -152,6 +153,8 @@
 .helping-center{
     padding: 10px 80px 50px 70px;
     min-height: 700px;
+    font-family: Montserrat;
+    font-weight: 300;
 }
 .helping-center h1{
     margin: 0 0 52px 0;
@@ -173,7 +176,6 @@
 }
 .helping-center__text{
     font-size: 24px;
-    font-weight: 400;
 }
 .helping-center__links{
     display: flex;
@@ -249,6 +251,8 @@
 .how-works{
     padding: 10px 80px 50px 70px;
     min-height: 500px;
+    font-family: Montserrat;
+    font-weight: 300;
 }
 .how-works h1{
     margin: 0 0 52px 0;
@@ -270,7 +274,6 @@
 }
 .how-works__text{
     font-size: 24px;
-    font-weight: 400;
 }
 
 @media(max-width: 1480px){

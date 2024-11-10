@@ -87,6 +87,30 @@
 .register__error{
     color: red;
 }
+.register__forget-password-link{
+    color: rgb(38, 38, 110);
+    font-size: 14px;
+    text-decoration: underline;
+}
+.register__confirm-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.register__confirm-label{
+    margin: 0;
+    font-family:Montserrat;
+    flex-shrink: 0;
+}
+.register__terms-link{
+    font-size: 18px;
+    text-decoration: none;
+    color: purple;
+}
+.register__checkbox{
+    width: 20px;
+    height: 20px;
+}
 
 @media(max-width: 1000px){
     .register{
@@ -108,5 +132,25 @@
         width: 150px;
         font-size: 18px;
         margin-top: 50px;
+    }
+}
+
+@media(max-width: 700px){
+    .register__form{
+        padding: 1px 5px 40px 10px;
+    }
+    .register__confirm-label{
+        font-size: 14px !important;
+        padding-left: 20px;
+    }
+    .register__terms-link{
+        font-size: 14px;
+    }
+    .register__checkbox{
+        width: 15px;
+        height: 15px;
+    }
+    .register__confirm-container{
+        gap: 5px;
     }
 }

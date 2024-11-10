@@ -5,7 +5,7 @@ import burgerCloseButton from '../assets/burgerCloseButton.png'
 import { getChef } from "../services/ChefService"
 import { hasAuthority, isChef } from "../services/Authorities"
 const CabinetChefLayout = ({person, setPerson, isAuth}) => {
-    const [showMenu, setShowMenu] = useState(false)
+    const [showMenu, setShowMenu] = useState(window.innerWidth < 1000 ? true : false)
     useEffect(() => {
         console.log('cabinet chef layout')
         if(isAuth && hasAuthority('chef', person)){
@@ -15,6 +15,15 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
             setChef({})
         }
     }, [person])
+    // useEffect(() => {
+    //     if(!showMenu){
+    //         document.documentElement.style.setProperty('overflow', 'auto')
+    //         console.log('cabinet scroll auto')
+    //     } else {
+    //         document.documentElement.style.setProperty('overflow', 'hidden')
+    //         console.log('cabinet scroll hidden')
+    //     }
+    // }, [showMenu])
 
     // useEffect(() => {
     //     if(showMenu){
@@ -127,21 +136,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
 
     return <>
             <div className='cabinet__container'>
-                <div style={
-                    {
-                        position: "absolute", 
-                        left: "0", 
-                        top: "0", 
-                        backgroundColor: "black", 
-                        width: "100vw", 
-                        height: "100vh", 
-                        opacity: "0.3",
-                        zIndex: "10",
-                        display: showMenu ? "block" : "none"
-                      
-                    }} onClick={() => setShowMenu(false)}>
-
-                </div>
+                
                 {!showMenu && 
                     <button className={!isChef(person) ? "cabinet__menu-button cabinet__menu-button_user" : "cabinet__menu-button cabinet__menu_chef"} onClick={() => setShowMenu(true)}>Меню</button>
                 }
@@ -159,7 +154,9 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                     </nav>
                 </div>
                 <div className='cabinet__content'>
-                    <Outlet context={{chef, loadChef}}/>
+                    {!showMenu &&
+                        <Outlet context={{chef, loadChef}}/>
+                    }
                 </div>
             </div>
     </>

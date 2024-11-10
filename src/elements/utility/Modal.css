@@ -13,13 +13,14 @@
     pointer-events: none;
     transition: 0.3s;
     z-index: 50;
-    padding: 20px 5px 20px 5px;
+    padding: 20px 0;
 }   
 
 .modal_active{
     opacity: 1;
     pointer-events: all;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .modal__content{
@@ -27,7 +28,7 @@
     background-color: white;
     padding: 11px;
     border-radius: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 120px;
     
 }
 .modal__top{

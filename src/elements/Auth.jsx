@@ -6,6 +6,7 @@ import {register, login} from '../services/AuthService.js'
 import {getPerson} from '../services/PersonService.js'
 import { useState } from 'react'
 import ModalCenter from './utility/ModalCenter.jsx'
+import { Link } from 'react-router-dom'
 const Register = ({showAuthWindow, setShowAuthWindow, setIsAuth, setPerson}) =>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -73,6 +74,10 @@ const Register = ({showAuthWindow, setShowAuthWindow, setIsAuth, setPerson}) =>{
                                 <div className='register__error'>Невірний логін або пароль</div>
                             </div>
                         }
+                         <div className='register__form-element'>
+                            <Link className='register__forget-password-link' to="/forget-password" onClick={() => {document.documentElement.style.setProperty('overflow', 'auto');setShowAuthWindow(false)}}>Забули пароль?</Link>
+                         </div>
+                        
                         <button className='register__submit-button' type="submit">Увійти</button>
                         </form>
                     </div>

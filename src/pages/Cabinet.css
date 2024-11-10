@@ -3,10 +3,9 @@
     padding: 0;
     margin: 0;
     background-color: #e5ebeb;
-    overflow-y: auto;
+    padding-bottom: 50px;
 }
 .cabinet__menu-container{
-    overflow-y: auto;
 }
 .cabinet__menu{
     width: 280px;
@@ -77,7 +76,8 @@
 .cabinet__menu-button{
     display: none;
     width: 100px;
-    height: 30px;
+    height: 40px;
+    border-radius: 10px;
     
     cursor: pointer;
     border: none;
@@ -112,7 +112,7 @@
     width: 100% !important;
     height: 100% !important;
     padding: 0 !important;
-    overflow-y: auto;
+    border-bottom: 1px solid gray;
 
 }
 
@@ -148,7 +148,7 @@
 
 
 .cabinet__content{
-    min-height: 900px;
+    min-height: 800px;
     flex-grow: 1;
     padding: 0 5px 15px 10px;    
 }
@@ -704,6 +704,10 @@
 .cabinet-tarifs__buy input:focus{
     
 }
+.cabinet-tarifs__buy form{
+    display: block;
+    width: 90%;
+}
 .cabinet-tarifs__form-row{
     display: flex;
     width: 100%;
@@ -755,4 +759,40 @@
         padding: 10px;
     }
     
+}
+
+@media(max-width: 650px){
+    .cabinet-tarifs h1{
+        font-size: 28px;
+    }
+    .cabinet-tarifs{
+        margin-left: 0;
+    }
+    .cabinet-tarifs__main{
+        gap: 20px;
+        padding: 5px;
+    }
+    .cabinet-tarifs__buy{
+        width: 360px;
+        padding: 0 10px 0 0;
+    }
+    .cabinet-tarifs__curret-tarif{
+        font-size: 14px;
+        width: 90%;
+    }
+    .cabinet-tarifs__tarif-row{
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .cabinet-tarifs__form-field{
+        width: 45%;
+    }
+    .cabinet-tarifs__form-field_card{
+        width: 100%;
+    }
+    .cabinet-tarifs__card{
+        width: 95%;
+    }
 }

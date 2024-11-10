@@ -27,10 +27,14 @@ const OrdersTable = ({orders, loadOrders, setLoading}) => {
             <CabinetOrder showOrder={showOrder} setShowOrder={setShowOrder} order={currentOrder} setOrder={setCurrentOrder} loadOrders={loadOrders} setLoading={setLoading}/>
             {orders.map(order => {
                 return <div className='chef-orders__order_mobile' onClick={() => openOrderWindow(order)}>
-                    <h3>{order.id}</h3>
-                    <p>Отримано: {prettyPrintDate(order.creationDate)}</p>
+                    <div className='chef-orders__order-top_mobile'>
+                    <h3>№{order.id}</h3>
+                        <p className='chef-orders__mobile-order-date'>{prettyPrintDate(order.creationDate)}</p>
+                    </div>
                     <p>Тел.: {order.phone}</p>
                     <p>Ім'я: {order.name}</p>
+                    <p>Вартість: {calculateTotalPrice(order)}</p>
+                    <p className='chef-orders__time-to-make_mobile'>Термін виконання: {prettyPrintDate(order.dateTimeToMake)}</p>
                 </div>
             })}
             

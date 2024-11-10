@@ -6,6 +6,7 @@ import telegramIcon from '../assets/telegramIcon.png'
 import mailIcon from '../assets/mailIcon.png'
 import './footerPages.css'
 import { useEffect } from 'react'
+import {INSTAGRAM, TELEGRAM} from '../constants'
 
 const HelpingCenter = () => {
     useEffect(() => {
@@ -31,10 +32,10 @@ const HelpingCenter = () => {
                 </p>
             </div>
             <div className='helping-center__links'>
-                <a href="https://instagram.com">
+                <a href={INSTAGRAM}>
                   <img src={instagramIcon}></img>
                 </a>
-                <a href="https://telegram.org">
+                <a href={TELEGRAM}>
                   <img src={telegramIcon}></img>
                 </a>
                 <a href="mailto:homechef@gmail.com">

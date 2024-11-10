@@ -58,7 +58,7 @@ const Chef = () => {
                             <h1>{'[' + chef?.username + ']'} {chef?.firstName}</h1>
                             <div className="chef__info-locality">{chef?.locality?.name}</div>
                             <a className="chef__info-link" href={"tel:" + chef?.phone}>{chef?.phone}</a>
-                            <a className="chef__info-link" href={"mailto:" + chef?.email}>{chef?.email}</a>
+                            
                         </div>
                     </div>
                     <div className="chef__description">{chef?.description}</div>

@@ -35,7 +35,7 @@ async function forgetPassword(email){
     const url = serverUrl + '/forget-password/send-token'
     const data = new FormData()
     data.append('email', email)
-    return axios.post(url, data, {withCredentials: true})
+    return axios.post(url, data)
 }
 
 async function restoreAccountGetUsername(token){

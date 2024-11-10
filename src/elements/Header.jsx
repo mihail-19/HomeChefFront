@@ -18,21 +18,34 @@ import homeChefLogo from '../assets/HomeChefLogo.png'
 import imageUrl from '../imagesUrl.js'
 import {logout} from '../services/AuthService.js'
 import { hasAuthority, isUser } from '../services/Authorities.js'
+import {TELEGRAM, INSTAGRAM} from '../constants.js'
 const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocality, showRegisterWindow, setShowRegisterWindow, notification, sendLogout})=>{
     const [city, setCity] = useState(localStorage.getItem('locality') ? JSON.parse(localStorage.getItem('locality')).name : "Місто")
     const [showCities, setShowCities] = useState(false)
     const [showBurger, setShowBurger] = useState(false)
     //const [showRegisterWindow, setShowRegisterWindow] = useState(false)
     const [showAuthWindow, setShowAuthWindow] = useState(false)
-    function switchShowBurger(){
+    function switchShowBurger(show, enableScroll){
         //disable scroll whie burger menu flag changes. Value is opposite to current
-        if(!showBurger){
-            document.documentElement.style.setProperty('overflow', 'hidden')
-        } else {
+        if(enableScroll){
             document.documentElement.style.setProperty('overflow', 'auto')
+            console.log('header scroll auto')
+        } else {
+            document.documentElement.style.setProperty('overflow', 'hidden')
+            console.log('header scroll hidden')
         }
-        setShowBurger(!showBurger)
+        setShowBurger(show)
     }
+
+    // useEffect(() => {
+    //     if(!showBurger){
+    //         document.documentElement.style.setProperty('overflow', 'auto')
+    //         console.log('header scroll auto')
+    //     } else {
+    //         document.documentElement.style.setProperty('overflow', 'hidden')
+    //         console.log('header scroll hidden')
+    //     }
+    // }, [showBurger])
 
     useEffect(() => {
         if(!isAuth){
@@ -80,9 +93,9 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
         setShowAuthWindow(!showAuthWindow)
     }
 
-    function closeBurger(){
+    function closeBurger(enableScroll){
         setTimeout(() => {
-            switchShowBurger()
+            switchShowBurger(false, enableScroll)
         }, 100)
     }
 
@@ -129,7 +142,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                     </ul>
                 </nav>
 
-                <div className='header__burger-menu-icon' onClick={switchShowBurger}>
+                <div className='header__burger-menu-icon' onClick={() => switchShowBurger(!showBurger, showBurger)}>
                     <img src={burgerMenuIcon}></img>
                 </div>
                 {!isAuth &&
@@ -144,7 +157,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                         <UserMenu person={person}/>
                     </div>
                 }
-                {showBurger && <div className='burger__shadow-in-burger-menu' onClick={switchShowBurger}></div>}
+                {showBurger && <div className='burger__shadow-in-burger-menu' onClick={() => switchShowBurger(!showBurger, showBurger)}></div>}
                 {showBurger &&
                 
                     <div className='header__burger-menu'>
@@ -167,7 +180,7 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                                 }
 
                                 <div className='header__burger-menu-top-element header__burger-menu-close-container'>
-                                    <div className='header__burger-menu-close-button' onClick={switchShowBurger}>
+                                    <div className='header__burger-menu-close-button' onClick={() => switchShowBurger(!showBurger, showBurger)}>
                                         <img src={burgerCloseButton}></img>
                                     </div>
                                 </div>
@@ -181,17 +194,17 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                         <nav className='header__burger-menu-nav'>
                             <ul>
                                 <li>
-                                    <Link onClick={closeBurger} to="/cart" className='header__cart'>
+                                    <Link onClick={() => closeBurger(true)} to="/cart" className='header__cart'>
                                         <img src={cartImg}></img>
                                     </Link>
                                 </li>
                                 
                                 <li className='header__burger-menu-nav-item'>
-                                    <Link onClick={closeBurger} to='/dishes' className='header__burger-menu-link'>Страви</Link>
+                                    <Link onClick={() => closeBurger(true)} to='/dishes' className='header__burger-menu-link'>Страви</Link>
                                 </li>
                                 {isAuth &&
                                     <li className='header__burger-menu-nav-item'>
-                                        <Link onClick={closeBurger} to='/cabinet' className='header__burger-menu-link'>Кабінет</Link>
+                                        <Link onClick={() => closeBurger(true)} to='/cabinet' className='header__burger-menu-link'>Кабінет</Link>
                                     </li>
                                 }
                                 <li className='header__burger-menu-nav-item header__burger-menu-cities' onClick={switchShowCities}>
@@ -210,15 +223,15 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                                 </li>
                                 
                                 <li className='header__burger-menu-nav-item'>
-                                    <Link onClick={closeBurger} to='/about-us' className='header__burger-menu-link'>Про нас</Link>
+                                    <Link onClick={() => closeBurger(true)} to='/about-us' className='header__burger-menu-link'>Про нас</Link>
                                 </li>
                                 <li className='header__burger-menu-nav-item'>
-                                    <Link onClick={closeBurger} to='/chefs-map' className='header__burger-menu-link'>Наші шефи</Link>
+                                    <Link onClick={() => closeBurger(true)} to='/chefs-map' className='header__burger-menu-link'>Наші шефи</Link>
                                 </li>
                                 <li className='header__burger-menu-nav-item'>
                                     
                                     {isAuth && isUser(person) && 
-                                        <Link onClick={closeBurger} to='/cabinet/become-chef' className='header__burger-menu-link'>Стати шефом</Link>
+                                        <Link onClick={() => closeBurger(true)} to='/cabinet/become-chef' className='header__burger-menu-link'>Стати шефом</Link>
                                     }
                                 </li>
                                
@@ -229,8 +242,8 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                                     }
                                     {!isAuth && 
                                         <div className='header__bureger-auth-buttons'>
-                                            <button className='header__burger-menu-register' onClick={switchShowRegisterWindow}>Реєстрація</button>
-                                            <button className='header__burger-menu-signin' onClick={switchShowAuthWindow}>Вхід</button>
+                                            <button className='header__burger-menu-register' onClick={() => {closeBurger(false); switchShowRegisterWindow()}}>Реєстрація</button>
+                                            <button className='header__burger-menu-signin' onClick={() => {closeBurger(false); switchShowAuthWindow() }}>Вхід</button>
                                             
                                         </div>
                                     }
@@ -241,10 +254,10 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                             </ul>
                         </nav>
                         <div className='header__burger-menu-socila-media-links'>
-                                    <a href="https://instagram.com">
+                                    <a href={INSTAGRAM}>
                                         <img src={instagramIcon}></img>
                                     </a>
-                                    <a href="https://telegram.org">
+                                    <a href={TELEGRAM}>
                                         <img src={telegramIcon}></img>
                                     </a>
                                     <a href="mailto:homechef@gmail.com">

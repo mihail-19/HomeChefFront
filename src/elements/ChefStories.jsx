@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import './ChefStories.css'
 import SearchButtonLeft from '../assets/SearchButtonLeft.png'
 import SearchButtonRight from '../assets/SearchButtonRight.png'
-import chefStabImg1 from '../assets/stabs/chefStabImg1.png'
-import chefStabImg2 from '../assets/stabs/chefStabImg2.png'
-import chefStabImg3 from '../assets/stabs/chefStabImg3.png'
+import chefStabImg1 from '../assets/chefStoryOlena.png'
+import chefStabImg2 from '../assets/chefStoryKaterina.png'
+import chefStabImg3 from '../assets/chefStoryAndriy.png'
 import { getStories } from "../services/ChefStoryService"
 import imagesUrl from "../imagesUrl"
 
@@ -13,30 +13,30 @@ const ChefStories = () =>{
         {
             chefId: 1,
             imageURL: chefStabImg1,
-            name: "Наталія",
+            name: "Олена",
             city: "м. Харків",
             kitchenTypes: ["українська", "європейська"],
             title: "Моя історія",
-            text: "Lorem ipsum dolor sit amet consectetur. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
+            text: "Привіт! Я Олена, і під час цих складних часів в Україні я вирішила, що хочу реалізувати свою мрію — зайнятися кулінарією на платформі Home Chef. Готування завжди приносило мені радість, і тепер я можу ділитися своїми улюбленими рецептами з іншими. Ця платформа стала для мене не лише можливістю заробити, а й знайти підтримку та натхнення від людей, які цінують домашню кухню. Давайте разом створювати атмосферу дружби та творчості, де кожен може показати свої кулінарні таланти!"
         },
         {
             chefId: 2,
             imageURL: chefStabImg2,
-            name: "Світлана",
-            city: "м. Київ",
-            kitchenTypes: ["українська", "азіатська"],
+            name: "Катерина",
+            city: "м. Чернівці",
+            kitchenTypes: ["українська", "європейська"],
             title: "Моя історія",
-            text: "Vestibulum nulla purus est orci ut purus scelerisque.  Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
+            text: "Привіт усім! Я Катерина, і в останні місяці я зрозуміла, як важливо зберігати сімейні традиції через кулінарію. Тому я вирішила почати працювати на платформі Home Chef, щоб ділитися своїми улюбленими рецептами та підтримувати інших у цей непростий час. Ця платформа допомогла мені не тільки відкрити свій бізнес, а й об’єднати людей навколо смачних страв. Приєднуйтесь до мене, щоб разом створювати чудові кулінарні моменти та підтримувати одне одного!"
             
         },
         {
             chefId: 3,
             imageURL: chefStabImg3,
-            name: "Антон",
-            city: "м. Ужгород",
-            kitchenTypes: ["українська", "мексиканська"],
+            name: "Андрій",
+            city: "м. Київ",
+            kitchenTypes: ["українська", "європейська"],
             title: "Моя історія",
-            text: "Lorem ipsum dolor sit amet consectetur. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim. Vestibulum nulla purus est orci ut purus scelerisque. Magna orci augue imperdiet sed amet quam. Sit vulputate pellentesque ut faucibus sed enim."
+            text: "Привіт! Я Андрій, і в умовах нинішньої ситуації в Україні я зрозумів, що кулінарія може стати справжнім джерелом радості і підтримки. Я обрав платформу Home Chef, щоб реалізувати свою пристрасть до готування та ділитися своїми улюбленими стравами з іншими. Тут я знайшов спільноту однодумців, які цінують домашню кухню. Давайте разом створювати смачні історії, адже кулінарія — це не лише їжа, а й емоції, які ми можемо дарувати одне одному!"
             
         }
     ]
@@ -101,7 +101,7 @@ const ChefStories = () =>{
                 <div className="chef-story-item">
                     <div className="chef-story-item__header">
                         <div className="chef-story-item__header-img">
-                            <img style={{borderRadius:"50%"}} src={imagesUrl + story.imageURL}></img>
+                            <img style={{borderRadius:"50%"}} src={story.imageURL}></img>
                         </div>
                         <div className="chef-story-item__header-info">
                             <div className="chef-story-item__chef-info">
