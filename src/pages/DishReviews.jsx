@@ -8,7 +8,7 @@ import './Dish.css'
 import Rating from "../elements/utility/Rating"
 import Loading from "../elements/utility/Loading"
 import Snackbar from "../elements/utility/Snackbar"
-const DishReviews = ({person}) => {
+const DishReviews = ({person, isAuth}) => {
     const {id} = useParams()
     const [reviews, setReviews] = useState([])
     const [showAddReview, setShowAddReview] = useState(false)
@@ -166,6 +166,13 @@ const DishReviews = ({person}) => {
             }
         }
 
+        if(!isAuth  || !person){
+            return (
+                <div className="dish__add-review">
+                    Відгуки можуть залишати лише авторизовані користувачі.
+                </div>
+            )
+        }
         return (
             <div className="dish__add-review">
                 <h2>Ваш відгук</h2>
@@ -196,6 +203,13 @@ const DishReviews = ({person}) => {
     }
 
     function answerReviewWindow(){
+        if(!isAuth  || !person){
+            return (
+                <div className="dish__add-review">
+                    Відгуки можуть залишати лише авторизовані користувачі.
+                </div>
+            )
+        }
         return (
             <div className="dish__add-review">
                 <h2>Відповідь на відгук</h2>

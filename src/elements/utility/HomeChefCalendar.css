@@ -1,5 +1,5 @@
 .hc-calendar{
-    position: relative;
+    //position: relative;
     width: 120px;
     
 }
@@ -45,7 +45,7 @@
 }
 .hc-calendar__calendar-conteiner{
     width: 250px;
-    position: fixed;
+    //position: fixed;
     margin-top: 10px;
 }
 .react-calendar{
@@ -67,7 +67,7 @@
     width: 80px;
 }
 .hc-picker__container{
-    position: fixed;
+    //position: fixed;
 }
 .hc-timepicker__picker{
     display: flex;

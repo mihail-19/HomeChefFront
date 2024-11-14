@@ -2,6 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import './Cabinet.css'
 import burgerCloseButton from '../assets/burgerCloseButton.png'
+import cabinetMenuIcon from '../assets/cabinetMenuIcon.png'
 import { getChef } from "../services/ChefService"
 import { hasAuthority, isChef } from "../services/Authorities"
 const CabinetChefLayout = ({person, setPerson, isAuth}) => {
@@ -138,7 +139,9 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
             <div className='cabinet__container'>
                 
                 {!showMenu && 
-                    <button className={!isChef(person) ? "cabinet__menu-button cabinet__menu-button_user" : "cabinet__menu-button cabinet__menu_chef"} onClick={() => setShowMenu(true)}>Меню</button>
+                    <button className={!isChef(person) ? "cabinet__menu-button cabinet__menu-button_user" : "cabinet__menu-button cabinet__menu_chef"} onClick={() => setShowMenu(true)}>
+                        <img src={cabinetMenuIcon}></img>
+                    </button>
                 }
                 <div className='cabinet__menu-container'>
                 
@@ -153,6 +156,15 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                         {links()}
                     </nav>
                 </div>
+                
+                <nav className={showMenu ? 'cabinet__menu_mobile cabinet_active ' + menuStyleClass() : 'cabinet__menu_mobile ' + menuStyleClass()} >
+                        <div className="cabinet__mobile-menu-top">
+                            <button onClick={() => setShowMenu(false)}>
+                                <img src={burgerCloseButton}></img>
+                            </button>
+                        </div>
+                    {links()}
+                </nav>
                 <div className='cabinet__content'>
                     {!showMenu &&
                         <Outlet context={{chef, loadChef}}/>

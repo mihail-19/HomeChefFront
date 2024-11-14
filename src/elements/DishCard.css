@@ -5,6 +5,7 @@
     border: 1px solid gray;
     padding-bottom: 10px;
     flex-shrink: 0;
+    overflow: hidden;
 }
 
 @media(max-width: 1330px){
@@ -33,6 +34,9 @@
     left: 5px;
     top: 5px;
     z-index: 10;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+    padding: 2px;
 }
 .dish-card__chef-info{
     position: absolute;
@@ -59,6 +63,9 @@
     object-fit: cover;
     border-radius: 50%;
 }
+
+
+
 .dish-card__chef-rating{
     display: flex;
     align-items: center;

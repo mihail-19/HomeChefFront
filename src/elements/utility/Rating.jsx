@@ -1,5 +1,5 @@
 import ratingStartEmpty from '../../assets/ratingStarEmpty.png'
-import ratingStarFilled from '../../assets/ratingStarFilled.png'
+import ratingStarFilled from '../../assets/ratingStarFilled1.png'
 import './Rating.css'
 const Rating = ({rating}) => {
     function chooseReviewRatingImg(rating, position){

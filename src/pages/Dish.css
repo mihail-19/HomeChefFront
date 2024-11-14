@@ -56,12 +56,15 @@
 }
 .dish__chef{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 300px;
 }
 .dish__chef-top{
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 .dish__chef-img{
     width: 90px;
@@ -75,7 +78,8 @@
     border-radius: 50%;
 }
 .dish__chef-name{
-
+    line-height: 1em;
+    margin-top: 10px;
 }
 .dish__chef-rank{
 
@@ -83,9 +87,9 @@
 .dish__chef-dishes-button{
     background-color: #BC7BAA;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
-    padding: 5px 10px;
+    padding: 10px 16px;
     border-radius: 15px;
     text-decoration: none;
     display: block;
@@ -128,11 +132,10 @@
 
 
 .dish__desription{
-    margin: 20px 0 40px 0;
-    font-weight: 300;
+    margin: 10px 0 20px 0;
+    font-weight: 200;
 }
 .dish__ingredients{
-    margin-top: 10px;
     font-weight: 300;
     font-size: 16px;
 }
@@ -150,6 +153,7 @@
     .dish__main-content{
         flex-direction: column;
         align-items: center;
+        padding-left: 10px;
     }
     .dish__left{
         display: flex;

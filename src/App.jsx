@@ -179,7 +179,7 @@ function App() {
         <Route path="/dishes/:params?" element={<Dishes cart={cart} loadCart={loadCart} locality={locality}/>}/>
         <Route path="/chef/:id/dishes/:pageNumber?" element={<ChefDishes loadCart={loadCart}/>}/>
         <Route path="/dish/:id" element={<Dish cart={cart} loadCart={loadCart}/>}/>
-        <Route path="/dish/:id/comments" element={<DishReviews person={person}/>}/>
+        <Route path="/dish/:id/comments" element={<DishReviews person={person} isAuth={isAuth}/>}/>
         <Route path="/cart" element={<Cart cart={cart} loadCart={loadCart}/>}/>
         <Route path="/products-safety" element={<ProductsSafety/>}/>
         <Route path="/certification" element={<Certification/>}/>

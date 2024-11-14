@@ -109,33 +109,40 @@ const Dish = ({cart, loadCart}) => {
                             
                             <button className="dish__buy-button" onClick={() => sendAddToCart(dish)}>Замовити</button>
                         </div>
-                        <div className="dish__weight">Вага: {dish.weight} гр.</div>
                         <div className="dish__desription">{dish.description}</div>
+                        <h3>Вага:</h3>
+                        <div className="dish__weight">{dish.weight} гр.</div>
+                        <h3>Категорія:</h3>
+                        <div className="dish__category">{dish.dishCategory.name}</div>
                         <h3>Склад страви:</h3>
                         <div className="dish__ingredients">{dish.ingredients}</div>
+                        <h3>Теги:</h3>
+                        <div className="dish-card__dish-tags">
+                            {dish.dishTags.map(t => {
+                               return <div className="dish__dish-tag">{t.name}</div>
+                            })}
+                        </div>
                 </div>
             </div>
 
             <div className="dish__chef-dishes-container">
-                <div className="dish__chef-container">
-                        <div className="dish__chef">
-                            <div className="dish__chef-top">
-                                <div className="dish__chef-img">
-                                    <img src={imagesUrl + dish.chef?.imageURL} loading="eager"></img>
-                                </div>
-                                <div className="dish__chef-name">
-                                    Шеф <b>{dish.chef.firstName}</b>
-                                </div>
-                            </div>
-                            <div className="dish__chef-rank">
-                                <ChefRank rank={dish.chef?.ranking}/>
-                            </div>
-                            <Link to={"/chef/" + dish.chef?.id + "/dishes"} className="dish__chef-dishes-button">Всі страви</Link> 
+                <div className="dish__chef">
+                    <div className="dish__chef-top">
+                        <div className="dish__chef-img">
+                            <img src={imagesUrl + dish.chef?.imageURL} loading="eager"></img>
                         </div>
+                        <div className="dish__chef-name">
+                            Шеф <b>{dish.chef.firstName}</b>
+                        </div>
+                    </div>
+                    <div className="dish__chef-rank">
+                        <ChefRank rank={dish.chef?.ranking}/>
+                    </div>
+                    <Link to={"/chef/" + dish.chef?.id + "/dishes"} className="dish__chef-dishes-button">Всі страви</Link> 
                 </div>
                 <h2>Інші страви шефа в цій категорії</h2>
                 <div className="dish__dishes">
-                    {chefDishes.map(d => {
+                    {chefDishes.filter(d => d.dishCategory.id === dish.dishCategory.id && d.id !== dish.id).slice(0,5).map(d => {
                        return <DishCard dish={d} sendAddToCart={sendAddToCart}/>
                     })}
                 </div>
