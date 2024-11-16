@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import 'react-calendar/dist/Calendar.css';
 import './HomeChefCalendar.css'
 import calendarIcon from '../../assets/timePicker.svg'
@@ -7,6 +7,9 @@ const HomeChefTimePicker = ({date, setDate}) => {
     const [isActive, setIsActive] = useState(false)
     const [hour, setHour] = useState(date.getHours())
     const [minute, setMinute] = useState(date.getMinutes())
+
+    
+
     function handleHour(text){
         let val = Number.parseInt(text)
         if(val && val > -1 && val < 24){
@@ -31,6 +34,7 @@ const HomeChefTimePicker = ({date, setDate}) => {
         document.addEventListener("click", closeClickListener)
         
     }
+   
     function closeClickListener(e){
         if (!document.getElementById('calendar').contains(e.target)){
             console.log(e.target.id)
@@ -47,9 +51,7 @@ const HomeChefTimePicker = ({date, setDate}) => {
                     :
                     <input id="timepicker_minute" type="text" className='hc-calendar__day-input' value={minute} onFocus={e => e.target.select()} onChange={e => handleMinute(e.target.value)}></input>
                 </div>
-                <div>
-                    <button id="calendar-btn" className='hc-timepicker__picker-button' onClick={(e) => {e.stopPropagation(); switchShowCalendar()}}><img src={calendarIcon}></img></button>
-                </div>
+                
             </div>
             {isActive &&
                 <div id="calendar" className="hc-picker__container">

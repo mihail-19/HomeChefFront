@@ -24,13 +24,7 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
                     </Link>
                     <div className="footer__left-bottom">
 
-                        <div className="footer__bottom">
-                            <div className="footer__bottom-links">
-                                <Link to="/privat-policy">Політика Конфіденційності</Link>
-                                <Link to="/terms-of-use">Умови користування</Link>
-                            </div>
-                            
-                        </div>
+                       
                         <div className="footer__social-links">
                             <a href={INSTAGRAM}>
                                 <img src={instagramFooterIcon}></img>
@@ -41,6 +35,13 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
                             <a href={'mailto:' + EMAIL}>
                                 <img src={mailFooterIcon}></img>
                             </a>
+                        </div>
+                        <div className="footer__bottom">
+                            <div className="footer__bottom-links">
+                                <Link to="/privat-policy">Політика Конфіденційності</Link>
+                                <Link to="/terms-of-use">Умови користування</Link>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

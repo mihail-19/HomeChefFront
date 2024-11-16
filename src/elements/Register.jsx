@@ -191,10 +191,10 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                             </div>
                             
                             <div className='register__form-element'>
-                                <label>Створити пароль*</label>
+                                <label>Створити пароль</label>
                                 <div className='register__form-input'>
                                     <input name='passwordFeild' type='password' placeholder='**********' onChange={e => onChangePwd(e.target.value)} autoComplete="off"></input>
-                                    <div className='register__form-prompt'>Пароль повинен бути надійним</div>
+                                    
                                 </div>
                                 <div style={errMsgStyle}>{pwdErrMsg}</div>
                             </div>
@@ -206,10 +206,10 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                                 <div style={errMsgStyle}>{confirmPwdErrMsg}</div>
                             </div>
                             <div className='register__form-element'>
-                                <label>Email*</label>
+                                <label>Email</label>
                                 <div className='register__form-input'>
                                     <input name='email' type='text' onChange={e => onChangeEmail(e.target.value)}></input>
-                                    <div className='register__form-prompt'>Email повинен бути справжнім</div>
+                                    
                                 </div>
                                 <div style={errMsgStyle}>{emailErrMsg}</div>
                             </div>

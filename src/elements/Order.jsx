@@ -189,7 +189,7 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
             height: '14px'
         }
         return (
-            <div className='order'>
+            <div className='order' id="order">
                 <Snackbar ref={snackbarRef}/>
                 <h2>Оформити замовлення</h2>
                 <div className='order__item'>
@@ -227,7 +227,9 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
                         <label>Орієнтовний час</label>
                         <HomeChefTimePicker date={date} setDate={setDate}/>
                     </div>
+                    
                 </div>
+                
                 <div className='order__sum'>Сума: {calculateTotalPrice()}</div>
                 <div className='order__delivery'>Доставка: прораховується окремо</div>
                 <button className={isReady ? 'order__submit-button order__submit-button_active' : 'order__submit-button'} onClick={sendConfirmOrder}>Замовити</button>

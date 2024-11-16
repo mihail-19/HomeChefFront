@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './HomeChefCalendar.css'
@@ -13,8 +13,21 @@ const HomeChefCalendar = ({date, setDate}) => {
         setMonth(date.getMonth()+1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth()+1))
         setYear(date.getFullYear())
     }, [date])
-    
+    useEffect(() => {
+        console.log(showCalendar)
+        if(showCalendar){
+            document.getElementById('order')?.addEventListener("click", closeClickListener)
+        } else {
+            document.getElementById('order')?.removeEventListener("click", closeClickListener)
+        }
+    }, [showCalendar])
+    const closeClickListener = useCallback((e) => {
+        if(!document.getElementById("calendar").contains(e.target)){
+            setShowCalendar(false)
+        }
+    }, [])
     function beforeSetDay(text){
+        
         let val = Number.parseInt(text)
         if(val && text.length < 3){
             setDay(text)
@@ -33,6 +46,7 @@ const HomeChefCalendar = ({date, setDate}) => {
         }
         setDay(val)
         date.setDate(val)
+        
     }
     function handleMonth(){
         let val = Number.parseInt(month)
@@ -65,19 +79,12 @@ const HomeChefCalendar = ({date, setDate}) => {
         console.log('switch' + showCalendar)
        
         setShowCalendar(!showCalendar)
-        document.addEventListener("click", closeClickListener)
         
     }
-    function closeClickListener(e){
-        if (!document.getElementById('calendar').contains(e.target)){
-            console.log(e.target.id)
-            setShowCalendar(false)
-            document.removeEventListener("click", closeClickListener)
-          } 
-       
-    }
+
+    
     return (
-        <div className='hc-calendar'>
+        <div className='hc-calendar' id="calendar">
             <div className='hc-calendar__input'>
                 <div>
                     <input type="text" className='hc-calendar__day-input' value={day} onFocus={e => e.target.select()} onBlur={() => handleDay()} onChange={e => beforeSetDay(e.target.value) }></input>
@@ -91,7 +98,7 @@ const HomeChefCalendar = ({date, setDate}) => {
                 </div>
             </div>
             {showCalendar &&
-                <div className='hc-calendar__calendar-conteiner' id="calendar">
+                <div className='hc-calendar__calendar-conteiner' >
                 <Calendar  className={showCalendar ? 'react-calendar react-calendar_active' : 'react-calendar'} value={date} onChange={setDate} locale={'uk-UK'} view={'day'} maxDetail={'month'} onClick={e => e.stopPropagation()}/>
                 </div>
             }
