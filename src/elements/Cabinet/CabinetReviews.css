@@ -6,17 +6,20 @@
     margin-bottom: 40px;
 }
 .cabinet-reviews__menu label{
-    padding-left: 10px;
     font-weight: 700;
 }
 .cabinet-reviews__select{
     padding: 10px;
     display: block;
-    width: 300px;
+    width: 360px;
     cursor: pointer;
     height: 50px;
     overflow: hidden;
     font-size: 14px;
+}
+.cabinet-reviews__menu-element{
+    display: flex;
+    flex-direction: column;
 }
 .cabinet-reviews__select:focus{
     outline: none;
@@ -59,4 +62,17 @@
 .cabinet-reviews__rating{
     height: 10%;
     margin-left: 5px;
+}
+
+@media(max-width: 500px){
+    .cabinet-reviews{
+        width: 95%;
+    }
+    .cabinet-reviews__select{
+       width: 100%;
+    }
+    .cabinet-reviews__review{
+        width: 100%;
+        
+    }
 }

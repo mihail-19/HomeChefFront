@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import defaultChefIcon from "../../assets/defaultChefIcon.png"
 import { getChef, updateChef } from '../../services/ChefService'
-import { useOutletContext } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
 import { updateImage } from '../../services/PersonService'
 import Snackbar from '../utility/Snackbar'
 import Loading from '../utility/Loading'
@@ -246,7 +246,10 @@ const CabinetMyProfile = () => {
                 </div>
             </div>
             <button className='profile__submit-button' onClick={saveChef}>Зберегти зміни</button>
-            
+            <div className='profile__change-credentials'>
+                <h3>Зміна даних для авторизації</h3>
+                <Link to="/cabinet/change-password" className='profile__change-pwd-button'>Змінити пароль</Link>
+            </div>
         </div>
     
     )

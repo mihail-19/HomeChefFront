@@ -90,7 +90,9 @@
 }
 .dish-card__dish-img{
     height: 180px;
-    border-radius: 15px;
+    //border-radius: 15px;
+    border-bottom-left-radius: 15px 15px;
+    border-bottom-right-radius: 15px 15px;
     display: block;
     overflow: hidden;
 }
@@ -107,7 +109,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 15px;
 }
 
 .dish-card__dish-img img:hover{

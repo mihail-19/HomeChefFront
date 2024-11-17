@@ -168,6 +168,15 @@
     flex-grow: 1;
     padding: 0 5px 15px 10px;    
 }
+
+
+@media(max-width: 700px){
+    .cabinet__content{
+        padding: 0 5px 15px 5px;    
+    }
+}
+
+
 .profile{
     padding: 20px 10px 10px 20px;
 }
@@ -305,21 +314,19 @@
 
 
 .profile__change-credentials{
-    border: 1px solid gray;
     width: 250px;
     margin: 40px 0 40px 0;
     padding: 30px 10px 30px 5px;
 }
 .profile__change-credentials h3{
     margin: 0 0 20px 0;
-    text-align: center;
+    font-size: 26px;
+    line-height: 30px;
+    text-align: left;
 }
 .profile__change-pwd-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: underline;
-    width: 150px;
+   text-decoration: none;
+   font-size: 18px;
     color: rgb(143, 22, 22);
 }
 
@@ -780,21 +787,29 @@
 @media(max-width: 650px){
     .cabinet-tarifs h1{
         font-size: 28px;
+        text-align: center;
+    }
+    .cabinet-tarifs h2{
+        text-align: center;
     }
     .cabinet-tarifs{
         margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     .cabinet-tarifs__main{
         gap: 20px;
-        padding: 5px;
+        justify-content: center;
     }
     .cabinet-tarifs__buy{
         width: 360px;
-        padding: 0 10px 0 0;
+        padding: 0;
+        margin: 0 auto;
     }
     .cabinet-tarifs__curret-tarif{
         font-size: 14px;
-        width: 90%;
+        width: 86%;
     }
     .cabinet-tarifs__tarif-row{
         margin-bottom: 20px;
