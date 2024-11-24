@@ -125,5 +125,33 @@ const getKitchenType = async (id) => {
     return res
 }
 
+const updateDishCategory = async (id, name) => {
+    const url = serverUrl + '/common-data/dish-categories/' + id
+    const data = {
+        id: id,
+        name: name
+    }
+    const res = axios.post(url, data, {withCredentials:true})
+    return res
+}
+const updateTag = async (id, name) => {
+    const url = serverUrl + '/common-data/tags/' + id
+    const data = {
+        id: id,
+        name: name
+    }
+    const res = axios.post(url, data, {withCredentials:true})
+    return res
+}
+const updateKitchenType = async (id, name) => {
+    const url = serverUrl + '/common-data/kitchen-type/' + id
+    const data = {
+        id: id,
+        name: name
+    }
+    const res = axios.post(url, data, {withCredentials:true})
+    return res
+}
+
 export {updateCities, getCities, removeCity, getDishCategories, addDishCategory, removeDishCategory, addTag, 
-    getTags, removeTag, addKitchenType, getKitchenTypes, deleteKitchenType, getKitchenType}
+    getTags, removeTag, addKitchenType, getKitchenTypes, deleteKitchenType, getKitchenType, updateDishCategory, updateTag, updateKitchenType}

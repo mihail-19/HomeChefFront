@@ -103,6 +103,7 @@ function App() {
         //setCity('Місто')
         setIsAuth(false)
         setPerson(null)
+        setCart({})
     })
 }
   

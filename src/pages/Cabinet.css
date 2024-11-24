@@ -480,6 +480,9 @@
     display: flex;
     align-items: center;
 }
+.admin-add-data__data span{
+    cursor: pointer;
+}
 
 .admin-add-data__data button{
     width: 20px;
@@ -496,6 +499,24 @@
 }
 
 
+
+.admin-add-data__update{
+    width: 300px;
+}
+.admin-add-data__update input{
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 250px;
+}
+.admin-add-data__update button{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
 
 
 

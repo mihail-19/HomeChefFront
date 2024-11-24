@@ -248,7 +248,7 @@ const CabinetMyProfile = () => {
             <button className='profile__submit-button' onClick={saveChef}>Зберегти зміни</button>
             <div className='profile__change-credentials'>
                 <h3>Зміна даних для авторизації</h3>
-                <Link to="/cabinet/change-password" className='profile__change-pwd-button'>Змінити пароль</Link>
+                <Link    to="/cabinet/change-password" className='profile__change-pwd-button'>Змінити пароль</Link>
             </div>
         </div>
     

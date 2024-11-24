@@ -18,12 +18,16 @@ const Register = ({showAuthWindow, setShowAuthWindow, setIsAuth, setPerson}) =>{
             setIsFailed(false)
             console.log('auth sucess')
             await sendGetPerson()
+            
         }
         catch(error) {
             setIsFailed(true)
             setIsAuth(false)
             localStorage.setItem('isAuth', 'false')
             console.log('login error')
+        }
+        finally{
+            document.documentElement.style.setProperty('overflow', 'auto')
         }
         
     }
