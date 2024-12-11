@@ -177,6 +177,8 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
         )
     }
 
+
+
     function registerForm(){
         return (
             <div className='register__form'>
@@ -217,7 +219,7 @@ const Register = ({showRegisterWindow, setShowRegisterWindow}) =>{
                                 <label className='checkbox-container register__confirm-label'>Погоджуюсь з 
                                     <input type='checkbox' className='register__checkbox' checked={confirmedTerms} onChange={() => setConfirmedTerms(!confirmedTerms)}></input> 
                                     <span className='checkbox-checkmark register__checkbox'></span>
-                                </label> <Link className='register__terms-link' to={'/terms-of-use'}>умовами користування</Link>
+                                </label> <Link className='register__terms-link' to={'/terms-of-use'} onClick={() => setShowRegisterWindow(false)}> умовами користування</Link>
                             </div>
                             <button className='register__submit-button' style={ !isReady ? passiveBtnSyle : {}} type="submit">Приєднатися</button>
                         </form>

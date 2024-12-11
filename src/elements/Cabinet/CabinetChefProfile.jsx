@@ -159,7 +159,7 @@ const CabinetMyProfile = () => {
                                 <label className='profile__info-tag'>
                                     Пошта
                                 </label>
-                                <input type="text" className='profile__info-input' value={email} onChange={e => setEmail(e.target.value)}></input>
+                                <input type="text" className='profile__info-input' value={email} onChange={e => setEmail(e.target.value)} disabled></input>
                             </div>
                             <div className='profile__info-element'>
                                 <label className='profile__info-tag'>

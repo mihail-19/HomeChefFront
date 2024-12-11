@@ -12,6 +12,7 @@ const CabinetChefMenu = () =>{
     const [dishes, setDishes] = useState([])
     const [showUpdateDish, setShowUpdateDish] = useState(false)
     const [dishToUpdate, setDishToUpdate] = useState(null)
+    const MAX_DISHES = 15
     function openAddDishWindow(){
         setShowAddDish(true)
     }
@@ -31,14 +32,24 @@ const CabinetChefMenu = () =>{
     return(
         <div className="chef-menu">
             <div className="chef-menu__top">
-                <div className="chef-menu__add-dish">
-                    <div className="chef-menu__add-dish-image">
-                      
+               
+                    <div className="chef-menu__add-dish">
+                        <div className="chef-menu__add-dish-image">
+                        
+                        </div>
+                        {!dishes || dishes.length < MAX_DISHES && 
+                        <button className="chef-menu__add-dish-button" onClick={openAddDishWindow}>Додати страву</button>
+                        }
+                         {dishes && dishes.length >= MAX_DISHES && 
+                            <div>
+                            Досягнуто ліміт страв у {MAX_DISHES} одиниць.
+                            </div>
+                        }
+                        <AddDish showAddDish={showAddDish} setShowAddDish={setShowAddDish}/>
+                        <UpdateDish showUpdateDish={showUpdateDish} setShowUpdateDish={setShowUpdateDish} dish={dishToUpdate}/>
                     </div>
-                    <button className="chef-menu__add-dish-button" onClick={openAddDishWindow}>Додати страву</button>
-                    <AddDish showAddDish={showAddDish} setShowAddDish={setShowAddDish}/>
-                    <UpdateDish showUpdateDish={showUpdateDish} setShowUpdateDish={setShowUpdateDish} dish={dishToUpdate}/>
-                </div>
+               
+                    
                 <div className="chef-menu__dishes">
                     {dishes.map(dish => {
                         return <div className="chef-menu__dish">

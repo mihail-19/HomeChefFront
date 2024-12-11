@@ -7,7 +7,7 @@ import HomeChefTimePicker from './utility/HomeChefTimePicker'
 import { addOrder } from '../services/OrderService'
 import { removeAllFromCart } from '../services/CartService'
 import Snackbar from './utility/Snackbar'
-const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
+const Order = ({showOrder, setShowOrder, products, loadCart, person}) =>{
     const [orderLocality, steOrderLocality] = useState({})
     const [cityName, setCityName] = useState('')
     const [address, setAddress] = useState('')
@@ -21,10 +21,8 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
     const [nameErrMsg, setNameErrMsg] = useState(null)
     const [phoneErrMsg, setPhoneErrMsg] = useState(null)
     const [isReady, setIsReady] = useState(false)
-    const [selfPickup, setSelfPickup] = useState(false)
+    const [deliveryType, setDeliveryType] = useState('courier')
 
-
-       
     const snackbarRef = useRef(null)
 
     console.log(products)
@@ -54,6 +52,24 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
     useEffect(() => {
         checkIsReady()
     }, [name, phone])
+
+    useEffect(() => {
+        if(person && person.firstName){
+            setName(person.firstName)
+        }
+        if(person && person.phone){
+            setPhone(person.phone)
+        }
+    }, [])
+
+    useEffect(() => {
+        if(person && person.firstName){
+            setName(person.firstName)
+        }
+        if(person && person.phone){
+            setPhone(person.phone)
+        }
+    }, [person])
 
     function checkDishLocality(){
         if(!products || products.length < 1){
@@ -128,7 +144,7 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
             phone: phone,
             address: address,
             dateTimeToMake: date,
-            selfPickup: selfPickup,
+            selfPickup: deliveryType === 'selfPickup',
             products: products.map(p => {
                 return {dishId: p.dish.id, dishNumber: p.dishNumber}
             })
@@ -197,17 +213,22 @@ const Order = ({showOrder, setShowOrder, products, loadCart}) =>{
                     {showCityError && <div className='order__error'>Страви у Вашому замовленні готють шефи з разних міст. Будь ласка, <b>видаліть страви</b>, що готують шефи не з Вашого міста!</div>}
                 </div>
                 <div className='order__item'>
-                    <label className='checkbox-container'> Самовивіз
-                        <input type='checkbox' style={{width: '20px', height: '20px'}} checked={selfPickup} onChange={() => setSelfPickup(!selfPickup)}></input> 
-                        <span className='checkbox-checkmark'></span>
-                    </label>
+                    <select className='order__self-pickup-select' value={deliveryType} onChange={e => setDeliveryType(e.target.value)}>
+                        {products[0] && products[0].dish.chef.hasSelfPickup &&
+                            <option value='selfPickup'>Самовивіз</option>
+                        }
+                        <option value='courier'>Доставка кур'єром</option>
+                    </select>
+                    
                     
                 </div>
-                <div className='order__item'>
-                    <label>Адреса доставки</label>
-                    <input type="text" className='order__input' value={address} onChange={e => setAddress(e.target.value)}></input>
-                    <div style={errMsgStyle}></div>
-                </div>
+                {deliveryType && deliveryType !== 'selfPickup' &&
+                    <div className='order__item'>
+                        <label>Адреса доставки</label>
+                        <input type="text" className='order__input' value={address} onChange={e => setAddress(e.target.value)}></input>
+                        <div style={errMsgStyle}></div>
+                    </div>
+                }
                 <div className='order__item'>
                     <label>Контактний телефон</label>
                     <input type="text" className='order__input' value={phone} onChange={e => onChangePhone(e.target.value)}></input>

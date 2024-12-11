@@ -42,13 +42,16 @@ const AddDish = ({showUpdateDish, setShowUpdateDish, dish}) => {
     }, image)
 
     function loadDish(){
+        if(!dish){
+            return
+        }
         setName(dish.name)
         setDescription(dish.description)
         setIngredients(dish.ingredients)
         setIsActive(dish.isActive)
         setCookingTime(dish.cookingTime)
         setPrice(dish.price)
-        setCatehoryId(dish.dishCategory.id)
+        setCatehoryId(dish.dishCategory?.id)
         setTags(dish.dishTags)
         setWeight(dish.weight)
         if(dish.imageURL){

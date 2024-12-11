@@ -10,7 +10,7 @@ import DatePicker from 'react-date-picker'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import HomeChefCalendar from '../elements/utility/HomeChefCalendar'
-const Cart = ({cart, loadCart}) => {
+const Cart = ({cart, loadCart, person}) => {
 
     const [showOrder, setShowOrder] = useState(false)
     const [date, setDate] = useState(new Date())
@@ -60,7 +60,7 @@ const Cart = ({cart, loadCart}) => {
 
     return (
         <div className="cart">
-            <Order showOrder={showOrder} setShowOrder={setShowOrder} products={currentProducts} loadCart={loadCart}/>
+            <Order showOrder={showOrder} setShowOrder={setShowOrder} products={currentProducts} loadCart={loadCart} person={person}/>
             <div className="cart__top">
                 <h1>Корзина</h1>
                 {productsDivided && productsDivided.length > 1 && <span style={{fontStyle: 'italic'}}>Замовлення розбито на {productsDivided.length} частин(и) оскільки страви належать різним шефам</span>}

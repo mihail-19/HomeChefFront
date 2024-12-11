@@ -85,3 +85,7 @@
     color: red;
     font-size: 12px;
 }
+
+.order__self-pickup-select{
+    width: 200px;
+}

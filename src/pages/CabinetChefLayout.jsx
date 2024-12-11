@@ -92,7 +92,6 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                 <li><Link to="reviews" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Мої відгуки</Link></li>
                 <li><Link to="chef-story" className={showFlags[5] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(5)}>Моя історія</Link></li>
                 <li><Link to="chef-usefull" className={showFlags[6] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(6)}>Корисне</Link></li>
-                <li><Link to="tarif" className={showFlags[7] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(7)}>Тарифний план</Link></li>
                 <li><Link className='cabinet__exit-Link'>Вийти</Link></li>
             </ul>
         }else if(isAdmin){
