@@ -5,7 +5,7 @@ import burgerCloseButton from '../assets/burgerCloseButton.png'
 import cabinetMenuIcon from '../assets/cabinetMenuIcon.png'
 import { getChef } from "../services/ChefService"
 import { hasAuthority, isChef } from "../services/Authorities"
-const CabinetChefLayout = ({person, setPerson, isAuth}) => {
+const CabinetChefLayout = ({person, setPerson, isAuth, sendLogout}) => {
     const [showMenu, setShowMenu] = useState(window.innerWidth < 1000 ? true : false)
     useEffect(() => {
         console.log('cabinet chef layout')
@@ -92,7 +92,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                 <li><Link to="reviews" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Мої відгуки</Link></li>
                 <li><Link to="chef-story" className={showFlags[5] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(5)}>Моя історія</Link></li>
                 <li><Link to="chef-usefull" className={showFlags[6] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(6)}>Корисне</Link></li>
-                <li><Link className='cabinet__exit-Link'>Вийти</Link></li>
+                <li><Link to="/" className='cabinet__exit-Link' onClick={sendLogout}>Вийти</Link></li>
             </ul>
         }else if(isAdmin){
             return <ul>
@@ -100,7 +100,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                 <li><Link to="admin-data" className={showFlags[1] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(1)}>Внести дані</Link></li>
                 <li><Link to="users-list" className={showFlags[2] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(2)}>Користувачі</Link></li>
                 
-                <li><Link className='cabinet__exit-Link'>Вийти</Link></li>
+                <li><Link to="/" className='cabinet__exit-Link' onClick={sendLogout}>Вийти</Link></li>
             </ul>
         } else if (isUser){
             return <ul>
@@ -114,7 +114,7 @@ const CabinetChefLayout = ({person, setPerson, isAuth}) => {
                     <li><Link to="user-orders" className={showFlags[3] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(3)}>Статус замовлень</Link></li>
                     <li><Link to="become-chef" className={showFlags[4] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(4)}>Стати шефом</Link></li>
                     <li><Link to="usefull" className={showFlags[5] ? 'cabinet__menu-active-button' : undefined} onClick={() => switchShowWindow(5)}>Корисне</Link></li>
-                    <li><Link className='cabinet__exit-Link'>Вийти</Link></li>
+                    <li><Link to="/" className='cabinet__exit-Link' onClick={sendLogout}>Вийти</Link></li>
                 </ul>
         }  else {
             return <></>

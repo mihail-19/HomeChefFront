@@ -1,3 +1,3 @@
-const serverUrl = 'http://178.151.21.229:8080'
+const serverUrl = 'https://homechef.com.ua/api'
 
 export default serverUrl

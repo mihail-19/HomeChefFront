@@ -44,6 +44,7 @@
     width: 230px;
     text-align: left;
     text-decoration: none;
+    display: block;
 }
 .cabinet__menu a, .cabinet__menu_mobile a{
     cursor: pointer;

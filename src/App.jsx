@@ -189,7 +189,7 @@ function App() {
         <Route path="/terms-of-use" element={<TermOfUse/>}/>
         <Route path="/forget-password" element={<ForgetPassword/>}/>
         <Route path="/account-restore/:params" element={<RestoreAccount/>}/>
-        <Route path="/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth}/>}>
+        <Route path="/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth} sendLogout={sendLogout}/>}>
           <Route path="chef-profile" element={<CabinetChefProfile/>}/>
           <Route path="reviews" element={<CabinetReviews/>}/>
           <Route path="chef-usefull" element={<CabinetUseful/>}/>

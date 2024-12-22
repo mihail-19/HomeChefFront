@@ -7,6 +7,7 @@ import mailIcon from '../../assets/mailIcon.png'
 import serverUrl from "../../serverUrl"
 import { useState } from "react"
 import axios from "axios"
+import { EMAIL, TELEGRAM } from "../../constants"
 const downloadUrl = serverUrl + '/common-data/files/user-info'
 
 
@@ -24,12 +25,12 @@ const CabinetUsefulForUser = () => {
         <div className="cabinet-useful">
             <h1>Тут ви знайдете рекомендації по роботі із платформою</h1>
             <Answers />
-            <Link to={downloadUrl} className="cabinet-useful__link cabinet-useful__link_user">Додаткові матеріали</Link>
+            <a href={downloadUrl} className="cabinet-useful__link cabinet-useful__link_user" download>Додаткові матеріали</a>
             <div className="cabinet-useful__social-links">
-                <a href="https://telegram.org">
+                <a href={TELEGRAM}>
                   <img src={telegramIcon}></img>
                 </a>
-                <a href="mailto:homechef@gmail.com">
+                <a href={EMAIL}>
                   <img src={mailIcon}></img>
                 </a>
             </div>

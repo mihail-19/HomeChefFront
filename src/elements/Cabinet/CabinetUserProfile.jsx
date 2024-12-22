@@ -53,7 +53,10 @@ const CabinetMyProfile = ({person, sendGetPerson}) => {
             firstName: firstName,
             phone: phone,
             email: email,
-            localityId: locality.id
+           
+        }
+        if(locality && locality.id){
+            personNew.locality = locality.id
         }
         try{
             await updatePersonByUser(personNew)
