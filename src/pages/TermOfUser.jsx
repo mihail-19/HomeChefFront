@@ -1,7 +1,10 @@
 
+import { useEffect } from 'react'
 import './TermOfUse.css'
 const TermOfUse = () => {
-
+    useEffect(() => {
+            window.scrollTo(0, 0)
+          }, [])
     return (
         <div className="terms">
             <h1>УГОДА КОРИСТУВАЧА ПРО КОРИСТУВАННЯ САЙТОМ <br/> HOMECHEF </h1>

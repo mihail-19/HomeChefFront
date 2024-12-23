@@ -15,9 +15,12 @@ import storyImgMiddle from '../assets/AboutUs/storyImgMiddle.png'
 import storyImgRight from '../assets/AboutUs/storyImgRight.png'
 
 import './AboutUs.css'
+import { useEffect } from "react"
 
 const AboutUs = ({setShowRegisterWindow}) => {
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
 
     return(
         <div className="about-us">

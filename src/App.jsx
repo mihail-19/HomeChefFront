@@ -46,6 +46,7 @@ import { logout } from './services/AuthService.js'
 import ForgetPassword from './pages/ForgetPassword.jsx'
 import RestoreAccount from './pages/RestoreAccaunt.jsx'
 import ChefDishes from './pages/ChefDIshes.jsx'
+import PrivatePolicy from './pages/PrivatePolicy.jsx'
 
 const POLLING_TIME = 10000
 
@@ -187,6 +188,7 @@ function App() {
         <Route path="/helping-center" element={<HelpingCenter/>}/>
         <Route path="/how-we-work" element={<HowWeWork/>}/>
         <Route path="/terms-of-use" element={<TermOfUse/>}/>
+        <Route path="/private-policy" element={<PrivatePolicy/>}/>
         <Route path="/forget-password" element={<ForgetPassword/>}/>
         <Route path="/account-restore/:params" element={<RestoreAccount/>}/>
         <Route path="/cabinet" element={<CabinetChefLayout person={person} setPerson={setPerson} isAuth={isAuth} sendLogout={sendLogout}/>}>

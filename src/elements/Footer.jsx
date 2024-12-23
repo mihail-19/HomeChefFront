@@ -38,7 +38,7 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
                         </div>
                         <div className="footer__bottom">
                             <div className="footer__bottom-links">
-                                <Link to="/privat-policy">Політика Конфіденційності</Link>
+                                <Link to="/private-policy">Політика Конфіденційності</Link>
                                 <Link to="/terms-of-use">Умови користування</Link>
                             </div>
                             
