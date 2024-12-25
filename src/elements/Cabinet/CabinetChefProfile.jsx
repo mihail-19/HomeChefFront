@@ -9,6 +9,7 @@ import serverUrl from '../../serverUrl'
 import imagesUrl from '../../imagesUrl'
 import LocalityList from '../LocalityList'
 import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet'
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css'
 const CabinetMyProfile = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -34,6 +35,13 @@ const CabinetMyProfile = () => {
             document.removeEventListener('click', localitySearchClickListener)
         }
     })
+    useEffect(() => {
+        L.Icon.Default.mergeOptions({
+          iconUrl: '/leaflet/images/marker-icon.png',
+          iconRetinaUrl: '/leaflet/images/marker-icon-2x.png',
+          shadowUrl: '/leaflet/images/marker-shadow.png',
+        });
+      }, []);
     useEffect(() =>{
         if(context && context.chef){
             setFirstName(context.chef.firstName)

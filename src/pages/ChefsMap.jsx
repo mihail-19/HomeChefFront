@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import {getAllChefs} from '../services/ChefService'
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
+import L from 'leaflet';
 import defaultChefIcon from "../assets/defaultChefIcon.png"
 import imagesUrl from "../imagesUrl"
 import rankingIcon from "../assets/rankingIcon.png" 
@@ -9,7 +10,13 @@ import { Icon } from "leaflet"
 import { Link } from "react-router-dom"
 const ChefsMap = () => {
     const [chefs, setChefs] = useState([])
-
+    useEffect(() => {
+        L.Icon.Default.mergeOptions({
+          iconUrl: '/leaflet/images/marker-icon.png',
+          iconRetinaUrl: '/leaflet/images/marker-icon-2x.png',
+          shadowUrl: '/leaflet/images/marker-shadow.png',
+        });
+      }, []);
     useEffect(() => {
         loadChefs()
     }, [])

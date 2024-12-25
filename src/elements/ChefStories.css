@@ -9,10 +9,11 @@
   }
   .home__chef-stories h2{
     font-family: Montserrat;
-    font-size: 64px;
+    font-size: 58px;
     font-weight: 700;
-    width: 569px;
+    width: 650px;
     padding: 0;
+    margin-right: 60px;
   }
   .home__chef-stories-slider{
     display: flex;

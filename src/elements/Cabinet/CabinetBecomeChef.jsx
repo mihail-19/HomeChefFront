@@ -7,7 +7,7 @@ import Snackbar from '../utility/Snackbar'
 import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet'
 import SelectMultiple from '../utility/SelectMultiple'
 import { getKitchenTypes } from '../../services/DataService'
-
+import L from 'leaflet';
 const CabinetMyProfile = ({person, setPerson}) => {
     
     let legalStatusList = 
@@ -36,7 +36,13 @@ const CabinetMyProfile = ({person, setPerson}) => {
     
     const [position, setPosition] = useState(null)
    
-
+ useEffect(() => {
+        L.Icon.Default.mergeOptions({
+          iconUrl: '/leaflet/images/marker-icon.png',
+          iconRetinaUrl: '/leaflet/images/marker-icon-2x.png',
+          shadowUrl: '/leaflet/images/marker-shadow.png',
+        });
+      }, []);
     useEffect(() => {
         loadKitchenTypes()
     }, [])
