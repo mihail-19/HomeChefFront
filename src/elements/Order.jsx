@@ -166,7 +166,7 @@ const Order = ({showOrder, setShowOrder, products, loadCart, person}) =>{
         return (
             <div className='order'>
                 <div className='order__results'>
-                    <h2>Ваше замовлення оформелене</h2>
+                    <h2>Ваше замовлення оформлене</h2>
                     <h3>Номер замовлення: {order.id}</h3>
                     <p>Очікуйте підтвердження - найближчим часом з Вами зв'яжеться шеф</p>
                     <p>Дякуємо, що користуєтесь нашим сервісом!</p>

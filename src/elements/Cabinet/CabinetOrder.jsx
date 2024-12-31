@@ -39,7 +39,7 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, set
                 <h1>Замовлення № {currentOrder.id}</h1>
                 <div className="cabinet-order__order-date">{prettyPrintDate(currentOrder.creationDate)}</div>
                 <div className="cabinet-order__state">
-                    <OrderState state={currentOrder.state}/>
+                    <OrderState state={currentOrder.state} selfPickup={currentOrder.selfPickup}/>
                 </div>
                 <div className="cabinet-order__controls">
                     {createButtons()}
@@ -124,19 +124,32 @@ const CabinetOrder = ({showOrder, setShowOrder, order, setOrder, loadOrders, set
     }
 
     function createButtons(){
-        switch(currentOrder.state){
-            case "NEW":
-                return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Підтвердити</button>
-            case "CONFIRMED":
-                return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Почати готувати</button>
-            case "COOKING":
-                return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Підтвердити готовність</button>
-            case "READY":
-                return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Віддати кур'єру</button>
-            case "DELIVERING":
-                return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Віддано у доставку</button>
-            case "DELIVERED":
-                return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Доставлено</button>
+        if(currentOrder.selfPickup){
+            switch(currentOrder.state){
+                case "NEW":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Підтвердити</button>
+                case "CONFIRMED":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Почати готувати</button>
+                case "COOKING":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Підтвердити готовність</button>
+                case "READY":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Доставлено</button>
+            }
+        } else {
+            switch(currentOrder.state){
+                case "NEW":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Підтвердити</button>
+                case "CONFIRMED":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Почати готувати</button>
+                case "COOKING":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Підтвердити готовність</button>
+                case "READY":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Віддати кур'єру</button>
+                case "DELIVERING":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Віддано у доставку</button>
+                case "DELIVERED":
+                    return <button className="cabinet-order__action-button" onClick={sendPromoteOrder}>Доставлено</button>
+            }
         }
     }
 }

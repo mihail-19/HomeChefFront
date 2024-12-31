@@ -51,10 +51,10 @@ const Dish = ({cart, loadCart}) => {
         if(!isDishLocalityValidToUser(dish, locality)){
             let txt
             if(locality){
-                txt ='Блюдо готується в населеному пункті ' + dish.chef.locality.name + ', Ви обрали місто ' + locality?.name + '. Все одно додати в кошик?'
+                txt ='Блюдо готується в населеному пункті ' + dish.chef.locality?.name + ', Ви обрали місто ' + locality?.name + '. Все одно додати в кошик?'
                 
             } else {
-                txt ='Блюдо готується в населеному пункті ' + dish.chef.locality.name + ', а Ви не обрали місто. Все одно додати в кошик?'
+                txt ='Блюдо готується в населеному пункті ' + dish.chef.locality?.name + ', а Ви не обрали місто. Все одно додати в кошик?'
             }
             confirmRef.current.show(txt)
         } else {
@@ -113,7 +113,7 @@ const Dish = ({cart, loadCart}) => {
                         <h3>Вага:</h3>
                         <div className="dish__weight">{dish.weight} гр.</div>
                         <h3>Категорія:</h3>
-                        <div className="dish__category">{dish.dishCategory.name}</div>
+                        <div className="dish__category">{dish.dishCategory?.name}</div>
                         <h3>Склад страви:</h3>
                         <div className="dish__ingredients">{dish.ingredients}</div>
                         <h3>Теги:</h3>
@@ -142,7 +142,7 @@ const Dish = ({cart, loadCart}) => {
                 </div>
                 <h2>Інші страви шефа в цій категорії</h2>
                 <div className="dish__dishes">
-                    {chefDishes.filter(d => d.dishCategory.id === dish.dishCategory.id && d.id !== dish.id).slice(0,5).map(d => {
+                    {chefDishes.filter(d => d.id !== dish.id && (!d.dishCatgegory || !dish.dishCategory || d.dishCategory.id === dish.dishCategory.id)).slice(0,5).map(d => {
                        return <DishCard dish={d} sendAddToCart={sendAddToCart}/>
                     })}
                 </div>

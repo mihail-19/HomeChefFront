@@ -12,10 +12,11 @@ const ProductsSafety = () => {
             <div className='prod-safety__content'>
                 
                 <div className='prod-safety__txt'>
+                    <h1>Безпечність продуктів</h1>
                     <div className='prod-safety__img'>
                         <img src={productSafetyImage}></img>
                     </div>
-                    <h1>Безпечність продуктів</h1>
+                    
                     <div>
                         <p>
                             Домашні кухарі відіграють важливу роль у забезпеченні безпеки продуктів харчування. 

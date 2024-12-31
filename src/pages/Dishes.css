@@ -253,7 +253,9 @@
     display: flex;
     justify-content: space-between;
     align-items: top;
-
+    height: 72px;
+    z-index: 25;
+    background-color: white;
  }
 .dishes__params-left{
     display: flex;
@@ -269,6 +271,7 @@
     cursor: pointer;
     font-family: Poppins;
     width: 40px;
+    
 }
 .dishes__params-filter-icon{
     width: 20px;
@@ -301,6 +304,20 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+}
+
+@media(max-width: 700px){
+    .dishes__params{
+        position: fixed;
+        box-sizing: border-box;
+        left: 0;
+        top: 85px;
+        width: 100%;
+        padding: 0 10px 15px 10px;
+    }
+    .dishes__container{
+        padding-top: 72px;
     }
 }
 

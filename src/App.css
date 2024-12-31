@@ -628,6 +628,9 @@ ul{
   }
 }
 @media(max-width: 700px){
+  body{
+    padding-top: 115px;
+  }
   .home__dishes-screen h2{
     font-size: 28px;
     max-width: 624px;

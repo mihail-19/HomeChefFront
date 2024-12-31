@@ -5,7 +5,13 @@
     justify-content: space-between;
     justify-items: center;
     height: 115px;
+    background-color: white;
+    z-index: 30;
   }
+
+
+
+
   .header__container{
     
   }
@@ -26,6 +32,13 @@
   }
 
   @media(max-width: 700px){
+    .header{
+      position: fixed;
+      left: 0;
+      top:0;
+      width: 100%;
+      box-sizing: border-box; 
+    }
     .header__logo{
       width: 60px;
       height: 60px;

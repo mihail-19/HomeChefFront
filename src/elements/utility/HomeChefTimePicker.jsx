@@ -11,20 +11,57 @@ const HomeChefTimePicker = ({date, setDate}) => {
     
 
     function handleHour(text){
+        if(text.length > 2){
+            return
+        }
         let val = Number.parseInt(text)
-        if(val && val > -1 && val < 24){
+        if((!val && val !== 0) || val < 0){
+            setHour('')
+            date.setHours(0)
+        } else if (val < 10){
+            if(text.length > 1){
+                setHour('0' + val)
+            } else {
+                setHour(val)
+            }
+            date.setHours(val)
+        } else if(val < 24){
             setHour(val)
             date.setHours(val)
-        } else {
-            document.getElementById("timepicker_minute").focus()
         }
+        
+        // if(val && val > -1 && val < 24){
+        //     setHour(val)
+        //     date.setHours(val)
+        // } else {
+
+        //     document.getElementById("timepicker_minute").focus()
+        // }
     }
     function handleMinute(text){
+        if(text.length > 2){
+            return
+        }
         let val = Number.parseInt(text)
-        if(val && val > -1 && val < 60){
+        if((!val && val !== 0) || val < 0){
+            setMinute('')
+            date.setMinutes(0)
+        } else if (val < 10){
+            if(text.length > 1){
+                setMinute('0' + val)
+            } else {
+                setMinute(val)
+            }
+            date.setMinutes(val)
+        } else if(val < 60){
             setMinute(val)
             date.setMinutes(val)
-        } 
+        }
+
+        // if(val && val > -1 && val < 60){
+        //     setMinute(val)
+        //     date.setMinutes(val)
+        // } 
     }
 
     function switchShowCalendar(){
