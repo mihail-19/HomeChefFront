@@ -1,6 +1,6 @@
 
 import axios from 'axios'
-import {Route, Routes} from 'react-router-dom'
+import {Route, Routes, useLocation} from 'react-router-dom'
 import serverUrl from './serverUrl'
 import { useEffect, useRef, useState } from 'react'
 import { getPerson } from './services/PersonService'
@@ -47,6 +47,8 @@ import ForgetPassword from './pages/ForgetPassword.jsx'
 import RestoreAccount from './pages/RestoreAccaunt.jsx'
 import ChefDishes from './pages/ChefDIshes.jsx'
 import PrivatePolicy from './pages/PrivatePolicy.jsx'
+import CookieConsent from 'react-cookie-consent'
+import './App.css'
 
 const POLLING_TIME = 10000
 
@@ -61,12 +63,60 @@ function App() {
   const eventSouceRef = useRef(null)
   const intervalRef = useRef(null)
   const socketFlag = useRef(null)
+ const location = useLocation()
+  const [consentGiven, setConsentGiven] = useState(false);
+
+  // Google Analytics
+  useEffect(() => {
+    const consent = localStorage.getItem('cookieConsent');
+    if (consent === 'true') {
+      setConsentGiven(true);
+      if (window.gtag) {
+        window.gtag('config', 'G-J6309DD0B5', {
+          page_path: location.pathname + location.search,
+        });
+      }
+    }
+  }, [location]);
+
+  const loadGoogleAnalytics = () => {
+    const script = document.createElement('script');
+    script.src = `https://www.googletagmanager.com/gtag/js?id=G-J6309DD0B5`;
+    script.async = true;
+    script.onload = () => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J6309DD0B5');
+    };
+    document.head.appendChild(script);
+  };
+  
+  useEffect(() => {
+    const consent = localStorage.getItem('cookieConsent');
+    if (consent === 'true') {
+      setConsentGiven(true);
+      loadGoogleAnalytics(); // Загружаем Google Analytics, если согласие дано
+    }
+  }, []);
+  const handleConsent = () => {
+    localStorage.setItem('cookieConsent', 'true');
+    setConsentGiven(true);
+    loadGoogleAnalytics(); 
+  };
+
+  const handleDecline = () => {
+    localStorage.setItem('cookieConsent', 'false');
+  };
+  // analytics end
+
+
+
   if (typeof global === 'undefined') {
     window.global = window;
   }
   window.addEventListener('storage', (event) => {
     if (event.key === 'isAuth' && event.newValue === 'false') {
-        // Перенаправление или обновление интерфейса
        setIsAuth(false)
        eventSouceRef.current.close();
     }
@@ -120,8 +170,8 @@ function App() {
         stompClient.connect({}, (frame) => {
             console.log('Connected: ' + frame);
 
-            // Подписка на уведомления для конкретного пользователя
-            const userId = person.username; // Замените на актуальный userId
+            // підписка для конкретного користувача
+            const userId = person.username; 
             stompClient.subscribe(`/topic/${userId}`, (notification) => {
                 console.log('Received notification: ', notification.body);
                 const parsed = JSON.parse(notification.body)
@@ -134,7 +184,7 @@ function App() {
           socketFlag.current = false
         });
        
-        // Очистка при размонтировании компонента
+        
         return () => {
             stompClient.disconnect();
             socketFlag.current = false
@@ -166,6 +216,21 @@ function App() {
   }
   return(
   <>
+      <CookieConsent
+        location="bottom"
+        buttonText="Прийняти всі"
+        cookieName="cookieConsent"
+        onAccept={handleConsent}
+        onDecline={handleDecline}
+        enableDeclineButton
+        declineButtonText="Відхилити"
+        buttonClasses="cookie-consent-button"
+        declineButtonClasses="cookie-consent-button-decline"
+        buttonWrapperClasses='cookie-consent-banner'
+        
+      >
+        Ми використовуємо cookies для покращення якості роботи сайту. Ви можете прийняти чи відхилити їх використання.
+      </CookieConsent>
     <div className='home-chef-content'>
      <Register showRegisterWindow={showRegisterWindow} setShowRegisterWindow={setShowRegisterWindow} />
       <Header isAuth={isAuth} setIsAuth={setIsAuth} person={person} setPerson={setPerson} cart={cart} 

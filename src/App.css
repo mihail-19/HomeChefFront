@@ -79,6 +79,30 @@ button{
 }
 
 
+.cookie-consent-banner {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: left;
+  padding: 20px;
+}
+
+.cookie-consent-button-decline {
+  order: 2; 
+}
+
+.cookie-consent-button {
+  order: 1; 
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  padding: 10px 20px !important;
+  border-radius: 5px !important;
+}
+
+
+
+
 .checkbox-container{
   display: block;
   position: relative;

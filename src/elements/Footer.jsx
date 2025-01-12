@@ -62,7 +62,7 @@ const Footer = ({showRegisterWinow, setShowRegisterWindow, isAuth}) =>{
                     </div>
                 </nav>
                 <div className="footer__bottom-copyright">
-                    © Home Chef, 2024 | All rights raserved
+                    © Home Chef, 2025 | All rights raserved
                 </div>
                 </div>
             </div>
