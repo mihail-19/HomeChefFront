@@ -7,7 +7,11 @@ import{
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
-
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {}
+  console.error = () => {}
+  console.debug = () => {}
+}
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

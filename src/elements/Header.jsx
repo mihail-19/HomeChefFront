@@ -106,7 +106,6 @@ const Header = ({isAuth, setIsAuth, person, setPerson, cart, locality, setLocali
                 <Link to="/" className='header__logo'>
                     <img src={homeChefLogo}></img>
                 </Link>
-                <div style={{position:'absolute', left: '49%', top: '2px', backgroundColor:'#e2efeb', opacity:'0.4', padding: '5px', fontSize:'10px', pointerEvents: 'none'}} >бета-тест</div>
                 <nav className='header__nav'>
                     <ul className='header__menu'>
                         <li className='header__menu-item'>

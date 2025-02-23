@@ -136,6 +136,9 @@
     .footer__nav a{
       font-size: 14px;
     }
+    .footer__nav-column button{
+      font-size: 14px;
+    }
     .footer__nav-column{
       display: flex;
       flex-direction: column;
